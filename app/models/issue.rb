@@ -3,7 +3,10 @@ class Issue < ActiveRecord::Base
 	has_many :solutions
 	has_many :attempted_solutions
 	has_many :issue_workarounds
-	has_one :department_area
+
+	belongs_to :department_area
+
+	#has_one :department_area
 	# has_one :department
 	# has_one :area
 	has_one :impact

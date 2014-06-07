@@ -31,6 +31,15 @@
 	<%= @issue.state %>
 </p>
 
+<p>
+	<strong>Department</strong>
+	<% if @issue.department_area != nil %>
+		<%= @issue.department_area.name %>
+	<% else %>
+		no department/area inserted yet
+	<% end %>
+</p>
+
 
 <p>
 	<strong>Views</strong>

@@ -51,6 +51,7 @@ class IssuesController < ApplicationController
 		@workarounds = return_array @issue.issue_workarounds.includes(:images)
 		@solutions = return_array @issue.solutions.includes(:images)
 		@attempted_solutions = return_array @issue.attempted_solutions.includes(:images)
+		@departments = DepartmentArea.all
 	end
 
 	def update
