@@ -25,15 +25,21 @@
 				<% if impact.id == @issue.impact_id %>
 					<option value='<%= impact.id %>' selected><%= impact.name %></option>
 				<% else %>
-					<option value='<%= impact.id %>'><%= impact.name %></option>
+					<option value=<%= impact.id %>><%= impact.name %></option>
 				<% end %>
 			<% end %>
 		</select>
 		<br>
 
 
+		<%= form.label :department_area %>
+		<select name='issue[department_area_id]'>
+			<% @departments.each do |dep| %>
+				<option value="<%= dep.id %>"><%= dep.name %></option>
+			<% end %>
+		</select>
 
-
+		<br>
 
 
 		

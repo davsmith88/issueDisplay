@@ -55,6 +55,7 @@ class IssuesController < ApplicationController
 	end
 
 	def update
+
 		respond_to do |format|
 			if @issue.update(issue_params)
 				format.html {redirect_to @issue, notice: "Issue has been updated"}
@@ -101,7 +102,7 @@ class IssuesController < ApplicationController
 	end
 
 	def issue_params
-		params.require(:issue).permit(:name, :description, :impact_id, :DepartmentArea_id, :review_date)
+		params.require(:issue).permit(:name, :description, :impact_id, :department_area_id, :review_date)
 	end
 	    
 end
