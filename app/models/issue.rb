@@ -5,11 +5,12 @@ class Issue < ActiveRecord::Base
 	has_many :issue_workarounds
 
 	belongs_to :department_area
+	belongs_to :impact
 
 	#has_one :department_area
 	# has_one :department
 	# has_one :area
-	has_one :impact
+	#has_one :impact
 	# has_one :album, as: :imageable
 	has_many :images, as: :imageable
 
