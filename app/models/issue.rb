@@ -24,5 +24,15 @@ class Issue < ActiveRecord::Base
 	validates :name, presence: {message: "Issue needs to have a name"}
 	validates :review_date, presence: true
 
-	scope :all, order("created_at DESC")
+	scope :ordered_by_dec, order("created_at DESC")
+
+	state_machine :state, :initial => :draft do
+		state :draft, value: 'draft'
+		state :review, value: 'review'
+		state :pending, value: 'pending'
+
+		event :draft_to_review do
+			transition :draft => :review
+		end
+	end
 end

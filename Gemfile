@@ -34,6 +34,8 @@ gem 'rails_best_practices', '~> 1.15.4'
 
 gem "bullet", :group => "development"
 
+gem 'state_machine'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
