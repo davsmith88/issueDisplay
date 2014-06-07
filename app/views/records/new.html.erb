@@ -1,0 +1,5 @@
+<%= form_for [@c, @record] do |form| %>
+	<%= form.label :message %>
+	<%= form.text_field :message %>
+	<%= form.submit "Save" %>
+<% end %>

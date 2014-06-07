@@ -20,8 +20,7 @@ module IssueHelper
 		  		str += "<td>No Image</td>"
 		  	end
 	  		str += "<td>#{ field[text] }</td>"
-	  		str += "<td>#{ link_to "Record", issue_issue_workaround_records_path(@issue, field, recordable_type: fields.model.name, recordable_id: field.id), method: :post }</td>"
-	  		# str += "<td>#{ link_to "Record", records_path(recordable_type: fields.model.name, recordable_id: field.id, issue_id: issue_id, user_id: user_id), method: :post }</td>"
+	  		str += "<td>#{ link_to "Record", new_issue_workaround_record_path(field)}</td>"
 	  		str += "</tr>"
 	  	end
 	  	

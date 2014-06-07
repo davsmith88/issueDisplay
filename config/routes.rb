@@ -11,7 +11,7 @@ IssueDisplay::Application.routes.draw do
     resources :users
   end
 
-  resources :records, only: [:create, :index]
+  
 
   resources :albums do
      resources :images
@@ -33,9 +33,39 @@ IssueDisplay::Application.routes.draw do
   resources :department_areas
   resources :impacts
 
+
+
+
+
+
+  resources :issue_workarounds do
+      resources :records, only: [:create, :index, :new]
+      resources :images
+  end
+
+  resources :attempted_solutions do
+    resources :records, only: [:create, :index, :new]
+    resources :images
+  end
+
+  resources :solutions do
+    resources :records, only: [:create, :index, :new]
+    resources :images
+  end
+
+  # resources :issues do
+  #   resources :records, only: [:create, :index, :new]
+  #   resources :images
+  # end
+
+
+
+
+
   resources :issues do
+    resources :records, only: [:create, :index, :new]
     resources :issue_workarounds do
-      resources :records, only: [:create, :index]
+      resources :records, only: [:create, :index, :new]
       resources :images
     end
     resources :attempted_solutions do

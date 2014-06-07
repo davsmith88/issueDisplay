@@ -14,17 +14,35 @@ class RecordsController < ApplicationController
 		# @records = Record.all
 	end
 
+	def new
+		@c = find_recordable
+		@record = @c.records.new
+	end
+
 	def create
-		@issue = Issue.find(params[:issue_id])
-		#@issue_workaround = IssueWorkaround.find(params[:recordable_id])
-		@issue_workaround = params[:recordable_type].constantize.find(params[:recordable_id])
-		@issue_workaround.records.create(record_params)
-		redirect_to @issue, notice: "#{params[:recordable_type]} has been recorded. Thank you for your coperation"
+		@c = find_recordable
+	
+		@record = @c.records.new(record_params)
+		@record.issue_id = @c.issue_id
+		@record.save
+
+		redirect_to issue_path(@c.issue), notice: " has been recorded. Thank you for your coperation"
 	end
 
 	private
 
 	def record_params
-		params.permit(:issue_id, :user_id, :recordable_type, :recordable_id)
+		#params.require(:record).permit(:issue_id, :user_id, :recordable_type, :recordable_id, :message)
+		params.require(:record).permit!
 	end
+
+	def find_recordable
+	  params.each do |name, value|
+	    if name =~ /(.+)_id$/
+	      	return $1.classify.constantize.find(value)
+	    end
+	  end
+	  nil
+	end
+
 end

@@ -1,5 +1,5 @@
 class Issue < ActiveRecord::Base
-	self.per_page = 3
+	self.per_page = 5
 	has_many :solutions
 	has_many :attempted_solutions
 	has_many :issue_workarounds
@@ -16,7 +16,7 @@ class Issue < ActiveRecord::Base
 
 
 	
-	has_many :records
+	has_many :records, as: :recordable
 
 	has_attached_file :image, styles: {
 		thumb: '100x100>',
