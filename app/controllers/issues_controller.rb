@@ -6,7 +6,7 @@ class IssuesController < ApplicationController
 	before_action :permissions, only: [:index]
 
 	def index
-		@issues = Issue.all.page(params[:page])
+		@issues = Issue.ordered_by_desc.page(params[:page])
 	end
 
 	def show
@@ -20,8 +20,8 @@ class IssuesController < ApplicationController
 		@user = User.find(@issue.user_id)
 
 		@impact = Impact.find_by_id(@issue.impact_id)
-		da = DepartmentArea.includes(:department, :area)
-		@d = da.find_by_id(@issue.DepartmentArea_id)
+		#da = DepartmentArea.includes(:department, :area)
+		#@d = da.find_by_id(@issue.DepartmentArea_id)
 
 		# Issue.increment_counter(:view_counter, @issue.id)
 	end

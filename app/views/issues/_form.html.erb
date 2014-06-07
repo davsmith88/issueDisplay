@@ -36,16 +36,7 @@
 
 
 
-		<%= form.label :area %>
-		<select name='issue[DepartmentArea_id]'>
-			<% @depAreas.each do |depArea| %>
-				<% if depArea.id == @issue.DepartmentArea_id %>
-					<option value='<%= depArea.id %>' selected><%= depArea.department.name %> | <%= depArea.area.name %></option>
-				<% else %>
-					<option value='<%= depArea.id %>'><%= depArea.department.name %> | <%= depArea.area.name %></option>
-				<% end %>
-			<% end %>
-		</select>
+		
 		<br>
 		<%= form.label :review_date %>
 		<%= form.date_field :review_date %>

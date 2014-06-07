@@ -25,23 +25,12 @@
 	<% end %>
 </p>
 
-<p>
-	<strong>Department</strong>
-	<% if @issue.DepartmentArea_id %>
-		<%= @d.department.name %>
-	<% else %>
-		"There is no department"
-	<% end %>
-</p>
 
 <p>
-	<strong>Area</strong>
-	<% if @issue.DepartmentArea_id %>
-		<%= @d.area.name %>
-	<% else %>
-		"There is no area"
-	<% end %>
+	<strong>State</strong>
+	<%= @issue.state %>
 </p>
+
 
 <p>
 	<strong>Views</strong>
