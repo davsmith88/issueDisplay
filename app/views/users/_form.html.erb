@@ -1,0 +1,29 @@
+<%if @user.errors.any? %>
+	<div id='error_explanation'>
+		<h2><%= pluralize(@user.errors.count, "error") %> prohibited this issue from being saved</h2>
+
+		<ul>
+			<% @user.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+		</div>
+		<% end %>
+
+		<%= form.label :name %>
+		<%= form.text_area :name %>
+		<br>
+		<%= form.label :title %>
+		<%= form.text_area :title %>
+		<br>
+		<%= form.label :email %>
+		<%= form.text_field :email %>
+		<br>
+		<%= form.label :password %>
+		<%= form.text_field :password %>
+		<br>
+		<%= form.label :password_confirmation %>
+		<%= form.text_field :password_confirmation %>
+		<br>
+
+		<%= form.submit "Save" %>

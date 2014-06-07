@@ -1,0 +1,30 @@
+<% if flash[:error] %>
+	<p id='error'><%= flash[:error] %></p>
+
+<% end %>
+
+
+<span class="label label-default">Default</span>
+
+<h1>List of Issues Currently in System</h1>
+<ul>
+	<% @issues.each do |issue| %>
+		<li>
+			<div>
+				Name:<%= issue.name %><br>
+				Description: <%= issue.description %><br>
+				
+			</div>
+			<div>Actions:
+				<%= link_to "View", issue_path(issue) %>
+				<%= link_to "Edit", edit_issue_path(issue) %>
+				<%= link_to "Records", records_path(issue_id: issue.id) %>
+			</div>
+		</li>
+	<% end %>
+</ul>
+
+<%= will_paginate @issues %>
+
+
+<%= link_to "Create New Issue", new_issue_path %>

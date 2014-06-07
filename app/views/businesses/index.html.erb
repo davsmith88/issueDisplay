@@ -1,0 +1,8 @@
+<h1>All Businesses Listed</h1>
+
+<% @business.each do |business| %>
+	<p>
+		<span>Business : <%= business.name %></span>
+		<span>Location : <%= business.location %></span>
+	</p>
+<% end %>

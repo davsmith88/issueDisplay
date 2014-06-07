@@ -1,0 +1,12 @@
+<h1>All Areas</h1>
+
+<ul>
+	<% @areas.each do |area| %>
+		<li><%= area.name %>
+		<%= link_to "Edit", edit_area_path(area) %>
+		<%= link_to "destroy", area_path(area), method: :delete, data: {confirm: "Are you sure you want to delete"} %>
+		</li>
+	<% end %>
+</ul>
+
+<%= link_to "Add an area", new_area_path %>

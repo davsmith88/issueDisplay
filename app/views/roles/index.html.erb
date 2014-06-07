@@ -1,0 +1,46 @@
+<h1>All Roles avaliable in the system</h1>
+
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Description</th>
+		<th>Rights</th>
+		<th>Actions</th>
+	</tr>
+	<% @roles.each do |role| %>
+		<tr>
+			<td><%= role.name %></td>
+			<td>
+				<% if role.description %>
+					<%= role.description %>
+				<% else %>
+					No Desciption added yet
+				<% end %>
+			</td>
+			<td>
+				<% if role.rights.empty? %>	
+					This role has no rights at the moment
+				<% else %>
+					<ul>
+					<% role.rights.each do |right| %>
+						<li><%= right.resource %> - <%= right.operation %></li>
+					<% end %>
+				<% end %>
+				</ul>
+			</td>
+			<td>
+				<%= link_to "Edit", edit_role_path(role) %> |
+				<%= link_to "Delete", role_path(role), method: :delete, data: {confirm: "Are you sure you want to delete"} %> |
+				<%= link_to "view users with the role", assignment_role_view_path(role.id) %>
+			</td>	
+		</tr>
+	<% end %>
+</table>
+
+<h2>Add Actions</h2>
+
+<ol>
+	<li><%= link_to "Add Role", new_role_path %></li>
+	<li><%= link_to "Add right to a role", new_grant_path %></li>
+	<li><%= link_to "Add a user to a role", new_assignment_path %></li>
+</ol>

@@ -1,0 +1,19 @@
+<h1>Add user to the role</h1>
+
+<%= form_for @assignment do |form| %>
+	<%= form.label :Roles %>
+	<select name='assignment[role_id]'>
+		<% @roles.each do |role| %>
+			<option value='<%= role.id %>'><%= role.name %></option>
+		<% end %>
+	</select>
+	<br>
+	<%= form.label :Users %>
+	<select name='assignment[user_id]'>
+		<% @users.each do |user| %>
+			<option value='<%= user.id %>'><%= user.email %></option>
+		<% end %>
+	</select>
+
+	<%= form.submit "Add User to Role" %>
+<% end %>

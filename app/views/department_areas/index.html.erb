@@ -1,0 +1,12 @@
+<h1>Listing all of the areas that belongs to departments</h1>
+
+<ul>
+	<li>department id | area id</li>
+	<% @depAreas.each do |depArea|  %>
+		<li><%= depArea.department.name %> | <%= depArea.area.name %>
+		<%= link_to "Destroy", department_area_path(depArea), method: :delete, data: {confirm: "Are you sure you want to destroy??"} %>
+		</li>
+	<% end %>
+</ul>
+
+<%= link_to "Add another Area to a department", new_department_area_path %>

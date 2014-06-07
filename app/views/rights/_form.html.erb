@@ -1,0 +1,43 @@
+<%if @right.errors.any? %>
+	<div id='error_explanation'>
+		<h2><%= pluralize(@right.errors.count, "error") %> prohibited this issue from being saved</h2>
+
+		<ul>
+			<% @right.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+	</div>
+<% end %>
+
+<br>
+
+<table>
+	<tr>
+		<th>Resource</th>
+		<th>read</th>
+		<th>create</th>
+		<th>update</th>
+		<th>destroy</th>
+	</tr>
+<% ['issues', 'grants', 'roles', 'rights', 'assignments', 'admin', 'attempted_solutions'].each do |controller| %>
+	<tr>
+		<td><%= controller %></td>
+	<% ['READ', 'CREATE', 'UPDATE', 'DESTROY'].each do |action| %>
+		<td>
+			<input type='checkbox' name='right[resource][<%= controller %>][]' value='<%= action %>'>
+		</td>
+	<% end %>
+	<tr>
+<% end %>
+</table>
+	
+
+
+
+<%= form.submit "Create Right" %>
+
+<ol>
+	<li><%= link_to "All rights", rights_path %></li>
+</ol>
+

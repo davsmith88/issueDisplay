@@ -1,0 +1,25 @@
+<h1>All rights in the system</h1>
+
+<table>
+	<tr>
+		<th>Resource</th>
+		<th>Operation</th>
+		<th>Action</th>
+	</tr>
+	<% @rights.each do |right| %>
+		<tr>
+			<td><%= right.resource %></td>
+			<td><%= right.operation %></td>
+			<td><%= link_to "Delete", right_path(right), method: :delete, data: {confirm: "Are you sure you want to delete?"}  %></td>
+		<tr>
+	<% end %>
+</table>
+
+
+<ol>
+	<li><%= link_to "Add a Right", new_right_path %></li>
+	<li><%= link_to "Add right to a role", new_grant_path %></li>
+	<li><%= link_to "Add user to a role", new_assignment_path %></li>
+	<li><%= link_to "View Roles", roles_path %></li>
+	<li><%= link_to "Admin Page", admin_index_path %></li>
+</ol>

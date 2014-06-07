@@ -1,0 +1,13 @@
+<h1>Viewing the Users that belong to this role</h1>
+
+<% @assignments.each do |assignment| %>
+	<p><%= assignment.user.email %>
+	<%= link_to "Remove user from role", assignment_path(assignment.id, :role_id => assignment.role_id), method: :delete, data: {confirm: "Are you sure you want to remove user from role?"} %>
+	</p>
+
+<% end %>
+
+<ol>
+	<li><%= link_to "View All Roles", roles_path %></li>
+	<li><%= link_to "Add User to Role", new_assignment_path %></li>
+</ol>

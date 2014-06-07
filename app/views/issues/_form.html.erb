@@ -1,0 +1,54 @@
+<%if @issue.errors.any? %>
+	<div id='error_explanation'>
+		<h2><%= pluralize(@issue.errors.count, "error") %> prohibited this issue from being saved</h2>
+
+		<ul>
+			<% @issue.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+		</div>
+		<% end %>
+		<%= form.label :name %>
+		<%= form.text_field :name %>
+		<% if @issue.errors.has_key?(:name)  %>
+			<%= @issue.errors.get(:name)[0] %>
+		<% end %>
+		<br>
+		<%= form.label :description %>
+		<%= form.text_area :description %>
+		<br>
+
+		<%= form.label :area_impacted %>
+		<select name='issue[impact_id]'>
+			<% @impacts.each do |impact| %>
+				<% if impact.id == @issue.impact_id %>
+					<option value='<%= impact.id %>' selected><%= impact.name %></option>
+				<% else %>
+					<option value='<%= impact.id %>'><%= impact.name %></option>
+				<% end %>
+			<% end %>
+		</select>
+		<br>
+
+
+
+
+
+
+		<%= form.label :area %>
+		<select name='issue[DepartmentArea_id]'>
+			<% @depAreas.each do |depArea| %>
+				<% if depArea.id == @issue.DepartmentArea_id %>
+					<option value='<%= depArea.id %>' selected><%= depArea.department.name %> | <%= depArea.area.name %></option>
+				<% else %>
+					<option value='<%= depArea.id %>'><%= depArea.department.name %> | <%= depArea.area.name %></option>
+				<% end %>
+			<% end %>
+		</select>
+		<br>
+		<%= form.label :review_date %>
+		<%= form.date_field :review_date %>
+
+		<br>
+		<%= form.submit "Save" %>

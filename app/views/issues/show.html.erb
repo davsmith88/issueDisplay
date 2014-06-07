@@ -1,0 +1,119 @@
+<p id='notice'><%= notice %></p>
+
+
+<p>
+	<strong>Name</strong>
+	<%= @issue.name %>
+</p>
+
+<p>
+	<strong>Description</strong>
+	<%= @issue.description %>
+</p>
+
+<p>
+	<strong>Author</strong>
+	<%= @user.email %>
+</p>
+
+<p>
+	<strong>Area Impacted</strong>
+	<% if @impact %>
+		<%= @impact.name %>
+	<% else %>
+		"There is no impact area"
+	<% end %>
+</p>
+
+<p>
+	<strong>Department</strong>
+	<% if @issue.DepartmentArea_id %>
+		<%= @d.department.name %>
+	<% else %>
+		"There is no department"
+	<% end %>
+</p>
+
+<p>
+	<strong>Area</strong>
+	<% if @issue.DepartmentArea_id %>
+		<%= @d.area.name %>
+	<% else %>
+		"There is no area"
+	<% end %>
+</p>
+
+<p>
+	<strong>Views</strong>
+</p>
+
+<p>
+	<strong>Review Date</strong>
+	<span><%= format_date @issue.review_date %></span>
+</p>
+
+<p>
+	<Strong>Workaround</Strong>
+	<span>Workarouds are used for issues where either their is no solution
+	or the solutions dont work </span>
+	<% if !@issue.issue_workarounds.empty? %>
+		<table class='table table-bordered'>
+			<tr>
+				<th>Image</th>
+				<th>Description</th>
+				<th>Record</th>
+			</tr>
+
+			<%= display_sub_field(@issue_workarounds, "description", @issue) %>
+		</table>
+	<% else %>
+		<span>No workarounds for the issue</span>
+	<% end %>
+	
+
+
+
+</p>
+
+<p>
+	<strong>Solutions</strong>
+	<% if !@solutions.empty? %>
+		<table class='table table-bordered'>
+			<tr>
+				<th>Image</th>
+				<th>Description</th>
+				<th>Record</th>
+			</tr>
+			<%= display_sub_field(@solutions, "name", @issue) %>
+		</table>
+	<% else %>
+		<span>No solutions added yet!</span>
+	<% end %>
+</p>
+
+<p>
+	<strong>Attempted Solutions</strong>
+
+	<% if !@attempted_solutions.empty? %>
+		<table class='table table-bordered'>
+			<tr>
+				<th>Image</th>
+				<th>Description</th>
+				<th>Record</th>
+			</tr>
+			<%= display_sub_field(@attempted_solutions, "name", @issue) %>
+		</table>
+	<% else %>
+		<span>No attempted solutions added yet!</span>
+	<% end %>
+</p>	
+
+<p>
+	<%= display_images(@images) %>
+</p>
+
+
+<br>
+
+<%= link_to "Edit", edit_issue_path(@issue) %>
+<%= link_to "Back", issues_path %>

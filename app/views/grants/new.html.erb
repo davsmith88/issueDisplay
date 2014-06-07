@@ -1,0 +1,71 @@
+<h1>Apply Right to a role</h1>
+
+
+<%= form_for @grant do |form| %>
+	<%= form.label :Role %>
+
+	<select name='grant[role_id]'>
+		<% @roles.each do |role| %>
+			<option value='<%= role.id %>'><%= role.name %></option>
+		<% end %>
+	</select>
+	<p>
+	
+	<table>
+		<tr>
+			<th>Resource</th>
+			<th>Read</th>
+			<th>Create</th>
+			<th>Update</th>
+			<th>Destroy</th>
+		</tr>
+		<tr>
+			<td>Admin</td>
+			<% @rights_admin.each do |right| %>
+				<td>
+				<input type='checkbox' name='grant[rights][]' value='<%=  right.id %>'>
+				</td>
+			<% end %>
+		</tr>
+		<tr>
+			<td>Issue</td>
+			<% @rights_issue.each do |right| %>
+				<td><input type='checkbox' name='grant[rights][]' value='<%=  right.id %>'></td>
+			<% end %>
+		</tr>
+		<tr>
+			<td>Role</td>
+			<% @rights_role.each do |right| %>
+				<td><input type='checkbox' name='grant[rights][]' value='<%=  right.id %>'></td>
+			<% end %>
+		</tr>
+		<tr>
+			<td>Rights</td>
+			<% @rights_right.each do |right| %>
+				<td><input type='checkbox' name='grant[rights][]' value='<%=  right.id %>'></td>
+			<% end %>
+		</tr>
+		<tr>
+			<td>Grant</td>
+			<% @rights_grant.each do |right| %>
+				<td><input type='checkbox' name='grant[rights][]' value='<%=  right.id %>'></td>
+			<% end %>
+		</tr>
+		<tr>
+			<td>Assignment</td>
+			<% @rights_assignment.each do |right| %>
+				<td><input type='checkbox' name='grant[rights][]' value='<%=  right.id %>'></td>
+			<% end %>
+		</tr>
+		<tr>
+			<td>Attempted</td>
+			<% @rights_attempted.each do |right| %>
+				<td><input type='checkbox' name='grant[rights][]' value='<%=  right.id %>'></td>
+			<% end %>
+		</tr>
+	<table>
+
+
+	<br>
+	<%= form.submit "Add Right to the Role" %>		
+<% end %>

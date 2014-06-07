@@ -1,0 +1,14 @@
+<h1>all departments</h1>
+
+<table>
+	<% @departments.each do |department| %>
+		<tr>
+			<td><%= department.name %></td>
+			<td><%= department.description %></td>
+			<td><%= link_to "Edit", edit_department_path(department) %>|</td>
+			<td><%= link_to "Destroy", department_path(department), method: :delete, data: {confirm: "Are you sure you want to delete the department"} %></td>
+		</tr>
+	<% end %>
+</table>	
+
+<%= link_to "Add a new Department", new_department_path %>

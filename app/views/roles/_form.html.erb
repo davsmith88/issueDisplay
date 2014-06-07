@@ -1,0 +1,19 @@
+<%if @role.errors.any? %>
+	<div id='error_explanation'>
+		<h2><%= pluralize(@role.errors.count, "error") %> prohibited this issue from being saved</h2>
+
+		<ul>
+			<% @role.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+		</div>
+		<% end %>
+
+		<%= form.label :name %>
+		<%= form.text_field :name %>
+		<br>
+		<%= form.label :description %>
+		<%= form.text_area :description %>
+
+		<%= form.submit "Save Role" %>

@@ -1,0 +1,31 @@
+<%if @depArea.errors.any? %>
+	<div id='error_explanation'>
+		<h2><%= pluralize(@depArea.errors.count, "error") %> prohibited this issue from being saved</h2>
+
+		<ul>
+			<% @depArea.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+		</div>
+		<% end %>
+		<%= form.label :department_id %>
+		
+
+		<select name='department_area[department_id]'>
+			<% @departments.each do |department| %>
+				<option value='<%= department.id %>'><%= department.name %></option>
+			<% end %>	
+		</select>
+
+		<br>
+		<%= form.label :area_id %>
+		
+		<select name='department_area[area_id]'>
+			<% @areas.each do |area| %>
+				<option value='<%= area.id %>'><%= area.name %></option>
+			<% end %>	
+		</select>
+		<br>
+
+		<%= form.submit "save" %>
