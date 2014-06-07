@@ -11,7 +11,10 @@ class DepartmentAreasController < ApplicationController
 	end
 
 	def create
-		@depArea = DepartmentArea.create(dep_area_params)
+		area = Area.find(params["department_area"][:area_id])
+		department = Department.find(params["department_area"][:department_id])
+		@depArea = DepartmentArea.new(dep_area_params)
+		@depArea.name = "#{area.name} #{department.name}"
 		@depArea.save
 		respond_to do |format|
 			
