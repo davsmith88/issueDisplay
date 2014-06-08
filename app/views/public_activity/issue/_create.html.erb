@@ -1,7 +1,13 @@
-Created an issue
-
-<% if activity.trackable %>
-  <%= link_to activity.trackable.name, activity.trackable %>
-<% else %>
-  which has since been removed
-<% end %>
+<p>
+	<% if activity.trackable %>
+	  	<% if activity.owner_id == current_user.id %>
+			You 
+		<% else %>
+			<%= activity.owner.name %> 
+		<% end %>
+		created an issue  :
+	  <%= link_to activity.trackable.name, activity.trackable %>
+	<% else %>
+	  Created an issue, which has since been removed
+	<% end %>
+</p>

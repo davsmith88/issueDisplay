@@ -1,0 +1,13 @@
+<p>
+	<% if activity.trackable %>
+	  	<% if activity.owner_id == current_user.id %>
+			You 
+		<% else %>
+			<%= activity.owner.name %> 
+		<% end %>
+		created an issue workaround for the issue :
+	  <%= link_to activity.trackable.issue.name, activity.trackable.issue %>
+	<% else %>
+	  Created and issue workaround which has since been removed
+	<% end %>
+</p>

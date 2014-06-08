@@ -1,6 +1,6 @@
 class Issue < ActiveRecord::Base
 	include PublicActivity::Model
-  	tracked
+  	tracked owner: Proc.new{ |controller, model| controller.current_user }
 
   	
 	self.per_page = 5
