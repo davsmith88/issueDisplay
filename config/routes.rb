@@ -58,6 +58,7 @@ IssueDisplay::Application.routes.draw do
   #   resources :images
   # end
 
+  get "/activities" => "notifications#activity_feed", as: :activity_feed
 
 
 

@@ -1,4 +1,8 @@
 class Issue < ActiveRecord::Base
+	include PublicActivity::Model
+  	tracked
+
+  	
 	self.per_page = 5
 	has_many :solutions
 	has_many :attempted_solutions

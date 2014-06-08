@@ -35,6 +35,7 @@ gem 'rails_best_practices', '~> 1.15.4'
 gem "bullet", :group => "development"
 
 gem 'state_machine'
+gem 'public_activity'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -42,6 +43,7 @@ group :doc do
 end
 
 group :development do
+  gem 'quiet_assets'
   gem 'brakeman', :require => false
   gem "better_errors"
   gem "binding_of_caller"
