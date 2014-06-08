@@ -1,6 +1,6 @@
 class IssueWorkaroundsController < ApplicationController
 
-	before_action :get_issue, only: [:new, :create, :edit, :update, :destroy]
+	before_action :get_issue, only: [:new, :create]
 	before_action :get_workaround, only: [:edit, :update, :destroy]
 
 	def new
@@ -23,7 +23,7 @@ class IssueWorkaroundsController < ApplicationController
 		@issue_workaround.update(workaround_params)
 		respond_to do |format|
 			if @issue_workaround.save
-				format.html {redirect_to edit_issue_path(@issue)}
+				format.html {redirect_to edit_issue_path(@issue_workaround.issue)}
 			else
 				format.html {render action: 'edit'}
 			end
@@ -32,7 +32,7 @@ class IssueWorkaroundsController < ApplicationController
 
 	def destroy
 		@issue_workaround.destroy
-		redirect_to edit_issue_path(@issue)
+		redirect_to edit_issue_path(@issue_workaround.issue)
 	end
 
 	private
@@ -42,7 +42,7 @@ class IssueWorkaroundsController < ApplicationController
 	end
 
 	def get_workaround
-		@issue_workaround = @issue.issue_workarounds.find(params[:id])
+		@issue_workaround = IssueWorkaround.find(params[:id])
 	end
 
 	def workaround_params

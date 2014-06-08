@@ -1,6 +1,6 @@
 class AttemptedSolutionsController < ApplicationController
 
-	before_action :get_issue, only: [:new, :create, :show, :edit, :update, :destroy]
+	before_action :get_issue, only: [:new, :create]
 	before_action :get_attempted, only: [:edit, :update, :destroy]
 
 	def new
@@ -24,7 +24,7 @@ class AttemptedSolutionsController < ApplicationController
 	def update
 		respond_to do |format|
 			if @attempted.update(attempted_params)
-				format.html {redirect_to edit_issue_path(@issue)}
+				format.html {redirect_to edit_issue_path(@attempted.issue)}
 				format.json {head :no_content}
 			end
 		end
@@ -32,7 +32,7 @@ class AttemptedSolutionsController < ApplicationController
 
 	def destroy
 		@attempted.destroy
-		redirect_to edit_issue_path(@issue)
+		redirect_to edit_issue_path(@attempted.issue)
 	end
 
 	private
@@ -42,7 +42,7 @@ class AttemptedSolutionsController < ApplicationController
 	end
 
 	def get_attempted
-		@attempted = @issue.attempted_solutions.find(params[:id])
+		@attempted = AttemptedSolution.find(params[:id])
 	end
 
 	def attempted_params

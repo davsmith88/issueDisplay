@@ -1,46 +1,24 @@
 class ImagesController < ApplicationController
 
 	def new
-		# @album = Album.find(params[:album_id])
-		@context = context
 		
-		if params.has_key?(:solution_id)
-			
-			@issue = Issue.find(params[:issue_id])
-			@solution = Solution.find(params[:solution_id])
-			@image = @solution.images.new
-		elsif params.has_key?(:attempted_solution_id)
-			@issue = Issue.find(params[:issue_id])
-			@solution = AttemptedSolution.find(params[:attempted_solution_id])
-			@image = @solution.images.new
-		elsif params.has_key?(:issue_workaround_id)
-			@issue = Issue.find(params[:issue_id])
-			@solution = IssueWorkaround.find(params[:issue_workaround_id])
-			@image = @solution.images.new			
-		else
-			@image = @context.images.new
-		end
+		@c = find_imageable
+		@image = @c.images.new
+		
 	end
 
 	def create
-		# @album = Album.find(params[:album_id])
-		@context = context
-		@issue = Issue.find(params[:issue_id])
-		if params.has_key?(:solution_id)
-			
-			# @issue = Issue.find(params[:issue_id])
-			@solution = Solution.find(params[:solution_id])
-			@image = @solution.images.new(image_params)
-		else
-			@image = @context.images.new(image_params)
-		end
 		
-
-		# @image.album_id = @album.id
+		@c = find_imageable
+		@image = @c.images.new(image_params)
 
 		respond_to do |format|
 			if @image.save
-				format.html {redirect_to edit_issue_path(@issue)}
+				if @c.class.name == 'Issue'
+					format.html {redirect_to edit_issue_path(@c)}
+				else
+					format.html {redirect_to edit_issue_path(@c.issue)}
+				end
 			else
 				format.html {render action: 'new'}
 			end
@@ -48,25 +26,37 @@ class ImagesController < ApplicationController
 	end
 
 	def edit
-		@issue = Issue.find(params[:issue_id])
-		@image = @issue.images.find(params[:id])
+		@c = find_imageable
+		
+		@image = @c.images.find(params[:id])
 	end
 
 	def update
-		@issue = Issue.find(params[:issue_id])
-		@image = @issue.images.find(params[:id])
+		# @issue = Issue.find(params[:issue_id])
+		@c = find_imageable
+		@image = @c.images.find(params[:id])
 
 
 		@image.update(image_params)
-		redirect_to edit_issue_path(@issue)
+		if @c.class.name == "Issue"
+			redirect_to edit_issue_path(@c)
+		else
+			redirect_to edit_issue_path(@c.issue)
+		end
 	end	
 
 	def destroy
-		@issue = Issue.find(params[:issue_id])
-		image = Image.find(params[:id])
-		image.destroy
+		# @issue = Issue.find(params[:issue_id])
+		@c = find_imageable
+		@image = @c.images.find(params[:id])
 
-		redirect_to edit_issue_path(@issue)
+		
+		@image.destroy
+		if @c.class.name === "Issue"
+			redirect_to edit_issue_path(@c)
+		else
+			redirect_to edit_issue_path(@c.issue)
+		end
 	end
 
 	private
@@ -92,4 +82,14 @@ class ImagesController < ApplicationController
 	      	Issue.find(params[:issue_id])
 	    end
 	end 
+
+	def find_imageable
+	  params.each do |name, value|
+	    if name =~ /(.+)_id$/
+	      	return $1.classify.constantize.find(value)
+	    end
+	  end
+	  nil
+	end
+
 end

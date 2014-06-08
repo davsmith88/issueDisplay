@@ -63,18 +63,18 @@ IssueDisplay::Application.routes.draw do
 
 
   resources :issues do
+    resources :images
     resources :records, only: [:create, :index, :new]
     resources :issue_workarounds do
-      resources :records, only: [:create, :index, :new]
-      resources :images
+      # resources :records, only: [:create, :index, :new]
+      # resources :images
     end
     resources :attempted_solutions do
-      resources :images
+      # resources :images
     end
     resources :solutions do
-      resources :images
+      # resources :images
     end
-    resources :images
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

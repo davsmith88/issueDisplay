@@ -1,6 +1,6 @@
 class SolutionsController < ApplicationController
 
-	before_action :get_issue, only: [:new, :create, :edit, :update, :destroy]
+	before_action :get_issue, only: [:new, :create]
 	before_action :get_solution, only: [:edit, :update, :destroy]
 
 	def new
@@ -24,7 +24,7 @@ class SolutionsController < ApplicationController
 	def update
 		respond_to do |format|
 			if @solution.update(solution_params)
-				format.html {redirect_to edit_issue_path(@issue)}
+				format.html {redirect_to edit_issue_path(@solution.issue)}
 				format.json {head :no_content}
 			end
 		end
@@ -33,7 +33,7 @@ class SolutionsController < ApplicationController
 	def destroy
 		if @solution.destroy
 			respond_to do |format|
-				format.html {redirect_to edit_issue_path(@issue)}
+				format.html {redirect_to edit_issue_path(@solution.issue)}
 				format.json {head :no_content}
 			end
 		end
@@ -46,7 +46,7 @@ class SolutionsController < ApplicationController
 	end
 
 	def get_solution
-		@solution = @issue.solutions.find(params[:id])
+		@solution = Solution.find(params[:id])
 	end
 
 	def solution_params
