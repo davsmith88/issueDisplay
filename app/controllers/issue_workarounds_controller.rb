@@ -20,9 +20,8 @@ class IssueWorkaroundsController < ApplicationController
 	end
 
 	def update
-		@issue_workaround.update(workaround_params)
 		respond_to do |format|
-			if @issue_workaround.save
+			if @issue_workaround.update(workaround_params)
 				format.html {redirect_to edit_issue_path(@issue_workaround.issue)}
 			else
 				format.html {render action: 'edit'}

@@ -1,13 +1,4 @@
-<p>
-	<% if activity.trackable %>
-	  	<% if activity.owner_id == current_user.id %>
-			You 
-		<% else %>
-			<%= activity.owner.name %> 
-		<% end %>
-		created an issue  :
-	  <%= link_to activity.trackable.name, activity.trackable %>
-	<% else %>
-	  Created an issue, which has since been removed
-	<% end %>
-</p>
+<%= raw display_text_issue(activity, 
+						    current_user,
+							"created an issue : ", 
+						 	"Issue was created, which has since been removed") %>

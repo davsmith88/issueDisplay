@@ -4,8 +4,9 @@
 <% end %>
 
 
-<span class="label label-default">Default</span>
-
+<span class="label label-default">Default</span><br>
+<%= link_to "Notifications", notification_feed_path %>
+<%= link_to "Activities", activity_feed_path %>
 <h1>List of Issues Currently in System</h1>
 <ul>
 	<% @issues.each do |issue| %>
@@ -18,7 +19,7 @@
 			<div>Actions:
 				<%= link_to "View", issue_path(issue) %>
 				<%= link_to "Edit", edit_issue_path(issue) %>
-				
+				<%= link_to "Destroy", issue_path(issue), method: :delete, data: {confirm: "Are you sure you want to delete"} %>
 			</div>
 		</li>
 	<% end %>

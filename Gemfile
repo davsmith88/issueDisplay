@@ -32,10 +32,11 @@ gem 'paperclip', "~> 3.5.3"
 gem 'will_paginate', '~> 3.0'
 gem 'rails_best_practices', '~> 1.15.4'
 
-gem "bullet", :group => "development"
+# gem "bullet", :group => "development"
 
 gem 'state_machine'
 gem 'public_activity'
+gem 'paper_trail', '~> 3.0.2'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
