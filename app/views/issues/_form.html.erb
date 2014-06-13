@@ -18,6 +18,14 @@
 		<%= form.label :description %>
 		<%= form.text_area :description %>
 		<br>
+		<%= form.label :type %>
+		<select name='issue[i_type]'>
+			<%= Issue::TYPES.each do |type| %>
+				<option value='<%= type %>'><%= type %></option>
+			<% end %>
+		
+		</select>
+		<br>
 
 		<%= form.label :area_impacted %>
 		<select name='issue[impact_id]'>

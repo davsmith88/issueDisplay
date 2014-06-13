@@ -107,7 +107,7 @@ class IssuesController < ApplicationController
 	end
 
 	def issue_params
-		params.require(:issue).permit(:name, :description, :impact_id, :department_area_id, :review_date)
+		params.require(:issue).permit(:name, :description, :impact_id, :department_area_id, :review_date, :i_type)
 	end
 	    
 end

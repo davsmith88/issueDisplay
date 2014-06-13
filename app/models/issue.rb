@@ -5,7 +5,8 @@ class Issue < ActiveRecord::Base
 		:impact_name => :get_impact_name
 	}
 
-  	
+  	TYPES = ["operational", "mechanical", "electrical"]
+
 	def get_department_name
 		self.department_area.name
 	end
@@ -22,11 +23,6 @@ class Issue < ActiveRecord::Base
 	belongs_to :department_area
 	belongs_to :impact
 
-	#has_one :department_area
-	# has_one :department
-	# has_one :area
-	#has_one :impact
-	# has_one :album, as: :imageable
 	has_many :images, as: :imageable
 
 
