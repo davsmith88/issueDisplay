@@ -48,6 +48,7 @@ group :development do
   gem 'brakeman', :require => false
   gem "better_errors"
   gem "binding_of_caller"
+  # gem 'jazz_hands'
 end
 
 # Use ActiveModel has_secure_password

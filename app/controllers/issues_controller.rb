@@ -75,6 +75,11 @@ class IssuesController < ApplicationController
 		end
 	end
 
+	def history
+		@issue = Issue.find(params[:id])
+		@versions = @issue.versions
+	end
+
 	private
 
 	def permissions

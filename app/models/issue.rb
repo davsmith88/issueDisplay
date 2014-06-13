@@ -1,9 +1,19 @@
 class Issue < ActiveRecord::Base
 	include PublicActivity::Model
   	tracked owner: Proc.new{ |controller, model| controller.current_user }
-	has_paper_trail
+	has_paper_trail :meta => {:department_area_name => :get_department_name,
+		:impact_name => :get_impact_name
+	}
 
   	
+	def get_department_name
+		self.department_area.name
+	end
+
+	def get_impact_name
+		self.impact.name
+	end
+
 	self.per_page = 5
 	has_many :solutions
 	has_many :attempted_solutions

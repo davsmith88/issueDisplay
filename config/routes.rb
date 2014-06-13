@@ -65,6 +65,9 @@ IssueDisplay::Application.routes.draw do
 
 
   resources :issues do
+    member do
+      get "history", as: :history
+    end
     resources :images
     resources :records, only: [:create, :index, :new]
     resources :issue_workarounds do

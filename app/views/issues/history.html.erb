@@ -1,0 +1,32 @@
+<h2>History page</h2>
+
+<ul>
+	<% @versions.each do |version| %>
+		<li><% version.changeset.each do |key, value| %>
+				
+				<% if key != 'updated_at' && key != 'impact_id' && key != 'department_area_id'  %>
+					<p><b><%= key %></b> : Changed from <%=  value[0] %> to
+					<%= value[1] %>
+					</p>
+				<% elsif key == 'impact_id' %>
+					
+					<p><b>Impact</b> :  Changed from <%= version.previous.impact_name %> now it is called
+					 <%= version.item.impact.name %>
+					
+					
+					
+					</p>
+				<% elsif key == 'department_area_id' %>
+					<p>
+						<b>Department / Area</b> : Changed From <%= version.previous.department_area_name %> now is called
+					<%= version.item.department_area.name %>
+					
+					</p>
+				<% else %>
+					<i>Time Changed</i> : <%= format_date_time value[1] %>
+				<% end %>
+
+			<% end %>
+		</li>
+	<% end %>
+</ul>
