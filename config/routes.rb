@@ -24,7 +24,11 @@ IssueDisplay::Application.routes.draw do
 
   
   resources :grants, only: [:new, :create]
-  resources :admin
+  resources :admin 
+
+  resources :issue_management
+
+
   resources :roles
   resources :rights
 
@@ -67,6 +71,11 @@ IssueDisplay::Application.routes.draw do
   resources :issues do
     member do
       get "history", as: :history
+      get 'draft_to_review', as: :draft_to_review
+      get 'review_to_draft', as: :review_to_draft
+      get 'review_to_publish', as: :review_to_publish
+      get 'publish_to_review', as: :publish_to_review
+      get 'publish_to_draft', as: :publish_to_draft
     end
     resources :images
     resources :records, only: [:create, :index, :new]

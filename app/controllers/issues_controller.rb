@@ -26,6 +26,36 @@ class IssuesController < ApplicationController
 		# Issue.increment_counter(:view_counter, @issue.id)
 	end
 
+	def draft_to_review
+		@issue = Issue.find(params[:id])
+		@issue.draft_to_review
+		redirect_to issue_management_index_path
+	end 
+
+	def review_to_draft
+		@issue = Issue.find(params[:id])
+		@issue.review_to_draft
+		redirect_to issue_management_index_path
+	end
+
+	def review_to_publish
+		@issue = Issue.find(params[:id])
+		@issue.review_to_publish
+		redirect_to issue_management_index_path
+	end
+
+	def publish_to_review
+		@issue = Issue.find(params[:id])
+		@issue.publish_to_review
+		redirect_to issue_management_index_path
+	end
+
+	def publish_to_draft
+		@issue = Issue.find(params[:id])
+		@issue.publish_to_draft
+		redirect_to issue_management_index_path
+	end
+
 	def new
 		@issue = Issue.new
 	end
