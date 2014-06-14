@@ -1,20 +1,33 @@
 <ul>
 	<% @issues.each do |issue| %>
 		<li>
-		<%= issue.name %> |
-		<%= link_to "History", history_issue_path(issue)  %>
-		<p>
-			Publish Options |
-			<% if issue.draft? %>
-				<%= link_to "Review", draft_to_review_issue_path(issue) %>
-			<% elsif issue.review? %>
-				<%= link_to "Draft", review_to_draft_issue_path(issue) %>
-				<%= link_to "Publish", review_to_publish_issue_path(issue) %>
-			<% elsif issue.publish? %>
-				<%= link_to "Draft", publish_to_draft_issue_path(issue) %>
-				<%= link_to "Review", publish_to_review_issue_path(issue) %>
+			<%= issue.name %> |
+			<%= link_to "History", history_issue_path(issue)  %>
+			<p>
+				Publish Options (<%= issue.state %>) |
+				<% if issue.draft? %>
+					<%= link_to "Review", draft_to_review_issue_path(issue) %>
+				<% elsif issue.review? %>
+					<%= link_to "Draft", review_to_draft_issue_path(issue) %>
+					<%= link_to "Publish", review_to_publish_issue_path(issue) %>
+				<% elsif issue.publish? %>
+					<%= link_to "Draft", publish_to_draft_issue_path(issue) %>
+					<%= link_to "Review", publish_to_review_issue_path(issue) %>
+				<% end %>
+			</p>
+			<% if issue.review_date %>
+				<p>Review Date : 
+				<% if issue.review_date < Time.now %>
+					was <%= distance_of_time_in_words issue.review_date, Time.now %> AGO Review Today!
+				<% else %>
+					IS IN <%=  distance_of_time_in_words issue.review_date, Time.now %>
+				<% end %>
+				</p>
 			<% end %>
-		</p>
+			<% if issue.user %>
+				<p>Created By : <%= issue.user.name %></p>
+			<% end %>
+			<%= link_to "View History", history_issue_path(issue) %>
 		</li>
 	<% end %>
 </ul>

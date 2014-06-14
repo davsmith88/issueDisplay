@@ -22,7 +22,7 @@ class Issue < ActiveRecord::Base
 
 	belongs_to :department_area
 	belongs_to :impact
-
+	belongs_to :user
 	has_many :images, as: :imageable
 
 
@@ -44,7 +44,7 @@ class Issue < ActiveRecord::Base
 	state_machine :state, :initial => :draft do
 		state :draft, value: 'draft'
 		state :review, value: 'review'
-		state :publish, value: 'pending'
+		state :publish, value: 'publish'
 
 		event :draft_to_review do
 			transition :draft => :review

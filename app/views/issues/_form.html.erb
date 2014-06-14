@@ -42,9 +42,11 @@
 
 		<%= form.label :department_area %>
 		<select name='issue[department_area_id]'>
-			<% @departments.each do |dep| %>
+			
+			<% @depAreas.each do |dep| %>
 				<option value="<%= dep.id %>"><%= dep.name %></option>
 			<% end %>
+			
 		</select>
 
 		<br>
