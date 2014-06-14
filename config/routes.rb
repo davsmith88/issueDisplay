@@ -77,6 +77,7 @@ IssueDisplay::Application.routes.draw do
       get 'publish_to_review', as: :publish_to_review
       get 'publish_to_draft', as: :publish_to_draft
     end
+    resources :notes
     resources :images
     resources :records, only: [:create, :index, :new]
     resources :issue_workarounds do

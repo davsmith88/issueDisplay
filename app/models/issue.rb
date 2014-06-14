@@ -20,6 +20,8 @@ class Issue < ActiveRecord::Base
 	has_many :attempted_solutions
 	has_many :issue_workarounds
 
+	has_many :notes
+
 	belongs_to :department_area
 	belongs_to :impact
 	belongs_to :user

@@ -6,7 +6,7 @@ class IssuesController < ApplicationController
 	before_action :permissions, only: [:index]
 
 	def index
-		@issues = Issue.ordered_by_desc.page(params[:page])
+		@issues = Issue.where(state: "publish").order(created_at: :desc).page(params[:page])
 	end
 
 	def show

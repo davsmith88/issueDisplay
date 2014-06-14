@@ -2,7 +2,10 @@
 	<% @issues.each do |issue| %>
 		<li>
 			<%= issue.name %> |
-			<%= link_to "History", history_issue_path(issue)  %>
+			<%= link_to "History", history_issue_path(issue)  %> |
+			<%= link_to "Show", issue_path(issue) %> |
+			<%= link_to "Edit", edit_issue_path(issue) %> |
+			<%= link_to "Delete", issue_path(issue), method: :delete, data: {confirm: "Are you sure you want to Delete"} %>
 			<p>
 				Publish Options (<%= issue.state %>) |
 				<% if issue.draft? %>
@@ -10,6 +13,7 @@
 				<% elsif issue.review? %>
 					<%= link_to "Draft", review_to_draft_issue_path(issue) %>
 					<%= link_to "Publish", review_to_publish_issue_path(issue) %>
+					<%= link_to "Add Note", new_issue_note_path(issue)  %>
 				<% elsif issue.publish? %>
 					<%= link_to "Draft", publish_to_draft_issue_path(issue) %>
 					<%= link_to "Review", publish_to_review_issue_path(issue) %>
@@ -27,7 +31,9 @@
 			<% if issue.user %>
 				<p>Created By : <%= issue.user.name %></p>
 			<% end %>
-			<%= link_to "View History", history_issue_path(issue) %>
+
+			CHANGE USER
+			
 		</li>
 	<% end %>
 </ul>

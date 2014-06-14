@@ -1,41 +1,51 @@
 <h2>History page</h2>
-
-<ul>
-	<% @versions.each do |version| %>
-		<li><% version.changeset.each do |key, value| %>
-				
-				<% if key != 'updated_at' && key != 'impact_id' && key != 'department_area_id' && key != 'i_type' %>
-					<p><b><%= key %></b> : Changed from <%=  value[0] %> to
-					<%= value[1] %>
-					</p>
-				<% elsif key == 'impact_id' %>
+<% if @versions.length > 0 %>
+	<ul>
+		<% @versions.each do |version| %>
+			<li><% version.changeset.each do |key, value| %>
 					
-					<p><b>Impact</b> :  Changed from <%= version.previous.impact_name %> now it is called
-					 <%= version.item.impact.name %>
-					
-					
-					
-					</p>
-				<% elsif key == 'department_area_id' %>
-					<p>
-						<b>Department / Area</b> : Changed From <%= version.previous.department_area_name %> now is called
-					<%= version.item.department_area.name %>
-					
-					</p>
-				<% elsif key == 'i_type' %>
-					<p>
-						<% unless version.previous.changeset[:i_type] %>
-							<b>Type</b> : Type was not defined, now it is 
-							<%= version.item.i_type %>
-						<% else %>
-						<b>Type</b> : Changed From <%= version.previous.changeset[:i_type] %> now it is called <%= version.item.i_type %>
+					<% if key != 'updated_at' && key != 'impact_id' && key != 'department_area_id' && key != 'i_type' %>
+						<p><b><%= key %></b> : Changed from <%=  value[0] %> to
+						<%= value[1] %>
+						</p>
+					<% elsif key == 'impact_id' %>
+						
+						<p><b>Impact</b> :  Changed from 
+						<% if !version.previous.nil? %>
+							<%= version.previous.impact_name %> now it is called
+						 	<%= version.item.impact.name %>
+						 <% end %>
+						
+						
+						
+						</p>
+					<% elsif key == 'department_area_id' %>
+						<% if !version.previous.nil? %>
+							<p>
+								<b>Department / Area</b> : Changed From <%= version.previous.department_area_name %> now is called
+							<%= version.item.department_area.name %>
+							
+							</p>
 						<% end %>
-					</p>
-				<% else %>
-					<i>Time Changed</i> : <%= format_date_time value[1] %>
-				<% end %>
+					<% elsif key == 'i_type' %>
+						<% if !version.previous.nil? %>
+							<p>
+								<% unless version.previous.changeset[:i_type] %>
+									<b>Type</b> : Type was not defined, now it is 
+									<%= version.item.i_type %>
+								<% else %>
+								<b>Type</b> : Changed From <%= version.previous.changeset[:i_type] %> now it is called <%= version.item.i_type %>
+								<% end %>
+							</p>
+						<% end %>
+					<% else %>
+						<i>Time Changed</i> : <%= format_date_time value[1] %>
+					<% end %>
 
-			<% end %>
-		</li>
-	<% end %>
-</ul>
+				<% end %>
+			</li>
+		<% end %>
+	</ul>
+<% else %>
+	<p>No versions exist for this issue
+<% end %>

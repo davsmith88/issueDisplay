@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140614033552) do
+ActiveRecord::Schema.define(version: 20140614061620) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -155,6 +155,17 @@ ActiveRecord::Schema.define(version: 20140614033552) do
   add_index "issues", ["impact_id"], name: "index_issues_on_impact_id"
   add_index "issues", ["state"], name: "index_issues_on_state"
   add_index "issues", ["user_id"], name: "index_issues_on_user_id"
+
+  create_table "notes", force: true do |t|
+    t.text     "context"
+    t.integer  "reviewer_id"
+    t.string   "category"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "issue_id"
+  end
+
+  add_index "notes", ["issue_id"], name: "index_notes_on_issue_id"
 
   create_table "records", force: true do |t|
     t.integer  "recordable_id"

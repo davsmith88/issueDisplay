@@ -75,8 +75,13 @@
 	<% end %>
 </ul>
 
-
-<p>PUSH TO REVIEW STAGE</p>
+<% if @issue.state?(:draft) %>
+	<p><%= link_to "Push to Review", draft_to_review_issue_path %></p>
+<% elsif @issue.state?(:review) %>
+	<p><%= link_to "Review to Draft", review_to_draft_issue_path %></p>
+<% else %>
+	<p><%= link_to "Publish to Draft", publish_to_draft_issue_path %></p>
+<% end %>
 
 
 <%= link_to 'Show', @issue %>|

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  context: MyText
+  reviewer_id: 1
+  category: MyString
+
+two:
+  context: MyText
+  reviewer_id: 1
+  category: MyString

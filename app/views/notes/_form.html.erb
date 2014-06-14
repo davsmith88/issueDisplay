@@ -1,0 +1,19 @@
+<%if @note.errors.any? %>
+	<div id='error_explanation'>
+		<h2><%= pluralize(@note.errors.count, "error") %> prohibited this issue from being saved</h2>
+
+		<ul>
+			<% @note.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+	</div>
+<% end %>
+
+<%= form.label :context %>
+<%= form.text_area :context %>
+<br>
+<%= form.label :category %>
+<%= form.text_field :category %>
+
+<%= form.submit "Save" %>
