@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140614061620) do
+ActiveRecord::Schema.define(version: 20140614073444) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -163,6 +163,9 @@ ActiveRecord::Schema.define(version: 20140614061620) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "issue_id"
+    t.boolean  "author_read"
+    t.boolean  "checked"
+    t.integer  "version_number"
   end
 
   add_index "notes", ["issue_id"], name: "index_notes_on_issue_id"

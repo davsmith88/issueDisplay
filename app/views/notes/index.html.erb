@@ -1,4 +1,25 @@
 <h3>Notes Index</h3>
-<% @notes.each do |note| %>
-	<p><%= note.context %></p>
-<% end %>
+<ul>
+	<% @notes.each do |note| %>
+		<li>
+		<%= note.context %>[<%= note.category %>](<%= note.checked %>)
+		<p>|Issue Version number - <%= note.version_number %>|
+			| Author Read = <%= note.author_read %> |
+			<% if !note.checked %>
+
+				
+				<%= link_to "Mark as Checked", issue_note_marked_as_checked_path(@issue, note), method: :post %>
+				
+			<% end %>
+
+			<% if note.author_read == false && current_user.id == @issue.user_id %>
+				<%= note.author_read == false %>
+				<%= current_user.id == @issue.user_id %>
+				|<%= link_to "Mark as User Read", issue_note_mark_as_user_read_path(@issue, note), method: :post %>|
+			<%  end %>
+		</p>
+		</li>
+	<% end %>
+</ul>
+
+<%= link_to "Add new note", new_issue_note_path(@issue) %>

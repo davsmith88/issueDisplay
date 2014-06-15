@@ -74,15 +74,22 @@
 		</li>
 	<% end %>
 </ul>
-
+<br>
 <% if @issue.state?(:draft) %>
 	<p><%= link_to "Push to Review", draft_to_review_issue_path %></p>
 <% elsif @issue.state?(:review) %>
-	<p><%= link_to "Review to Draft", review_to_draft_issue_path %></p>
+	<%= link_to "View Notes", issue_notes_path(@issue) %>
+	
+	<% if @issue.notes.where(checked: false).length == 0 %>
+		<p><%= link_to "Review to Draft", review_to_draft_issue_path %></p>
+	<% else %>
+		<%= @issue.notes.where(checked: false).length %> - Notes are Available
+		they need to be correctified to be able to submit for review again
+	<% end %>
 <% else %>
 	<p><%= link_to "Publish to Draft", publish_to_draft_issue_path %></p>
 <% end %>
 
-
+<br>
 <%= link_to 'Show', @issue %>|
 <%= link_to 'Back', issues_path %>

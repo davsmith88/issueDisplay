@@ -11,7 +11,7 @@ IssueDisplay::Application.routes.draw do
     resources :users
   end
 
-  
+  get '/profile' => 'users#profile', as: :profile_path
 
   resources :albums do
      resources :images
@@ -77,7 +77,10 @@ IssueDisplay::Application.routes.draw do
       get 'publish_to_review', as: :publish_to_review
       get 'publish_to_draft', as: :publish_to_draft
     end
-    resources :notes
+    resources :notes do
+      post "mark_as_checked", as: :marked_as_checked
+      post "mark_as_user_read", as: :mark_as_user_read
+    end
     resources :images
     resources :records, only: [:create, :index, :new]
     resources :issue_workarounds do

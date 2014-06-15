@@ -3,8 +3,14 @@ class UsersController < ApplicationController
 		@user = User.new
 	end
 
+	def profile
+		@issues = Issue.where(user_id: current_user.id).order("created_at DESC")
+	end
+
 	def show
 		@user = User.find(params[:id])
+
+		#@issues = Issue.where(user_id: current_user.id)
 	end
 
 	def create

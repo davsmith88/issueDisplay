@@ -1,0 +1,30 @@
+<h1>Profile</h1>
+
+<ol>
+	<li>Name : <%= current_user.name %></li>
+	<li>Title : <%= current_user.title %></li>
+	<li>Email : <%= current_user.email %></li>
+</ol>
+
+<%= link_to "Edit", edit_user_path(current_user) %>
+
+<p>All the Issues that have been created by you</p>
+<% if @issues.length > 0 %>
+	<ol>
+		<% @issues.each do |issue| %>
+			<li>(<%= issue.state %>)<%= issue.name %></li>
+			<p><%= issue.description %></p>
+			<p>Created At : <%= issue.created_at %> | Updated At : <%= issue.updated_at %></p>
+			<p><%= "[" + issue.notes.where(checked: false).length.to_s + "]" if issue.notes.where(checked: false).length > 0  %>
+			<%= link_to "View Notes", issue_notes_path(issue) %> |
+			<%= "[" + issue.versions.length.to_s + "]" if issue.versions.length > 0 %>
+			<%= link_to "View History", history_issue_path(issue) %>
+			</p>
+			<ul>
+				<li><%= link_to "View", issue_path(issue) %></li>
+				<li><%= link_to "Edit", edit_issue_path(issue) %></li>
+				<li><%= link_to "Delete", issue_path(issue), method: :delete, data: {confirm: "Are you sure"} %></li>
+			</ul>
+		<% end %>
+	</ol>
+<% end %>

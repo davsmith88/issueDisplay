@@ -1,6 +1,6 @@
 class Issue < ActiveRecord::Base
 	include PublicActivity::Model
-  	tracked owner: Proc.new{ |controller, model| controller.current_user }
+  	#tracked owner: Proc.new{ |controller, model| controller.current_user }
 	has_paper_trail :meta => {:department_area_name => :get_department_name,
 		:impact_name => :get_impact_name
 	}
@@ -8,11 +8,21 @@ class Issue < ActiveRecord::Base
   	TYPES = ["operational", "mechanical", "electrical"]
 
 	def get_department_name
+		return if !self.department_area
 		self.department_area.name
 	end
 
 	def get_impact_name
+		return if !self.impact
 		self.impact.name
+	end
+
+	def change_state
+		if self.state?(:publish)
+			self.publish_to_draft
+		elsif self.state?(:review)
+			self.review_to_draft
+		end
 	end
 
 	self.per_page = 5

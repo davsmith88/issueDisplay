@@ -14,6 +14,8 @@
 					<%= link_to "Draft", review_to_draft_issue_path(issue) %>
 					<%= link_to "Publish", review_to_publish_issue_path(issue) %>
 					<%= link_to "Add Note", new_issue_note_path(issue)  %>
+
+					<%= link_to "View All current notes", issue_notes_path(issue) %>
 				<% elsif issue.publish? %>
 					<%= link_to "Draft", publish_to_draft_issue_path(issue) %>
 					<%= link_to "Review", publish_to_review_issue_path(issue) %>

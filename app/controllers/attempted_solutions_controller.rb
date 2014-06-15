@@ -11,6 +11,7 @@ class AttemptedSolutionsController < ApplicationController
 		@attempted = @issue.attempted_solutions.new(attempted_params)
 		respond_to do |format|
 			if @attempted.save
+				@issue.change_state
 				format.html {redirect_to edit_issue_path(@issue)}
 			else
 				format.html {render action: 'new' }
@@ -24,6 +25,7 @@ class AttemptedSolutionsController < ApplicationController
 	def update
 		respond_to do |format|
 			if @attempted.update(attempted_params)
+				@issue.change_state
 				format.html {redirect_to edit_issue_path(@attempted.issue)}
 				format.json {head :no_content}
 			end

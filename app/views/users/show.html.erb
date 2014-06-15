@@ -5,3 +5,11 @@
 	<li>Title : <%= @user.title %></li>
 	<li>Email : <%= @user.email %></li>
 </ol>
+
+<% if @issues.length > 0 %>
+	<ol>
+		<% @issues.each do |issue| %>
+			<li>(<%= issue.state %>)<%= issue.name %></li>
+		<% end %>
+	</ol>
+<% end %>

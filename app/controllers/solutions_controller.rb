@@ -11,6 +11,7 @@ class SolutionsController < ApplicationController
 		@solution = @issue.solutions.new(solution_params)
 		respond_to do |format|
 			if @solution.save
+				@issue.change_state
 				format.html {redirect_to edit_issue_path(@issue), notice: "Solution has been created"}
 			else
 				format.html {render action: 'new'}
@@ -24,6 +25,7 @@ class SolutionsController < ApplicationController
 	def update
 		respond_to do |format|
 			if @solution.update(solution_params)
+				@issue.change_state
 				format.html {redirect_to edit_issue_path(@solution.issue)}
 				format.json {head :no_content}
 			end
