@@ -1,7 +1,7 @@
 <ul>
 	<% @issues.each do |issue| %>
 		<li>
-			<%= issue.name %> |
+			<%= link_to issue.name, issue_management_path(issue) %> |
 			<%= link_to "History", history_issue_path(issue)  %> |
 			<%= link_to "Show", issue_path(issue) %> |
 			<%= link_to "Edit", edit_issue_path(issue) %> |

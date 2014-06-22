@@ -4,7 +4,11 @@ class UsersController < ApplicationController
 	end
 
 	def profile
-		@issues = Issue.where(user_id: current_user.id).order("created_at DESC")
+		if current_user
+			@issues = Issue.where(user_id: current_user.id).order("created_at DESC")
+		else
+			redirect_to new_user_session_path, notice: "A user needs to be signed in to view a profile"
+		end
 	end
 
 	def show

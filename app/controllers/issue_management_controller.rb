@@ -4,4 +4,8 @@ class IssueManagementController < ApplicationController
 		@issues = Issue.all
 	end
 
+	def show
+		@issue = Issue.find(params[:id])
+	end
+
 end

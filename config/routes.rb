@@ -70,7 +70,7 @@ IssueDisplay::Application.routes.draw do
 
   resources :issues do
     member do
-      get "history", as: :history
+      get 'history', as: :history
       get 'draft_to_review', as: :draft_to_review
       get 'review_to_draft', as: :review_to_draft
       get 'review_to_publish', as: :review_to_publish
@@ -78,8 +78,8 @@ IssueDisplay::Application.routes.draw do
       get 'publish_to_draft', as: :publish_to_draft
     end
     resources :notes do
-      post "mark_as_checked", as: :marked_as_checked
-      post "mark_as_user_read", as: :mark_as_user_read
+      post 'mark_as_checked', as: :marked_as_checked
+      post 'mark_as_user_read', as: :mark_as_user_read
     end
     resources :images
     resources :records, only: [:create, :index, :new]

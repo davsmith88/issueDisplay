@@ -1,0 +1,9 @@
+<h4>Showing the issue management more detail</h4>
+
+<ul>
+	<% @issue.records.each do |record| %>
+		<li><%= record.message %> | <%= record.updated_at %>
+
+		</li>
+	<% end %>
+</ul>
