@@ -58,6 +58,10 @@ class IssuesController < ApplicationController
 
 	def new
 		@issue = Issue.new
+		respond_to do |format|
+			# format.js {}
+			format.html {render action: 'new'}
+		end
 	end
 
 	def create
@@ -70,6 +74,7 @@ class IssuesController < ApplicationController
 			if @issue.save
 				@album = Album.create({imageable_type: "issue", imageable_id: @issue.id})
 				format.html {redirect_to @issue, notice: "Issue was created successfully"}
+				# format.js {}
 			else
 				format.html {render action: 'new'}
 			end

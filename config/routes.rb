@@ -11,7 +11,7 @@ IssueDisplay::Application.routes.draw do
     resources :users
   end
 
-  get '/profile' => 'users#profile', as: :profile_path
+  get '/profile' => 'users#profile', as: :profile
 
   resources :albums do
      resources :images

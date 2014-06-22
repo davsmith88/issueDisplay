@@ -26,6 +26,28 @@
 	<% end %>
 </ul>
 
+
+	<div class="row">
+	<% @issues.each do |issue| %>
+	  <div class="col-sm-6 col-md-4">
+	    <div class="thumbnail">
+	    <% if issue.images.length > 0 %>
+	      <img src="<%= issue.images[0].picture.url(:thumb) %>" alt="">
+	     <% end %>
+	      <div class="caption">
+	        <h3><%= issue.name %></h3>
+	        <p><%= issue.description %></p>
+	        <p><a href="#" class="btn btn-primary" role="button">View</a> <a href="#" class="btn btn-default" role="button">Edit</a></p>
+	      </div>
+	    </div>
+	  </div>
+
+<% end %>
+	</div>
+
+<div id = 'users'>
+</div>
+
 <%= will_paginate @issues %>
 
 

@@ -5,7 +5,11 @@ class UsersController < ApplicationController
 
 	def profile
 		if current_user
-			@issues = Issue.where(user_id: current_user.id).order("created_at DESC")
+			if params[:filter] == 'all' or params[:filter].nil?
+				@issues = Issue.where(user_id: current_user.id).order("created_at DESC").page(params[:page])
+			else
+				@issues = Issue.where(user_id: current_user.id, state: params[:filter]).order("created_at DESC").page(params[:page])
+			end
 		else
 			redirect_to new_user_session_path, notice: "A user needs to be signed in to view a profile"
 		end

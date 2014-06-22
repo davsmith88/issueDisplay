@@ -8,7 +8,17 @@
 
 <%= link_to "Edit", edit_user_path(current_user) %>
 
+
+
+
+
 <p>All the Issues that have been created by you</p>
+
+<%= link_to "All Issues", profile_path(:page => 1, :filter => 'all') %>|
+<%= link_to "Draft Issues", profile_path(:page => 1,:filter => 'draft') %>|
+<%= link_to "Review Issues", profile_path(:page => 1,:filter => 'review') %>|
+<%= link_to "Publish Issues", profile_path(:page => 1,:filter => 'publish') %>
+
 <% if @issues.length > 0 %>
 	<ol>
 		<% @issues.each do |issue| %>
@@ -28,3 +38,6 @@
 		<% end %>
 	</ol>
 <% end %>
+
+
+<%= will_paginate @issues %>
