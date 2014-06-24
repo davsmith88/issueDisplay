@@ -1,0 +1,10 @@
+// var code = $("<p></p>");
+// code.append("<form method='post' action='/issues'>");
+// code.append("<input type='text' name='name' value='here here' />");
+// code.append("<input type='date' name='review_date'>");
+// code.append("<input type='submit' value='Create an Issue' />");
+// code.append("</form>")
+// $(code).appendTo("#users");
+// console.log('append text box to users')
+
+$("<%= escape_javascript(render 'new') %>").appendTo("#users");

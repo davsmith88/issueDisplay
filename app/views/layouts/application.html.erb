@@ -7,11 +7,35 @@
   <%= csrf_meta_tags %>
 </head>
 	<body>
-		<p class="notice"><%= notice %></p>
-	  	<p class="alert"><%= alert %></p>
+		<div class='container'>
 
-		<%= render 'layouts/user_widget' %>
-		<%= yield %>
+			<div class='row'>
+				<div class='col-lg-12'>
+					navigation bar
+				</div>
+			</div>
+			<div class='row'>
+				<div class='col-sm-5 col-lg-5'>
+					<p class="notice"><%= notice %></p>
+				  	<p class="alert"><%= alert %></p>
 
+			  	</div>
+			  	<div class='col-sm-3 col-lg-3'>
+			  		<%= link_to "Notifications", notification_feed_path %>
+					<%= link_to "Activities", activity_feed_path %>
+			  	</div>
+			  	<div class='col-sm-4 col-lg-4'>
+			  		<%= render 'layouts/user_widget' %>
+			  	</div>
+		  	</div>
+
+		  	<div class='row'>
+				
+			</div>
+
+			<div class='row'>
+				<%= yield %>
+			</div>
+		</div>
 	</body>
 </html>

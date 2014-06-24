@@ -1,0 +1,6 @@
+
+<%= form_for @issue, :html => { :multipart => true }, remote: true do |form| %>
+	<%= form.text_field :name %>
+	<%= form.date_field :review_date %>
+	<%= form.submit "Create" %>
+<% end %>
