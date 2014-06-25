@@ -9,23 +9,58 @@
 	<body>
 		<div class='container'>
 
-			<div class='row'>
-				<div class='col-lg-12'>
-					navigation bar
-				</div>
-			</div>
+			<nav class="navbar navbar-default" role="navigation">
+			  <div class="container-fluid">
+			    <!-- Brand and toggle get grouped for better mobile display -->
+			    <div class="navbar-header">
+			      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+			        <span class="sr-only">Toggle navigation</span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			      </button>
+			      <a class="navbar-brand" href="/issues">Issue Manager</a>
+			    </div>
+
+			    <!-- Collect the nav links, forms, and other content for toggling -->
+			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			      
+			      
+			      <ul class="nav navbar-nav navbar-right">
+			        <% if user_signed_in? %>
+				        <li class="dropdown">
+
+				          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Currently Logged in as : <%= current_user.name %> <b class="caret"></b></a>
+				          <ul class="dropdown-menu">
+				            <li><%= link_to "Profile", profile_path %></li>
+				            <li><%= link_to "Details", edit_user_path(current_user) %></li>
+				            <li class="divider"></li>
+				            <li><%= link_to "Activity Feed", activity_feed_path %></li>
+				            <li><%= link_to "Notification Feed", notification_feed_path %></li>
+				            <li class="divider"></li>
+				            <li><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
+				          </ul>
+				        </li>
+				       <% else %>
+				       		<p class="navbar-text">No user signed in <%= link_to 'Login', new_user_session_path, {class: "btn btn-success"} %></p>
+				       <% end %>
+			      </ul>
+			    </div><!-- /.navbar-collapse -->
+			  </div><!-- /.container-fluid -->
+			</nav>
 			<div class='row'>
 				<div class='col-sm-5 col-lg-5'>
 					<p class="notice"><%= notice %></p>
 				  	<p class="alert"><%= alert %></p>
+				  	<div class="btn-group">
+  
+					</div>
 
 			  	</div>
 			  	<div class='col-sm-3 col-lg-3'>
-			  		<%= link_to "Notifications", notification_feed_path %>
-					<%= link_to "Activities", activity_feed_path %>
+			  		
 			  	</div>
 			  	<div class='col-sm-4 col-lg-4'>
-			  		<%= render 'layouts/user_widget' %>
 			  	</div>
 		  	</div>
 
@@ -37,5 +72,6 @@
 				<%= yield %>
 			</div>
 		</div>
+
 	</body>
 </html>
