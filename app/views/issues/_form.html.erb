@@ -9,53 +9,76 @@
 		</ul>
 		</div>
 		<% end %>
-		<%= form.label :name %>
-		<%= form.text_field :name %>
-		<% if @issue.errors.has_key?(:name)  %>
-			<%= @issue.errors.get(:name)[0] %>
-		<% end %>
-		<br>
-		<%= form.label :description %>
-		<%= form.text_area :description %>
-		<br>
-		<%= form.label :type %>
-		<select name='issue[i_type]'>
-			<%= Issue::TYPES.each do |type| %>
-				<option value='<%= type %>'><%= type %></option>
-			<% end %>
-		
-		</select>
-		<br>
 
-		<%= form.label :area_impacted %>
-		<select name='issue[impact_id]'>
-			<% @impacts.each do |impact| %>
-				<% if impact.id == @issue.impact_id %>
-					<option value='<%= impact.id %>' selected><%= impact.name %></option>
-				<% else %>
-					<option value=<%= impact.id %>><%= impact.name %></option>
+	
+
+		<div class='form-group'>
+			<%= form.label :name, class: "col-sm-2 control-label" %>
+			<div class='col-sm-10'>
+				<%= form.text_field :name, class: "form-control", placeholder: "Name" %>
+				<% if @issue.errors.has_key?(:name)  %>
+					<%= @issue.errors.get(:name)[0] %>
 				<% end %>
-			<% end %>
-		</select>
-		<br>
+			</div>
+		</div>
+		<div class='form-group'>
+			<%= form.label :description, class: "col-sm-2 control-label" %>
+			<div class='col-sm-10'>
+				<%= form.text_area :description, class: "form-control", placeholder: "Description" %>
+			</div>
+		</div>
+		<div class='form-group'>
+			<%= form.label :type, class: 'col-sm-2 control-label' %>
+			<div class='col-sm-10'>
+				<select name='issue[i_type]' class='form-control'>
+					<%= Issue::TYPES.each do |type| %>
+						<option value='<%= type %>'><%= type %></option>
+					<% end %>
+				
+				</select>
+			</div>
+		</div>
+		
+		<div class='form-group'>
+			<%= form.label :area_impacted, class: 'col-sm-2 control-label' %>
+			<div class='col-sm-10'>
+				<select name='issue[impact_id]' class='form-control'>
+					<% @impacts.each do |impact| %>
+						<% if impact.id == @issue.impact_id %>
+							<option value='<%= impact.id %>' selected><%= impact.name %></option>
+						<% else %>
+							<option value=<%= impact.id %>><%= impact.name %></option>
+						<% end %>
+					<% end %>
+				</select>
+			</div>
+		</div>
+		
 
+		<div class='form-group'>
+			<%= form.label :department_area, class: 'col-sm-2 control-label' %>
+			<div class='col-sm-10'>
+				<select name='issue[department_area_id]' class='form-control'>
+					<% @depAreas.each do |dep| %>
+						<option value="<%= dep.id %>"><%= dep.name %></option>
+					<% end %>
+				</select>
+			</div>
+		</div>
 
-		<%= form.label :department_area %>
-		<select name='issue[department_area_id]'>
-			
-			<% @depAreas.each do |dep| %>
-				<option value="<%= dep.id %>"><%= dep.name %></option>
-			<% end %>
-			
-		</select>
-
-		<br>
+		
 
 
 		
-		<br>
-		<%= form.label :review_date %>
-		<%= form.date_field :review_date %>
-
-		<br>
-		<%= form.submit "Save" %>
+		<div class='form-group'>
+			<%= form.label :review_date, class: 'col-sm-2 control-label' %>
+			<div class='col-sm-10'>
+				<%= form.date_field :review_date, class: 'form-control' %>
+			</div>
+		</div>
+		<div class='form-group'>
+			<%= form.label "Action", class: "col-sm-2 control-label" %>
+			<div class='col-sm-10'>
+				<%= form.submit "Save", class: 'btn btn-primary' %>
+			</div>
+		</div>

@@ -1,3 +1,5 @@
-<%= form_for @issue, :html => { :multipart => true } do |form| %>
+
+<%= form_for @issue, :html => { :multipart => true, class: "form-horizontal", role: "form" } do |form| %>
+	<h2>Create a New Issue</h2>
 	<%= render partial: form %>
 <% end %>
