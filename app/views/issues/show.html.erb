@@ -1,63 +1,166 @@
 <p id='notice'><%= notice %></p>
 
 
-<p>
-	<strong>Name</strong>
-	<%= @issue.name %>
-</p>
 
-<p>
-	<strong>Description</strong>
-	<%= @issue.description %>
-</p>
+<div class='form-horizontal'>
+	<div class='form-group'>
+		<div class='col-sm-2'>
+			<label class='control-label'>Name</label>
+		</div>
+		<div class='col-sm-10'>
+			<div class='form-control'><%= @issue.name %></div>
+		</div>
+	</div>
 
-<p>
-	<strong>Author</strong>
-	<%= @user.email %>
-</p>
+	<div class='form-group'>
+		<div class='col-sm-2'>
+			<label class='control-label'>Description</label>
+		</div>
+		<div class='col-sm-10'>
+			<div class='form-control'><%= @issue.description %></div>
+		</div>
+	</div>
 
-<p>
-	<strong>Area Impacted</strong>
-	<% if @impact %>
-		<%= @impact.name %>
-	<% else %>
-		"There is no impact area"
-	<% end %>
-</p>
+	<div class='form-group'>
+		<div class='col-sm-2'>
+			<label class='control-label'>Author</label>
+		</div>
+		<div class='col-sm-10'>
+			<div class='form-control'><%= @user.email %></div>
+		</div>
+	</div>
+
+	<div class='form-group'>
+		<div class='col-sm-2'>
+			<label class='control-label'>Area Impacted</label>
+		</div>
+		<div class='col-sm-10'>
+			<div class='form-control'>
+				<% if @impact %>
+					<%= @impact.name %>
+				<% else %>
+					"There is no impact area"
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+	<div class='form-group'>
+		<div class='col-sm-2'>
+			<label class='control-label'>State</label>
+		</div>
+		<div class='col-sm-10'>
+			<div class='form-control'><%= @issue.state %></div>
+		</div>
+	</div>
+
+	<div class='form-group'>
+		<div class='col-sm-2'>
+			<label class='control-label'>Type</label>
+		</div>
+		<div class='col-sm-10'>
+			<div class='form-control'><%= @issue.i_type %></div>
+		</div>
+	</div>
+
+	<div class='form-group'>
+		<div class='col-sm-2'>
+			<label class='control-label'>Department</label>
+		</div>
+		<div class='col-sm-10'>
+			<div class='form-control'>
+				<% if @issue.department_area != nil %>
+					<%= @issue.department_area.name %>
+				<% else %>
+					no department/area inserted yet
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+	<div class='form-group'>
+		<div class='col-sm-2'>
+			<label class='control-label'>View</label>
+		</div>
+		<div class='col-sm-10'>
+			<div class='form-control'></div>
+		</div>
+	</div>
+
+	<div class='form-group'>
+		<div class='col-sm-2'>
+			<label class='control-label'>Review Date</label>
+		</div>
+		<div class='col-sm-10'>
+			<div class='form-control'><%= format_date @issue.review_date %></div>
+		</div>
+	</div>
+</div>
+
+<ul id='tabAreas' class='nav nav-tabs'>
+	<li class='active'><a href='#images' data-toggle="tab">Images</a></li>
+	<li><a href='#workarounds' data-toggle="tab">Workarounds</a></li>
+	<li><a href='#solutions' data-toggle="tab">Soutions</a></li>
+	<li><a href='#attemptedSolutions' data-toggle="tab">Attempted Solutions</a></li>
+
+	
+
+</ul>
 
 
-<p>
-	<strong>State</strong>
-	<%= @issue.state %>
-</p>
+<div class="tab-content">
 
-<p>
-	<strong>Type</strong>
-	<%= @issue.i_type %>
-</p>
+	<div class='tab-pane active' id='images'>
+		<div class='row'>
+	<div class='col-sm-3'>
+			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+			  <!-- Indicators -->
+			  <ol class="carousel-indicators">
+			    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+			    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+			    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+			  </ol>
 
-<p>
-	<strong>Department</strong>
-	<% if @issue.department_area != nil %>
-		<%= @issue.department_area.name %>
-	<% else %>
-		no department/area inserted yet
-	<% end %>
-</p>
+			  <!-- Wrapper for slides -->
+			  <div class="carousel-inner">
+
+			  		<div class="item active">
+				      <img src="" alt="...">
+				      <div class="carousel-caption">
+				        
+				      </div>
+				    </div>
+
+			  	<% @images.each do |image| %>
+				    <div class="item">
+				      <img src="<%= image.picture.url(:medium) %>" alt="...">
+				      <div class="carousel-caption">
+				        
+				      </div>
+				    </div>
+			    <% end %>
+			    
+			  </div>
+
+			  <!-- Controls -->
+			  <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+			    <span class="glyphicon glyphicon-chevron-left"></span>
+			  </a>
+			  <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+			    <span class="glyphicon glyphicon-chevron-right"></span>
+			  </a>
+			</div>
+		</div>
+		<div class='col-sm-9'>
+ds
+		</div>
+</div>
 
 
-<p>
-	<strong>Views</strong>
-</p>
+	</div>
 
-<p>
-	<strong>Review Date</strong>
-	<span><%= format_date @issue.review_date %></span>
-</p>
-
-<p>
-	<Strong>Workaround</Strong>
-	<span>Workarouds are used for issues where either their is no solution
+  <div class="tab-pane" id="workarounds">
+  	<span>Workarouds are used for issues where either their is no solution
 	or the solutions dont work </span>
 	<% if !@issue.issue_workarounds.empty? %>
 		<table class='table table-bordered'>
@@ -72,15 +175,9 @@
 	<% else %>
 		<span>No workarounds for the issue</span>
 	<% end %>
-	
-
-
-
-</p>
-
-<p>
-	<strong>Solutions</strong>
-	<% if !@solutions.empty? %>
+  </div>
+  <div class="tab-pane" id="solutions">
+  	<% if !@solutions.empty? %>
 		<table class='table table-bordered'>
 			<tr>
 				<th>Image</th>
@@ -92,12 +189,10 @@
 	<% else %>
 		<span>No solutions added yet!</span>
 	<% end %>
-</p>
+  </div>
 
-<p>
-	<strong>Attempted Solutions</strong>
-
-	<% if !@attempted_solutions.empty? %>
+  <div class='tab-pane' id='attemptedSolutions'>
+  	<% if !@attempted_solutions.empty? %>
 		<table class='table table-bordered'>
 			<tr>
 				<th>Image</th>
@@ -109,11 +204,9 @@
 	<% else %>
 		<span>No attempted solutions added yet!</span>
 	<% end %>
-</p>	
+  </div>
 
-<p>
-	<%= display_images(@images) %>
-</p>
+</div>
 
 
 <br>
