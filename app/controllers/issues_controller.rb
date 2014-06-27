@@ -24,6 +24,7 @@ class IssuesController < ApplicationController
 		#@d = da.find_by_id(@issue.DepartmentArea_id)
 
 		# Issue.increment_counter(:view_counter, @issue.id)
+		 
 	end
 
 	def draft_to_review
