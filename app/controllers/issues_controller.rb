@@ -6,6 +6,8 @@ class IssuesController < ApplicationController
 	before_action :permissions, only: [:index]
 
 	def index
+		@issues_draft = Issue.where(state: "draft").order(created_at: :desc).page(params[:page])
+		
 		@issues = Issue.where(state: "publish").order(created_at: :desc).page(params[:page])
 	end
 
@@ -60,7 +62,7 @@ class IssuesController < ApplicationController
 	def new
 		@issue = Issue.new
 		respond_to do |format|
-			# format.js {}
+			format.js {}
 			format.html {render action: 'new'}
 		end
 	end
@@ -75,9 +77,10 @@ class IssuesController < ApplicationController
 			if @issue.save
 				@album = Album.create({imageable_type: "issue", imageable_id: @issue.id})
 				format.html {redirect_to @issue, notice: "Issue was created successfully"}
-				# format.js {}
+				format.js {}
 			else
 				format.html {render action: 'new'}
+
 			end
 		end
 	end

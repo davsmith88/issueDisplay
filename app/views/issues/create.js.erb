@@ -1,3 +1,6 @@
-$("#users").html("Issues was created, to view or make changes go to your profile");
+//$("#users").html("Issues was created, to view or make changes go to your profile");
 
 console.log("created the issue via ajax");
+
+$('#myModal').modal("hide")
+window.location.pathname = "/issues/<%= @issue.id %>"

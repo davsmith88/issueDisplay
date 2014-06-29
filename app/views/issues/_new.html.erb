@@ -1,6 +1,4 @@
 
-<%= form_for @issue, :html => { :multipart => true }, remote: true do |form| %>
-	<%= form.text_field :name %>
-	<%= form.date_field :review_date %>
-	<%= form.submit "Create" %>
+<%= form_for @issue, :html => { :multipart => true, class: "form-horizontal", role: "form", remote: true } do |form| %>
+	<%= render partial: form %>
 <% end %>
