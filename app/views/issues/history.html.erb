@@ -1,8 +1,20 @@
 <h2>History page</h2>
-<% if @versions.length > 0 %>
-	<ul>
-		<% @versions.each do |version| %>
-			<li><% version.changeset.each do |key, value| %>
+
+<div class="panel-group" id="accordion">
+
+	<% @versions.each do |version| %>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">
+	      <h4 class="panel-title">
+	        <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= version.id %>">
+	          <%= format_date_time version.created_at %>
+	        </a>
+	      </h4>
+	    </div>
+	    <div id="collapse<%= version.id %>" class="panel-collapse collapse in">
+	      <div class="panel-body">
+	        <% version.changeset.each do |key, value| %>
 					
 					<% if key != 'updated_at' && key != 'impact_id' && key != 'department_area_id' && key != 'i_type' %>
 						<p><b><%= key %></b> : Changed from <%=  value[0] %> to
@@ -43,9 +55,10 @@
 					<% end %>
 
 				<% end %>
-			</li>
-		<% end %>
-	</ul>
-<% else %>
-	<p>No versions exist for this issue
-<% end %>
+	      </div>
+	    </div>
+	  </div>
+
+	  <% end %>
+  
+</div>

@@ -31,6 +31,7 @@ gem 'devise'
 gem 'paperclip', "~> 3.5.3"
 gem 'will_paginate', '~> 3.0'
 gem 'rails_best_practices', '~> 1.15.4'
+gem 'jquery-turbolinks'
 
 # gem "bullet", :group => "development"
 

@@ -25,7 +25,7 @@ class Issue < ActiveRecord::Base
 		end
 	end
 
-	self.per_page = 5
+	self.per_page = 6
 	has_many :solutions
 	has_many :attempted_solutions
 	has_many :issue_workarounds
