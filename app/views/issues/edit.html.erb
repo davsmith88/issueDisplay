@@ -8,11 +8,7 @@
 	<li><a href='#workarounds' data-toggle="tab">Workarounds</a></li>
 	<li><a href='#solutions' data-toggle="tab">Soutions</a></li>
 	<li><a href='#attemptedSolutions' data-toggle="tab">Attempted Solutions</a></li>
-
-	
-
 </ul>
-
 
 <div class="tab-content">
 
@@ -206,8 +202,17 @@
 						<td><%= image_tag image.picture.url(:thumb) %></td>
 						<td><%= image.caption %></td>
 						<td>
-							<%= link_to "Edit", edit_solution_path(solution) %>
-							<%= link_to "Delete", solution_image_path(solution, image), method: :delete, data: {confirm: "Are you sure you want to delete"} %>
+							<div class="btn-group">
+							  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							    Actions <span class="caret"></span>
+							  </button>
+							  <ul class="dropdown-menu" role="menu">
+							    <li><%= link_to "Edit", edit_solution_path(solution) %></li>
+							
+							    <li class="divider"></li>
+							    <li><%= link_to "Delete", solution_image_path(solution, image), method: :delete, data: {confirm: "Are you sure you want to delete"} %></li>
+							  </ul>
+							</div>
 						</td>
 					</tr>
 				<% end%>
@@ -336,10 +341,13 @@
 <% else %>
 	<p><%= link_to "Publish to Draft", publish_to_draft_issue_path, class: "btn btn-default" %></p>
 <% end %>
+ 
 <div class='row'>
 	<div class='col-sm-12'>
 		<div class="btn-group btn-group-justified">
+			<%= link_to "Back", :back, class: "btn btn-default" %>
 		  	<%= link_to 'Show', @issue, class: 'btn btn-default'  %>
+		  	<%= link_to "History", history_issue_path(@issue), class: "btn btn-default" %>
 			<%= link_to "View All Issues", issues_path, class: 'btn btn-default' %>
 		</div>
 	</div>

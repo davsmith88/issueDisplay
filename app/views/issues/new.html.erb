@@ -3,3 +3,11 @@
 	<h2>Create a New Issue</h2>
 	<%= render partial: form %>
 <% end %>
+
+<div class='row'>
+	<div class="btn-group btn-group-justified">
+		<%= link_to "Back", :back, class: "btn btn-default" %>
+		<%= link_to "Edit", edit_issue_path(@issue), class: 'btn btn-default' %>
+		<%= link_to "View All Issues", issues_path, class: 'btn btn-default' %>
+	</div>
+</div>

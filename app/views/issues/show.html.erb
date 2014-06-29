@@ -214,6 +214,7 @@ ds
 <br>
 <div class='row'>
 	<div class="btn-group btn-group-justified">
+		<%= link_to "Back", :back, class: "btn btn-default" %>
 	  	<%= link_to "Record Issue", new_issue_record_path(@issue), class: 'btn btn-default'  %>
 		<%= link_to "Edit", edit_issue_path(@issue), class: 'btn btn-default' %>
 		<%= link_to "View All Issues", issues_path, class: 'btn btn-default' %>

@@ -11,19 +11,29 @@
 	</div>
 <% end %>
 
-<div class='form_field'>
-	<%= form.label :name %>
-	<%= form.text_field :name %>
+<div class='form-group'>
+	<%= form.label :name, class: "col-sm-4 control-label" %>
+	<div class='col-sm-8'>
+		<%= form.text_field :name, class: "form-control" %>
+	</div>
 </div>
 
-<div class='form_field'>
-	<%=	form.label :description %>
-	<%= form.text_area :description %>
+<div class='form-group'>
+	<%= form.label :description, class: "col-sm-4 control-label" %>
+	<div class='col-sm-8'>
+		<%= form.text_field :description, class: "form-control" %>
+	</div>
 </div>
 
-<div class='form_field'>
-	<%= form.label :reason %>
-	<%= form.text_area :reason %>
+<div class='form-group'>
+	<%= form.label :reason, class: "col-sm-4 control-label" %>
+	<div class='col-sm-8'>
+		<%= form.text_field :reason, class: "form-control" %>
+	</div>
 </div>
 
-<%= form.submit "Save" %>
+<div class='form-group'>
+	<div class='col-sm-offset-4 col-sm-8'>
+		<%= form.submit "Save", class: "btn btn-default" %>
+	</div>
+</div>

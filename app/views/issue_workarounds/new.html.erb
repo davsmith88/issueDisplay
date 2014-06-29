@@ -1,3 +1,14 @@
-<%= form_for [@issue, @issue_workaround] do |form| %>
+<%= form_for [@issue, @issue_workaround], :html => { class: "form-horizontal", role: "form" } do |form| %>
+	<h3>Create a New Issue Workaround</h3>
 	<%= render partial: form %>
 <% end %>
+
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class="btn-group btn-group-justified">
+			<%= link_to "Back", :back, class: "btn btn-default" %>
+		  	<%= link_to 'Show', @issue, class: 'btn btn-default'  %>
+		  	<%= link_to "Edit the Issue", edit_issue_path(@issue), class: "btn btn-default" %>
+		</div>
+	</div>
+</div>

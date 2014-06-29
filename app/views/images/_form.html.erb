@@ -11,11 +11,38 @@
 		<% end %>
 
 		<h2>Add image</h2>
-		<%= form.label :picture %>
-		<%= form.file_field :picture %>
-		<br>
-		<%= form.label :caption %>
-		<%= form.text_field :caption %>
+		<div class='form-group'>
+			<%= form.label "Image Attached To", class: "col-sm-4 control-label" %>
+			<div class='col-sm-8'>
+				<%= form.text_field :image_attached, class: "form-control", readonly: true, value: @c.class.name %>
+			</div>
+		</div>
+		<div class='form-group'>
+			<%= form.label "#{@c.class.name} Name", class: "col-sm-4 control-label" %>
+			<div class='col-sm-8'>
+				<% if @c.try "name" %>
+					<%= form.text_field :image_attached, class: "form-control", readonly: true, value: @c.name %>
+				<% else %>
+					<%= form.text_field :image_attached, class: "form-control", readonly: true, value: @c.description %>
+				<% end %>
+			</div>
+		</div>
+		<div class='form-group'>
+			<%= form.label :picture, class: "col-sm-4 control-label" %>
+			<div class='col-sm-8'>
+				<%= form.file_field :picture, class: "form-control" %>
+			</div>
+		</div>
+		<div class='form-group'>
+			<%= form.label :caption, class: "col-sm-4 control-label" %>
+			<div class='col-sm-8'>
+				<%= form.text_field :caption, class: "form-control" %>
+			</div>
+		</div>
+		<div class='form-group'>
+			<div class='col-sm-offset-4 col-sm-8'>
+				<%= form.submit "Save", class: "btn btn-default" %>
+			</div>
+		</div>
 
-
-		<%= form.submit "Save" %>
+		

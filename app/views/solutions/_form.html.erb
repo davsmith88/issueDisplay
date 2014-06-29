@@ -12,16 +12,26 @@
 		</div>
 	<% end %>
 
-	<div class='field'>
-		<%= form.label :name %>
-		<%= form.text_field :name %>
+	<div class='form-group'>
+		<%= form.label :name, class: "col-sm-4 control-label" %>
+		<div class='col-sm-8'>
+			<%= form.text_field :name, class: "form-control" %>
+		</div>
 	</div>
 
-	<div class='field'>
-		<%= form.label :content %>
-		<%= form.text_field :content %>
+	<div class='form-group'>
+		<%= form.label :content, class: "col-sm-4 control-label" %>
+		<div class='col-sm-8'>
+			<%= form.text_field :content, class: "form-control" %>
+		</div>
 	</div>
 
-	<%= form.submit "Create Solution" %>
+	<div class='form-group'>
+		<div class='col-sm-offset-4 col-sm-8'>
+			<%= form.submit "Create Solution", class: "btn btn-default" %>
+		</div>
+	</div>
+
+	
 
 
