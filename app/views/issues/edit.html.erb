@@ -3,78 +3,153 @@
 <%= form_for @issue, :html => { :multipart => true, class: "form-horizontal", role: "form"} do |form| %>
 	<%= render partial: form %>
 <% end %>
+<ul id='tabAreas' class='nav nav-tabs'>
+	<li class='active'><a href='#images' data-toggle="tab">Images</a></li>
+	<li><a href='#workarounds' data-toggle="tab">Workarounds</a></li>
+	<li><a href='#solutions' data-toggle="tab">Soutions</a></li>
+	<li><a href='#attemptedSolutions' data-toggle="tab">Attempted Solutions</a></li>
 
-<h3>Images</h3>
-<ul>
-	<% @images.each do |image| %>
-		<li>
-			<span><%= image.id %></span>
-			<%= image_tag image.picture.url(:thumb) %>
-			<i><%= image.caption %></i>|
-			<%= link_to "Edit", edit_issue_image_path(@issue, image) %>
-			<%= link_to "Delete", issue_image_path(@issue, image), method: :delete, data: {confirm: "Are you sure yo want to delete"} %>
-		</li>
-	<% end %>
+	
+
 </ul>
-<%= link_to 'Add Image', new_issue_image_path(@issue) %><br>
 
-<h3>Workaround</h3>
-<ul>
+
+<div class="tab-content">
+
+	<div class='tab-pane active' id='images'>
+		<div class='row'>
+	<div class='col-sm-12'>
+		<%= link_to 'Add Image', new_issue_image_path(@issue), class: "btn btn-default" %>
+		<table class='table'>
+		<tr>
+			<th>Image</th>
+			<th>Caption</th>
+			<th>Actions</th>
+		</tr>
+		<% @images.each do |image| %>
+		<tr>
+			<td><%= image_tag image.picture.url(:thumb) %></td>
+			<td><%= image.caption %></td>
+			<td>
+				<div class="btn-group">
+				  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				    Actions <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu" role="menu">
+				    <li><%= link_to "Edit", edit_issue_image_path(@issue, image) %></li>
+				    <li><%= link_to "Delete", issue_image_path(@issue, image), method: :delete, data: {confirm: "Are you sure yo want to delete"} %></li>
+				    
+				  </ul>
+				</div>
+			</td>
+		</tr>
+		<% end %>
+		</table>
+	</div>
+</div>
+
+
+	</div>
+
+  <div class="tab-pane" id="workarounds">
+  	<span>Workarouds are used for issues where either their is no solution
+	or the solutions dont work </span>
 	<%= link_to "Add workaround", new_issue_issue_workaround_path(@issue) %>
-	<% @workarounds.each do |workaround| %>
-		<li><%= workaround.description %>|
-			<%= link_to "Add Image", new_issue_workaround_image_path(workaround) %>
-			<%= link_to "Edit", edit_issue_workaround_path(workaround) %>
-			<%= link_to "Delete", issue_workaround_path(workaround), method: :delete, data: {confirm: "Are you sure you want to delete"} %>
-			<ul>
-				<% workaround.images.each do |image| %>
-					<p><%= image_tag image.picture.url(:thumb) %>
-					<%= link_to "edit", edit_issue_workaround_image_path(workaround, image) %>
-					<%= link_to "Delete", issue_workaround_image_path(workaround, image), method: :delete, data: {confirm: "Are you sure yo want to delete"} %>
-					</p>
-				<% end %>
-			</ul>
-		</li>
-	<% end %>
-</ul>
+	<% if !@issue.issue_workarounds.empty? %>
+		<table class='table table-bordered'>
+			<tr>
+				<th>Workaround Number</th>
+				<th>Description</th>
+				<th>Actions</th>
+				<th>Image</th>
+				<th>Caption</th>
+				<th>Image Actions</th>
+				
+			</tr>
 
-<h3>Solutions</h3>
-<ul>
-	<%= link_to "Add Solution", new_issue_solution_path(@issue) %>
-	<% @solutions.each do |solution| %>
-		<li><%= solution.name %>|
-			<%= link_to "Add Image", new_solution_image_path(solution) %>
-			<%= link_to "Edit", edit_solution_path(solution) %>
-			<%= link_to "Delete", solution_path(solution), method: :delete, data: {confirm: "Are you sure you want to delete"} %>
-			<ul>
-			<% solution.images.each do |image| %>
-				<%= image_tag image.picture.url(:thumb) %>
-				<li><%= link_to "Delete Picture", issue_solution_image_path(@issue, solution, image), method: :delete, data: {confirm: "Are you sure you want to delete"} %></li>
+			<% @issue.issue_workarounds.each_with_index do |workaround, w_index| %>
+				<% if workaround.images.length == 0 %>
+				<tr>
+						<td><%= w_index + 1 %></td>
+						<td><%= workaround.description %></td>
+						
+						<td >
+							<%= link_to "Add Image", new_issue_workaround_image_path(workaround) %>
+							<%= link_to "Edit", edit_issue_workaround_path(workaround) %>
+							<%= link_to "Delete", issue_workaround_path(workaround), method: :delete, data: {confirm: "Are you sure you want to delete"} %>
+						</td>
+						<td>No Image Added</td>
+						<td>No Image Added</td>
+						<td>No Image Added</td>
+						</tr>
+				<% end %>
+				<% workaround.images.each_with_index do |image, index| %>
+				<tr>
+					<% if index == 0 %>
+						<td rowspan="<%= workaround.images.length %>"><%= w_index + 1 %></td>
+						<td rowspan="<%= workaround.images.length %>"><%= workaround.description %></td>
+						
+						<td rowspan="<%= workaround.images.length %>">
+							<%= link_to "Add Image", new_issue_workaround_image_path(workaround) %>
+							<%= link_to "Edit", edit_issue_workaround_path(workaround) %>
+							<%= link_to "Delete", issue_workaround_path(workaround), method: :delete, data: {confirm: "Are you sure you want to delete"} %>
+						</td>
+					<% end %>
+				
+						
+						<td><%= image_tag image.picture.url(:thumb) %></td>
+						<td><%= image.caption %></td>
+						<td>
+							<%= link_to "edit", edit_issue_workaround_image_path(workaround, image) %>
+							<%= link_to "Delete", issue_workaround_image_path(workaround, image), method: :delete, data: {confirm: "Are you sure yo want to delete"} %>
+						</td>
+					</tr>
+				<% end%>
 			<% end %>
-			</ul>
-		</li>
+		</table>
+	<% else %>
+		<p>No workarounds for the issue</p>
 	<% end %>
-</ul>
-
-<h3>Attempted Solutions</h3>
-<ul>
-	<%= link_to "Add Attempted Solutions", new_issue_attempted_solution_path(@issue) %>
-	<% @attempted_solutions.each do |att_sol| %>
-		<li><%= att_sol.name %> |
-			<%= link_to "Add Image", new_attempted_solution_image_path(att_sol) %>
-			<%= link_to "Edit", edit_attempted_solution_path(att_sol) %>
-			<%= link_to "Delete", attempted_solution_path(att_sol), method: :delete, data: {confirm: "Are you sure?"} %>
-			<ul>
-				<% att_sol.images.each do |image| %>
-
-					<%= image_tag image.picture.url(:thumb) %>
-					<%= link_to "Delete Picture", issue_attempted_solution_image_path(@issue, att_sol, image), method: :delete, data: {confirm: "Are you sure"} %>
-				<% end %>
-			</ul>
-		</li>
+  </div>
+  <div class="tab-pane" id="solutions">
+  	<% if !@solutions.empty? %>
+		<table class='table table-bordered'>
+			<tr>
+				<th>Image</th>
+				<th>Description</th>
+				<th>Record</th>
+			</tr>
+			
+		</table>
+	<% else %>
+		<span>No solutions added yet!</span>
 	<% end %>
-</ul>
-<br>
+  </div>
+
+  <div class='tab-pane' id='attemptedSolutions'>
+  	<% if !@attempted_solutions.empty? %>
+		<table class='table table-bordered'>
+			<tr>
+				<th>Image</th>
+				<th>Description</th>
+				<th>Record</th>
+			</tr>
+			<%= display_sub_field(@attempted_solutions, "name", @issue) %>
+		</table>
+	<% else %>
+		<span>No attempted solutions added yet!</span>
+	<% end %>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
 <% if @issue.state?(:draft) %>
 	<p><%= link_to "Push to Review", draft_to_review_issue_path %></p>
 <% elsif @issue.state?(:review) %>
