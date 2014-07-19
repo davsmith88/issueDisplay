@@ -5,7 +5,7 @@ class Issue < ActiveRecord::Base
 		:impact_name => :get_impact_name
 	}
 
-  	TYPES = ["operational", "mechanical", "electrical"]
+  	TYPES = [["operational","operational"],["mechanical","mechanical"],["electrical","electrical"]]
 
 	def get_department_name
 		return if !self.department_area

@@ -1,7 +1,7 @@
 <h1>Edit Page</h1>
 
-<%= form_for @issue, :html => { :multipart => true, class: "form-horizontal", role: "form"} do |form| %>
-	<%= render partial: form %>
+<%= form_for @issue, :builder => MyFormBuilder, :html => { :multipart => true, class: "form-horizontal", role: "form"} do |form| %>
+	<%= render partial: 'form', locals: {form: form} %>
 <% end %>
 <ul id='tabAreas' class='nav nav-tabs'>
 	<li class='active'><a href='#images' data-toggle="tab">Images</a></li>

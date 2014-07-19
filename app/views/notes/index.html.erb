@@ -1,25 +1,53 @@
 <h3>Notes Index</h3>
-<ul>
+<div class="panel-group" id="accordion">
+
 	<% @notes.each do |note| %>
-		<li>
-		<%= note.context %>[<%= note.category %>](<%= note.checked %>)
-		<p>|Issue Version number - <%= note.version_number %>|
-			| Author Read = <%= note.author_read %> |
-			<% if !note.checked %>
 
-				
-				<%= link_to "Mark as Checked", issue_note_marked_as_checked_path(@issue, note), method: :post %>
-				
-			<% end %>
+	  <div class="panel panel-default">
+	    <div class="panel-heading">
+	      <h4 class="panel-title">
+	        <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= note.id %>">
+	          <%= format_date_time note.created_at %>
+	        </a>
+	      </h4>
+	    </div>
+	    <div id="collapse<%= note.id %>" class="panel-collapse collapse in">
+	      <div class="panel-body">
+				<ul class="list-group">
+				  <li class="list-group-item">Message : <%= note.context %></li>
+				  <li class="list-group-item">Category : <%= note.category %></li>
+				  <li class="list-group-item">Checked : <%= note.checked %></li>
+				  <li class="list-group-item">Note for Message : <%= note.version_number %></li>
+				  <li class="list-group-item">Author Read : <%= note.author_read %></li>
+				  <li class="list-group-item">
+				  	<div class="btn-group">
+						  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+						    Actions <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" role="menu">
+						  	<% if note.author_read == false && current_user.id == @issue.user_id %>
+								<li><%= link_to "Acknoledge", issue_note_mark_as_user_read_path(@issue, note), method: :post %></li>
+							<%  end %>
+						  	<% if !note.checked %>
+								<li><%= link_to "Mark as Checked", issue_note_marked_as_checked_path(@issue, note), method: :post %></li>
+							<% end %>
+						  </ul>
+						</div>
+				  </li>
 
-			<% if note.author_read == false && current_user.id == @issue.user_id %>
-				<%= note.author_read == false %>
-				<%= current_user.id == @issue.user_id %>
-				|<%= link_to "Mark as User Read", issue_note_mark_as_user_read_path(@issue, note), method: :post %>|
-			<%  end %>
-		</p>
-		</li>
-	<% end %>
-</ul>
+				<ul>
+	      </div>
+	    </div>
+	  </div>
 
-<%= link_to "Add new note", new_issue_note_path(@issue) %>
+	  <% end %>
+</div>
+
+<div class='row'>
+	<div class="btn-group btn-group-justified">
+		<%= link_to "Back", :back, class: "btn btn-default" %>
+		<%= link_to "View", issue_path(@issue), class: "btn btn-default" %>
+		<%= link_to "Edit", edit_issue_path(@issue), class: 'btn btn-default' %>
+		<%= link_to "View All Issues", issues_path, class: 'btn btn-default' %>
+	</div>
+</div>

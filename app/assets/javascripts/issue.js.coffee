@@ -3,9 +3,9 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 
-$( document ).ready(-> 
- 	$('#btn-createNewIssue').on("click", -> 
-	    console.log('click btn-createNewIssue')
-	    $('#myModal').modal("show")
-	)
-);
+# $( document ).ready(-> 
+#  	$('#btn-createNewIssue').on("click", -> 
+# 	    console.log('click btn-createNewIssue')
+# 	    $('#myModal').modal("show")
+# 	)
+# );

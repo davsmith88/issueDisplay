@@ -24,6 +24,7 @@ class RecordsController < ApplicationController
 	
 		@record = @c.records.new(record_params)
 		@record.issue_id = @c.issue_id
+		@record.user_id = current_user.id
 		@record.save
 
 		redirect_to issue_path(@c.issue), notice: " has been recorded. Thank you for your coperation"
@@ -33,7 +34,7 @@ class RecordsController < ApplicationController
 
 	def record_params
 		#params.require(:record).permit(:issue_id, :user_id, :recordable_type, :recordable_id, :message)
-		params.require(:record).permit!
+		params.require(:record).permit(:message)
 	end
 
 	def find_recordable

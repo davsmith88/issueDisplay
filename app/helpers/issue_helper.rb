@@ -8,6 +8,25 @@ module IssueHelper
 	  raw(str)
 	  end
 
+	  def department_types(d)
+	  	q = [] 
+	  	d.each do |dep| q.push([dep.name, dep.id]) end 
+	  	q
+	  end 
+
+	  def impacts(list, issue_impact)
+	  	q = ""
+	  	list.each do |l|
+	  		puts l.id
+	  		if l.id == issue_impact.impact_id
+	  			q += "<option value='#{ l.id }' selected>#{ l.name }</option>"
+		  	else
+	  			q += "<option value='#{ l.id }' >#{ l.name }</option>"
+	  		end
+	  	end
+	  	q.html_safe
+	  end
+
 	  def display_sub_field(fields, text, issue)
 	  	str = ""
 	  	fields.each do |field|
