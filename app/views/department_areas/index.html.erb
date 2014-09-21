@@ -1,12 +1,26 @@
-<h1>Listing all of the areas that belongs to departments</h1>
+<ol class="breadcrumb">
+  <li><a href="/admin">Admin</a></li>
+  <li><%= link_to "Departments - Areas", admin_dep_areas_static_path %></li>
+  <li class='active'>View All</li>
+</ol>
 
-<ul>
-	<li>department id | area id</li>
-	<% @depAreas.each do |depArea|  %>
-		<li><%= depArea.department.name %> | <%= depArea.area.name %>
-		<%= link_to "Destroy", department_area_path(depArea), method: :delete, data: {confirm: "Are you sure you want to destroy??"} %>
-		</li>
-	<% end %>
-</ul>
+<h4>Listing all of the areas that belongs to departments</h4>
 
-<%= link_to "Add another Area to a department", new_department_area_path %>
+<table class='table'>
+	<tr>
+		<th>Department</th>
+		<th>Area</th>
+		<th>Actions</th>
+	</tr>
+		<% @depAreas.each do |depArea|  %>
+		<tr>
+			<td><%= depArea.department.name %></td>
+			<td><%= depArea.area.name %></td>
+			<td>
+				<%= link_to "Destroy", department_area_path(depArea), method: :delete, class: "btn btn-default", data: {confirm: "Are you sure you want to destroy??"} %>
+			</td>
+		</tr>
+		<% end %>
+</table>
+
+<%= link_to "Add another Area to a department", new_department_area_path, class: "btn btn-default" %>

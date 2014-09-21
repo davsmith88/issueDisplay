@@ -1,5 +1,14 @@
-<h1>Edit department</h1>
+<ol class="breadcrumb">
+  <li><a href="/admin">Admin</a></li>
+  <li><%= link_to "Departments - Area's", admin_dep_areas_static_path %></li>
+  <li><%= link_to "Departments", departments_path %></li>
+  <li><%= @department.name %></li>
+  <li class='active'>Edit</li>
+</ol>
 
-<%= form_for @department do |form| %>
+
+<h4>Edit department</h4>
+
+<%= form_for @department, html: {class: "form-horizontal"} do |form| %>
 	<%= render partial: form %>
 <% end %>

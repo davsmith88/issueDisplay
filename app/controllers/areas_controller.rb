@@ -2,10 +2,12 @@ class AreasController < ApplicationController
 
 	def index
 		@areas = Area.all
+		render layout: "admin_layout"
 	end
 
 	def new
 		@area = Area.new
+		render layout: "admin_layout"
 	end
 
 	def create
@@ -22,6 +24,7 @@ class AreasController < ApplicationController
 
 	def edit
 		@area = Area.find(params[:id])
+		render layout: "admin_layout"
 	end
 
 	def update

@@ -2,15 +2,16 @@ class DepartmentsController < ApplicationController
 
 	def index
 		@departments = Department.all
+		render layout: "admin_layout"
 	end
 
 	def new
 		@department = Department.new
+		render layout: "permissions"
 	end
 
 	def create
 		@department = Department.new(department_params)
-
 		respond_to do |format|
 			if @department.save
 				format.html {redirect_to departments_path}
@@ -22,6 +23,7 @@ class DepartmentsController < ApplicationController
 
 	def edit
 		@department = Department.find(params[:id])
+		render layout: "admin_layout"
 	end
 
 	def update

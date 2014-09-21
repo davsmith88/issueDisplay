@@ -1,11 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  description: MyText
-  author: MyString
+first_issue:
+  name: "Drive side dam will not move"
+  description: "the dam stays in the current position on the run, will not move when the system is in automatic"
+  i_type: electrical
+  state: publish
+  user: writeUser
+  department_area: one
 
-two:
-  name: MyString
-  description: MyText
-  author: MyString
+second_issue:
+  name: "not loading in automatic"
+  description: "The issue occurs when the reel stand will not load in automatic and manual intervetion is required"
+  i_type: mechanical
+  state: draft
+  department_area: two
+  user: writeUser

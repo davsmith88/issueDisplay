@@ -1,7 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  description: 
+  issue: first_issue
+  description: place the system into manual and move the dam in
 
 two:
-  description: 
+  issue: first_issue
+  description: press the reset button on the control panel
+
+three:
+  issue: first_issue
+  description: the switch that activates the dam is stuck in position

@@ -1,5 +1,13 @@
-<h1>Edit Role - <%= @role.name %></h1>
+<ol class="breadcrumb">
+  <li><a href="/admin">Admin</a></li>
+  <li><%= link_to "Permissions", admin_permission_static_path %></li>
+  <li><%= link_to "Roles", roles_path %></li>
+  <li><%= link_to @role.name, roles_path(@role) %></li>
+  <li class='active'>Edit</li>
+</ol>
 
-<%= form_for @role do |form| %>
+<h4>Edit Role - <%= @role.name %></h4>
+
+<%= form_for @role, html: {class: "form-horizontal"} do |form| %>
 	<% render partial: form %>
 <% end%>

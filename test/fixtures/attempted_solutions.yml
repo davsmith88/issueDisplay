@@ -1,11 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  description: MyText
-  reason: MyText
+  issue: first
+  name: Power Down System
+  description: Find the power shut down switch and turn off the power
+  reason: Turned this a few times and it does not solve the underlining problem with the dam system
 
 two:
-  name: MyString
-  description: MyText
-  reason: MyText
+  issue: second
+  name: Power Down reel stand system
+  description: Turn off the system and wait for it to reboot
+  reason: Not the best way to solve may work in certain situations but does not fix root cause

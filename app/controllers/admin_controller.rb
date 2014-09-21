@@ -1,12 +1,23 @@
 class AdminController < ApplicationController
 
 	def index
-		@users = User.all
+		render layout: "admin_layout"
 	end
 
 	def show
-		# View profile of the user
+		
 	end
 
+	def users
+		@users = User.all
+		render layout: "admin_layout", template: "admin/static/user"
+	end
 
+	def permissions
+		render layout: "admin_layout", template: "admin/static/permissions"
+	end
+
+	def depareas
+		render layout: "admin_layout", template: "admin/static/department_areas"
+	end
 end

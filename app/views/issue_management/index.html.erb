@@ -1,41 +1,25 @@
-<ul>
+<ol class="breadcrumb">
+  <li><a href="/admin">Admin</a></li>
+  <li class='active'>Issue Management</li>
+</ol>
+
+<table class='table'>
+	<tr>
+		<th>Issue Name</th>
+		<th>Department</th>
+		<th>Area</th>
+		<th>Review Date</th>
+	</tr>
 	<% @issues.each do |issue| %>
-		<li>
-			<%= link_to issue.name, issue_management_path(issue) %> |
-			<%= link_to "History", history_issue_path(issue)  %> |
-			<%= link_to "Show", issue_path(issue) %> |
-			<%= link_to "Edit", edit_issue_path(issue) %> |
-			<%= link_to "Delete", issue_path(issue), method: :delete, data: {confirm: "Are you sure you want to Delete"} %>
-			<p>
-				Publish Options (<%= issue.state %>) |
-				<% if issue.draft? %>
-					<%= link_to "Review", draft_to_review_issue_path(issue) %>
-				<% elsif issue.review? %>
-					<%= link_to "Draft", review_to_draft_issue_path(issue) %>
-					<%= link_to "Publish", review_to_publish_issue_path(issue) %>
-					<%= link_to "Add Note", new_issue_note_path(issue)  %>
-
-					<%= link_to "View All current notes", issue_notes_path(issue) %>
-				<% elsif issue.publish? %>
-					<%= link_to "Draft", publish_to_draft_issue_path(issue) %>
-					<%= link_to "Review", publish_to_review_issue_path(issue) %>
-				<% end %>
-			</p>
-			<% if issue.review_date %>
-				<p>Review Date : 
-				<% if issue.review_date < Time.now %>
-					was <%= distance_of_time_in_words issue.review_date, Time.now %> AGO Review Today!
-				<% else %>
-					IS IN <%=  distance_of_time_in_words issue.review_date, Time.now %>
-				<% end %>
-				</p>
-			<% end %>
-			<% if issue.user %>
-				<p>Created By : <%= issue.user.name %></p>
-			<% end %>
-
-			CHANGE USER
-			
-		</li>
+		<% if issue.review_date < Time.now %>
+			<tr class='danger'>
+		<% else %>
+			<tr>
+		<% end %>
+		<td><%= link_to issue.name, issue_management_path(issue) %></td>
+		<td><%= issue.department_area.department.name %></td>
+		<td><%= issue.department_area.area.name %></td>
+		<td><%= issue.review_date %></td>
+		</tr>
 	<% end %>
-</ul>
+</table>

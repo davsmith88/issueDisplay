@@ -1,20 +1,21 @@
 class DepartmentAreasController < ApplicationController
 	def index
 		@depAreas = DepartmentArea.all.includes(:department, :area)
+		render layout: "admin_layout"
 	end
 
 	def new
 		@depArea = DepartmentArea.new
 		@departments = Department.all
 		@areas = Area.all
-
+		render layout: "admin_layout"
 	end
 
 	def create
 		area = Area.find(params["department_area"][:area_id])
 		department = Department.find(params["department_area"][:department_id])
 		@depArea = DepartmentArea.new(dep_area_params)
-		@depArea.name = "#{area.name} #{department.name}"
+		@depArea.name = "#{department.name} #{area.name}"
 		@depArea.save
 		respond_to do |format|
 			

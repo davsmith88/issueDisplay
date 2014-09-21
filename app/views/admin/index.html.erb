@@ -1,33 +1,3 @@
-<h1>All Users in the system</h1>
+admin index page
 
-<table>
-	<tr>
-		<th>Email</th>
-		<th>Name</th>
-		<th>Actions</th>
-	</tr>
 
-	<% @users.each do |user| %>
-		<tr>
-			<td><%= user.email %></td>
-			<td><%= user.name %></td>
-			<td><%= link_to "Edit", edit_user_path(user) %> |
-				<%= link_to "Delete", user_path(user), method: :delete, data: {confirm: "Are you want to delete the user"} %>
-				<%= link_to "Show", user_path(user) %></td>
-		</tr>
-	<% end %>
-</table>
-
-<h2>Further Actions</h2>
-<ol>
-	<li><%= link_to "Add user to the system", new_user_path %></li>
-	<li><%= link_to "Display All Roles", roles_path %></li>
-	<li><%= link_to "Display all Rights", rights_path %></li>
-	<li><%= link_to "Assign Role to a user", new_assignment_path %></li>
-	<li><%= link_to "Assign Right to a Role", new_grant_path %></li>
-	<li><%= link_to "Add Departments", new_department_path %></li>
-	<li><%= link_to "Add Area", new_area_path %></li>
-	<li><%= link_to "Add area to department", new_department_area_path %></li>
-	Issue Management
-	<li><%= link_to "Issue Management", issue_management_index_path %></li>
-</ol>

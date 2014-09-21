@@ -2,7 +2,7 @@ class RightsController < ApplicationController
 
 	def index
 		@rights = Right.all
-
+		render layout: "admin_layout"
 	end
 
 	def new

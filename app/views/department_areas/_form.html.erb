@@ -9,23 +9,32 @@
 		</ul>
 		</div>
 		<% end %>
-		<%= form.label :department_id %>
 		
-
-		<select name='department_area[department_id]'>
-			<% @departments.each do |department| %>
-				<option value='<%= department.id %>'><%= department.name %></option>
-			<% end %>	
-		</select>
-
-		<br>
-		<%= form.label :area_id %>
 		
-		<select name='department_area[area_id]'>
-			<% @areas.each do |area| %>
-				<option value='<%= area.id %>'><%= area.name %></option>
-			<% end %>	
-		</select>
-		<br>
+		<div class='form-group'>
+			<label class='col-sm-2 control-label'>Department</label>
+			<div class='col-sm-10'>
+				<select class='form-control' name='department_area[department_id]'>
+					<% @departments.each do |department| %>
+						<option value='<%= department.id %>'><%= department.name %></option>
+					<% end %>	
+				</select>
+			</div>
+		</div>
 
-		<%= form.submit "save" %>
+		<div class='form-group'>
+			<label class='col-sm-2 control-label'>Area's</label>
+			<div class='col-sm-10'>
+				<select class='form-control' name='department_area[area_id]'>
+					<% @areas.each do |area| %>
+						<option value='<%= area.id %>'><%= area.name %></option>
+					<% end %>	
+				</select>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<div class='col-sm-offset-2 col-sm-10'>
+				<%= form.submit "Save", class: "btn btn-default" %>
+			</div>
+		</div>

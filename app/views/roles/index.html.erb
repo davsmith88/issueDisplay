@@ -1,6 +1,16 @@
-<h1>All Roles avaliable in the system</h1>
+<ol class="breadcrumb">
+  <li><a href="/admin">Admin</a></li>
+  <li><%= link_to "Permissions", admin_permission_static_path %></li>
+  <li class='active'>Roles</li>
+</ol>
 
-<table>
+<h4>All Roles avaliable in the system</h4>
+<div class='btn-group'>
+	<%= link_to "Add Role", new_role_path, class: "btn btn-default" %>
+	<%= link_to "Add right to a role", new_grant_path, class: "btn btn-default" %>
+	<%= link_to "Add a user to a role", new_assignment_path, class: "btn btn-default" %>
+</div>
+<table class='table'>
 	<tr>
 		<th>Name</th>
 		<th>Description</th>
@@ -29,18 +39,12 @@
 				</ul>
 			</td>
 			<td>
-				<%= link_to "Edit", edit_role_path(role) %> |
-				<%= link_to "Delete", role_path(role), method: :delete, data: {confirm: "Are you sure you want to delete"} %> |
-				<%= link_to "view users with the role", assignment_role_view_path(role.id) %>
+				<div class='btn-group'>
+					<%= link_to "Edit", edit_role_path(role), class: "btn btn-default" %>
+					<%= link_to "Delete", role_path(role), method: :delete, data: {confirm: "Are you sure you want to delete"}, class: "btn btn-default" %>
+					<%= link_to "view users", assignment_role_view_path(role.id), class: "btn btn-default" %>
+				</div>
 			</td>	
 		</tr>
 	<% end %>
 </table>
-
-<h2>Add Actions</h2>
-
-<ol>
-	<li><%= link_to "Add Role", new_role_path %></li>
-	<li><%= link_to "Add right to a role", new_grant_path %></li>
-	<li><%= link_to "Add a user to a role", new_assignment_path %></li>
-</ol>

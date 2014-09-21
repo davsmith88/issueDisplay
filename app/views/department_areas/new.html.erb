@@ -1,3 +1,11 @@
-<%= form_for @depArea do |form| %>
+<ol class="breadcrumb">
+  <li><a href="/admin">Admin</a></li>
+  <li><%= link_to "Department - Areas", admin_dep_areas_static_path %></li>
+  <li class='active'>Add Area to Department</li>
+</ol>
+
+<h4>Assign an Area to the Department</h4>
+
+<%= form_for @depArea, html: {class: "form-horizontal"} do |form| %>
 	<%= render partial: form %>
 <% end %>

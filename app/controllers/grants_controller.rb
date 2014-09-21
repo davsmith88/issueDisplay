@@ -19,7 +19,10 @@ class GrantsController < ApplicationController
 		@rights_assignment = Right.where(resource: 'assignments').order(query)
 		@rights = Right.all
 		@rights_attempted = Right.where(resource: 'attempted_solutions').order(query)
+		@rights_workarounds = Right.where(resource: 'issue_workarounds').order(query)
 		@grant = Grant.new
+
+		render layout: "admin_layout"
 	end
 
 	def create

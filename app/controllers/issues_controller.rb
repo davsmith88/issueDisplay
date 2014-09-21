@@ -5,12 +5,20 @@ class IssuesController < ApplicationController
 	before_action :get_impacts, only: [:new, :create, :edit]
 	before_action :permissions, only: [:index]
 
+
 	def index
+		pp params
 		@issues = Issue.where(state: "publish").order(created_at: :desc).page(params[:page])
+		# @issues = Issue.where(state: "publish").order(created_at: :desc).page(params[:page]) + current_user.issues.where.not(state: "publish").order(created_at: :desc)
+		# @user_issues = current_user.issues.where.not(state: "publish").order(created_at: :desc)
+		# pp @user_issues
+		respond_to do |format|
+			format.html
+			format.json
+		end
 	end
 
 	def show
-
 		# shows the current issues
 		@images = @issue.images
 		@issue_workarounds = @issue.issue_workarounds.includes(:images)
@@ -30,7 +38,7 @@ class IssuesController < ApplicationController
 		@issue = Issue.find(params[:id])
 		@issue.draft_to_review
 		redirect_to issue_management_index_path
-	end 
+	end
 
 	def review_to_draft
 		@issue = Issue.find(params[:id])
@@ -66,17 +74,17 @@ class IssuesController < ApplicationController
 
 	def create
 		@issue = Issue.new(issue_params)
-		
+
 		@issue.user_id = current_user.id
-		# @album = Album.create({imageable_type: "issue", imageable_id: @issue.id})
-	
-		respond_to do |format| 
+
+		respond_to do |format|
 			if @issue.save
-				@album = Album.create({imageable_type: "issue", imageable_id: @issue.id})
+				# @album = Album.create({imageable_type: "issue", imageable_id: @issue.id})
 				format.html {redirect_to @issue, notice: "Issue was created successfully"}
-				# format.js {}
+				format.json {head :no_content}
 			else
 				format.html {render action: 'new'}
+				format.json {render :json => {:success => false, :error => @issue.errors.messages}, status: 422}
 			end
 		end
 	end
@@ -90,14 +98,14 @@ class IssuesController < ApplicationController
 	end
 
 	def update
-
 		respond_to do |format|
 			if @issue.update(issue_params)
 				format.html {redirect_to @issue, notice: "Issue has been updated"}
 				format.json {head :no_content}
 			else
 				format.html {render action: 'edit'}
-				format.json {render json: @issues.errors, status: :unprocessable_entity}
+				# format.json {render json: @issues.errors, status: :unprocessable_entity}
+				format.json {render json: {success: false, :error => @issue.errors.messages}, status: :unprocessable_entity}
 			end
 		end
 	end
@@ -122,7 +130,7 @@ class IssuesController < ApplicationController
 			@edit = current_user.can?("edit", controller_name)
 			@destroy = current_user.can?("destroy", controller_name)
 			@create = current_user.can?("new", controller_name)
-		end 
+		end
 	end
 
 	def return_array(data)
@@ -144,5 +152,5 @@ class IssuesController < ApplicationController
 	def issue_params
 		params.require(:issue).permit(:name, :description, :impact_id, :department_area_id, :review_date, :i_type)
 	end
-	    
+
 end

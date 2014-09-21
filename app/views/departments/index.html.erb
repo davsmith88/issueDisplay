@@ -1,14 +1,31 @@
-<h1>all departments</h1>
+<ol class="breadcrumb">
+  <li><a href="/admin">Admin</a></li>
+  <li><%= link_to "Departments - Area's", admin_dep_areas_static_path %></li>
+  <li><%= link_to "Departments", departments_path %></li>
+  <li class='active'>View all</li>
+</ol>
 
-<table>
+
+<h4>Departments</h4>
+
+<table class='table'>
+	<tr>
+		<th>Department</th>
+		<th>Description</th>
+		<th>Actions</th>
+	</tr>
 	<% @departments.each do |department| %>
 		<tr>
 			<td><%= department.name %></td>
 			<td><%= department.description %></td>
-			<td><%= link_to "Edit", edit_department_path(department) %>|</td>
-			<td><%= link_to "Destroy", department_path(department), method: :delete, data: {confirm: "Are you sure you want to delete the department"} %></td>
+			<td>
+				<div class='btn-group'>
+				<%= link_to "Edit", edit_department_path(department), class: "btn btn-default" %>
+				<%= link_to "Destroy", department_path(department), method: :delete, class: "btn btn-default", data: {confirm: "Are you sure you want to delete the department"} %>
+				</div>
+			</td>
 		</tr>
 	<% end %>
-</table>	
+</table>
 
-<%= link_to "Add a new Department", new_department_path %>
+<%= link_to "Add a new Department", new_department_path, class: "btn btn-default" %>

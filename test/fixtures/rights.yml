@@ -1,9 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+# operations - READ, CREATE, UPDATE, DESTROY
 one:
-  resource: MyString
-  operation: MyString
+  resource: issues
+  operation: READ
 
 two:
-  resource: MyString
-  operation: MyString
+  resource: issues
+  operation: CREATE
+
+three:
+  resource: issues
+  operation: UPDATE
+
+four:
+  resource: issues
+  operation: DESTROY

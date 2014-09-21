@@ -1,6 +1,25 @@
-<h1>Al impacts</h1>
-<ul>
+<ol class="breadcrumb">
+  <li><a href="/admin">Admin</a></li>
+  <li><%= link_to "Impacts", impacts_path %></li>
+  <li class="active">View All</li>
+</ol>
+
+<h4>Impacts</h4>
+<table class='table'>
+	<tr>
+		<th>Name</th>
+		<th>Description</th>
+		<th>Actions</th>
+	</tr>
 	<% @impacts.each do |impact| %>
-		<li><%= impact.name %></li>
+		<tr>
+			<td><%= impact.name %></td>
+			<td><%= impact.description %></td>
+			<td>
+				<%= link_to "Edit", edit_impact_path(impact), class: "btn btn-default" %>
+				<%= link_to "Destroy", impacts_path, method: :delete, class: "btn btn-default", data: {confirm: "Are you sure you want to delete"} %></td>
+		</tr>
 	<% end %>
-</ul>
+</table>
+
+<%= link_to "Add Impact", new_impact_path, class: "btn btn-default" %>

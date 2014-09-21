@@ -1,9 +1,33 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  right_id: 1
-  role_id: 1
+  right: one
+  role: read_role
 
 two:
-  right_id: 1
-  role_id: 1
+  right: one
+  role: write_role
+
+three:
+  right: two
+  role: write_role
+
+four:
+  right: three
+  role: write_role
+
+five:
+  right: one
+  role: admin_role
+
+six:
+  right: two
+  role: admin_role
+
+seven:
+  right: three
+  role: admin_role
+
+eight:
+  right: four
+  role: admin_role

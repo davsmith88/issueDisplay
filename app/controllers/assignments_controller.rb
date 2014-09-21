@@ -4,10 +4,12 @@ class AssignmentsController < ApplicationController
 		@roles = Role.all
 		@users = User.all
 		@assignment = Assignment.new
+		render layout: "admin_layout"
 	end
 
 	def show
 		@assignments = Assignment.includes(:user).where(role_id: params[:role_id])
+		render layout: "admin_layout"
 	end
 
 	def create

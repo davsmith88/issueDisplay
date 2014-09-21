@@ -1,41 +1,90 @@
 IssueDisplay::Application.routes.draw do
+
+  # match "*all" => "application#cors_preflight_check", :constraints => {:method => "OPTIONS"}
+
+  resources :qwers
   devise_for :users
-  
+  # devise_for :users, :controllers => {:sessions => "json_sessions"}
+
+
+  post "/api/login" => 'json_sessions#create'
+  delete "/api/logout" => 'json_sessions#destroy'
+
+
+  match "issues", to: "issues#index", via: [:options]
+  match "issues/:issue_id/issue_workarounds/:id", to: "issue_workarounds#cors", via: [:options]
+
+  # resources :json_sessions
+
   root :to => 'static_pages#home'
 
   get "/home" => 'static_pages#home', as: :home
-  
+
 
   get 'assignment/show/:role_id' => 'assignments#show', as: :assignment_role_view
-  scope "/adminTesting" do
-    resources :users
+
+  scope "/admin" do
+    get "/", to: "admin#index", as: "admin_index"
+    get "users", to: "admin#users", as: "admin_user_static"
+    get "permissions", to: "admin#permissions", as: "admin_permission_static"
+    get "depareas", to: "admin#depareas", as: "admin_dep_areas_static"
+    resources :users, only: [:new, :create, :update, :destroy, :edit, :show]
+    resources :assignments, only: [:new, :create, :destroy]
+
+
+    resources :grants, only: [:new, :create]
+    resources :admin
+
+    resources :issue_management
+
+
+    resources :roles
+    resources :rights
+
+    resources :departments
+    resources :areas
+    resources :department_areas
+    resources :impacts
   end
 
   get '/profile' => 'users#profile', as: :profile
 
-  resources :albums do
-     resources :images
+  # resources :albums do
+  #    resources :images
+  # end
+
+  namespace :api do
+    match "issues", to: "issues#index", via: [:options]
+    match "workarounds", to: "workarounds#cors", via: [:options]
+    match "workarounds/:workaround_id", to: "workarounds#cors", via: [:options]
+    # cors support, client will send a request to see if the correct headers are returned
+    # just matches to cors method in the controller so no data will be sent back to the client
+    match "solutions", to: "solutions#cors", via: [:options]
+    match "solutions/:solution_id", to: "solutions#cors", via: [:options]
+    resources :issues
+    resources :workarounds
+    resources :solutions
   end
 
 
   resources :businesses
 
-  resources :assignments, only: [:new, :create, :destroy]
-
-  
-  resources :grants, only: [:new, :create]
-  resources :admin 
-
-  resources :issue_management
+  # resources :assignments, only: [:new, :create, :destroy]
 
 
-  resources :roles
-  resources :rights
+  # resources :grants, only: [:new, :create]
+  # resources :admin
 
-  resources :departments
-  resources :areas
-  resources :department_areas
-  resources :impacts
+  # resources :issue_management
+
+
+  # resources :roles
+  # resources :rights
+
+  # resources :departments
+  # resources :areas
+  # resources :department_areas
+ 
 
 
 

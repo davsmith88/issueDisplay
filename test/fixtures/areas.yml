@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  description: MyText
+modalfacer:
+  name: Modal Facer
+  description: part of the machine that makes the web. Joins the liner and medium together with a thin layer of starch
 
-two:
-  name: MyString
-  description: MyText
+doubleback:
+  name: doubleback
+  description: Joins the web and the doubleback liner together

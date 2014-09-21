@@ -1,3 +1,12 @@
-<%= form_for @area do |form| %>
+<ol class="breadcrumb">
+  <li><a href="/admin">Admin</a></li>
+  <li><%= link_to "Departments - Areas", admin_dep_areas_static_path %></li>
+  <li><%= link_to "Areas", areas_path %></li>
+  <li class='active'>New</li>
+</ol>
+
+<h4>Create an Area</h4>
+
+<%= form_for @area, html: {class: "form-horizontal"} do |form| %>
 	<%= render partial: form %>
 <% end %>

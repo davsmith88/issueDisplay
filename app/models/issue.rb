@@ -1,9 +1,9 @@
 class Issue < ActiveRecord::Base
 	include PublicActivity::Model
   	#tracked owner: Proc.new{ |controller, model| controller.current_user }
-	has_paper_trail :meta => {:department_area_name => :get_department_name,
-		:impact_name => :get_impact_name
-	}
+	# has_paper_trail :meta => {:department_area_name => :get_department_name,
+		# :impact_name => :get_impact_name
+	# }
 
   	TYPES = ["operational", "mechanical", "electrical"]
 
@@ -49,9 +49,9 @@ class Issue < ActiveRecord::Base
 	# do_not_validate_attachment_file_type :image
 	# validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 	validates :name, presence: {message: "Issue needs to have a name"}
-	validates :review_date, presence: true
+	# validates :review_date, presence: true
 
-	scope :ordered_by_desc, order("created_at DESC")
+	scope :ordered_by_desc, ->{ order("created_at DESC") }
 
 	state_machine :state, :initial => :draft do
 		state :draft, value: 'draft'

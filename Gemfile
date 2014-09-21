@@ -32,6 +32,8 @@ gem 'paperclip', "~> 3.5.3"
 gem 'will_paginate', '~> 3.0'
 gem 'rails_best_practices', '~> 1.15.4'
 
+# gem 'active_model_serializers'
+
 # gem "bullet", :group => "development"
 
 gem 'state_machine'
@@ -51,6 +53,10 @@ group :development do
   # gem 'jazz_hands'
 end
 
+group :test do
+  gem 'shoulda'
+  gem 'shoulda-context'
+end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

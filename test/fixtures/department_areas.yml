@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  department_id: 
-  area_id: 
+  department: bhs
+  area: modalfacer
 
 two:
-  department_id: 
-  area_id: 
+  department: bhs
+  area: doubleback

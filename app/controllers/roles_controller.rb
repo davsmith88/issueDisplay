@@ -2,10 +2,12 @@ class RolesController < ApplicationController
 	def index
 		# @rights = Right.all
 		@roles = Role.all
+		render layout: "admin_layout"
 	end
 
 	def new
 		@role = Role.new
+		render layout: "admin_layout"
 	end
 
 	def create
@@ -21,6 +23,7 @@ class RolesController < ApplicationController
 
 	def edit
 		@role = Role.find(params[:id])
+		render layout: "admin_layout"
 	end
 
 	def update

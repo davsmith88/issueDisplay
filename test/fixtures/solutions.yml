@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  content: MyText
+  issue: first_issue
+  name: Check for obstructions
+  content: Stop the machine and check for any obstructions above and next to the dam
 
 two:
-  name: MyString
-  content: MyText
+  issue: first_issue
+  name: Fault code 123
+  content: Press the reset button to acknoledge the alarm
