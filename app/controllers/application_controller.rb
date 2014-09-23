@@ -47,9 +47,7 @@ class ApplicationController < ActionController::Base
 		name = controller_name
 		if name != 'static_pages' and name != 'sessions' and name != 'json_sessions'
 			authenticate_user!
-			# puts "---++++----"
-			# pp current_user
-			check_authorization
+			# check_authorization
 		end
 	end
 
