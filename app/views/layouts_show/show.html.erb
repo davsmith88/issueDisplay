@@ -1,0 +1,18 @@
+<h3>Layouts</h3>
+
+<table class='table'?>
+	<tr>
+		<th>Department</th>
+		<th>Area</th>
+		<th>Options</th>
+	</tr>
+
+<% @dep_areas.each do |da| %>
+	<tr>
+		<td><%= da.department.name %></td>
+		<td><%= da.area.name %></td>
+		<td>
+			<%= link_to "Show Jobs", jobs_jobs_path(department: da.department.id, area: da.area.id), class: "btn btn-default" %>
+			<!-- <%= link_to "Show Issues", issues_path, class: "btn btn-default" %></td> -->
+	</tr>
+<% end %>

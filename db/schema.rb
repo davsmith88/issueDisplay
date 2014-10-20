@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140921074908) do
+ActiveRecord::Schema.define(version: 20140928111847) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -146,6 +146,17 @@ ActiveRecord::Schema.define(version: 20140921074908) do
   add_index "issues", ["impact_id"], name: "index_issues_on_impact_id"
   add_index "issues", ["user_id"], name: "index_issues_on_user_id"
 
+  create_table "jobs", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "department_area_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "category"
+  end
+
+  add_index "jobs", ["department_area_id"], name: "index_jobs_on_department_area_id"
+
   create_table "notes", force: true do |t|
     t.text     "context"
     t.integer  "reviewer_id"
@@ -202,6 +213,14 @@ ActiveRecord::Schema.define(version: 20140921074908) do
   end
 
   add_index "solutions", ["issue_id"], name: "index_solutions_on_issue_id"
+
+  create_table "steps", force: true do |t|
+    t.string   "description"
+    t.integer  "step_order"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "job_id"
+  end
 
   create_table "tests", force: true do |t|
     t.string   "name"

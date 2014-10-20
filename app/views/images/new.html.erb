@@ -1,3 +1,11 @@
-<%= form_for [@c, @image], :html => { :multipart => true } do |form| %>
-	<%= render partial: form %>
+<ol class="breadcrumb">
+  <li><a href="#">issues</a></li>
+  <li><a href="#">Edit</a></li>
+  <li><a href="#">Solution</a></li>
+  <li class="active">Add Image</li>
+</ol>
+<h3>Add image</h3>
+<p>Select a file to upload. Needs to be either a .jpg, .pgn or .gif</p>
+<%= form_for [@c, @image], builder: MyFormBuilder, :html => { :multipart => true, class: "form-horizontal" } do |form| %>
+	<%= render partial: 'form', locals: {form: form} %>
 <% end %>

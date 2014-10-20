@@ -1,29 +1,4 @@
-<% if @attempted.errors.any? %>
-	<div id='error_explanation'>
-		<h2>
-			<%= pluralize(@attempted.errors.count, "error") %> prohibited this solution from being saved
-		</h2>
-		<ul>
-			<% @attempted.errors.full_messages.each do |msg| %>
-				<li><%= msg %></li>
-			<% end %>
-		</ul>
-	</div>
-<% end %>
-
-<div class='form_field'>
-	<%= form.label :name %>
-	<%= form.text_field :name %>
-</div>
-
-<div class='form_field'>
-	<%=	form.label :description %>
-	<%= form.text_area :description %>
-</div>
-
-<div class='form_field'>
-	<%= form.label :reason %>
-	<%= form.text_area :reason %>
-</div>
-
-<%= form.submit "Save" %>
+<%= form.text_field :name %>
+<%= form.text_area :description %>
+<%= form.text_area :reason %>
+<%= form.submit "Save", label: "Actions", class: "btn btn-default" %>

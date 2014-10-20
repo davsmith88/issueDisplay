@@ -1,0 +1,32 @@
+<ol class="breadcrumb">
+  <li><a href="/admin">Admin</a></li>
+  <li><%= link_to "Department - Area's", admin_dep_areas_static_path %></li>
+</ol>
+<h4>Department / Areas</h4>
+
+<p>Edit, modify, create the department from this page</p>
+
+<div class='row'>
+	<div class='col-sm-4'>
+		<h5>Departments</h5>
+		<div class='btn-group-vertical'>
+			<%= link_to "Add a new Department", new_department_path, class: "btn btn-default" %>
+
+			<%= link_to "view all departments", departments_path, class: "btn btn-default" %>
+		</div>
+	</div>
+	<div class='col-sm-4'>
+		<h5>Area's</h5>
+		<div class="btn-group-vertical">
+		  <%= link_to "Add a new Area", new_area_path, class: "btn btn-default" %>
+		  <%= link_to "view all areas", areas_path, class: "btn btn-default" %>
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<h5>Departments and Area's</h5>
+		<div class="btn-group-vertical">
+			<%= link_to "View Departments and Area's", department_areas_path, class: "btn btn-default" %>
+			<%= link_to "Add Area to Department", new_department_area_path, class: "btn btn-default" %>
+		</div>
+	</div>
+</div>

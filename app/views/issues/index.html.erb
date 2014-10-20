@@ -4,51 +4,33 @@
 <% end %>
 
 
-<span class="label label-default">Default</span><br>
-<%= link_to "Notifications", notification_feed_path %>
-<%= link_to "Activities", activity_feed_path %>
-<h1>List of Issues Currently in System</h1>
-<ul>
+
+<%#= link_to "Notifications", notification_feed_path %>
+<%#= link_to "Activities", activity_feed_path %>
+<h3>Published Issues</h3>
+<%= link_to "Create New Issue", new_issue_path, class: "btn btn-default" %>
+<table class='table'>
+	<tr>
+		<th>Name</th>
+		<th>Description</th>
+		<th>Options</th>
+	</tr>
 	<% @issues.each do |issue| %>
-		<li>
-			<div>
-				Name:<%= issue.name %><br>
-				Description: <%= issue.description %><br>
-				
-			</div>
-			<div>Actions:
-				<%= link_to "View", issue_path(issue) %>
-				<%= link_to "Edit", edit_issue_path(issue) %>
-				<%= link_to "History", history_issue_path(issue) %>
-				<%= link_to "Destroy", issue_path(issue), method: :delete, data: {confirm: "Are you sure you want to delete"} %>
-			</div>
-		</li>
+		<tr>
+			<td>
+				<%= issue.name %>
+			</td>
+			<td>
+				<%= issue.description %>
+			</td>
+			<td>
+				<%= link_to "View", issue_path(issue), class: "btn btn-default" %>
+				<%= link_to "Edit", edit_issue_path(issue), class: "btn btn-default" %>
+				<%#= link_to "History", history_issue_path(issue), class: "btn btn-default" %>
+				<%= link_to "Destroy", issue_path(issue),class: "btn btn-default", method: :delete, data: {confirm: "Are you sure you want to delete"} %>
+			</td>
+		</tr>
 	<% end %>
-</ul>
-
-
-	<div class="row">
-	<% @issues.each do |issue| %>
-	  <div class="col-sm-6 col-md-4">
-	    <div class="thumbnail">
-	    <% if issue.images.length > 0 %>
-	      <img src="<%= issue.images[0].picture.url(:thumb) %>" alt="">
-	     <% end %>
-	      <div class="caption">
-	        <h3><%= issue.name %></h3>
-	        <p><%= issue.description %></p>
-	        <p><a href="#" class="btn btn-primary" role="button">View</a> <a href="#" class="btn btn-default" role="button">Edit</a></p>
-	      </div>
-	    </div>
-	  </div>
-
-<% end %>
-	</div>
-
-<div id = 'users'>
-</div>
+</table>
 
 <%= will_paginate @issues %>
-
-
-<%= link_to "Create New Issue", new_issue_path %>

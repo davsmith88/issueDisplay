@@ -1,0 +1,29 @@
+<% content_for :second_level_layout do %>
+	<div class='container-fluid'>
+		<div class='col-sm-3'>
+			<ul class='list-group'>
+				<li class='list-group-item'>
+					<%= link_to "Users", admin_user_static_path %>
+				</li>
+				<li class='list-group-item'>
+					<%= link_to "Permissions", admin_permission_static_path %>
+				</li>
+				<li class='list-group-item'>
+					<%= link_to "Impacts", impacts_path %>
+				</li>
+				<li class='list-group-item'>
+					<%= link_to "Department / Areas", admin_dep_areas_static_path %>
+				</li>
+				<li class='list-group-item'>
+					<%= link_to "Issue Management", issue_management_index_path %>
+				</li>
+			</ul>
+		</div>
+
+		<div class='col-sm-9'>
+			<%= content_for?(:third_level_layout) ? yield(:third_level_layout) : yield %>
+		</div>
+	</div>
+<% end %>
+
+<%= render :template => 'layouts/application' %>

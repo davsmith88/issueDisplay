@@ -1,0 +1,34 @@
+<h4>Showing steps for the job <small><%= @job.name %></small></h4>
+<% if @steps.length > 0 %>
+	<%= link_to "Add Step", new_jobs_step_path(job: @job), class: "btn btn-default" %>
+<% end %>
+<% if @steps.length > 0 %>
+	<table class='table'>
+		<tr>
+			<th>Image</th>
+			<th>Description</th>
+			<th>Step Order</th>
+			<th>Options</th>
+		</tr>
+		<% @steps.each do |step| %>
+			<tr>
+				<% if step.images.length > 0 %>
+					<td><%= image_tag step.images[0].picture.url(:thumb) %></td>
+				<% else %>
+					<td>No photo</td>
+				<% end %>
+				<td><%= step.description %></td>
+				<td><%= step.step_order %></td>
+				<td>
+					<%= link_to "Edit step", edit_jobs_step_path(step, job: step.job_id), class: "btn btn-default" %>
+					<%= link_to "Delete Step", jobs_step_path(step), method: :delete,class: "btn btn-default", data: {confirm: "Are you sure yo want to delete?"} %>
+				</td>
+			</tr>
+		<% end %>
+	</table>
+<% else %>
+	<div class="alert alert-info">
+		There are no steps for this job. Add a step today!
+		<%= link_to 'Add Step', new_jobs_step_path(job: @job), class: 'btn btn-default' %>
+	</div>
+<% end %>

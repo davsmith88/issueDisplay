@@ -1,21 +1,4 @@
-<%if @image.errors.any? %>
-	<div id='error_explanation'>
-		<h2><%= pluralize(@image.errors.count, "error") %> prohibited this issue from being saved</h2>
+<%= form.file_field :picture, label: "Picture", class: "form-control" %>
+<%= form.text_field :caption, placeholder: "Enter in a caption" %>
 
-		<ul>
-			<% @image.errors.full_messages.each do |msg| %>
-				<li><%= msg %></li>
-			<% end %>
-		</ul>
-		</div>
-		<% end %>
-
-		<h2>Add image</h2>
-		<%= form.label :picture %>
-		<%= form.file_field :picture %>
-		<br>
-		<%= form.label :caption %>
-		<%= form.text_field :caption %>
-
-
-		<%= form.submit "Save" %>
+<%= form.submit "Save", label: "Actions", class: "btn btn-default" %>

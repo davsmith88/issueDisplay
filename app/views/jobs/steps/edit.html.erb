@@ -1,0 +1,5 @@
+<h4>Edit Step</h4>
+
+<%= form_for @step, url: jobs_step_path(@step), builder: MyFormBuilder, html: {multipart: true, class: "form-horizontal", role: "role"} do |form| %>
+	<%= render partial: 'form', locals: {form: form} %>
+<% end %>

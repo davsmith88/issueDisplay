@@ -1,0 +1,14 @@
+<ol class="breadcrumb">
+  <li><a href="/admin">Admin</a></li>
+  <li><%= link_to "Permissions", admin_permission_static_path %></li>
+</ol>
+
+<h4>Permissions</h4>
+
+<p>Change permissions is the app from this page</p>
+<div class='btn-group-vertical'>
+	<%= link_to "Roles", roles_path, class: "btn btn-default" %>
+	<%= link_to "Rights", rights_path, class: "btn btn-default" %>
+	<%= link_to "Assign Role to a user", new_assignment_path, class: "btn btn-default" %>
+	<%= link_to "Assign Right to a Role", new_grant_path, class: "btn btn-default" %>
+</div>

@@ -19,9 +19,14 @@ IssueDisplay::Application.routes.draw do
   root :to => 'static_pages#home'
 
   get "/home" => 'static_pages#home', as: :home
-
+  get '/layout' => 'layouts_show#show', as: :layouts_show
 
   get 'assignment/show/:role_id' => 'assignments#show', as: :assignment_role_view
+
+  namespace :jobs do
+    resources :jobs
+    resources :steps
+  end
 
   scope "/admin" do
     get "/", to: "admin#index", as: "admin_index"

@@ -1,61 +1,7 @@
-<%if @issue.errors.any? %>
-	<div id='error_explanation'>
-		<h2><%= pluralize(@issue.errors.count, "error") %> prohibited this issue from being saved</h2>
-
-		<ul>
-			<% @issue.errors.full_messages.each do |msg| %>
-				<li><%= msg %></li>
-			<% end %>
-		</ul>
-		</div>
-		<% end %>
-		<%= form.label :name %>
-		<%= form.text_field :name %>
-		<% if @issue.errors.has_key?(:name)  %>
-			<%= @issue.errors.get(:name)[0] %>
-		<% end %>
-		<br>
-		<%= form.label :description %>
-		<%= form.text_area :description %>
-		<br>
-		<%= form.label :type %>
-		<select name='issue[i_type]'>
-			<%= Issue::TYPES.each do |type| %>
-				<option value='<%= type %>'><%= type %></option>
-			<% end %>
-		
-		</select>
-		<br>
-
-		<%= form.label :area_impacted %>
-		<select name='issue[impact_id]'>
-			<% @impacts.each do |impact| %>
-				<% if impact.id == @issue.impact_id %>
-					<option value='<%= impact.id %>' selected><%= impact.name %></option>
-				<% else %>
-					<option value=<%= impact.id %>><%= impact.name %></option>
-				<% end %>
-			<% end %>
-		</select>
-		<br>
-
-
-		<%= form.label :department_area %>
-		<select name='issue[department_area_id]'>
-			
-			<% @depAreas.each do |dep| %>
-				<option value="<%= dep.id %>"><%= dep.name %></option>
-			<% end %>
-			
-		</select>
-
-		<br>
-
-
-		
-		<br>
-		<%= form.label :review_date %>
-		<%= form.date_field :review_date %>
-
-		<br>
-		<%= form.submit "Save" %>
+<%= form.text_field :name, placeholder: "Name" %>
+<%= form.text_area :description, class: "form-control", placeholder: "Description" %>
+<%= form.select :i_type, options_for_select(Issue::TYPES),{} ,label: "Type", class: "form-control" %>
+<%= form.select :department_area_id, department_types(@depAreas), {} ,label: "Deparment Area", class: "form-control" %>
+<%= form.select :impact_id, impacts(@impacts, @issue), {} ,label: "Impacts", class: "form-control" %>
+<%= form.date_field :review_date, class: 'form-control' %>
+<%= form.submit "Save", label: "Actions", class: 'btn btn-primary' %>

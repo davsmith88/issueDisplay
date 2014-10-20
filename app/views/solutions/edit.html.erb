@@ -1,5 +1,5 @@
-<h1>Edit the page</h1>
+<h3>Edit the page</h3>
 
-<%= form_for [@issue, @solution] do |form| %>
-	<% render partial: form %>
+<%= form_for [@issue, @solution], builder: MyFormBuilder, html: {class: "form-horizontal"} do |form| %>
+	<% render partial: 'form', locals: {form: form} %>
 <% end %>
