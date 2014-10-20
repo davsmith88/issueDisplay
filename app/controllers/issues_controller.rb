@@ -1,13 +1,12 @@
 class IssuesController < ApplicationController
 
-	before_action :find_issue, only: [:show, :edit, :update, :destroy]
-	before_action :get_dep_area, only: [:new, :create, :edit]
-	before_action :get_impacts, only: [:new, :create, :edit]
+	before_action :find_issue, only: [:show, :edit, :update, :destroy, :edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
+	before_action :get_dep_area, only: [:new, :create, :edit,:edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
+	before_action :get_impacts, only: [:new, :create, :edit, :edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
 	before_action :permissions, only: [:index]
 
 
 	def index
-		pp params
 		@issues = Issue.where(state: "publish").order(created_at: :desc).page(params[:page])
 		# @issues = Issue.where(state: "publish").order(created_at: :desc).page(params[:page]) + current_user.issues.where.not(state: "publish").order(created_at: :desc)
 		# @user_issues = current_user.issues.where.not(state: "publish").order(created_at: :desc)
@@ -90,11 +89,33 @@ class IssuesController < ApplicationController
 	end
 
 	def edit
-		@images = @issue.images
-		@workarounds = return_array @issue.issue_workarounds.includes(:images)
-		@solutions = return_array @issue.solutions.includes(:images)
-		@attempted_solutions = return_array @issue.attempted_solutions.includes(:images)
+		@active_basic = true
 		@departments = DepartmentArea.all
+		render layout: "edit_page"
+	end
+
+	def edit_images
+		@active_images = true
+		@images = @issue.images
+		render layout: "edit_page", template: "issues/edit_images"
+	end
+
+	def edit_workaround
+		@active_workarounds = true
+		@workarounds = return_array @issue.issue_workarounds.includes(:images)
+		render layout: "edit_page", template: "issues/edit_workaround"
+	end
+
+	def edit_solutions
+		@active_solutions = true
+		@solutions = return_array @issue.solutions.includes(:images)
+		render layout: "edit_page", template: "issues/edit_solutions"
+	end
+
+	def edit_attempted_solutions
+		@active_att_sol = true
+		@attempted_solutions = return_array @issue.attempted_solutions.includes(:images)
+		render layout: "edit_page", template: "issues/edit_attempted_solutions"
 	end
 
 	def update

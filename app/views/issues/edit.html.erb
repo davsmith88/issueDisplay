@@ -1,174 +1,26 @@
-<h3>Edit Page</h3>
-
-<ul class="nav nav-tabs" role="tablist">
-  <li class="active"><a href="#home" role="tab" data-toggle="tab">Information</a></li>
- 	<li><a href="#images" role='tab' data-toggle='tab'>Images</a></li>
-  <li><a href="#iw" role="tab" data-toggle="tab">Workarounds</a></li>
-  <li><a href="#solutions" role="tab" data-toggle="tab">Solutions</a></li>
-  <li><a href="#as" role="tab" data-toggle="tab">Attempted Solutions</a></li>
-</ul>
-<br>
-<!-- Tab panes -->
-<div class="tab-content">
-  <div class="tab-pane active" id="home">
-  	<%= form_for @issue, builder: MyFormBuilder, :html => { :multipart => true, class: "form-horizontal" } do |form| %>
-			<%= render partial: 'form', locals: {form: form} %>
-			<div class='form-group'>
-				<label class='col-sm-2 control-label'>Publish Options</label>
-				<div class='col-sm-10'>
-					<% if @issue.state?(:draft) %>
-						<p><%= link_to "Push to Review", draft_to_review_issue_path, class: "btn btn-default" %></p>
-					<% elsif @issue.state?(:review) %>
-						<%= link_to "View Notes", issue_notes_path(@issue), class: "btn btn-default" %>
-						
-						<% if @issue.notes.where(checked: false).length == 0 %>
-							<p><%= link_to "Review to Draft", review_to_draft_issue_path, class: "btn btn-default" %></p>
-						<% else %>
-							<%= @issue.notes.where(checked: false).length %> - Notes are Available
-							they need to be correctified to be able to submit for review again
-						<% end %>
+<% content_for :third_level_layout do %>
+	<br>
+	<%= form_for @issue, builder: MyFormBuilder, :html => { :multipart => true, class: "form-horizontal" } do |form| %>
+		<%= render partial: 'form', locals: {form: form} %>
+		<div class='form-group'>
+			<label class='col-sm-2 control-label'>Publish Options</label>
+			<div class='col-sm-10'>
+				<% if @issue.state?(:draft) %>
+					<p><%= link_to "Push to Review", draft_to_review_issue_path, class: "btn btn-default" %></p>
+				<% elsif @issue.state?(:review) %>
+					<%= link_to "View Notes", issue_notes_path(@issue), class: "btn btn-default" %>
+					
+					<% if @issue.notes.where(checked: false).length == 0 %>
+						<p><%= link_to "Review to Draft", review_to_draft_issue_path, class: "btn btn-default" %></p>
 					<% else %>
-						<p><%= link_to "Publish to Draft", publish_to_draft_issue_path, class: "btn btn-default" %></p>
+						<%= @issue.notes.where(checked: false).length %> - Notes are Available
+						they need to be correctified to be able to submit for review again
 					<% end %>
-				</div>
+				<% else %>
+					<p><%= link_to "Publish to Draft", publish_to_draft_issue_path, class: "btn btn-default" %></p>
+				<% end %>
 			</div>
+		</div>s
 
-		<% end %>
-  </div>
-
-  <div class="tab-pane" id="images">
-  	<%= link_to 'Add Image', new_issue_image_path(@issue), class: "btn btn-default" %>
-  	<br>
-		<table class='table'>
-			<tr>
-				<th>Image</th>
-				<th>Caption</th>
-				<th>Actions</th>
-			</tr>
-			<% @images.each do |image| %>
-				<tr>
-					<td>
-						<%= image_tag image.picture.url(:thumb) %>
-					</td>
-					<td><%= image.caption %></td>
-					<td>
-						<%= link_to "Edit", edit_issue_image_path(@issue, image), class: "btn btn-default" %>
-						<%= link_to "Delete", issue_image_path(@issue, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure yo want to delete"} %>
-					</td>
-				</tr>
-			<% end %>
-		</table>
-
-  </div>
-  <div class="tab-pane" id="iw">
-  	<h3>Workaround</h3>
-  	<%= link_to "Add workaround", new_issue_issue_workaround_path(@issue), class: "btn btn-default" %>
-		<table class='table'>
-			<tr>
-				<th>Description</th>
-				<th>Options</th>
-				<th>Images</th>
-			</tr>
-			<% @workarounds.each do |workaround| %>
-				<tr>
-				<td><%= workaround.description %></td>
-				<td>
-					<%= link_to "Add Image", new_issue_workaround_image_path(workaround), class: "btn btn-default" %>
-					<%= link_to "Edit", edit_issue_workaround_path(workaround), class: "btn btn-default" %>
-					<%= link_to "Delete", issue_workaround_path(workaround),class: "btn btn-default", method: :delete, data: {confirm: "Are you sure you want to delete"} %>
-				</td>
-				<td>
-					<table class='table'>
-						<tr>
-							
-						</tr>
-						<% workaround.images.each do |image| %>
-							<tr><td><%= image_tag image.picture.url(:thumb) %></td>
-								<td>
-									<%= link_to "edit", edit_issue_workaround_image_path(workaround, image), class: "btn btn-default" %>
-									<%= link_to "Delete", issue_workaround_image_path(workaround, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure yo want to delete"} %>
-								</td>
-							</tr>
-						<% end %>
-					</ul>
-					</table>
-				</li>
-			<% end %>
-		</table>
-  </div>
-  <div class="tab-pane" id="solutions">
-  	<h3>Solutions</h3>
-		<%= link_to "Add Solution", new_issue_solution_path(@issue), class: "btn btn-default" %>
-		<table class='table'>
-			<tr>
-				<th>Name</th>
-				<th>Actions</th>
-				<th>Images</th>
-			</tr>
-			<% @solutions.each do |solution| %>
-				<tr>
-					<td><%= solution.name %></td>
-					<td>
-						<%= link_to "Add Image", new_solution_image_path(solution), class: "btn btn-default" %>
-						<%= link_to "Edit", edit_solution_path(solution), class: "btn btn-default" %>
-						<%= link_to "Delete", solution_path(solution), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure you want to delete"} %>
-					</td>
-					<td>
-						<table class='table'>
-							<tr>
-							</tr>
-							<% solution.images.each do |image| %>
-								<tr>
-									<td>
-										<%= image_tag image.picture.url(:thumb) %>
-									</td>
-									<td>
-										<%= link_to "Edit", edit_solution_image_path(solution, image), class: "btn btn-default" %>
-										<%= link_to "Delete", solution_image_path(solution, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure you want to delete"} %>
-									</td>
-								</tr>
-							<% end %>
-						</table>
-					</td>
-				</tr>
-			<% end %>
-		</table>
-  </div>
-  <div class="tab-pane" id="as">
-  	<h3>Attempted Solutions</h3>
-  	<%= link_to "Add Attempted Solutions", new_issue_attempted_solution_path(@issue), class: "btn btn-default" %>
-		<table class='table'>
-			<% @attempted_solutions.each do |att_sol| %>
-				<tr>
-					<td><%= att_sol.name %></td>
-					<td>
-						<%= link_to "Add Image", new_attempted_solution_image_path(att_sol), class: "btn btn-default" %>
-						<%= link_to "Edit", edit_attempted_solution_path(att_sol), class: "btn btn-default" %>
-						<%= link_to "Delete", attempted_solution_path(att_sol), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure?"} %>
-					</td>
-					<td>
-						<table class='table'>
-							<tr>
-							</tr>
-							<% att_sol.images.each do |image| %>
-								<tr>
-									<td><%= image_tag image.picture.url(:thumb) %></td>
-									<td><%= link_to "Delete Picture", attempted_solution_image_path(att_sol, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure"} %>
-								</tr>
-							<% end %>
-						</table>
-					</td>
-				</tr>
-			<% end %>
-		</table>
-  </div>
-</div>
-
-
-
-
-
-
-
-<%= link_to 'Show', @issue %>|
-<%= link_to 'Back', issues_path %>
+	<% end %>
+<% end %>

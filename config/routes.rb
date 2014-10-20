@@ -111,6 +111,8 @@ IssueDisplay::Application.routes.draw do
     resources :images
   end
 
+
+
   # resources :issues do
   #   resources :records, only: [:create, :index, :new]
   #   resources :images
@@ -130,6 +132,11 @@ IssueDisplay::Application.routes.draw do
       get 'review_to_publish', as: :review_to_publish
       get 'publish_to_review', as: :publish_to_review
       get 'publish_to_draft', as: :publish_to_draft
+      # get 'edit/basic' => "issues#edit_basic", as: :edit_basic
+      get 'edit/images' => "issues#edit_images", as: :edit_images
+      get 'edit/workarounds' => "issues#edit_workaround", as: :edit_workaround
+      get 'edit/solutions' => "issues#edit_solutions", as: :edit_solutions
+      get 'edit/attempted_solutions' => "issues#edit_attempted_solutions", as: :edit_attempted_solutions
     end
     resources :notes do
       post 'mark_as_checked', as: :marked_as_checked

@@ -1,0 +1,24 @@
+<% content_for :third_level_layout do %>
+	<br>
+	<%= link_to 'Add Image', new_issue_image_path(@issue), class: "btn btn-default" %>
+  	<br>
+		<table class='table'>
+			<tr>
+				<th>Image</th>
+				<th>Caption</th>
+				<th>Actions</th>
+			</tr>
+			<% @images.each do |image| %>
+				<tr>
+					<td>
+						<%= image_tag image.picture.url(:thumb) %>
+					</td>
+					<td><%= image.caption %></td>
+					<td>
+						<%= link_to "Edit", edit_issue_image_path(@issue, image), class: "btn btn-default" %>
+						<%= link_to "Delete", issue_image_path(@issue, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure yo want to delete"} %>
+					</td>
+				</tr>
+			<% end %>
+		</table>
+<% end %>
