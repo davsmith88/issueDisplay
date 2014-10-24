@@ -1,36 +1,13 @@
-<% if flash[:error] %>
-	<p id='error'><%= flash[:error] %></p>
-
-<% end %>
-
-
-
-<%#= link_to "Notifications", notification_feed_path %>
-<%#= link_to "Activities", activity_feed_path %>
 <h3>Published Issues</h3>
-<%= link_to "Create New Issue", new_issue_path, class: "btn btn-default" %>
+
+<%= link_to "Create New Issue", new_issue_path, class: "btn btn-default spacing" %>
 <table class='table'>
 	<tr>
 		<th>Name</th>
 		<th>Description</th>
 		<th>Options</th>
 	</tr>
-	<% @issues.each do |issue| %>
-		<tr>
-			<td>
-				<%= issue.name %>
-			</td>
-			<td>
-				<%= issue.description %>
-			</td>
-			<td>
-				<%= link_to "View", issue_path(issue), class: "btn btn-default" %>
-				<%= link_to "Edit", edit_issue_path(issue), class: "btn btn-default" %>
-				<%#= link_to "History", history_issue_path(issue), class: "btn btn-default" %>
-				<%= link_to "Destroy", issue_path(issue),class: "btn btn-default", method: :delete, data: {confirm: "Are you sure you want to delete"} %>
-			</td>
-		</tr>
-	<% end %>
+	<%= render partial: "issues/collections/index_row", collection: @issues, as: :issue %>
 </table>
 
 <%= will_paginate @issues %>

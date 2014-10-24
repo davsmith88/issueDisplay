@@ -11,8 +11,14 @@ class Right < ActiveRecord::Base
 		"update" => "UPDATE",
 		"destroy" => "DESTROY",
 		"show" => "READ",
-		"index" => "READ"
-		#, "draft_to_review" => "REVIEW"
-		#, "review_to_publish" => "PUBLISH"
+		"index" => "READ",
+		# controller methods that are not restful (ie fit into the above actions)
+		# must be placed in a hash with the method name with the permission to map to
+		"admin" => {
+			"permissions" => "READ",
+			"impacts" => "READ",
+			"depareas" => "READ",
+			"users" => "READ"
+		}
 	}
 end

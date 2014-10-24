@@ -1,36 +1,12 @@
 <% content_for :third_level_layout do %>
 	<br>
-  	<%= link_to "Add workaround", new_issue_issue_workaround_path(@issue), class: "btn btn-default" %>
+  	<%= link_to "Add workaround", new_issue_issue_workaround_path(@issue), class: "btn btn-default spacing" %>
 		<table class='table'>
 			<tr>
 				<th>Description</th>
 				<th>Options</th>
 				<th>Images</th>
 			</tr>
-			<% @workarounds.each do |workaround| %>
-				<tr>
-				<td><%= workaround.description %></td>
-				<td>
-					<%= link_to "Add Image", new_issue_workaround_image_path(workaround), class: "btn btn-default" %>
-					<%= link_to "Edit", edit_issue_workaround_path(workaround), class: "btn btn-default" %>
-					<%= link_to "Delete", issue_workaround_path(workaround),class: "btn btn-default", method: :delete, data: {confirm: "Are you sure you want to delete"} %>
-				</td>
-				<td>
-					<table class='table'>
-						<tr>
-							
-						</tr>
-						<% workaround.images.each do |image| %>
-							<tr><td><%= image_tag image.picture.url(:thumb) %></td>
-								<td>
-									<%= link_to "edit", edit_issue_workaround_image_path(workaround, image), class: "btn btn-default" %>
-									<%= link_to "Delete", issue_workaround_image_path(workaround, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure yo want to delete"} %>
-								</td>
-							</tr>
-						<% end %>
-					</ul>
-					</table>
-				</li>
-			<% end %>
+			<%= render partial: "issues/collections/edit_workarounds_row", collection: @workarounds, as: :workaround %>
 		</table>
 <% end %>

@@ -1,38 +1,12 @@
 <% content_for :third_level_layout do %>
 	<br>
-		<%= link_to "Add Solution", new_issue_solution_path(@issue), class: "btn btn-default" %>
+		<%= link_to "Add Solution", new_issue_solution_path(@issue), class: "btn btn-default spacing" %>
 		<table class='table'>
 			<tr>
 				<th>Name</th>
 				<th>Actions</th>
 				<th>Images</th>
 			</tr>
-			<% @solutions.each do |solution| %>
-				<tr>
-					<td><%= solution.name %></td>
-					<td>
-						<%= link_to "Add Image", new_solution_image_path(solution), class: "btn btn-default" %>
-						<%= link_to "Edit", edit_solution_path(solution), class: "btn btn-default" %>
-						<%= link_to "Delete", solution_path(solution), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure you want to delete"} %>
-					</td>
-					<td>
-						<table class='table'>
-							<tr>
-							</tr>
-							<% solution.images.each do |image| %>
-								<tr>
-									<td>
-										<%= image_tag image.picture.url(:thumb) %>
-									</td>
-									<td>
-										<%= link_to "Edit", edit_solution_image_path(solution, image), class: "btn btn-default" %>
-										<%= link_to "Delete", solution_image_path(solution, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure you want to delete"} %>
-									</td>
-								</tr>
-							<% end %>
-						</table>
-					</td>
-				</tr>
-			<% end %>
+			<%= render partial: "issues/collections/edit_solutions_row", collection: @solutions, as: :solution %>
 		</table>
 <% end %>

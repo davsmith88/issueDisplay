@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 	before_filter :cors_preflight_check
 	after_filter :cors_set_access_control_headers
 
-  	# before_filter :check_controller_name
+  	before_filter :check_controller_name
 
  	rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
@@ -43,22 +43,23 @@ class ApplicationController < ActionController::Base
 
   private
 	def check_controller_name
-		# puts "----> #{controller_name}"
+		puts "----> #{controller_name} #{action_name}"
 		name = controller_name
 		if name != 'static_pages' and name != 'sessions' and name != 'json_sessions'
 			authenticate_user!
-			# check_authorization
+			check_authorization
 		end
 	end
 
 
   	def check_authorization
-
+  		# puts current_user.can?(action_name, controller_name)
 	  	unless current_user.can?(action_name, controller_name)
 	  		# if the current user is not authorized to access the action on the controller
 	  		# render nothing and supply the 401 (Unauthorised) status code
-	  		render nothing: true, status: 401
+	  		# render nothing: true, status: 401
 
+ 			redirect_to home_path, notice: "User cannot access this resource"
 	  		# puts "#{action_name} #{controller_name}"
 	  		# if current_user.can?("show", controller_name)
   			# 	flash[:notice] = 'The user does not has write access'

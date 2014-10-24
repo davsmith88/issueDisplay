@@ -20,7 +20,7 @@
 		<th>update</th>
 		<th>destroy</th>
 	</tr>
-<% ['issues', 'grants', 'roles', 'rights', 'assignments', 'admin', 'attempted_solutions'].each do |controller| %>
+<% ['issues', 'grants', 'roles', 'rights', 'assignments', 'admin', 'attempted_solutions', 'issue_workarounds', 'solutions', 'impacts'].each do |controller| %>
 	<tr>
 		<td><%= controller %></td>
 	<% ['READ', 'CREATE', 'UPDATE', 'DESTROY'].each do |action| %>

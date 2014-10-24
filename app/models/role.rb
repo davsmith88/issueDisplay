@@ -7,8 +7,14 @@ class Role < ActiveRecord::Base
 	validates :name, uniqueness: true
 
 	scope :for, lambda{|action, resource|
-					where("rights.operation = ? AND rights.resource = ?",
-						Right::OPERATION_MAPPINGS[action], resource
-						)
-					}
+		if action == "new" || action == "create" || action == "edit" || action == "update" || action == "destroy" || action == "index" || action == "show"
+			where("rights.operation = ? AND rights.resource = ?",
+				Right::OPERATION_MAPPINGS[action], resource
+				)
+		else
+			where("rights.operation = ? AND rights.resource = ?",
+				Right::OPERATION_MAPPINGS[resource][action], resource
+				)
+		end
+		}
 end

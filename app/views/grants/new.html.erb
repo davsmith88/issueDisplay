@@ -89,6 +89,13 @@
 				<% end %>
 				<%= raw create_diabled_checkboxes(@rights_workarounds) %>
 			</tr>
+			<tr>
+				<td>Impacts</td>
+				<% @rights_impacts.each do |right| %>
+					<td><input type='checkbox' name='grant[rights][]' value='<%=  right.id %>'></td>
+				<% end %>
+				<%= raw create_diabled_checkboxes(@rights_impacts) %>
+			</tr>
 		
 	</table>
 	</div>

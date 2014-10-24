@@ -73,8 +73,33 @@ class IssuesController < ApplicationController
 
 	def create
 		@issue = Issue.new(issue_params)
+		if issue_params[:review_date] and @issue.review_date
+			issue_review_date = Date.parse(@issue.review_date.to_s).strftime("%d-%m-%Y")
+			current_review_date = Date.parse(issue_params[:review_date]).strftime("%d-%m-%Y")
+			# if the submitted review date is equal to the issue's review date
+			# then use the current date (today) now and add on two weeks
+			# else check if the submmited review date is less than todays' date
+			# then use today's, add two weeks and assign that to the review date
+			# so that means that if the review date is greater than the review date
+			# and greater than the current date, assign that date to the review value
+			# need to check that this works
+			if current_review_date == issue_review_date
+				# puts "review date has not changed"
+				convert_date = DateTime.now + 2.weeks
+				params[:issue]["review_date"] = convert_date
+			else
+				# puts "review date as changed"
+				if current_review_date < DateTime.now
+					# puts "review date is less that the current date"
+					params[:issue]["review_date"] = DateTime.now + 2.weeks
+				end
+			end
+		end
 
+
+		
 		@issue.user_id = current_user.id
+		# @issue.user_id = 15
 
 		respond_to do |format|
 			if @issue.save

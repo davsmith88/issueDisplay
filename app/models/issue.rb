@@ -1,5 +1,6 @@
 class Issue < ActiveRecord::Base
 	include PublicActivity::Model
+
   	#tracked owner: Proc.new{ |controller, model| controller.current_user }
 	# has_paper_trail :meta => {:department_area_name => :get_department_name,
 		# :impact_name => :get_impact_name
@@ -53,7 +54,8 @@ class Issue < ActiveRecord::Base
 
 	scope :ordered_by_desc, ->{ order("created_at DESC") }
 
-	state_machine :state, :initial => :draft do
+	
+ 	state_machine :state, :initial => :draft do
 		state :draft, value: 'draft'
 		state :review, value: 'review'
 		state :publish, value: 'publish'

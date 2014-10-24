@@ -1,0 +1,10 @@
+<tr>
+	<td>
+		<%= image_tag image.picture.url(:thumb) %>
+	</td>
+	<td><%= image.caption %></td>
+	<td>
+		<%= link_to "Edit", edit_issue_image_path(@issue, image), class: "btn btn-default" %>
+		<%= link_to "Delete", issue_image_path(@issue, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure yo want to delete"} %>
+	</td>
+</tr>
