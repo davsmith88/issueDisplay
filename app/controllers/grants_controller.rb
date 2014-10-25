@@ -21,6 +21,8 @@ class GrantsController < ApplicationController
 		@rights_attempted = Right.where(resource: 'attempted_solutions').order(query)
 		@rights_workarounds = Right.where(resource: 'issue_workarounds').order(query)
 		@rights_impacts = Right.where(resource: 'impacts').order(query)
+		@rights_images = Right.where(resource: 'images').order(query)
+		@rights_solutions = Right.where(resource: 'solutions').order(query)
 		
 
 		@grant = Grant.new
@@ -34,6 +36,15 @@ class GrantsController < ApplicationController
 		end
 		respond_to do |format|
 			format.html {redirect_to roles_path, :notice => "Rights have been added to the role"}
+		end
+	end
+	def destroy
+
+		@grant = Grant.find(params[:id])
+		@role = @grant.role
+		@grant.delete
+		respond_to do |format|
+			format.html { redirect_to role_path(@role), notice: "Grant has ben removed" }
 		end
 	end
 

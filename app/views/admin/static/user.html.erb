@@ -4,28 +4,44 @@
 </ol>
 
 <h3>Users</h3>
-<p>Manage the users for the website on this page</p>
 
-<%= link_to "Add User", new_user_path, class: "btn btn-default" %>
+<div class='row'>
+	<div class='col-sm-8'>
+		<p>The table below shows the users currenly is the system. From this page, you can add a new user or change the details of the current users</p>
+	</div>
+	<div class='col-sm-4'>
+		<%= link_to "Add User", new_user_path, class: "btn btn-default spacing" %>
+	</div>
+</div>
 
-<table class='table'>
-	<tr>
-		<th>Email</th>
-		<th>Name</th>
-		<th>Actions</th>
-	</tr>
+<div class='row'>
+	<div class='col-sm-12'>
+		<table class='table'>
+			<tr>
+				<th>Email</th>
+				<th>Name</th>
+				<th>Actions</th>
+			</tr>
 
-	<% @users.each do |user| %>
-		<tr>
-			<td><%= user.email %></td>
-			<td><%= user.name %></td>
-			<td>
-				<div class="btn-group">
-				 	<%= link_to "Edit", edit_user_path(user), class: "btn btn-default" %>
-					<%= link_to "Delete", user_path(user), method: :delete, class: "btn btn-default", data: {confirm: "Are you want to delete the user"} %>
-					<%= link_to "Show", user_path(user), class: "btn btn-default" %>
-				</div>
-			</td>
-		</tr>
-	<% end %>
-</table>
+			<% @users.each do |user| %>
+				<tr>
+					<td><%= user.email %></td>
+					<td><%= user.name %></td>
+					<td>
+						<div class="btn-group">
+						 	<%= link_to "Edit", edit_user_path(user), class: "btn btn-default" %>
+							<%= link_to "Delete", user_path(user), method: :delete, class: "btn btn-default", data: {confirm: "Are you want to delete the user"} %>
+							<%= link_to "Show", user_path(user), class: "btn btn-default" %>
+						</div>
+					</td>
+				</tr>
+			<% end %>
+		</table>
+	</div>
+</div>
+
+<div class='row'>
+	<div class='col-sm-12'>
+		<%= will_paginate @users, renderer: BootstrapPagination::Rails %>
+	</div>
+</div>

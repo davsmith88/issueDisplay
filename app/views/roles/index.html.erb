@@ -4,8 +4,8 @@
   <li class='active'>Roles</li>
 </ol>
 
-<h4>All Roles avaliable in the system</h4>
-<div class='btn-group'>
+<h4>Roles</h4>
+<div class='btn-group spacing'>
 	<%= link_to "Add Role", new_role_path, class: "btn btn-default" %>
 	<%= link_to "Add right to a role", new_grant_path, class: "btn btn-default" %>
 	<%= link_to "Add a user to a role", new_assignment_path, class: "btn btn-default" %>
@@ -14,7 +14,6 @@
 	<tr>
 		<th>Name</th>
 		<th>Description</th>
-		<th>Rights</th>
 		<th>Actions</th>
 	</tr>
 	<% @roles.each do |role| %>
@@ -27,24 +26,17 @@
 					No Desciption added yet
 				<% end %>
 			</td>
-			<td>
-				<% if role.rights.empty? %>	
-					This role has no rights at the moment
-				<% else %>
-					<ul>
-					<% role.rights.each do |right| %>
-						<li><%= right.resource %> - <%= right.operation %></li>
-					<% end %>
-				<% end %>
-				</ul>
-			</td>
+
 			<td>
 				<div class='btn-group'>
+					<%= link_to "View", role_path(role), class: "btn btn-default" %>
 					<%= link_to "Edit", edit_role_path(role), class: "btn btn-default" %>
 					<%= link_to "Delete", role_path(role), method: :delete, data: {confirm: "Are you sure you want to delete"}, class: "btn btn-default" %>
 					<%= link_to "view users", assignment_role_view_path(role.id), class: "btn btn-default" %>
 				</div>
-			</td>	
+			</td>
 		</tr>
 	<% end %>
 </table>
+
+<%= will_paginate @grants, renderer: BootstrapPagination::Rails %>

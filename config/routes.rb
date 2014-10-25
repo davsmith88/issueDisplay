@@ -37,7 +37,7 @@ IssueDisplay::Application.routes.draw do
     resources :assignments, only: [:new, :create, :destroy]
 
 
-    resources :grants, only: [:new, :create]
+    resources :grants, only: [:new, :create, :destroy]
     resources :admin
 
     resources :issue_management

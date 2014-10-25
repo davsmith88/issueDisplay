@@ -9,7 +9,7 @@ class AdminController < ApplicationController
 	end
 
 	def users
-		@users = User.all
+		@users = User.all.page(params[:page])
 		render layout: "admin_layout", template: "admin/static/user"
 	end
 

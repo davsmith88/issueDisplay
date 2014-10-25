@@ -1,7 +1,13 @@
 class RolesController < ApplicationController
 	def index
-		# @rights = Right.all
-		@roles = Role.all
+		@roles = Role.all.page(params[:page])
+		render layout: "admin_layout"
+	end
+
+	def show
+		@role = Role.find(params[:id])
+		@grants = Grant.where(role_id: params[:id]).page(params[:page])
+
 		render layout: "admin_layout"
 	end
 

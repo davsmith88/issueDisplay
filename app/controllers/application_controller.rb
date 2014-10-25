@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 
   	before_filter :check_controller_name
 
- 	rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+ 	# rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
 	# Needed for CORS support ... need to do more research
 	def cors_set_access_control_headers

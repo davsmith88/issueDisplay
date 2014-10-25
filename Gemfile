@@ -30,6 +30,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'devise'
 gem 'paperclip', "3.5.3"
 gem 'will_paginate', '~> 3.0'
+gem 'will_paginate-bootstrap'
 gem 'rails_best_practices', '~> 1.15.4'
 
 # gem 'active_model_serializers'

@@ -1,3 +1,29 @@
-<%= form_for @right do |form| %>
-	<% render partial: form %>
-<% end %>
+<ol class="breadcrumb">
+  <li><a href="/admin">Admin</a></li>
+  <li><%= link_to "Permissions", admin_permission_static_path %></li>
+  <li><%= link_to "Rights", rights_path %></li>
+  <li class='active'>New</li>
+</ol>
+
+<div class='row'>
+	<div class='col-sm-12'>
+		<h4>New Right</h4>
+	</div>
+</div>
+
+<div class='row'>
+	<div class='col-sm-8'>
+	From the table below select the checkbox's for the rights to be added to the system. If a right has already been added, then it will sliently ignore the checkbox when the right is being created. Once the rights have been selected, press the create rights button and the neccessary rights will be created in the system
+	</div>
+	<div class='col-sm-4'>
+
+	</div>
+</div>
+
+<div class='row'>
+	<div class='col-sm-12'>
+		<%= form_for @right do |form| %>
+			<% render partial: form %>
+		<% end %>
+	</div>
+</div>

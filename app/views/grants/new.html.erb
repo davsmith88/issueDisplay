@@ -76,7 +76,7 @@
 				<%= raw create_diabled_checkboxes(@rights_assignment) %>
 			</tr>
 			<tr>
-				<td>Attempted</td>
+				<td>Attempted Solutions</td>
 				<% @rights_attempted.each do |right| %>
 					<td><input type='checkbox' name='grant[rights][]' value='<%=  right.id %>'></td>
 				<% end %>
@@ -95,6 +95,20 @@
 					<td><input type='checkbox' name='grant[rights][]' value='<%=  right.id %>'></td>
 				<% end %>
 				<%= raw create_diabled_checkboxes(@rights_impacts) %>
+			</tr>
+			<tr>
+				<td>Images</td>
+				<% @rights_images.each do |right| %>
+					<td><input type='checkbox' name='grant[rights][]' value='<%=  right.id %>'></td>
+				<% end %>
+				<%= raw create_diabled_checkboxes(@rights_images) %>
+			</tr>
+			<tr>
+				<td>Solutions</td>
+				<% @rights_solutions.each do |right| %>
+					<td><input type='checkbox' name='grant[rights][]' value='<%=  right.id %>'></td>
+				<% end %>
+				<%= raw create_diabled_checkboxes(@rights_solutions) %>
 			</tr>
 		
 	</table>

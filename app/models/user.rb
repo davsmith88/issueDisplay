@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 	has_many :roles, :through => :assignments
   has_many :issues
 
-  self.per_page = 3
+  self.per_page = 5
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

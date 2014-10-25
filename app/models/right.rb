@@ -3,7 +3,7 @@ class Right < ActiveRecord::Base
 	has_many :roles, :through => :grants
 
 	validates_uniqueness_of :resource, scope: [:resource, :operation]
-
+	self.per_page = 10
 	OPERATION_MAPPINGS = {
 		"new" => "CREATE",
 		"create" => "CREATE",
@@ -19,6 +19,12 @@ class Right < ActiveRecord::Base
 			"impacts" => "READ",
 			"depareas" => "READ",
 			"users" => "READ"
+		},
+		"issues" => {
+			"edit_images" => "UPDATE",
+			"edit_workaround" => "UPDATE",
+			"edit_solutions" => "UPDATE",
+			"edit_attempted_solutions" => "UPDATE"
 		}
 	}
 end

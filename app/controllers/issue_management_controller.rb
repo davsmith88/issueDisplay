@@ -1,7 +1,7 @@
 class IssueManagementController < ApplicationController
 
 	def index
-		@issues = Issue.all
+		@issues = Issue.all.page(params[:page])
 		render layout: "admin_layout"
 	end
 

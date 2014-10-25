@@ -4,9 +4,21 @@
   <li class='active'>Rights</li>
 </ol>
 
-<h4>All rights</h4>
+<div class='row'>
+	<div class='col-sm-12'>
+		<h4>All rights</h4>
+	</div>
+</div>
 
-<table>
+<div class='row'>
+	<div class='col-sm-8'>
+		<p>The table below shows all the rights that is available in the system. If a right is destroy, then the roles that have that right will no longet has access to that part of the system. The button to the right will give you access to new rights if neccessary</p>
+	</div>
+	<div class='col-sm-4'>
+	<%= link_to "Add a Right", new_right_path, class: "btn btn-default" %>
+	</div>
+</div>
+<table class='table'>
 	<tr>
 		<th>Resource</th>
 		<th>Operation</th>
@@ -22,10 +34,8 @@
 </table>
 
 
-<ol>
-	<li><%= link_to "Add a Right", new_right_path %></li>
-	<li><%= link_to "Add right to a role", new_grant_path %></li>
-	<li><%= link_to "Add user to a role", new_assignment_path %></li>
-	<li><%= link_to "View Roles", roles_path %></li>
-	<li><%= link_to "Admin Page", admin_index_path %></li>
-</ol>
+<div class='row'>
+	<div class='col-sm-12'>
+		<%= will_paginate @rights, renderer: BootstrapPagination::Rails %>
+	</div>
+</div>

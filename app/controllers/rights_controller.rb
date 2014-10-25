@@ -1,12 +1,13 @@
 class RightsController < ApplicationController
 
 	def index
-		@rights = Right.all
+		@rights = Right.all.page(params[:page])
 		render layout: "admin_layout"
 	end
 
 	def new
 		@right = Right.new
+		render layout: "admin_layout"
 	end	
 
 	def create

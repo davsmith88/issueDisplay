@@ -1,7 +1,7 @@
 class ImpactsController < ApplicationController
 
 	def index
-		@impacts = Impact.all
+		@impacts = Impact.all.page(params[:page])
 		render layout: "admin_layout"
 	end
 

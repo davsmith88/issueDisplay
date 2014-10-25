@@ -2,24 +2,48 @@
   <li><a href="/admin">Admin</a></li>
   <li class='active'>Issue Management</li>
 </ol>
+<div class='row'>
+	<div class='col-sm-12'><h4>Issue Management</h4></div>
+</div>
 
-<table class='table'>
-	<tr>
-		<th>Issue Name</th>
-		<th>Department</th>
-		<th>Area</th>
-		<th>Review Date</th>
-	</tr>
-	<% @issues.each do |issue| %>
-		<% if issue.review_date < Time.now %>
-			<tr class='danger'>
-		<% else %>
+<div class='row'>
+	<div class='col-sm-8'>
+		<p>
+		For an administrator keeping track of the issues are an absolutlty must. The ability to create, but also review and edit issues is a must have. From this page you can do exactly this. As an added bonus an issue will hightlight red when it is time for a reivew.
+		</p>
+	</div>
+	<div class='col-sm-4'>
+		<%= link_to "Add a Issue", new_issue_path, class: "btn btn-default" %>
+	</div>
+</div>
+
+<div class='row'>
+	<div class='col-sm-12'>
+		<table class='table'>
 			<tr>
-		<% end %>
-		<td><%= link_to issue.name, issue_management_path(issue) %></td>
-		<td><%= issue.department_area.department.name %></td>
-		<td><%= issue.department_area.area.name %></td>
-		<td><%= issue.review_date %></td>
-		</tr>
-	<% end %>
-</table>
+				<th>Issue Name</th>
+				<th>Department</th>
+				<th>Area</th>
+				<th>Review Date</th>
+			</tr>
+			<% @issues.each do |issue| %>
+				<% if issue.review_date < Time.now %>
+					<tr class='danger'>
+				<% else %>
+					<tr>
+				<% end %>
+				<td><%= link_to issue.name, issue_management_path(issue) %></td>
+				<td><%= issue.department_area.department.name %></td>
+				<td><%= issue.department_area.area.name %></td>
+				<td><%= issue.review_date %></td>
+				</tr>
+			<% end %>
+		</table>
+	</div>
+</div>
+
+<div class='row'>
+	<div class='col-sm-12'>
+		<%= will_paginate @issues, renderer: BootstrapPagination::Rails %>
+	</div>
+</div>
