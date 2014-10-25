@@ -110,7 +110,34 @@
 				<% end %>
 				<%= raw create_diabled_checkboxes(@rights_solutions) %>
 			</tr>
-		
+			<tr>
+				<td>Users</td>
+				<% @rights_users.each do |right| %>
+					<td><input type='checkbox' name='grant[rights][]' value='<%=  right.id %>'></td>
+				<% end %>
+				<%= raw create_diabled_checkboxes(@rights_users) %>
+			</tr>
+			<tr>
+				<td>Areas</td>
+				<% @rights_areas.each do |right| %>
+					<td><input type='checkbox' name='grant[rights][]' value='<%=  right.id %>'></td>
+				<% end %>
+				<%= raw create_diabled_checkboxes(@rights_areas) %>
+			</tr>
+			<tr>
+				<td>Department</td>
+				<% @rights_departments.each do |right| %>
+					<td><input type='checkbox' name='grant[rights][]' value='<%=  right.id %>'></td>
+				<% end %>
+				<%= raw create_diabled_checkboxes(@rights_departments) %>
+			</tr>
+			<tr>
+				<td>Department Areas</td>
+				<% @rights_department_areas.each do |right| %>
+					<td><input type='checkbox' name='grant[rights][]' value='<%=  right.id %>'></td>
+				<% end %>
+				<%= raw create_diabled_checkboxes(@rights_department_areas) %>
+			</tr>
 	</table>
 	</div>
 

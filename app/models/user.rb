@@ -4,6 +4,10 @@ class User < ActiveRecord::Base
 	has_many :roles, :through => :assignments
   has_many :issues
 
+  validates :name, presence: {message: "Name needs to be supplied"}
+  validates :title, presence: {message: "Title needs to be supplied"}
+  validates :email, presence: {message: "User needs to supply an email address"}
+
   self.per_page = 5
 
   # Include default devise modules. Others available are:

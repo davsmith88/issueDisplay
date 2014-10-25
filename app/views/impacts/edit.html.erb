@@ -6,6 +6,6 @@
 </ol>
 
 <h4>Edit Impact</h4>
-<%= form_for @impact, html: {class: "form-horizontal"} do |form| %>
-	<%= render partial: form %>
+<%= form_for @impact, builder: MyFormBuilder, html: {class: "form-horizontal"} do |form| %>
+	<%= render partial: 'form', locals: {form: form} %>
 <% end %>

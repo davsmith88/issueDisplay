@@ -1,7 +1,7 @@
 class AreasController < ApplicationController
 
 	def index
-		@areas = Area.all
+		@areas = Area.all.page(params[:page])
 		render layout: "admin_layout"
 	end
 
@@ -17,7 +17,7 @@ class AreasController < ApplicationController
 			if @area.save
 				format.html {redirect_to areas_path, notice: "Area has been added"}
 			else
-
+				format.html { render action: "new", layout: "admin_layout" }
 			end
 		end
 	end
@@ -29,11 +29,11 @@ class AreasController < ApplicationController
 
 	def update
 		@area = Area.find(params[:id])
-		resond_to do |format|
+		respond_to do |format|
 			if @area.update(area_params)
 				format.html {redirect_to areas_path, notice: "Area has been updated"}
 			else
-				format.html {render action: 'edit'}
+				format.html {render action: "edit", layout: "admin_layout"}
 			end
 		end
 	end

@@ -5,4 +5,6 @@ class DepartmentArea < ActiveRecord::Base
   has_many :jobs
 
   validates_uniqueness_of :department, scope: :area
+
+  self.per_page = 8
 end

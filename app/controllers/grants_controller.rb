@@ -23,6 +23,11 @@ class GrantsController < ApplicationController
 		@rights_impacts = Right.where(resource: 'impacts').order(query)
 		@rights_images = Right.where(resource: 'images').order(query)
 		@rights_solutions = Right.where(resource: 'solutions').order(query)
+		@rights_users = Right.where(resource: 'users').order(query)
+		@rights_areas = Right.where(resource: 'areas').order(query)
+		@rights_departments = Right.where(resource: 'departments').order(query)
+		@rights_department_areas = Right.where(resource: 'department_areas').order(query)
+
 		
 
 		@grant = Grant.new

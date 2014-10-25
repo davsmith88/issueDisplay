@@ -1,7 +1,7 @@
 class DepartmentsController < ApplicationController
 
 	def index
-		@departments = Department.all
+		@departments = Department.all.page(params[:page])
 		render layout: "admin_layout"
 	end
 
@@ -16,7 +16,7 @@ class DepartmentsController < ApplicationController
 			if @department.save
 				format.html {redirect_to departments_path}
 			else
-				format.html {render action: 'new'}
+				format.html {render action: 'new', layout: "admin_layout"}
 			end
 		end
 	end
@@ -32,6 +32,8 @@ class DepartmentsController < ApplicationController
 		respond_to do |format|
 			if @department.update(department_params)
 				format.html {redirect_to departments_path}
+			else
+				format.html { render action: 'edit', layout: "admin_layout"}
 			end
 		end
 	end

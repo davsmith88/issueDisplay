@@ -7,7 +7,7 @@ module GrantsHelper
 			temp = content_tag "td" do
 				tag :input, {type: "checkbox", disabled: true}
 			end
-			puts temp
+			# puts temp
 			html_string << temp.html_safe
 		end
 		return html_string

@@ -9,6 +9,6 @@
 
 <h4>Edit department</h4>
 
-<%= form_for @department, html: {class: "form-horizontal"} do |form| %>
-	<%= render partial: form %>
+<%= form_for @department, builder: MyFormBuilder, html: {class: "form-horizontal"} do |form| %>
+	<%= render partial: 'form', locals: {form: form} %>
 <% end %>

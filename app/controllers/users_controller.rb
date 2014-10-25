@@ -27,6 +27,8 @@ class UsersController < ApplicationController
 		respond_to do |format|
 			if @user.save
 				format.html {redirect_to admin_user_static_path}
+			else
+				format.html {render action: 'new', layout: "admin_layout"}
 			end
 		end
 	end
@@ -43,7 +45,7 @@ class UsersController < ApplicationController
 			if @user.update(user_params)
 				format.html {redirect_to admin_user_static_path, :notice => "User details have been added to the system"}
 			else
-				format.html {render action: 'edit'}
+				format.html {render action: 'edit', layout: "admin_layout"}
 			end
 		end
 	end

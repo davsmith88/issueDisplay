@@ -1,6 +1,6 @@
 class DepartmentAreasController < ApplicationController
 	def index
-		@depAreas = DepartmentArea.all.includes(:department, :area)
+		@depAreas = DepartmentArea.all.includes(:department, :area).page(params[:page])
 		render layout: "admin_layout"
 	end
 

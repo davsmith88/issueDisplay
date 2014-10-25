@@ -4,28 +4,45 @@
   <li><%= link_to "Areas", areas_path %></li>
   <li class='active'>View All</li>
 </ol>
+<div class='row'>
+	<div class='col-sm-12'>
+		<h4>Areas</h4>
+	</div>
+</div>
+<div class='row'>
+	<div class='col-sm-8'>
+		<p>Below the table lists all the area are in the database</p>
+	</div>
+	<div class='col-sm-4'>
+		<%= link_to "Add an area", new_area_path, class: "btn btn-default spacing" %>
+	</div>
+</div>
+<div class='row'>
+	<div class='col-sm-12'>
+		<table class='table'>
+			<tr>
+				<th>Area</th>
+				<th>Description</th>
+				<th>Actions</th>
+			</tr>
+				<% @areas.each do |area| %>
+				<tr>
+				<td><%= area.name %></td>
+				<td><%= area.name %></td>
+				<td>
+					<div class='btn-group'>
+						<%= link_to "Edit", edit_area_path(area), class: "btn btn-default" %>
+						<%= link_to "Destroy", area_path(area), method: :delete, class: "btn btn-default" ,data: {confirm: "Are you sure you want to delete"} %>
+					</div>
+				</td>
+				</tr>
+			<% end %>
+		</table>
+	</div>
+</div>
 
-<h4>Areas</h4>
-
-<table class='table'>
-	<tr>
-		<th>Area</th>
-		<th>Description</th>
-		<th>Actions</th>
-	</tr>
-		<% @areas.each do |area| %>
-		<tr>
-		<td><%= area.name %></td>
-		<td><%= area.name %></td>
-		<td>
-			<div class='btn-group'>
-				<%= link_to "Edit", edit_area_path(area), class: "btn btn-default" %>
-				<%= link_to "Destroy", area_path(area), method: :delete, class: "btn btn-default" ,data: {confirm: "Are you sure you want to delete"} %>
-			</div>
-		</td>
-		</tr>
-	<% end %>
-</table>
-
-
-<%= link_to "Add an area", new_area_path, class: "btn btn-default" %>
+<div class='row'>
+	<div class='col-sm-12'>
+		<%= will_paginate @areas, renderer: BootstrapPagination::Rails %>
+	</div>
+</div>
