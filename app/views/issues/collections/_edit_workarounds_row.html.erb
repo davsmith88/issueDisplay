@@ -1,23 +1,23 @@
 <tr>
 	<td><%= workaround.description %></td>
 	<td>
-		<%= link_to "Add Image", new_issue_workaround_image_path(workaround), class: "btn btn-default" %>
-		<%= link_to "Edit", edit_issue_workaround_path(workaround), class: "btn btn-default" %>
-		<%= link_to "Delete", issue_workaround_path(workaround),class: "btn btn-default", method: :delete, data: {confirm: "Are you sure you want to delete"} %>
+		<%= link_to "Add Image", new_issue_workaround_image_path(workaround), class: "btn btn-default" if @image_create %>
+		<%= link_to "Edit", edit_issue_workaround_path(workaround), class: "btn btn-default" if @workaround_edit %>
+		<%= link_to "Delete", issue_workaround_path(workaround),class: "btn btn-default", method: :delete, data: {confirm: "Are you sure you want to delete"} if @workaround_destroy %>
 	</td>
 	<td>
 		<table class='table'>
 			<tr>
-				
+
 			</tr>
 			<% workaround.images.each do |image| %>
 				<tr><td><%= image_tag image.picture.url(:thumb) %></td>
 					<td>
-						<%= link_to "edit", edit_issue_workaround_image_path(workaround, image), class: "btn btn-default" %>
-						<%= link_to "Delete", issue_workaround_image_path(workaround, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure yo want to delete"} %>
+						<%= link_to "edit", edit_issue_workaround_image_path(workaround, image), class: "btn btn-default" if @image_edit %>
+						<%= link_to "Delete", issue_workaround_image_path(workaround, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure yo want to delete"} if @image_destroy %>
 					</td>
 				</tr>
 			<% end %>
 		</table>
 	</td>
-</tr>	
+</tr>

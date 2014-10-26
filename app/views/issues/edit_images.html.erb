@@ -1,6 +1,6 @@
 <% content_for :third_level_layout do %>
 	<br>
-	<%= link_to 'Add Image', new_issue_image_path(@issue), class: "btn btn-default spacing" %>
+	<%= link_to 'Add Image', new_issue_image_path(@issue), class: "btn btn-default spacing" if @image_create %>
 		<table class='table'>
 			<tr>
 				<th>Image</th>

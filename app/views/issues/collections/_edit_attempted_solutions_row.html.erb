@@ -1,9 +1,9 @@
 <tr>
 	<td><%= att_sol.name %></td>
 	<td>
-		<%= link_to "Add Image", new_attempted_solution_image_path(att_sol), class: "btn btn-default" %>
-		<%= link_to "Edit", edit_attempted_solution_path(att_sol), class: "btn btn-default" %>
-		<%= link_to "Delete", attempted_solution_path(att_sol), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure?"} %>
+		<%= link_to "Add Image", new_attempted_solution_image_path(att_sol), class: "btn btn-default" if @image_create %>
+		<%= link_to "Edit", edit_attempted_solution_path(att_sol), class: "btn btn-default" if @attempted_solution_edit %>
+		<%= link_to "Delete", attempted_solution_path(att_sol), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure?"} if @attempted_solution_destroy %>
 	</td>
 	<td>
 		<table class='table'>
@@ -12,7 +12,7 @@
 			<% att_sol.images.each do |image| %>
 				<tr>
 					<td><%= image_tag image.picture.url(:thumb) %></td>
-					<td><%= link_to "Delete Picture", attempted_solution_image_path(att_sol, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure"} %>
+					<td><%= link_to "Delete Picture", attempted_solution_image_path(att_sol, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure"} if @image_destroy %>
 				</tr>
 			<% end %>
 		</table>

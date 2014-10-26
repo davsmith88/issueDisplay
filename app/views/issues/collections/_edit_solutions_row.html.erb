@@ -1,9 +1,9 @@
 <tr>
 	<td><%= solution.name %></td>
 	<td>
-		<%= link_to "Add Image", new_solution_image_path(solution), class: "btn btn-default" %>
-		<%= link_to "Edit", edit_solution_path(solution), class: "btn btn-default" %>
-		<%= link_to "Delete", solution_path(solution), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure you want to delete"} %>
+		<%= link_to "Add Image", new_solution_image_path(solution), class: "btn btn-default" if @image_create %>
+		<%= link_to "Edit", edit_solution_path(solution), class: "btn btn-default" if @solution_edit %>
+		<%= link_to "Delete", solution_path(solution), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure you want to delete"} if @solution_destroy %>
 	</td>
 	<td>
 		<table class='table'>
@@ -15,8 +15,8 @@
 						<%= image_tag image.picture.url(:thumb) %>
 					</td>
 					<td>
-						<%= link_to "Edit", edit_solution_image_path(solution, image), class: "btn btn-default" %>
-						<%= link_to "Delete", solution_image_path(solution, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure you want to delete"} %>
+						<%= link_to "Edit", edit_solution_image_path(solution, image), class: "btn btn-default" if @image_edit %>
+						<%= link_to "Delete", solution_image_path(solution, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure you want to delete"} if @image_destroy %>
 					</td>
 				</tr>
 			<% end %>

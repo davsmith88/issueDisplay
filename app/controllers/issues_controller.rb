@@ -3,18 +3,11 @@ class IssuesController < ApplicationController
 	before_action :find_issue, only: [:show, :edit, :update, :destroy, :edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
 	before_action :get_dep_area, only: [:new, :create, :edit,:edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
 	before_action :get_impacts, only: [:new, :create, :edit, :edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
-	before_action :permissions, only: [:index]
+	before_action :other_permissions
 
 
 	def index
 		@issues = Issue.where(state: "publish").order(created_at: :desc).page(params[:page])
-		# @issues = Issue.where(state: "publish").order(created_at: :desc).page(params[:page]) + current_user.issues.where.not(state: "publish").order(created_at: :desc)
-		# @user_issues = current_user.issues.where.not(state: "publish").order(created_at: :desc)
-		# pp @user_issues
-		respond_to do |format|
-			format.html
-			format.json
-		end
 	end
 
 	def show
@@ -190,11 +183,23 @@ class IssuesController < ApplicationController
 
 	private
 
-	def permissions
+	def other_permissions
 		if current_user
-			@edit = current_user.can?("edit", controller_name)
-			@destroy = current_user.can?("destroy", controller_name)
-			@create = current_user.can?("new", controller_name)
+			@workaround_create = current_user.can?("new", "issue_workarounds")
+			@workaround_edit = current_user.can?("edit", "issue_workarounds")
+			@workaround_destroy = current_user.can?("destroy", "issue_workarounds")
+
+			@image_create = current_user.can?("new", "images")
+			@image_edit = current_user.can?("edit", "images")
+			@image_destroy = current_user.can?("destroy", "images")
+
+			@solution_create = current_user.can?("new", "solutions")
+			@solution_edit = current_user.can?("edit", "solutions")
+			@solution_destroy = current_user.can?("destroy", "solutions")
+
+			@attempted_solution_create = current_user.can?("new", "attempted_solutions")
+			@attempted_solution_create = current_user.can?("edit", "attempted_solutions")
+			@attempted_solution_create = current_user.can?("destroy", "attempted_solutions")
 		end
 	end
 

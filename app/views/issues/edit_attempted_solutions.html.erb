@@ -1,6 +1,6 @@
 <% content_for :third_level_layout do %>
 	<br>
-  	<%= link_to "Add Attempted Solutions", new_issue_attempted_solution_path(@issue), class: "btn btn-default spacing" %>
+  	<%= link_to "Add Attempted Solutions", new_issue_attempted_solution_path(@issue), class: "btn btn-default spacing" if @attempted_solution_create %>
 		<table class='table'>
 			<%= render partial: "issues/collections/edit_attempted_solutions_row", collection: @attempted_solutions, as: :att_sol %>
 		</table>

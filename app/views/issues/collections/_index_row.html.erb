@@ -7,8 +7,8 @@
 	</td>
 	<td>
 		<%= link_to "View", issue_path(issue), class: "btn btn-default" %>
-		<%= link_to "Edit", edit_issue_path(issue), class: "btn btn-default" %>
+		<%= link_to "Edit", edit_issue_path(issue), class: "btn btn-default" if @edit %>
 		<%#= link_to "History", history_issue_path(issue), class: "btn btn-default" %>
-		<%= link_to "Destroy", issue_path(issue), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure you want to delete"} %>
+		<%= link_to "Destroy", issue_path(issue), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure you want to delete"} if @destroy %>
 	</td>
 </tr>
