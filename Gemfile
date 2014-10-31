@@ -57,6 +57,7 @@ end
 group :development, :test do
 	gem 'rspec-rails', '2.13.1'
 	gem 'shoulda-matchers'
+  gem 'factory_girl_rails'
 end
 
 group :test do
@@ -64,6 +65,8 @@ group :test do
   gem 'capybara', '2.1.0'
   gem 'shoulda'
   gem 'shoulda-context'
+  gem 'faker'
+  # gem 'launchy'
 end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

@@ -1,14 +1,28 @@
 require 'spec_helper'
 
+
 describe Issue do
   before { subject.valid? }
-  subject { Issue.new(name: "first issue") }
+  subject { FactoryGirl.create(:issue) }
 
+  #testing validations
+  it "has a valid factory" do
+  	FactoryGirl.create(:issue).should be_valid
+  end
+
+  it "is invalid without a name" do
+  	FactoryGirl.build(:issue, name: nil).should_not be_valid
+  end
+
+  it "is invalid without a review date" do
+  	FactoryGirl.build(:issue, review_date: nil).should_not be_valid
+  end
+  #tests the attributes for the model
   it { should respond_to(:name) }
   it { should respond_to(:description) }
   it { should respond_to(:review_date) }
 
-
+  # tests the associations for the model
   it { should belong_to(:user) }
   it { should belong_to(:impact) }
   it { should belong_to(:department_area) }
@@ -33,12 +47,24 @@ describe Issue do
 	end
   end
 
+  it "will return the department area name" do
+  	department_area = FactoryGirl.create(:department_area)
+  	subject.department_area_id = department_area.id
+  	expect(subject.get_department_name).to eq "#{department_area.area.name} #{department_area.department.name}"
+  end
+
+  it "will return the impact name" do
+  	impact = FactoryGirl.create(:impact)
+  	subject.impact_id = impact.id
+  	expect(subject.get_impact_name).to eq impact.name
+  end
+
   context "testing state" do
-  	subject { Issue.new(name: "first issue") }
+  	subject { FactoryGirl.build(:issue) }
   	its(:state) { should == "draft" }
   	it "state should not be able to be set to 'publish'" do
   		expect(subject.review_to_publish).to be false
-  		expect(subject.state).to_not be == 'publish'
+  		expect(subject.state).to_not be eq 'publish'
   	end
   	context "once state is set to review" do
   		before { subject.draft_to_review }
@@ -47,7 +73,11 @@ describe Issue do
 	  	end
 	  	it "state should be able to be changed to 'draft'" do
 	  		expect(subject.review_to_draft).to be true
-	  		expect(subject.state).to be == 'draft'
+	  		expect(subject.state).to be == "draft"
+	  	end
+	  	it "state should be able to change to 'draft' with the shortcut method" do
+			subject.change_state
+	  		expect(subject.state).to be == "draft"
 	  	end
   		context "state should be able to be changed to 'publish'" do
   			before { subject.review_to_publish }
@@ -56,21 +86,17 @@ describe Issue do
 	  		end
 	  		it "should be able to set to review" do
 	  			expect(subject.publish_to_review).to be true
-	  			expect(subject.state).to be == 'review'
+	  			expect(subject.state).to be == "review"
 	  		end
 	  		it "should be able to be set to draft" do
 	  			expect(subject.publish_to_draft).to be true
-	  			expect(subject.state).to be == 'draft'
+	  			expect(subject.state).to be == "draft"
+	  		end
+	  		it "should be able to change the state to 'draft' with the shortcut method" do
+	  			subject.change_state
+	  			expect(subject.state).to be == "draft"
 	  		end
   		end
   	end
-  end
-
-  context "when name is not present" do
-  	subject { Issue.new(name: "") }
-
-  	let(:errors) { subject.errors[:name] }
-  	it { should_not be_valid }
-  	it { errors.should include("Issue needs to have a name")}
   end
 end

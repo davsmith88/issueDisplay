@@ -3,7 +3,7 @@ class IssuesController < ApplicationController
 	before_action :find_issue, only: [:show, :edit, :update, :destroy, :edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
 	before_action :get_dep_area, only: [:new, :create, :edit,:edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
 	before_action :get_impacts, only: [:new, :create, :edit, :edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
-	before_action :other_permissions
+	# before_action :other_permissions
 
 
 	def index
@@ -17,7 +17,7 @@ class IssuesController < ApplicationController
 		@solutions = @issue.solutions.includes(:images)
 		@attempted_solutions =  @issue.attempted_solutions.includes(:images)
 
-		@user = User.find(@issue.user_id)
+		# @user = User.find(@issue.user_id)
 
 		@impact = Impact.find_by_id(@issue.impact_id)
 		#da = DepartmentArea.includes(:department, :area)
@@ -59,7 +59,6 @@ class IssuesController < ApplicationController
 	def new
 		@issue = Issue.new
 		respond_to do |format|
-			# format.js {}
 			format.html {render action: 'new'}
 		end
 	end
@@ -91,8 +90,8 @@ class IssuesController < ApplicationController
 
 
 		
-		@issue.user_id = current_user.id
-		# @issue.user_id = 15
+		# @issue.user_id = current_user.id
+		@issue.user_id = 15
 
 		respond_to do |format|
 			if @issue.save

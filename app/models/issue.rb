@@ -50,6 +50,7 @@ class Issue < ActiveRecord::Base
 	# do_not_validate_attachment_file_type :image
 	# validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 	validates :name, presence: {message: "Issue needs to have a name"}
+	validates :review_date, presence: true
 	# validates :review_date, presence: true
 
 	scope :ordered_by_desc, ->{ order("created_at DESC") }
