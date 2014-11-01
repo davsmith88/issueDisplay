@@ -66,6 +66,7 @@ group :test do
   gem 'shoulda'
   gem 'shoulda-context'
   gem 'faker'
+  gem 'database_cleaner'
   # gem 'launchy'
 end
 # Use ActiveModel has_secure_password

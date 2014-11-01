@@ -3,7 +3,7 @@ class IssuesController < ApplicationController
 	before_action :find_issue, only: [:show, :edit, :update, :destroy, :edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
 	before_action :get_dep_area, only: [:new, :create, :edit,:edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
 	before_action :get_impacts, only: [:new, :create, :edit, :edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
-	# before_action :other_permissions
+	before_action :other_permissions
 
 
 	def index
@@ -66,8 +66,8 @@ class IssuesController < ApplicationController
 	def create
 		@issue = Issue.new(issue_params)
 		if issue_params[:review_date] and @issue.review_date
-			issue_review_date = Date.parse(@issue.review_date.to_s).strftime("%d-%m-%Y")
-			current_review_date = Date.parse(issue_params[:review_date]).strftime("%d-%m-%Y")
+			issue_review_date = DateTime.parse(@issue.review_date.to_s).strftime("%d-%m-%Y")
+			current_review_date = DateTime.parse(issue_params[:review_date]).strftime("%d-%m-%Y")
 			# if the submitted review date is equal to the issue's review date
 			# then use the current date (today) now and add on two weeks
 			# else check if the submmited review date is less than todays' date
@@ -77,13 +77,13 @@ class IssuesController < ApplicationController
 			# need to check that this works
 			if current_review_date == issue_review_date
 				# puts "review date has not changed"
-				convert_date = DateTime.now + 2.weeks
+				convert_date = DateTime.now.utc + 2.weeks
 				params[:issue]["review_date"] = convert_date
 			else
 				# puts "review date as changed"
-				if current_review_date < DateTime.now
+				if current_review_date < DateTime.now.utc
 					# puts "review date is less that the current date"
-					params[:issue]["review_date"] = DateTime.now + 2.weeks
+					params[:issue]["review_date"] = DateTime.now.utc + 2.weeks
 				end
 			end
 		end
@@ -136,33 +136,33 @@ class IssuesController < ApplicationController
 	end
 
 	def update
-		issue_review_date = Date.parse(@issue.review_date.to_s).strftime("%d-%m-%Y")
-		current_review_date = Date.parse(issue_params[:review_date]).strftime("%d-%m-%Y")
-		# if the submitted review date is equal to the issue's review date
-		# then use the current date (today) now and add on two weeks
-		# else check if the submmited review date is less than todays' date
-		# then use today's, add two weeks and assign that to the review date
-		# so that means that if the review date is greater than the review date
-		# and greater than the current date, assign that date to the review value
-		if current_review_date == issue_review_date
-			# puts "review date has not changed"
-			convert_date = DateTime.now + 2.weeks
-			params[:issue]["review_date"] = convert_date
-		else
-			# puts "review date as changed"
-			if current_review_date < DateTime.now
-				# puts "review date is less that the current date"
-				params[:issue]["review_date"] = DateTime.now + 2.weeks
+		if issue_params[:review_date]
+			issue_review_date = DateTime.parse("#{@issue.review_date.to_s}").strftime("%d-%m-%Y")
+			current_review_date = DateTime.parse("#{issue_params[:review_date]}").strftime("%d-%m-%Y")
+			# if the submitted review date is equal to the issue's review date
+			# then use the current date (today) now and add on two weeks
+			# else check if the submmited review date is less than todays' date
+			# then use today's, add two weeks and assign that to the review date
+			# so that means that if the review date is greater than the review date
+			# and greater than the current date, assign that date to the review value
+			if current_review_date == issue_review_date
+				# puts "review date has not changed"
+				convert_date = DateTime.now.utc + 2.weeks
+				params[:issue]["review_date"] = convert_date
+			else
+				if current_review_date < DateTime.now
+					params[:issue]["review_date"] = DateTime.now.utc + 2.weeks
+				end
 			end
+		else
+			# if no review date was supplied
+			params[:issue]["review_date"] = DateTime.now.utc + 2.weeks
 		end
 		respond_to do |format|
 			if @issue.update(issue_params)
 				format.html {redirect_to @issue, notice: "Issue has been updated"}
-				format.json {head :no_content}
 			else
 				format.html {render action: 'edit'}
-				# format.json {render json: @issues.errors, status: :unprocessable_entity}
-				format.json {render json: {success: false, :error => @issue.errors.messages}, status: :unprocessable_entity}
 			end
 		end
 	end
@@ -171,7 +171,6 @@ class IssuesController < ApplicationController
 		@issue.destroy
 		respond_to do |format|
 			format.html {redirect_to issues_path}
-			format.json {head :no_content}
 		end
 	end
 

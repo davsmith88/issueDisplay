@@ -1,6 +1,6 @@
 IssueDisplay::Application.configure do
 
-
+  config.consider_all_requests_local = false
 
 
   # Settings specified here will take precedence over those in config/application.rb.

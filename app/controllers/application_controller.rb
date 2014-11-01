@@ -2,16 +2,16 @@ class ApplicationController < ActionController::Base
 	include PublicActivity::StoreController
   	protect_from_forgery with: :exception
 
-  	# before_filter :check_controller_name
-  	# before_action :permissions
+  	before_filter :check_controller_name
+  	before_action :permissions
 
- 	# rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+ 	rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   	protected
 
-  	# def record_not_found
-  	# 	redirect_to "/404.html"
-  	# end
+  	def record_not_found
+  		redirect_to "/404.html"
+  	end
 
   	private
 
@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def check_controller_name
-		puts "----> #{controller_name} #{action_name}"
+		# puts "----> #{controller_name} #{action_name}"
 		name = controller_name
 		if name != 'static_pages' and name != 'sessions' and name != 'json_sessions'
 			authenticate_user!
