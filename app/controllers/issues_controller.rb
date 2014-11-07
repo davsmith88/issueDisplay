@@ -88,19 +88,14 @@ class IssuesController < ApplicationController
 			end
 		end
 
-
-		
-		# @issue.user_id = current_user.id
-		@issue.user_id = 15
+		@issue.user_id = current_user.id
 
 		respond_to do |format|
 			if @issue.save
-				# @album = Album.create({imageable_type: "issue", imageable_id: @issue.id})
 				format.html {redirect_to @issue, notice: "Issue was created successfully"}
-				format.json {head :no_content}
 			else
+				flash.now[:alert] = "Issue is not valid"
 				format.html {render action: 'new'}
-				format.json {render :json => {:success => false, :error => @issue.errors.messages}, status: 422}
 			end
 		end
 	end
@@ -162,6 +157,7 @@ class IssuesController < ApplicationController
 			if @issue.update(issue_params)
 				format.html {redirect_to @issue, notice: "Issue has been updated"}
 			else
+				flash.now[:alert] = "Issue could not be updated"
 				format.html {render action: 'edit'}
 			end
 		end
@@ -170,7 +166,7 @@ class IssuesController < ApplicationController
 	def destroy
 		@issue.destroy
 		respond_to do |format|
-			format.html {redirect_to issues_path}
+			format.html {redirect_to issues_path, notice: "Issue has been destroyed"}
 		end
 	end
 

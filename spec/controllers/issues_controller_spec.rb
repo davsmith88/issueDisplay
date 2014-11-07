@@ -1,4 +1,5 @@
 require 'spec_helper'
+# adds tests for instance variables
 
 describe IssuesController do
 	before :all do
@@ -215,6 +216,20 @@ describe IssuesController do
 						post :create, issue: FactoryGirl.attributes_for(:issue)
 						expect(response).to redirect_to issue_path(assigns[:issue])
 					end
+					it "assigns the user id to the issue" do
+						post :create, issue: FactoryGirl.attributes_for(:issue)
+						expect(assigns(:issue).user_id).to eq @user.id
+					end
+					it "returns the neccessary instance variables" do
+						post :create, issue: FactoryGirl.attributes_for(:issue)
+						[:issue].each do |instance_variable|
+							expect(assigns(instance_variable)).to_not be_nil
+						end
+					end
+					it "will have a flash message" do
+						post :create, issue: FactoryGirl.attributes_for(:issue)
+						expect(flash[:notice]).to eq "Issue was created successfully"
+					end
 				end
 				context "with invalid attributes" do
 					it "does not create the issue" do
@@ -225,6 +240,10 @@ describe IssuesController do
 					it "renders the 'new' template" do
 						post :create, issue: FactoryGirl.attributes_for(:invalid_issue)
 						expect(response).to render_template :new
+					end
+					it "will have a flash message" do
+						post :create, issue: FactoryGirl.attributes_for(:invalid_issue)
+						expect(flash[:alert]).to eq "Issue is not valid"
 					end
 				end
 			end
@@ -252,7 +271,7 @@ describe IssuesController do
 		end
 	end
 
-	describe "PATCH #update", focus: true do
+	describe "PATCH #update" do
 		before do
 			@issue = FactoryGirl.create(:issue, name: "issue a")
 		end
@@ -280,13 +299,20 @@ describe IssuesController do
 						patch :update, id: @issue, issue: FactoryGirl.attributes_for(:issue)
 						expect(response).to redirect_to issue_path
 					end
+					it "will have the instance variable" do
+						patch :update, id: @issue, issue: FactoryGirl.attributes_for(:issue)
+						expect(assigns(:issue)).to_not be_nil
+					end
+					it "will have a flash message" do
+						patch :update, id: @issue, issue: FactoryGirl.attributes_for(:issue)
+						expect(flash[:notice]).to eq "Issue has been updated"
+					end
 					it "changes the review date when supplied" do
 						new_date = Date.parse((DateTime.now.utc + 1.weeks).to_s).strftime("%d-%m-%Y")
 						patch :update, id: @issue, issue: FactoryGirl.attributes_for(:issue, review_date: new_date)
 						expect((assigns(:issue).review_date).strftime("%d-%m-%Y")).to eq new_date
 					end
 					it "changes the review date to two weeks in advance when not supplied" do
-						# pending
 						new_date = Date.parse((DateTime.now.utc + 2.weeks).to_s).strftime("%d-%m-%Y")
 						data = FactoryGirl.attributes_for(:issue)
 						data.except!(:review_date)
@@ -312,6 +338,10 @@ describe IssuesController do
 					it "will render the edit page" do
 						patch :update, id: @issue, issue: FactoryGirl.attributes_for(:issue, name: nil)
 						expect(response).to render_template :edit
+					end
+					it "will have a flash message" do
+						patch :update, id: @issue, issue: FactoryGirl.attributes_for(:invalid_issue)
+						expect(flash[:alert]).to eq "Issue could not be updated"
 					end
 				end
 			end
@@ -345,7 +375,7 @@ describe IssuesController do
 			end
 		end
 	end
-	describe "DELETE #destroy" do
+	describe "DELETE #destroy", focus: true do
 		before {@issue = FactoryGirl.create(:issue)}
 		context "the user is logged in" do
 			context "and the user has delete rights" do
@@ -365,6 +395,10 @@ describe IssuesController do
 				it "redirects to the issue index" do
 					delete :destroy, id: @issue
 					expect(response).to redirect_to issues_path
+				end
+				it "has the flash message" do
+					delete :destroy, id: @issue
+					expect(flash[:notice]).to eq "Issue has been destroyed"
 				end
 			end
 			context "and the user does not have the destroy right" do

@@ -34,6 +34,41 @@ describe Issue do
   it { should have_many(:images) }
   it { should have_many(:records) }
 
+  context "validations" do
+    context "for field impact id" do
+      subject { FactoryGirl.build(:issue, impact_id: "ww") }
+      before do
+        subject.valid?
+      end
+      it { should_not be_valid }
+      it "will have an error message in the errors hash" do
+        expect(subject.errors.messages[:impact_id]).to include("Impact ID must be an integer only")
+      end
+    end
+    context "for user id" do
+      subject { FactoryGirl.build(:issue, user_id: "were") }
+      it "only accept whole integers" do
+        subject.valid?
+        expect(subject).to_not be_valid
+      end
+      it "on error will have a custom error message" do
+        subject.valid?
+        expect(subject.errors.messages[:user_id]).to include("User ID must be an integer only")
+      end
+    end
+    context "for department area id" do
+      subject { FactoryGirl.build(:issue, department_area_id: "were") }
+      it "only accept whole integers" do
+        subject.valid?
+        expect(subject).to_not be_valid
+      end
+      it "on error will have a custom error message" do
+        subject.valid?
+        expect(subject.errors.messages[:department_area_id]).to include("Department Area ID must be an integer only")
+      end
+    end
+  end
+
   context "should have constant variables" do
 	it "per_page constant should be set to 10" do
 	  expect(Issue::per_page).to be == 10

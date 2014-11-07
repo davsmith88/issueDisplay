@@ -6,7 +6,8 @@ FactoryGirl.define do
 		f.description { Faker::Lorem.sentence }
 		f.review_date { Faker::Date.forward(10) }
 		f.association :impact, factory: :impact
-
+		# f.user_id { rand(10) }
+		
 		factory :invalid_issue do |f|
 			f.name nil
 			f.review_date nil

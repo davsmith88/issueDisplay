@@ -30,32 +30,32 @@ class Issue < ActiveRecord::Base
 	has_many :solutions
 	has_many :attempted_solutions
 	has_many :issue_workarounds
-
+	has_many :images, as: :imageable
+	has_many :records, as: :recordable
 	has_many :notes
 
 	belongs_to :department_area
 	belongs_to :impact
 	belongs_to :user
-	has_many :images, as: :imageable
 
-
-	
-	has_many :records, as: :recordable
-
-	# has_attached_file :image, styles: {
-	# 	thumb: '100x100>',
- #    	square: '200x200#',
- #    	medium: '300x300>'
-	# }
-	# do_not_validate_attachment_file_type :image
-	# validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 	validates :name, presence: {message: "Issue needs to have a name"}
+	validates :impact_id, numericality: {
+		message: "Impact ID must be an integer only",
+		only_integer: true
+	}, if: "!impact_id.nil?"
+	validates :user_id, numericality: {
+		message: "User ID must be an integer only",
+		only_integer: true
+	}, if: "!user_id.nil?"
+
+	validates :department_area_id, numericality: {
+		message: "Department Area ID must be an integer only",
+		only_integer: true
+	}, if: "!department_area_id.nil?"
 	validates :review_date, presence: true
-	# validates :review_date, presence: true
 
 	scope :ordered_by_desc, ->{ order("created_at DESC") }
 
-	
  	state_machine :state, :initial => :draft do
 		state :draft, value: 'draft'
 		state :review, value: 'review'

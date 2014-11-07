@@ -1,8 +1,13 @@
+require 'simplecov'
+SimpleCov.start 'rails'
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
+
+require 'capybara/rspec'
+
 require "paperclip/matchers"
 require 'factory_girl'
 require 'database_cleaner'
@@ -28,6 +33,9 @@ RSpec.configure do |config|
   config.include Capybara::DSL
   config.include Paperclip::Shoulda::Matchers
   config.include Devise::TestHelpers, type: :controller
+  # config.include FactoryGirl::Syntax::Methods
+
+  config.include UserHelper
   
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
@@ -47,11 +55,12 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DatabaseCleaner.clean
+    #if example.metadata[:type] == :feature and example.exception.present?
+      #save_and_open_page
+    #end
   end
 
 
-
-  # config.include FactoryGirl::Syntax::Methods
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
