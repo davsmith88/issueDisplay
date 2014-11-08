@@ -24,7 +24,12 @@ class Right < ActiveRecord::Base
 			"edit_images" => "UPDATE",
 			"edit_workaround" => "UPDATE",
 			"edit_solutions" => "UPDATE",
-			"edit_attempted_solutions" => "UPDATE"
+			"edit_attempted_solutions" => "UPDATE",
+			"draft_to_review" => "UPDATE",
+			"review_to_publish" => "UPDATE",
+			"review_to_draft" => "UPDATE",
+			"publish_to_review" => "UPDATE",
+			"publish_to_draft" => "UPDATE"
 		}
 	}
 end

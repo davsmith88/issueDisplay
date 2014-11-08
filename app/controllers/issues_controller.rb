@@ -29,31 +29,31 @@ class IssuesController < ApplicationController
 	def draft_to_review
 		@issue = Issue.find(params[:id])
 		@issue.draft_to_review
-		redirect_to issue_management_index_path
+		redirect_to issue_management_path(@issue), flash: {notice: "Issue state has been changed from draft to review"}
 	end
 
 	def review_to_draft
 		@issue = Issue.find(params[:id])
 		@issue.review_to_draft
-		redirect_to issue_management_index_path
+		redirect_to issue_management_path(@issue), flash: {notice: "Issue state has been changed from review to draft"}
 	end
 
 	def review_to_publish
 		@issue = Issue.find(params[:id])
 		@issue.review_to_publish
-		redirect_to issue_management_index_path
+		redirect_to issue_management_path(@issue), flash: {notice: "Issue state has been changed from review to publish"}
 	end
 
 	def publish_to_review
 		@issue = Issue.find(params[:id])
 		@issue.publish_to_review
-		redirect_to issue_management_index_path
+		redirect_to issue_management_path(@issue), flash: {notice: "Issue state has been changed from publish to review"}
 	end
 
 	def publish_to_draft
 		@issue = Issue.find(params[:id])
 		@issue.publish_to_draft
-		redirect_to issue_management_index_path
+		redirect_to issue_management_path(@issue), flash: {notice: "Issue state has been changed from publish to draft"}
 	end
 
 	def new
