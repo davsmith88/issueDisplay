@@ -71,6 +71,14 @@ IssueDisplay::Application.routes.draw do
     resources :solutions
   end
 
+  scope "/t" do
+    resources :issues do
+      resources :solutions, controller: 'reviews', type: 'Solution'
+      resources :workarounds, controller: 'reviews', type: 'IssueWorkaround'
+      resources :attempted, controller: 'reviews', type: 'AttemptedSolution'
+    end
+  end
+
 
   resources :businesses
 
