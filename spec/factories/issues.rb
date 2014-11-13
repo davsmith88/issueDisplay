@@ -7,8 +7,7 @@ FactoryGirl.define do
 		f.review_date { Faker::Date.forward(10) }
 		f.association :department_area, factory: :department_area
 		f.association :impact, factory: :impact
-		# f.user_id { rand(10) }
-		
+		f.association :user, factory: :user, strategy: :build
 		factory :invalid_issue do |f|
 			f.name nil
 			f.review_date nil
@@ -34,5 +33,13 @@ FactoryGirl.define do
 		f.association :department
 		f.association :area
 		f.name { "#{area.name} #{department.name}" }
+	end
+
+	factory :issue_workaround do |f|
+		f.description { Faker::Lorem.sentence }
+		f.association :issue
+		factory :invalid_workaround do |f|
+			f.description nil
+		end
 	end
 end

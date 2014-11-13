@@ -179,6 +179,11 @@ class IssuesController < ApplicationController
 
 	def other_permissions
 		if current_user
+
+			@edit = current_user.can?("edit", controller_name)
+			@destroy = current_user.can?("destroy", controller_name)
+			@create = current_user.can?("new", controller_name)
+			
 			@workaround_create = current_user.can?("new", "issue_workarounds")
 			@workaround_edit = current_user.can?("edit", "issue_workarounds")
 			@workaround_destroy = current_user.can?("destroy", "issue_workarounds")

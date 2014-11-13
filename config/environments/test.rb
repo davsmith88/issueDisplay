@@ -19,7 +19,7 @@ IssueDisplay::Application.configure do
   config.static_cache_control = "public, max-age=3600"
 
   # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
+  # config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
   # Raise exceptions instead of rendering exception templates.
@@ -35,4 +35,6 @@ IssueDisplay::Application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+
+   config.assets.debug = true
 end

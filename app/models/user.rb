@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   def can?(action, resource)
-  	# puts "#{action} #{resource}"
+  	puts "#{action} #{resource}"
   	roles.includes(:rights).for(action, resource).references(:rights).any?
   end
 end

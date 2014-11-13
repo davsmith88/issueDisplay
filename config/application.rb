@@ -20,6 +20,7 @@ module IssueDisplay
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
   #   config.exceptions_app = self.routes
+    config.assets.compress = false
     config.autoload_paths += %W( #{config.root}/lib )
     config.generators do |g|
       g.test_framework :rspec,

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140928111847) do
+ActiveRecord::Schema.define(version: 20141113010922) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -189,6 +189,17 @@ ActiveRecord::Schema.define(version: 20140928111847) do
   add_index "records", ["issue_id"], name: "index_records_on_issue_id"
   add_index "records", ["recordable_id", "recordable_type"], name: "index_records_on_recordable_id_and_recordable_type"
   add_index "records", ["user_id"], name: "index_records_on_user_id"
+
+  create_table "reviews", force: true do |t|
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "issue_id"
+  end
+
+  add_index "reviews", ["issue_id"], name: "index_reviews_on_issue_id"
+  add_index "reviews", ["user_id"], name: "index_reviews_on_user_id"
 
   create_table "rights", force: true do |t|
     t.string   "resource"

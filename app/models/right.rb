@@ -30,6 +30,6 @@ class Right < ActiveRecord::Base
 			"review_to_draft" => "UPDATE",
 			"publish_to_review" => "UPDATE",
 			"publish_to_draft" => "UPDATE"
-		}
+		},
 	}
 end

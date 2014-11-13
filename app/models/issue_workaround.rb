@@ -1,6 +1,6 @@
 class IssueWorkaround < ActiveRecord::Base
 	include PublicActivity::Model
-  	tracked owner: Proc.new{ |controller, model| controller.current_user }
+  	# tracked owner: Proc.new{ |controller, model| controller.current_user }
   	
 	belongs_to :issue
 	has_many :records, as: :recordable

@@ -25,6 +25,7 @@ describe IssuesController do
 					@fourth = FactoryGirl.create(:issue, state: "draft")
 				end
 				it "of published issues in decending order" do
+					pp session
 					get :index
 					expect(assigns(:issues)).to match_array([@third, @second, @first])
 				end
@@ -48,7 +49,7 @@ describe IssuesController do
 		end
 	end
 
-	describe "GET #show" do
+	describe "GET #show", focus: true do
 		before do
 			@issue = FactoryGirl.create(:issue)
 		end
@@ -387,6 +388,7 @@ describe IssuesController do
 					sign_in @user
 				end
 				it "can delete the issue" do
+					pp session
 					expect(@user.can?("destroy", "issues")).to eq(true)
 				end
 				it "deletes the issue" do
