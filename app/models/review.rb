@@ -3,6 +3,7 @@ class Review < ActiveRecord::Base
   	# tracked owner: Proc.new{ |controller, model| controller.current_user }
 
 	belongs_to :issue
+	belongs_to :user
 	has_many :records, as: :recordable
 	has_many :images, as: :imageable, dependent: :destroy
 
@@ -32,6 +33,14 @@ class Review < ActiveRecord::Base
 		end
 		event :publish_to_review do
 			transition :publish => :review
+		end
+	end
+
+	def change_state
+		if self.state?(:publish)
+			self.publish_to_draft
+		elsif self.state?(:review)
+			self.review_to_draft
 		end
 	end
 end
