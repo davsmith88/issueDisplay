@@ -1,5 +1,5 @@
 <tr>
-	<td><%= solution.name %></td>
+	<td><%= solution.description %></td>
 	<td>
 		<%= link_to "Add Image", new_solution_image_path(solution), class: "btn btn-default" if @image_create %>
 		<%= link_to "Edit", edit_solution_path(solution), class: "btn btn-default" if @solution_edit %>

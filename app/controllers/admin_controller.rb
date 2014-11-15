@@ -20,4 +20,8 @@ class AdminController < ApplicationController
 	def depareas
 		render layout: "admin_layout", template: "admin/static/department_areas"
 	end
+
+	def review_management
+		# render layout: "admin_layout", template: "admin/static/review_management"
+	end
 end

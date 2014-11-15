@@ -2,7 +2,7 @@ IssueDisplay::Application.routes.draw do
 
   # match "*all" => "application#cors_preflight_check", :constraints => {:method => "OPTIONS"}
 
-  resources :qwers
+  # resources :qwers
   devise_for :users
   # devise_for :users, :controllers => {:sessions => "json_sessions"}
 
@@ -58,26 +58,26 @@ IssueDisplay::Application.routes.draw do
   #    resources :images
   # end
 
-  namespace :api do
-    match "issues", to: "issues#index", via: [:options]
-    match "workarounds", to: "workarounds#cors", via: [:options]
-    match "workarounds/:workaround_id", to: "workarounds#cors", via: [:options]
-    # cors support, client will send a request to see if the correct headers are returned
-    # just matches to cors method in the controller so no data will be sent back to the client
-    match "solutions", to: "solutions#cors", via: [:options]
-    match "solutions/:solution_id", to: "solutions#cors", via: [:options]
-    resources :issues
-    resources :workarounds
-    resources :solutions
-  end
+  # namespace :api do
+  #   match "issues", to: "issues#index", via: [:options]
+  #   match "workarounds", to: "workarounds#cors", via: [:options]
+  #   match "workarounds/:workaround_id", to: "workarounds#cors", via: [:options]
+  #   # cors support, client will send a request to see if the correct headers are returned
+  #   # just matches to cors method in the controller so no data will be sent back to the client
+  #   match "solutions", to: "solutions#cors", via: [:options]
+  #   match "solutions/:solution_id", to: "solutions#cors", via: [:options]
+  #   resources :issues
+  #   resources :workarounds
+  #   resources :solutions
+  # end
 
-  scope "/t" do
-    resources :issues do
-      resources :solutions, controller: 'reviews', type: 'Solution'
-      resources :workarounds, controller: 'reviews', type: 'IssueWorkaround'
-      resources :attempted, controller: 'reviews', type: 'AttemptedSolution'
-    end
-  end
+  # scope "/t" do
+  #   resources :issues do
+  #     resources :solutions, controller: 'reviews', type: 'Solution'
+  #     resources :workarounds, controller: 'reviews', type: 'IssueWorkaround'
+  #     resources :attempted, controller: 'reviews', type: 'AttemptedSolution'
+  #   end
+  # end
 
 
   resources :businesses
@@ -104,20 +104,7 @@ IssueDisplay::Application.routes.draw do
 
 
 
-  resources :issue_workarounds do
-      resources :records, only: [:create, :index, :new]
-      resources :images
-  end
-
-  resources :attempted_solutions do
-    resources :records, only: [:create, :index, :new]
-    resources :images
-  end
-
-  resources :solutions do
-    resources :records, only: [:create, :index, :new]
-    resources :images
-  end
+  
 
 
 
@@ -152,16 +139,34 @@ IssueDisplay::Application.routes.draw do
     end
     resources :images
     resources :records, only: [:create, :index, :new]
-    resources :issue_workarounds do
-      # resources :records, only: [:create, :index, :new]
-      # resources :images
-    end
-    resources :attempted_solutions do
-      # resources :images
-    end
-    resources :solutions do
-      # resources :images
-    end
+    # resources :issue_workarounds do
+    #   # resources :records, only: [:create, :index, :new]
+    #   # resources :images
+    # end
+    # resources :attempted_solutions do
+    #   # resources :images
+    # end
+    # resources :solutions do
+    #   # resources :images
+    # end
+    resources :solutions, controller: 'reviews', type: 'Solution'
+    resources :issue_workarounds, controller: 'reviews', type: 'IssueWorkaround'
+    resources :attempted_solutions, controller: 'reviews', type: 'AttemptedSolution'
+  end
+
+  resources :issue_workarounds do
+    resources :records, only: [:create, :index, :new]
+    resources :images
+  end
+
+  resources :attempted_solutions do
+    resources :records, only: [:create, :index, :new]
+    resources :images
+  end
+
+  resources :solutions do
+    resources :records, only: [:create, :index, :new]
+    resources :images
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

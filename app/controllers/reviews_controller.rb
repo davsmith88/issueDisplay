@@ -10,6 +10,7 @@ class ReviewsController < ApplicationController
 	def new
 		association = @issue.send associated_method
 		@review = association.new
+		render layout: "edit_page"
 	end
 
 	def create
@@ -56,6 +57,7 @@ class ReviewsController < ApplicationController
 
 	def set_type
 		@type = type
+		@class =  params[:type].underscore.humanize
 	end
 
 	def type
@@ -74,6 +76,10 @@ class ReviewsController < ApplicationController
 		params[:type].underscore.humanize
 	end
 
+
+
+
+
 	def get_issue
 		@issue = Issue.find(params[:issue_id])
 	end
@@ -83,6 +89,6 @@ class ReviewsController < ApplicationController
 	end
 
 	def review_params
-		params.require(type.downcase.to_sym).permit(:description)
+		params.require(type.underscore.downcase.to_sym).permit(:description)
 	end
 end

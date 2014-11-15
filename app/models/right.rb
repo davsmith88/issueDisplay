@@ -18,7 +18,8 @@ class Right < ActiveRecord::Base
 			"permissions" => "READ",
 			"impacts" => "READ",
 			"depareas" => "READ",
-			"users" => "READ"
+			"users" => "READ",
+			"review_management" => "READ"
 		},
 		"issues" => {
 			"edit_images" => "UPDATE",
