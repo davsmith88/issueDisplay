@@ -1,13 +1,10 @@
-<ol class="breadcrumb">
-  <li><a href="/admin">Admin</a></li>
-  <li><%= link_to "Permissions", admin_permission_static_path %></li>
-  <li class='active'>Apply Right to a Role</li>
-</ol>
-
-<h4>Apply Right to a role</h4>
-
+<% content_for :breadcrumb do %>
+	<li>Apply Right to a Role</li>
+	<li class='active'>Add</li>
+<% end %>
 
 <%= form_for @grant, html: {class: 'form-horizontal'} do |form| %>
+	<p>
 	<div class='form-group'>
 		<label class='col-sm-2 control-label'>Role</label>
 

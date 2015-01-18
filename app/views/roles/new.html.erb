@@ -1,9 +1,9 @@
-<ol class="breadcrumb">
-  <li><a href="/admin">Admin</a></li>
-  <li><%= link_to "Permissions", admin_permission_static_path %></li>
-  <li><%= link_to "Roles", roles_path %></li>
+
+<% content_for :breadcrumb do %>
+  <li><%= link_to "Roles", roles_path %></li>	
   <li class='active'>New</li>
-</ol>
+<% end %>
+
 <h4>Create a New Role</h4>
 <%= form_for @role, html: {class: "form-horizontal"} do |form| %>
 	<%= render partial: form %>

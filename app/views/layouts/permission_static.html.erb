@@ -1,0 +1,29 @@
+
+
+<% content_for :third_level_layout do %>
+	<ol class="breadcrumb">
+	  <li><a href="/admin">Admin</a></li>
+	  <li>Permissions</li>
+	  <%= yield :breadcrumb %>
+	</ol>
+	<div class='row'>
+		<div class='col-sm-12'>
+			<h4>Permissions</h4>
+			<p>From this page manage the permissions ranging from creating roles to assigning those roles to users/</p>
+		</div>
+	</div>
+	
+	<ul class="nav nav-tabs" role="tablist">
+		  <li <%= @active_roles == true ? "class=active" : "" %>><%= link_to "Roles", roles_path %></li>
+		  <li <%= @active_rights == true ? "class=active" : "" %>><%= link_to "Rights", rights_path %></li>
+		  <li <%= @active_assignments == true ? "class=active" : "" %>><%= link_to "Assign Role to user", new_assignment_path %></li>
+		  <li <%= @active_grants == true ? "class=active" : "" %>><%= link_to "Assign Right to Role", new_grant_path %></li>
+	</ul>
+	<div class='container-fluid'>
+		<div class='row'>
+			<%= yield %>
+		</div>
+	</div>
+<% end %>
+
+<%= render :template => 'layouts/admin_layout' %>

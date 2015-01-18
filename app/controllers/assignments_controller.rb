@@ -1,15 +1,17 @@
 class AssignmentsController < ApplicationController
 
 	def new
+		@active_assignments = true
 		@roles = Role.all
 		@users = User.all
 		@assignment = Assignment.new
-		render layout: "admin_layout"
+		render layout: "permission_static"
 	end
 
 	def show
+		@active_assignments = true
 		@assignments = Assignment.includes(:user).where(role_id: params[:role_id])
-		render layout: "admin_layout"
+		render layout: "permission_static"
 	end
 
 	def create

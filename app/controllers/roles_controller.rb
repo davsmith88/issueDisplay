@@ -1,19 +1,22 @@
 class RolesController < ApplicationController
 	def index
+		@active_roles = true
 		@roles = Role.all.page(params[:page])
-		render layout: "admin_layout"
+		render layout: "permission_static"
 	end
 
 	def show
+		@active_roles = true
 		@role = Role.find(params[:id])
 		@grants = Grant.where(role_id: params[:id]).page(params[:page])
 
-		render layout: "admin_layout"
+		render layout: "permission_static"
 	end
 
 	def new
+		@active_roles = true
 		@role = Role.new
-		render layout: "admin_layout"
+		render layout: "permission_static"
 	end
 
 	def create
@@ -28,8 +31,9 @@ class RolesController < ApplicationController
 	end
 
 	def edit
+		@active_roles = true
 		@role = Role.find(params[:id])
-		render layout: "admin_layout"
+		render layout: "permission_static"
 	end
 
 	def update

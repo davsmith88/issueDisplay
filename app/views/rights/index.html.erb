@@ -1,8 +1,6 @@
-<ol class="breadcrumb">
-  <li><a href="/admin">Admin</a></li>
-  <li><%= link_to "Permissions", admin_permission_static_path %></li>
-  <li class='active'>Rights</li>
-</ol>
+<% content_for :breadcrumb do %>
+	<li class='active'>Rights</li>
+<% end %>
 
 <div class='row'>
 	<div class='col-sm-12'>

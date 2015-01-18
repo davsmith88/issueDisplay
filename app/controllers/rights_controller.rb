@@ -1,13 +1,15 @@
 class RightsController < ApplicationController
 
 	def index
+		@active_rights = true
 		@rights = Right.all.page(params[:page])
-		render layout: "admin_layout"
+		render layout: "permission_static"
 	end
 
 	def new
+		@active_rights = true
 		@right = Right.new
-		render layout: "admin_layout"
+		render layout: "permission_static"
 	end	
 
 	def create

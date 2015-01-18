@@ -1,14 +1,9 @@
-<ol class="breadcrumb">
-  <li><a href="/admin">Admin</a></li>
-  <li><%= link_to "Permissions", admin_permission_static_path %></li>
-  <li class='active'>Roles</li>
-</ol>
-
-<h4>Roles</h4>
+<% content_for :breadcrumb do %>
+	 <li class='active'>Roles</li>
+<% end %>
+<p>
 <div class='btn-group spacing'>
 	<%= link_to "Add Role", new_role_path, class: "btn btn-default" %>
-	<%= link_to "Add right to a role", new_grant_path, class: "btn btn-default" %>
-	<%= link_to "Add a user to a role", new_assignment_path, class: "btn btn-default" %>
 </div>
 <table class='table'>
 	<tr>

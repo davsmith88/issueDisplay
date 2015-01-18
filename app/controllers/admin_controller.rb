@@ -14,7 +14,7 @@ class AdminController < ApplicationController
 	end
 
 	def permissions
-		render layout: "admin_layout", template: "admin/static/permissions"
+		render layout: "permission_static", template: "admin/static/permissions"
 	end
 
 	# def depareas

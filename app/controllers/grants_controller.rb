@@ -1,6 +1,7 @@
 class GrantsController < ApplicationController
 
 	def new
+		@active_grants = true
 		query = %q{
 		    case operation
 			    when 'READ' then 1
@@ -32,7 +33,7 @@ class GrantsController < ApplicationController
 
 		@grant = Grant.new
 
-		render layout: "admin_layout"
+		render layout: "permission_static"
 	end
 
 	def create
