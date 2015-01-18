@@ -17,6 +17,8 @@ Assignment.destroy_all
 Department.destroy_all
 Area.destroy_all
 DepartmentArea.destroy_all
+Impact.destroy_all
+Issue.destroy_all
 
 department1 = Department.create!(name: "wet end", description: "random words")
 area1 = Area.create!(name: "modul facer", description: "more random words")
@@ -24,7 +26,7 @@ DepartmentArea.create!(department_id: department1.id, area_id: area1.id, name: "
 
 
 Impact.create!(name: "Downtime", description: "issues that cause downtime, ie anytime the machine could stop")
-Impact.create!(name: "Waste", description: "Waste is the result of this issue")
+Impact.create!(name: "Waste", description: "Waste is the result of this issuedd")
 
 user = User.create!(name: "mya", title: "random", email: "viewer@testing.com", password: "helloworld", password_confirmation: "helloworld")
 user.roles << viewers = Role.create!(:name => "Viewer")
@@ -42,32 +44,29 @@ admins.rights << delete
 admins.rights << create
 admins.rights << update
 admin_read = Right.create!(:resource => "admin", :operation => "READ")
-admins.rights << Right.create!(resource: "roles", operation: "READ")
-admins.rights << Right.create!(resource: "roles", operation: "CREATE")
-admins.rights << Right.create!(resource: "roles", operation: "UPDATE")
-admins.rights << Right.create!(resource: "roles", operation: "DELETE")
 
-admins.rights << Right.create!(resource: "rights", operation: "READ")
-admins.rights << Right.create!(resource: "rights", operation: "CREATE")
-admins.rights << Right.create!(resource: "rights", operation: "UPDATE")
-admins.rights << Right.create!(resource: "rights", operation: "DELETE")
+resources = ["impacts", 
+			 "assignments", 
+			 "grants", 
+			 "issue_management", 
+			 "department_areas", 
+			 "departments", 
+			 "areas", 
+			 "roles", 
+			 "rights",
+			 "issue_workarounds",
+			 "solutions",
+			 "attempted_solutions",
+			 "images",
+			 "users"]
 
-admins.rights << Right.create!(resource: "areas", operation: "READ")
-admins.rights << Right.create!(resource: "areas", operation: "CREATE")
-admins.rights << Right.create!(resource: "areas", operation: "UPDATE")
-admins.rights << Right.create!(resource: "areas", operation: "DELETE")
+operations = ["READ", "CREATE", "UPDATE", "DELETE"]
 
-admins.rights << Right.create!(resource: "departments", operation: "READ")
-admins.rights << Right.create!(resource: "departments", operation: "CREATE")
-admins.rights << Right.create!(resource: "departments", operation: "UPDATE")
-admins.rights << Right.create!(resource: "departments", operation: "DELETE")
-
-admins.rights << Right.create!(resource: "department_areas", operation: "READ")
-admins.rights << Right.create!(resource: "department_areas", operation: "CREATE")
-admins.rights << Right.create!(resource: "department_areas", operation: "UPDATE")
-admins.rights << Right.create!(resource: "department_areas", operation: "DELETE")
-
-admins.rights << Right.create!(resource: "issue_management", operation: "READ")
+resources.each do |resource|
+	operations.each do |operation|
+		admins.rights << Right.create!(resource: resource, operation: operation)
+	end
+end
 
 admins.rights << admin_read
 
