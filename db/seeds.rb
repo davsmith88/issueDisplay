@@ -22,11 +22,11 @@ Issue.destroy_all
 
 department1 = Department.create!(name: "wet end", description: "random words")
 area1 = Area.create!(name: "modul facer", description: "more random words")
-DepartmentArea.create!(department_id: department1.id, area_id: area1.id, name: "wet end modal facer")
+da1 = DepartmentArea.create!(department_id: department1.id, area_id: area1.id, name: "wet end modal facer")
 
 
-Impact.create!(name: "Downtime", description: "issues that cause downtime, ie anytime the machine could stop")
-Impact.create!(name: "Waste", description: "Waste is the result of this issuedd")
+impact1 = Impact.create!(name: "Downtime", description: "issues that cause downtime, ie anytime the machine could stop")
+impact2 = Impact.create!(name: "Waste", description: "Waste is the result of this issuedd")
 
 user = User.create!(name: "mya", title: "random", email: "viewer@testing.com", password: "helloworld", password_confirmation: "helloworld")
 user.roles << viewers = Role.create!(:name => "Viewer")
@@ -44,6 +44,20 @@ admins.rights << delete
 admins.rights << create
 admins.rights << update
 admin_read = Right.create!(:resource => "admin", :operation => "READ")
+
+states = ["draft", "review", "publish"]
+
+(1..10).each do
+	Issue.create!(name: Faker::Lorem.sentence, 
+				  description: Faker::Lorem.paragraph, 
+				  review_date: Faker::Date.forward(rand(20)),
+				  impact_id: impact1.id,
+				  user_id: admin.id,
+				  department_area_id: da1.id,
+				  state: states.sample
+				 )
+end
+
 
 resources = ["impacts", 
 			 "assignments", 
