@@ -1,9 +1,7 @@
-<ol class="breadcrumb">
-  <li><a href="/admin">Admin</a></li>
-  <li><%= link_to "Departments - Area's", admin_dep_areas_static_path %></li>
-  <li><%= link_to "Departments", departments_path %></li>
-  <li class='active'>New</li>
-</ol>
+<% content_for :breadcrumb do %>
+	  <li><%= link_to "Departments", departments_path %></li>
+	  <li class='active'>New</li>
+<% end %>
 
 <h4>Create a New Department</h4>
 <%= form_for @department, builder: MyFormBuilder, html: {class: "form-horizontal"} do |form| %>

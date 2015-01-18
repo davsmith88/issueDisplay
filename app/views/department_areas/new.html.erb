@@ -1,8 +1,7 @@
-<ol class="breadcrumb">
-  <li><a href="/admin">Admin</a></li>
-  <li><%= link_to "Department - Areas", admin_dep_areas_static_path %></li>
-  <li class='active'>Add Area to Department</li>
-</ol>
+<% content_for :breadcrumb do %>
+	<li><%= link_to "Department - Areas", department_areas_path %></li>
+  	<li class='active'>New</li>
+<% end %>
 
 <h4>Assign an Area to the Department</h4>
 
