@@ -32,7 +32,10 @@ IssueDisplay::Application.routes.draw do
     get "/", to: "admin#index", as: "admin_index"
     get "users", to: "admin#users", as: "admin_user_static"
     get "permissions", to: "admin#permissions", as: "admin_permission_static"
-    get "depareas", to: "admin#depareas", as: "admin_dep_areas_static"
+    
+    get "depareas/departments", to: "admin#departments", as: "admin_departments_static"
+    get "depareas/areas", to: "admin#areas", as: "admin_areas_static"
+    get "depareas/department_areas", to: "admin#department_areas", as: "admin_department_areas_static"
     resources :users, only: [:new, :create, :update, :destroy, :edit, :show]
     resources :assignments, only: [:new, :create, :destroy]
 

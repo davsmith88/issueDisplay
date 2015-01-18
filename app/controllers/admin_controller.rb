@@ -17,9 +17,9 @@ class AdminController < ApplicationController
 		render layout: "admin_layout", template: "admin/static/permissions"
 	end
 
-	def depareas
-		render layout: "admin_layout", template: "admin/static/department_areas"
-	end
+	# def depareas
+	# 	render layout: "departments_area", template: "admin/static/department_areas"
+	# end
 
 	def review_management
 		# render layout: "admin_layout", template: "admin/static/review_management"

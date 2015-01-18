@@ -1,13 +1,14 @@
 class DepartmentsController < ApplicationController
-
 	def index
+		@active_departments = true
 		@departments = Department.all.page(params[:page])
-		render layout: "admin_layout"
+		render layout: "departments_area"
 	end
 
 	def new
+		@active_departments = true
 		@department = Department.new
-		render layout: "permissions"
+		render layout: "departments_area"
 	end
 
 	def create

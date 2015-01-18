@@ -1,13 +1,15 @@
 class AreasController < ApplicationController
 
 	def index
+		@active_areas = true
 		@areas = Area.all.page(params[:page])
-		render layout: "admin_layout"
+		render layout: "departments_area"
 	end
 
 	def new
+		@active_areas = true
 		@area = Area.new
-		render layout: "admin_layout"
+		render layout: "departments_area"
 	end
 
 	def create
@@ -17,7 +19,7 @@ class AreasController < ApplicationController
 			if @area.save
 				format.html {redirect_to areas_path, notice: "Area has been added"}
 			else
-				format.html { render action: "new", layout: "admin_layout" }
+				format.html { render action: "new", layout: "departments_area" }
 			end
 		end
 	end

@@ -1,14 +1,16 @@
 class DepartmentAreasController < ApplicationController
 	def index
+		@active_dp = true
 		@depAreas = DepartmentArea.all.includes(:department, :area).page(params[:page])
-		render layout: "admin_layout"
+		render layout: "departments_area"
 	end
 
 	def new
+		@active_dp = true
 		@depArea = DepartmentArea.new
 		@departments = Department.all
 		@areas = Area.all
-		render layout: "admin_layout"
+		render layout: "departments_area"
 	end
 
 	def create
