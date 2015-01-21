@@ -21,6 +21,16 @@
 		</div>
 
 		<div class='col-sm-9'>
+			<% if flash[:admin_notice] %>
+				<p class='alert alert-success'>
+					<%= flash[:admin_notice] %>
+				</p>
+			<% end %>
+			<% if flash[:admin_alert] %>
+				<p class='alert alert-success'>
+					<%= flash[:admin_alert] %>
+				</p>
+			<% end %>
 			<%= content_for?(:third_level_layout) ? yield(:third_level_layout) : yield %>
 		</div>
 	</div>

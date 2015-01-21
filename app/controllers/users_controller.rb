@@ -1,4 +1,10 @@
 class UsersController < ApplicationController
+	
+	# need to be implemented, take view out of admin static
+	# def index
+
+	# end
+
 	def new
 		@user = User.new
 		render layout: "admin_layout"
@@ -26,8 +32,10 @@ class UsersController < ApplicationController
 		@user = User.new(user_params)
 		respond_to do |format|
 			if @user.save
+				flash[:admin_notice] = "'#{user_params[:name]}' has been created"
 				format.html {redirect_to admin_user_static_path}
 			else
+				flash[:admin_alert] = "User cannot be created"
 				format.html {render action: 'new', layout: "admin_layout"}
 			end
 		end
@@ -43,8 +51,10 @@ class UsersController < ApplicationController
 
 		respond_to do |format|
 			if @user.update(user_params)
+				flash[:admin_notice] = "'#{user_params[:name]}' details have been updated"
 				format.html {redirect_to admin_user_static_path, :notice => "User details have been added to the system"}
 			else
+				flash[:admin_alert] = "'#{user_params[:name]}' details could not be updated"
 				format.html {render action: 'edit', layout: "admin_layout"}
 			end
 		end
@@ -55,7 +65,8 @@ class UsersController < ApplicationController
 
 		@user.destroy
 		respond_to do |format|
-			format.html {redirect_to admin_index_path, :notice => "User has been destroyed"}
+			flash[:admin_notice] = "User has been destroyed"
+			format.html {redirect_to admin_user_static_path}
 		end
 	end
 
