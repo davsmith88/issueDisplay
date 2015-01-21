@@ -20,7 +20,8 @@ class RightsController < ApplicationController
 		end
 
 		respond_to do |format|
-		 	format.html {redirect_to rights_path, notice: "Right has been created"}
+			flash[:admin_notice] = "Rights have been created"
+		 	format.html { redirect_to rights_path }
 		end
 	end
 
@@ -28,6 +29,7 @@ class RightsController < ApplicationController
 		@right = Right.find(params[:id])
 		@right.destroy
 		respond_to do |format|
+			flash[:admin_notice] = "Right has been destroyed"
 			format.html {redirect_to rights_path}
 		end
 	end

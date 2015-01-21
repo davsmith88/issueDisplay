@@ -41,16 +41,18 @@ class GrantsController < ApplicationController
 			Grant.create(role_id: params[:grant][:role_id], right_id: right)
 		end
 		respond_to do |format|
-			format.html {redirect_to roles_path, :notice => "Rights have been added to the role"}
+			flash[:admin_notice] = "Right has been assigned to a role"
+			format.html { redirect_to roles_path }
 		end
 	end
-	def destroy
 
+	def destroy
 		@grant = Grant.find(params[:id])
 		@role = @grant.role
 		@grant.delete
 		respond_to do |format|
-			format.html { redirect_to role_path(@role), notice: "Grant has ben removed" }
+			flash[:admin_notice] = "Right is no longer associated with the role"
+			format.html { redirect_to role_path(@role) }
 		end
 	end
 

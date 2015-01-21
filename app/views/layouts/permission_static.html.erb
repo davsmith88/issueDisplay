@@ -9,10 +9,13 @@
 	<div class='row'>
 		<div class='col-sm-12'>
 			<h4>Permissions</h4>
-			<p>From this page manage the permissions ranging from creating roles to assigning those roles to users/</p>
 		</div>
 	</div>
-	
+
+	<div class='row'>
+		<%= yield :extra_information %>
+	</div>
+
 	<ul class="nav nav-tabs" role="tablist">
 		  <li <%= @active_roles == true ? "class=active" : "" %>><%= link_to "Roles", roles_path %></li>
 		  <li <%= @active_rights == true ? "class=active" : "" %>><%= link_to "Rights", rights_path %></li>

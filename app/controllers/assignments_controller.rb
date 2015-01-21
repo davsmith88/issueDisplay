@@ -21,9 +21,10 @@ class AssignmentsController < ApplicationController
 
 		respond_to do |format|
 			if @assignment.save
-				format.html {redirect_to roles_path}
+				flash[:admin_notice] = "The user has been assigned a role"
+				format.html { redirect_to new_assignment_path }
 			else
-				format.html {redirect_to new_assignment_path, notice: "The user is already part of the role"}
+				format.html { redirect_to new_assignment_path, notice: "The user is already part of the role" }
 			end
 		end
 		
@@ -34,6 +35,7 @@ class AssignmentsController < ApplicationController
 		@assignment = Assignment.find(params[:id])
 		respond_to do |format|
 			if @assignment.destroy
+				flash[:admin_alert] = "The user is no longer associated with the role"
 				format.html {redirect_to assignment_role_view_path(role_id) }
 			end
 		end

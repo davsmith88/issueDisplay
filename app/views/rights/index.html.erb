@@ -6,20 +6,15 @@
 	<li class='active'>Rights</li>
 <% end %>
 
-<div class='row'>
-	<div class='col-sm-12'>
-		<h4>All rights</h4>
-	</div>
-</div>
-
-<div class='row'>
+<% content_for :extra_information do %>
 	<div class='col-sm-8'>
 		<p>The table below shows all the rights that is available in the system. If a right is destroy, then the roles that have that right will no longet has access to that part of the system. The button to the right will give you access to new rights if neccessary</p>
 	</div>
 	<div class='col-sm-4'>
-	<%= link_to "Add a Right", new_right_path, class: "btn btn-default" %>
+		<%= link_to "Add a Right", new_right_path, class: "btn btn-default" %>
 	</div>
-</div>
+<% end %>
+
 <table class='table'>
 	<tr>
 		<th>Resource</th>
@@ -31,7 +26,7 @@
 			<td><%= right.resource %></td>
 			<td><%= right.operation %></td>
 			<td><%= link_to "Delete", right_path(right), method: :delete, data: {confirm: "Are you sure you want to delete?"}  %></td>
-		<tr>
+		</tr>
 	<% end %>
 </table>
 

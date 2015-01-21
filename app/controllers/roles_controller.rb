@@ -23,9 +23,11 @@ class RolesController < ApplicationController
 		@role = Role.new(role_params)
 		respond_to do |format|
 			if @role.save()
-				format.html {redirect_to roles_path, notice: "Created the Role"}
+				flash[:admin_notice] = "Role has been created"
+				format.html { redirect_to roles_path }
 			else
-				format.html {render action: 'new'}
+				flash[:admin_alert] = "Role could not be created"
+				format.html { render action: 'new' }
 			end
 		end
 	end
@@ -40,9 +42,11 @@ class RolesController < ApplicationController
 		@role = Role.find(params[:id])
 		respond_to do |format|
 			if @role.update(role_params)
-				format.html {redirect_to roles_path}
+				flash[:admin_notice] = "Role information as been updated"
+				format.html { redirect_to roles_path }
 			else
-				format.html {render action: 'edit'}
+				flash[:admin_alert] = "Role information could not be updated"
+				format.html { render action: 'edit' }
 			end
 		end
 	end
@@ -52,6 +56,7 @@ class RolesController < ApplicationController
 		@role.destroy
 
 		respond_to do |format|
+			flash[:admin_notice] = "Role has been destroyed"
 			format.html {redirect_to roles_path}
 		end
 	end
