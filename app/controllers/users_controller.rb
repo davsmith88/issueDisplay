@@ -35,7 +35,7 @@ class UsersController < ApplicationController
 				flash[:admin_notice] = "'#{user_params[:name]}' has been created"
 				format.html {redirect_to admin_user_static_path}
 			else
-				flash[:admin_alert] = "User cannot be created"
+				flash.now[:admin_alert] = "User cannot be created"
 				format.html {render action: 'new', layout: "admin_layout"}
 			end
 		end
@@ -54,7 +54,7 @@ class UsersController < ApplicationController
 				flash[:admin_notice] = "'#{user_params[:name]}' details have been updated"
 				format.html {redirect_to admin_user_static_path, :notice => "User details have been added to the system"}
 			else
-				flash[:admin_alert] = "'#{user_params[:name]}' details could not be updated"
+				flash.now[:admin_alert] = "'#{user_params[:name]}' details could not be updated"
 				format.html {render action: 'edit', layout: "admin_layout"}
 			end
 		end
