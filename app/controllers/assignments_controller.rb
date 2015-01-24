@@ -9,8 +9,9 @@ class AssignmentsController < ApplicationController
 	end
 
 	def show
-		@active_assignments = true
-		@assignments = Assignment.includes(:user).where(role_id: params[:role_id])
+		@active_roles = true
+		@role = Role.find(params[:role_id])
+		@assignments = Assignment.includes(:user).where(role_id: params[:role_id]).page(params[:page])
 		render layout: "permission_static"
 	end
 

@@ -2,16 +2,47 @@
 	Showing Users that belong to role
 <% end %>
 
-<h1>Viewing the Users that belong to this role</h1>
-
-<% @assignments.each do |assignment| %>
-	<p><%= assignment.user.email %>
-	<%= link_to "Remove user from role", assignment_path(assignment.id, :role_id => assignment.role_id), method: :delete, data: {confirm: "Are you sure you want to remove user from role?"} %>
-	</p>
-
+<% content_for :extra_information do %>
+		<div class='col-sm-8'>
+			<p>
+				The below table lists all the users that belong to a certain role. From this table you are presented with various options to do as you please.
+			</p>
+		</div>
+		<div class='col-sm-4'>
+			<%= link_to "Add User to Role", new_assignment_path, class: 'btn btn-default' %>
+		</div>
+<% end %>
+ 
+<% content_for :breadcrumb do %>
+	<li><%= link_to "Roles", roles_path %></li>
+	<li><%= link_to @role.name, role_path(@role) %></li>
+	<li>All users</li>
 <% end %>
 
-<ol>
-	<li><%= link_to "View All Roles", roles_path %></li>
-	<li><%= link_to "Add User to Role", new_assignment_path %></li>
-</ol>
+<p>
+
+<div class='row'>
+	<div class='col-sm-12'>
+		<table class='table'>
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Options</th>
+			</tr>
+		<% @assignments.each do |assignment| %>
+			<tr>
+				<td><%= assignment.user.name %></td>
+				<td><%= assignment.user.email %></td>
+				<td>
+					<%= link_to "Remove", assignment_path(assignment.id, :role_id => assignment.role_id), method: :delete, data: {confirm: "Are you sure you want to remove user from role?"}, class: "btn btn-default" %>
+				</td>
+				</td>
+			</tr>
+
+		<% end %>
+		</table>
+
+		<%= will_paginate @assignments, renderer: BootstrapPagination::Rails %>
+
+	</div>
+</div>
