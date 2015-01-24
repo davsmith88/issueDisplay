@@ -43,7 +43,9 @@ IssueDisplay::Application.routes.draw do
     resources :grants, only: [:new, :create, :destroy]
     resources :admin
 
-    resources :issue_management
+    resources :issue_management do
+      get 'view', as: :view
+    end
 
 
     resources :roles

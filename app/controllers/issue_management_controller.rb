@@ -9,4 +9,17 @@ class IssueManagementController < ApplicationController
 		@issue = Issue.find(params[:id])
 		render layout: "admin_layout"
 	end
+
+	def view
+		@issue = Issue.find(params[:issue_management_id])
+		render layout: "admin_layout"
+	end
+
+	def new
+		render layout: "admin_layout"
+	end
+
+	def create
+
+	end
 end
