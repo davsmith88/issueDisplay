@@ -6,61 +6,86 @@
 
 <% end %>
 
+<div class='row'>
+	<div class='col-sm-3'>
+		<label class='control-label'>Name</label>
+	</div>
+	<div class='col-sm-9'>
+		<p class='form-control-static'><%= @issue.name %></p>
+	</div>
+</div>
 
-<p>
-	<strong>Name</strong>
-	<%= @issue.name %>
-</p>
+<div class='row'>
+	<div class='col-sm-3'>
+		<label class='control-label'>Description</label>
+	</div>
+	<div class='col-sm-9'>
+		<%= @issue.description %>
+	</div>
+</div>
 
-<p>
-	<strong>Description</strong>
-	<%= @issue.description %>
-</p>
+<div class='row'>
+	<div class='col-sm-3'>
+		<label class='control-label'>Author</label>
+	</div>
+	<div class='col-sm-9'>
+		<%= @issue.user.name %>
+	</div>
+</div>
 
-<p>
-	<strong>Author</strong>
-	<%=! current_user.email %>
-</p>
-
-<p>
-	<strong>Area Impacted</strong>
-	<% if @impact %>
+<div class='row'>
+	<div class='col-sm-3'>
+		<label class='control-label'>Impact Area</label>
+	</div>
+	<div class='col-sm-9'>
+		<% if @impact %>
 		<%= @impact.name %>
 	<% else %>
 		"There is no impact area"
 	<% end %>
-</p>
+	</div>
+</div>
 
+<div class='row'>
+	<div class='col-sm-3'>
+		<label class='control-label'>State</label>
+	</div>
+	<div class='col-sm-9'>
+		<%= @issue.state %>
+	</div>
+</div>
 
-<p>
-	<strong>State</strong>
-	<%= @issue.state %>
-</p>
+<div class='row'>
+	<div class='col-sm-3'>
+		<label class='control-label'>Department</label>
+	</div>
+	<div class='col-sm-9'>
+		<% if @issue.department_area != nil %>
+			<%= @issue.department_area.name %>
+		<% else %>
+			no department/area inserted yet
+		<% end %>
+	</div>
+</div>
 
-<p>
-	<strong>Type</strong>
-	<%= @issue.i_type %>
-</p>
+<div class='row'>
+	<div class='col-sm-3'>
+		<label class='control-label'>Views</label>
+	</div>
+	<div class='col-sm-9'>
+	</div>
+</div>
 
-<p>
-	<strong>Department</strong>
-	<% if @issue.department_area != nil %>
-		<%= @issue.department_area.name %>
-	<% else %>
-		no department/area inserted yet
-	<% end %>
-</p>
+<div class='row'>
+	<div class='col-sm-3'>
+		<label class='control-label'>Review Date</label>
+	</div>
+	<div class='col-sm-9'>
+		<%= format_date @issue.review_date %>
+	</div>
+</div>
 
-
-<p>
-	<strong>Views</strong>
-</p>
-
-<p>
-	<strong>Review Date</strong>
-	<span><%= format_date @issue.review_date %></span>
-</p>
-
+//the rest of the page will have tabbed navigation for solutions, attempyed
 <p>
 	<Strong>Workaround</Strong>
 	<span>Workarouds are used for issues where either their is no solution

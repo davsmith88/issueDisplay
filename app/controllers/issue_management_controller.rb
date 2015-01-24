@@ -22,4 +22,12 @@ class IssueManagementController < ApplicationController
 	def create
 
 	end
+
+	def edit
+		render layout: "admin_layout"
+	end
+
+	def update
+
+	end
 end
