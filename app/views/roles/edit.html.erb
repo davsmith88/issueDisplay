@@ -4,12 +4,16 @@
 
 <% content_for :breadcrumb do %>
   <li><%= link_to "Roles", roles_path %></li>
-  <li><%= link_to @role.name, roles_path(@role) %></li>
+  <li><%= link_to @role.name, role_path(@role) %></li>
   <li class='active'>Edit</li>
 <% end %>
 
-<h4>Edit Role - <%= @role.name %></h4>
-
+<% content_for :extra_information do %>
+	<div class='col-sm-12'>
+		<p>Below lists the information for the role '<%= @role.name %>'
+	</div>
+<% end %>
+<p>
 <%= form_for @role, html: {class: "form-horizontal"} do |form| %>
 	<% render partial: form %>
 <% end%>
