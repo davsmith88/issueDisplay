@@ -3,23 +3,19 @@
 <% end %>
 
 <%= content_for :breadcrumb do %>
-	<li><%= @role.name %></li>
-	<li class='active'>Edit</li>
+	<li><%= link_to "Roles", roles_path %></li>
+  	<li><%= @role.name %></li>
+  	<li class='active'>Show</li>
 <% end %>
 
-<ol class='breadcrumb'>
-	<li><a href="/admin">Admin</a></li>
-	<li><%= link_to "Permissions", admin_permission_static_path %></li>
-  	<li><%= link_to "Roles", roles_path %></li>
-  	<li class='active'><%= @role.name %></li>
-</ol>
-
-<div class='row'>
-	<h4>Show Role and Grants</h4>
-	<p>The table below shows the permission that the <%= @role.name %> role has got.
+<% content_for :extra_information do %>
+	<div class='col-sm-12'>
+		<p>The table below shows the permission that the <%= @role.name %> role has got.
 	   If the role no longer needs a permission, simply delete the permission.
 	</p>
-</p>
+	</div>
+<% end %>
+<p>
 <div class='row'>
 
 	<div class='col-sm-12'>
