@@ -28,10 +28,17 @@
 				<td><%= area.name %></td>
 				<td><%= area.name %></td>
 				<td>
-					<div class='btn-group'>
-						<%= link_to "Edit", edit_area_path(area), class: "btn btn-default" %>
-						<%= link_to "Destroy", area_path(area), method: :delete, class: "btn btn-default" ,data: {confirm: "Are you sure you want to delete"} %>
-					</div>
+						<div class="btn-group">
+						  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+						    Actions <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" role="menu">
+						  	<li><%= link_to "Edit", edit_area_path(area) %></li>
+							<li><%= link_to "Destroy", area_path(area), method: :delete, data: {confirm: "Are you sure you want to delete"} %></li>
+						    
+						  </ul>
+						</div>
+
 				</td>
 				</tr>
 			<% end %>

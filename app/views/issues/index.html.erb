@@ -1,3 +1,7 @@
+<% content_for :title do %>
+	Published Issues
+<% end %>
+
 <h3>Published Issues</h3>
 <%= link_to "Create New Issue", new_issue_path, class: "btn btn-default spacing" if @create %>
 <table class='table'>
