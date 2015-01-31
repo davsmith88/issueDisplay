@@ -1,124 +1,66 @@
+<% content_for :title do %>
+	Showing <%= @issue.name %>
+<% end %>
+
 <p id='notice'><%= notice %></p>
 
+<div class='form-horizontal'>
+	<div class='row'>
+		<div class='col-sm-6'>
+			<div class='form-group'>
+				<label class='col-sm-3 control-label'>Name</label>
+				<div class='col-sm-9'>
+					<p class='form-control-static'><%= @issue.name %></p>
+				</div>
+			</div>
+			<div class='form-group'>
+				<label class='col-sm-3 control-label'>Description</label>
+				<div class='col-sm-9'>
+					<p class='form-control-static'><%= @issue.description %></p>
+				</div>
+			</div>
+			<div class='form-group'>
+				<label class='col-sm-3 control-label'>Type</label>
+				<div class='col-sm-9'>
+					<p class='form-control-static'><%= @issue.i_type %></p>
+				</div>
+			</div>
+			<div class='form-group'>
+				<label class='col-sm-3 control-label'>Area Impacted</label>
+				<div class='col-sm-9'>
+					<% if @issue.impact %>
+						<p class='form-control-static'><%= @issue.impact.name %></p>
+					<% else %>
+						<p class='form-control-static'>"There is no impact area"</p>
+					<% end %>
+				</div>
+			</div>
+		</div>
+		<div class='col-sm-6'>
+			<%= display_images(@issue.images) %>
+		</div>
+	</div>
+	<div class='row'>
+		<div class='col-sm-6'>
+			<div class='form-group'>
+				<label class='col-sm-3 control-label'>Department</label>
+				<div class='col-sm-9'>
+					<% if @issue.department_area != nil %>
+						<p class='form-control-static'><%= @issue.department_area.name %></p>
+					<% else %>
+						<p class='form-control-static'>no department/area inserted yet</p>
+					<% end %>
+				</div>
+			</div>
+		</div>
+		<div class='col-sm-6'>
+			<div class='form-group'>
+				<label class='col-sm-3 control-label'>Review Date</label>
+				<div class='col-sm-9'>
+					<p class='form-control-static'><%= format_date @issue.review_date %></p>
+				</div>
+			</div>
+		</div>
+	</div>
 
-<p>
-	<strong>Name</strong>
-	<%= @issue.name %>
-</p>
-
-<p>
-	<strong>Description</strong>
-	<%= @issue.description %>
-</p>
-
-<p>
-	<strong>Author</strong>
-	<!%= current_user.email %>
-</p>
-
-<p>
-	<strong>Area Impacted</strong>
-	<% if @impact %>
-		<%= @impact.name %>
-	<% else %>
-		"There is no impact area"
-	<% end %>
-</p>
-
-
-<p>
-	<strong>State</strong>
-	<%= @issue.state %>
-</p>
-
-<p>
-	<strong>Type</strong>
-	<%= @issue.i_type %>
-</p>
-
-<p>
-	<strong>Department</strong>
-	<% if @issue.department_area != nil %>
-		<%= @issue.department_area.name %>
-	<% else %>
-		no department/area inserted yet
-	<% end %>
-</p>
-
-
-<p>
-	<strong>Views</strong>
-</p>
-
-<p>
-	<strong>Review Date</strong>
-	<span><%= format_date @issue.review_date %></span>
-</p>
-
-<p>
-	<Strong>Workaround</Strong>
-	<span>Workarouds are used for issues where either their is no solution
-	or the solutions dont work </span>
-	<% if !@issue.issue_workarounds.empty? %>
-		<table class='table table-bordered'>
-			<tr>
-				<th>Image</th>
-				<th>Description</th>
-				<th>Record</th>
-			</tr>
-
-			<%= display_sub_field(@issue_workarounds, "description", @issue) %>
-		</table>
-	<% else %>
-		<span>No workarounds for the issue</span>
-	<% end %>
-	
-
-
-
-</p>
-
-<p>
-	<strong>Solutions</strong>
-	<% if !@solutions.empty? %>
-		<table class='table table-bordered'>
-			<tr>
-				<th>Image</th>
-				<th>Description</th>
-				<th>Record</th>
-			</tr>
-			<%= display_sub_field(@solutions, "name", @issue) %>
-		</table>
-	<% else %>
-		<span>No solutions added yet!</span>
-	<% end %>
-</p>
-
-<p>
-	<strong>Attempted Solutions</strong>
-
-	<% if !@attempted_solutions.empty? %>
-		<table class='table table-bordered'>
-			<tr>
-				<th>Image</th>
-				<th>Description</th>
-				<th>Record</th>
-			</tr>
-			<%= display_sub_field(@attempted_solutions, "name", @issue) %>
-		</table>
-	<% else %>
-		<span>No attempted solutions added yet!</span>
-	<% end %>
-</p>	
-
-<p>
-	<%= display_images(@images) %>
-</p>
-
-
-<br>
-
-<%= link_to "Record Issue", new_issue_record_path(@issue)  %>
-
-<%= link_to "Edit", edit_issue_path(@issue) %>
-<%= link_to "Back", issues_path %>
+</div>

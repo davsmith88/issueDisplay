@@ -127,6 +127,9 @@ IssueDisplay::Application.routes.draw do
 
   resources :issues do
     member do
+      get 'show_workarounds', as: :show_workarounds
+      get 'show_solutions', as: :show_solutions
+      get 'show_attempted_solutions', as: :show_att_sol
       get 'history', as: :history
       get 'draft_to_review', as: :draft_to_review
       get 'review_to_draft', as: :review_to_draft

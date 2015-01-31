@@ -1,6 +1,6 @@
 class IssuesController < ApplicationController
 
-	before_action :find_issue, only: [:show, :edit, :update, :destroy, :edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
+	before_action :find_issue, only: [:show, :edit, :update, :destroy, :edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions, :show_workarounds, :show_attempted_solutions, :show_solutions]
 	before_action :get_dep_area, only: [:new, :create, :edit,:edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
 	before_action :get_impacts, only: [:new, :create, :edit, :edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
 	before_action :other_permissions
@@ -14,16 +14,19 @@ class IssuesController < ApplicationController
 		# shows the current issues
 		@images = @issue.images
 		@issue_workarounds = @issue.issue_workarounds.includes(:images)
-		@solutions = @issue.solutions.includes(:images)
-		@attempted_solutions =  @issue.attempted_solutions.includes(:images)
+		# @solutions = @issue.solutions.includes(:images)
+		# @attempted_solutions =  @issue.attempted_solutions.includes(:images)
 
 		# @user = User.find(@issue.user_id)
 
-		@impact = Impact.find_by_id(@issue.impact_id)
+		# @impact = Impact.find_by_id(@issue.impact_id)
 		#da = DepartmentArea.includes(:department, :area)
 		#@d = da.find_by_id(@issue.DepartmentArea_id)
 
 		# Issue.increment_counter(:view_counter, @issue.id)
+		@active_workarounds = true
+		@workarounds = @issue.issue_workarounds
+		render layout: "show_issue", template: "issues/show_workarounds"
 	end
 
 	def draft_to_review
@@ -99,6 +102,25 @@ class IssuesController < ApplicationController
 			end
 		end
 	end
+
+	def show_workarounds
+		@active_workarounds = true
+		@issue_workarounds = @issue.issue_workarounds.includes(:images)
+		render layout: "show_issue"
+	end
+
+	def show_solutions
+		@active_solutions = true
+		@solutions = @issue.solutions
+		render layout: "show_issue"
+	end
+
+	def show_attempted_solutions
+		@active_att_sol = true
+		@att_sol = @issue.attempted_solutions
+		render layout: "show_issue"
+	end
+
 
 	def edit
 		@active_basic = true
