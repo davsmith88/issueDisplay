@@ -1,3 +1,7 @@
+<% content_for :title do %>
+	Edit Images
+<% end %>
+
 <% content_for :third_level_layout do %>
 	<br>
 	<%= link_to 'Add Image', new_issue_image_path(@issue), class: "btn btn-default spacing" if @image_create %>

@@ -175,6 +175,16 @@ class IssuesController < ApplicationController
 		@versions = @issue.versions
 	end
 
+
+
+	def search
+		
+	end
+
+	def search_results
+		@issues = Issue.search(params[:search], params[:page])
+	end
+
 	private
 
 	def other_permissions

@@ -122,7 +122,8 @@ IssueDisplay::Application.routes.draw do
   get "/notifications" => "notifications#notification", as: :notification_feed
 
 
-
+  get 'search' => "issues#search", as: :search
+  get 'search_results' => "issues#search_results", as: :search_results
 
   resources :issues do
     member do

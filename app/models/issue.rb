@@ -8,6 +8,14 @@ class Issue < ActiveRecord::Base
 
   	TYPES = ["operational", "mechanical", "electrical"]
 
+  	def self.search(search, page)
+  		search_condition = "%#{search}%"
+  		paginate :per_page => 4, :page => page,
+           :conditions => ['name like ? OR description like ?', search_condition, search_condition], :order => 'name'
+  		# where("name LIKE ? OR description LIKE ?", search_condition, search_condition)
+  		# find(:all, :conditions => ['name LIKE ? OR description LIKE ?', search_condition, search_condition])
+  	end
+
 	def get_department_name
 		return if !self.department_area
 		self.department_area.name
@@ -26,7 +34,7 @@ class Issue < ActiveRecord::Base
 		end
 	end
 
-	self.per_page = 10
+	self.per_page = 5
 	has_many :solutions
 	has_many :attempted_solutions
 	has_many :issue_workarounds

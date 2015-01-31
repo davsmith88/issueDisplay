@@ -1,3 +1,7 @@
+<% content_for :title do %>
+	Edit Workaround
+<% end %>
+
 <% content_for :third_level_layout do %>
 	<br>
   	<%= link_to "Add workaround", new_issue_issue_workaround_path(@issue), class: "btn btn-default spacing" if @workaround_create %>
