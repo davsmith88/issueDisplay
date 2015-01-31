@@ -1,7 +1,26 @@
-search page
-
-<%= form_tag({controller: 'issues', action: 'search_results'}, method: :get) do %>
-	<%= text_field_tag :search, params[:search], id: 'search_field' %>
-	<%= submit_tag "Search", name: nil %>
-	<%= link_to_function "Clear", "$('#search_field').clear()" %>
+<% content_for :title do %>
+	Search
 <% end %>
+
+<h4>Search Page</h4>
+<p>The page will search through the name's and the description's and find close matches</p>
+<div class='row'>
+	<%= form_tag({controller: 'issues', action: 'search_results'}, method: :get) do %>
+		<div class='row'>
+			<div class='col-sm-3'>
+				<label class='control-label'>Search Terms</label>
+			</div>
+			<div class='col-sm-9'>
+				<%= text_field_tag :search, params[:search], id: 'search_field' %>
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-sm-3'>
+			</div>
+			<div class='col-sm-9'>
+				<%= submit_tag "Search", name: nil %>
+			</div>
+		</div>
+		<!%= link_to_function "Clear", "$('#search_field').clear()" %>
+	<% end %>
+</div>

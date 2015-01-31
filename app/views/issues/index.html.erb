@@ -13,4 +13,4 @@
 	<%= render partial: "issues/collections/index_row", collection: @issues, as: :issue %>
 </table>
 
-<%= will_paginate @issues %>
+<%= will_paginate @issues, renderer: BootstrapPagination::Rails %>

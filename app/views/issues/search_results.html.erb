@@ -1,22 +1,31 @@
+<% content_for :title do %>
+	Search Results
+<% end %>
+
 <!%= debug @issues %>
 
 <h3>Search Results</h3>
-<% @issues.each do |issue| %>
-	<div class='row'>
-		<div class='col-sm-6'>
-			<h5><%= issue.name %></h5>
-			
-			
+<% if @issues.count < 1 %>
+	<p>No results showed for that terms. Would you like to <%= link_to "Search Again", search_path %>?
+	</p>
+<% else %>
+	<% @issues.each do |issue| %>
+		<div class='row'>
+			<div class='col-sm-6'>
+				<h5><%= link_to issue.name, issue_path(issue.id) %></h5>
+				
+				
+			</div>
+			<div class='col-sm-6'>
+				<%= issue.created_at %>
+			</div>
 		</div>
-		<div class='col-sm-6'>
-			<%= issue.created_at %>
+		<div class='row'>
+			<div class='col-sm-12'>
+				<i><%= issue.description %></i>
+			</div>
 		</div>
-	</div>
-	<div class='row'>
-		<div class='col-sm-12'>
-			<i><%= issue.description %></i>
-		</div>
-	</div>
+	<% end %>
 <% end %>
 
 <%= will_paginate @issues, renderer: BootstrapPagination::Rails %>
