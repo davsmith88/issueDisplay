@@ -182,7 +182,7 @@ class IssuesController < ApplicationController
 	end
 
 	def search_results
-		@issues = Issue.search(params[:search], params[:page])
+		@issues = Issue.search(params[:search], params[:search_col], params[:page])
 	end
 
 	private

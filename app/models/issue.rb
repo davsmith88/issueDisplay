@@ -8,12 +8,22 @@ class Issue < ActiveRecord::Base
 
   	TYPES = ["operational", "mechanical", "electrical"]
 
-  	def self.search(search, page)
+  	def self.search(search, search_col, page)
   		search_condition = "%#{search}%"
-  		paginate :per_page => 4, :page => page,
-           :conditions => ['name like ? OR description like ?', search_condition, search_condition], :order => 'name'
-  		# where("name LIKE ? OR description LIKE ?", search_condition, search_condition)
-  		# find(:all, :conditions => ['name LIKE ? OR description LIKE ?', search_condition, search_condition])
+  		case search_col
+	  		when "id"
+	  			condition = ['id = ?', search]
+	  		when "name"
+	  			condition = ['name like ?', search_condition]
+	  		when "description"
+	  			condition = ['description like ?', search_condition]
+	  		when "name|description"
+	  			condition = ['name like ? OR description like ?', search_condition, search_condition]
+  			else
+  				condition = ['name like ?', search_condition]
+  		end
+
+  		paginate per_page: 4, page: page, conditions: condition, order: 'name'
   	end
 
 	def get_department_name
