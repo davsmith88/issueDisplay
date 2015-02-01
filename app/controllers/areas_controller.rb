@@ -2,7 +2,7 @@ class AreasController < ApplicationController
 
 	def index
 		@active_areas = true
-		@areas = Area.all.page(params[:page])
+		@areas = scoped.page(params[:page])
 		render layout: "departments_area"
 	end
 
@@ -14,7 +14,8 @@ class AreasController < ApplicationController
 
 	def create
 		@area = Area.new(area_params)
-
+		@area.business_id = current_user.business.id
+		
 		respond_to do |format|
 			if @area.save
 				format.html {redirect_to areas_path, notice: "Area has been added"}
@@ -25,12 +26,12 @@ class AreasController < ApplicationController
 	end
 
 	def edit
-		@area = Area.find(params[:id])
+		@area = scoped.find(params[:id])
 		render layout: "admin_layout"
 	end
 
 	def update
-		@area = Area.find(params[:id])
+		@area = scoped.find(params[:id])
 		respond_to do |format|
 			if @area.update(area_params)
 				format.html {redirect_to areas_path, notice: "Area has been updated"}
@@ -41,7 +42,7 @@ class AreasController < ApplicationController
 	end
 
 	def destroy
-		@area = Area.find(params[:id])
+		@area = scoped.find(params[:id])
 		@area.destroy
 
 		respond_to do |format|
@@ -53,5 +54,9 @@ class AreasController < ApplicationController
 
 	def area_params
 		params.require(:area).permit(:name, :description)
+	end
+
+	def scoped
+		current_user.business.areas
 	end
 end

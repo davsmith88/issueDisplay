@@ -3,6 +3,7 @@
 <% end %>
 
 <% content_for :third_level_layout do %>
+
 	<br>
   	<%= link_to "Add Attempted Solutions", new_issue_attempted_solution_path(@issue), class: "btn btn-default spacing" if @attempted_solution_create %>
 		<table class='table'>

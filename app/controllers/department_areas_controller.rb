@@ -1,22 +1,23 @@
 class DepartmentAreasController < ApplicationController
 	def index
 		@active_dp = true
-		@depAreas = DepartmentArea.all.includes(:department, :area).page(params[:page])
+		@depAreas = scoped.includes(:department, :area).page(params[:page])
 		render layout: "departments_area"
 	end
 
 	def new
 		@active_dp = true
 		@depArea = DepartmentArea.new
-		@departments = Department.all
-		@areas = Area.all
+		@departments = current_user.business.departments.all
+		@areas = current_user.business.areas.all
 		render layout: "departments_area"
 	end
 
 	def create
-		area = Area.find(params["department_area"][:area_id])
-		department = Department.find(params["department_area"][:department_id])
+		area = current_user.business.areas.find(params["department_area"][:area_id])
+		department = current_user.business.departments.find(params["department_area"][:department_id])
 		@depArea = DepartmentArea.new(dep_area_params)
+		@depArea.business_id = current_user.business.id
 		@depArea.name = "#{department.name} #{area.name}"
 		@depArea.save
 		respond_to do |format|
@@ -27,7 +28,7 @@ class DepartmentAreasController < ApplicationController
 	end
 
 	def destroy
-		@depArea = DepartmentArea.find(params[:id])
+		@depArea = scoped.find(params[:id])
 
 		respond_to do |format|
 			if @depArea.destroy
@@ -40,5 +41,9 @@ class DepartmentAreasController < ApplicationController
 
 	def dep_area_params
 		params.require(:department_area).permit(:department_id, :area_id)
+	end
+
+	def scoped
+		current_user.business.department_areas
 	end
 end

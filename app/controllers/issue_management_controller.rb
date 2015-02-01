@@ -1,17 +1,17 @@
 class IssueManagementController < ApplicationController
 
 	def index
-		@issues = Issue.all.page(params[:page])
+		@issues = scoped.page(params[:page])
 		render layout: "admin_layout"
 	end
 
 	def show
-		@issue = Issue.find(params[:id])
+		@issue = scoped.find(params[:id])
 		render layout: "admin_layout"
 	end
 
 	def view
-		@issue = Issue.find(params[:issue_management_id])
+		@issue = scoped.find(params[:issue_management_id])
 		render layout: "admin_layout"
 	end
 
@@ -20,7 +20,7 @@ class IssueManagementController < ApplicationController
 	end
 
 	def create
-
+		# when creating the issue have to assign the business id to the issue
 	end
 
 	def edit
@@ -29,5 +29,11 @@ class IssueManagementController < ApplicationController
 
 	def update
 
+	end
+
+	private
+
+	def scoped
+		current_user.business.issues
 	end
 end

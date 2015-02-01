@@ -37,7 +37,8 @@
 			</div>
 		</div>
 		<div class='col-sm-6'>
-			<%= display_images(@issue.images) %>
+			<!%= display_images(@issue.images) %>
+			<%= raw(create_carousel @issue.images, "d") %>
 		</div>
 	</div>
 	<div class='row'>

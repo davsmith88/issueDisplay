@@ -4,7 +4,9 @@ class Role < ActiveRecord::Base
 	has_many :users, :through => :assignments
 	has_many :rights, :through => :grants
 
-	validates :name, uniqueness: true
+	belongs_to :business
+
+	# validates :name, uniqueness: true
 
 	self.per_page = 5
 

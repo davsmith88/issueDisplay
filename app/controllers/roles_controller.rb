@@ -1,13 +1,13 @@
 class RolesController < ApplicationController
 	def index
 		@active_roles = true
-		@roles = Role.all.page(params[:page])
+		@roles = scoped.page(params[:page])
 		render layout: "permission_static"
 	end
 
 	def show
 		@active_roles = true
-		@role = Role.find(params[:id])
+		@role = scoped.find(params[:id])
 		@grants = Grant.where(role_id: params[:id]).page(params[:page])
 
 		render layout: "permission_static"
@@ -21,6 +21,7 @@ class RolesController < ApplicationController
 
 	def create
 		@role = Role.new(role_params)
+		@role.business_id = current_user.business.id
 		respond_to do |format|
 			if @role.save()
 				flash[:admin_notice] = "Role has been created"
@@ -34,12 +35,12 @@ class RolesController < ApplicationController
 
 	def edit
 		@active_roles = true
-		@role = Role.find(params[:id])
+		@role = scoped.find(params[:id])
 		render layout: "permission_static"
 	end
 
 	def update
-		@role = Role.find(params[:id])
+		@role = scoped.find(params[:id])
 		respond_to do |format|
 			if @role.update(role_params)
 				flash[:admin_notice] = "Role information as been updated"
@@ -52,7 +53,7 @@ class RolesController < ApplicationController
 	end
 
 	def destroy
-		@role = Role.find(params[:id])
+		@role = scoped.find(params[:id])
 		@role.destroy
 
 		respond_to do |format|
@@ -65,6 +66,10 @@ class RolesController < ApplicationController
 
 	def role_params
 		params.require(:role).permit(:name, :description)
+	end
+
+	def scoped
+		current_user.business.roles
 	end
 
 end

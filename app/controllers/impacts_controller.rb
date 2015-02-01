@@ -1,7 +1,7 @@
 class ImpactsController < ApplicationController
 
 	def index
-		@impacts = Impact.all.page(params[:page])
+		@impacts = scoped.page(params[:page])
 		render layout: "admin_layout"
 	end
 
@@ -11,13 +11,13 @@ class ImpactsController < ApplicationController
 	end
 
 	def edit
-		@impact = Impact.find(params[:id])
+		@impact = scoped.find(params[:id])
 		render layout: "admin_layout"
 	end
 
 	def create
 		@impact = Impact.new(impact_params)
-
+		@impact.business_id = current_user.business.id
 		respond_to do |format|
 			if @impact.save
 				format.html {redirect_to impacts_path, notice: "An impact has been created"}
@@ -28,7 +28,7 @@ class ImpactsController < ApplicationController
 	end
 
 	def destroy
-		@impact = Impact.find(params[:id])
+		@impact = scoped.find(params[:id])
 		respond_to do |format|
 			if @impact.destroy
 				format.html { redirect_to impacts_path, notice: "Impact has been destroyed" }
@@ -39,7 +39,7 @@ class ImpactsController < ApplicationController
 	end
 
 	def update
-		@impact = Impact.find(params[:id])
+		@impact = scoped.find(params[:id])
 
 		respond_to do |format|
 			if @impact.update(impact_params)
@@ -54,5 +54,9 @@ class ImpactsController < ApplicationController
 
 	def impact_params
 		params.require(:impact).permit(:name, :description)
+	end
+
+	def scoped
+		current_user.business.impacts
 	end
 end

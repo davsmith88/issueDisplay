@@ -1,7 +1,7 @@
 class DepartmentsController < ApplicationController
 	def index
 		@active_departments = true
-		@departments = Department.all.page(params[:page])
+		@departments = scoped.page(params[:page])
 		render layout: "departments_area"
 	end
 
@@ -13,6 +13,7 @@ class DepartmentsController < ApplicationController
 
 	def create
 		@department = Department.new(department_params)
+		@department.business_id = current_user.business.id
 		respond_to do |format|
 			if @department.save
 				format.html {redirect_to departments_path}
@@ -23,12 +24,12 @@ class DepartmentsController < ApplicationController
 	end
 
 	def edit
-		@department = Department.find(params[:id])
+		@department = scoped.find(params[:id])
 		render layout: "admin_layout"
 	end
 
 	def update
-		@department = Department.find(params[:id])
+		@department = scoped.find(params[:id])
 
 		respond_to do |format|
 			if @department.update(department_params)
@@ -40,7 +41,7 @@ class DepartmentsController < ApplicationController
 	end
 
 	def destroy
-		@department = Department.find(params[:id])
+		@department = scoped.find(params[:id])
 		@department.delete
 
 		respond_to do |format|
@@ -52,5 +53,9 @@ class DepartmentsController < ApplicationController
 
 	def department_params
 		params.require(:department).permit(:name, :description)
+	end
+
+	def scoped
+		current_user.business.departments
 	end
 end

@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
 	has_many :assignments
 	has_many :roles, :through => :assignments
   has_many :issues
+  
+  belongs_to :business
 
   validates :name, presence: {message: "Name needs to be supplied"}
   validates :title, presence: {message: "Title needs to be supplied"}

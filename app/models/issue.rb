@@ -55,6 +55,7 @@ class Issue < ActiveRecord::Base
 	belongs_to :department_area
 	belongs_to :impact
 	belongs_to :user
+	belongs_to :business
 
 	validates :name, presence: {message: "Issue needs to have a name"}
 	validates :impact_id, numericality: {

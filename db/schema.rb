@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141113132830) do
+ActiveRecord::Schema.define(version: 20150201102849) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20141113132830) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "business_id"
   end
 
   create_table "assignments", force: true do |t|
@@ -51,6 +52,7 @@ ActiveRecord::Schema.define(version: 20141113132830) do
     t.integer  "role_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "business_id"
   end
 
   create_table "attempted_solutions", force: true do |t|
@@ -78,6 +80,7 @@ ActiveRecord::Schema.define(version: 20141113132830) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
+    t.integer  "business_id"
   end
 
   add_index "department_areas", ["area_id"], name: "index_department_areas_on_area_id"
@@ -88,6 +91,7 @@ ActiveRecord::Schema.define(version: 20141113132830) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "business_id"
   end
 
   create_table "grants", force: true do |t|
@@ -118,6 +122,7 @@ ActiveRecord::Schema.define(version: 20141113132830) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "business_id"
   end
 
   create_table "issue_workarounds", force: true do |t|
@@ -140,6 +145,7 @@ ActiveRecord::Schema.define(version: 20141113132830) do
     t.string   "i_type"
     t.string   "author"
     t.string   "state"
+    t.integer  "business_id"
   end
 
   add_index "issues", ["department_area_id"], name: "index_issues_on_department_area_id"
@@ -216,6 +222,7 @@ ActiveRecord::Schema.define(version: 20141113132830) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
+    t.integer  "business_id"
   end
 
   create_table "solutions", force: true do |t|
@@ -258,6 +265,7 @@ ActiveRecord::Schema.define(version: 20141113132830) do
     t.datetime "updated_at"
     t.string   "name"
     t.string   "title"
+    t.integer  "business_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

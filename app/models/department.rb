@@ -1,5 +1,6 @@
 class Department < ActiveRecord::Base
 	belongs_to :issue
+	belongs_to :business
 
 	self.per_page = 8
 

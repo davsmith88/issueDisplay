@@ -7,7 +7,7 @@ class IssuesController < ApplicationController
 
 
 	def index
-		@issues = Issue.where(state: "publish").order(created_at: :desc).page(params[:page])
+		@issues = current_user.business.issues.where(state: "publish").order(created_at: :desc).page(params[:page])
 	end
 
 	def show
@@ -229,8 +229,8 @@ class IssuesController < ApplicationController
 			@solution_destroy = current_user.can?("destroy", "solutions")
 
 			@attempted_solution_create = current_user.can?("new", "attempted_solutions")
-			@attempted_solution_create = current_user.can?("edit", "attempted_solutions")
-			@attempted_solution_create = current_user.can?("destroy", "attempted_solutions")
+			# @attempted_solution_create = current_user.can?("edit", "attempted_solutions")
+			# @attempted_solution_create = current_user.can?("destroy", "attempted_solutions")
 		end
 	end
 

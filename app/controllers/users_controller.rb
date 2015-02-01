@@ -23,13 +23,14 @@ class UsersController < ApplicationController
 	end
 
 	def show
-		@user = User.find(params[:id])
+		@user = scoped.find(params[:id])
 
 		#@issues = Issue.where(user_id: current_user.id)
 	end
 
 	def create
 		@user = User.new(user_params)
+		@user.business_id = current_user.business_id
 		respond_to do |format|
 			if @user.save
 				flash[:admin_notice] = "'#{user_params[:name]}' has been created"
@@ -42,12 +43,12 @@ class UsersController < ApplicationController
 	end
 
 	def edit
-		@user = User.find(params[:id])
+		@user = scoped.find(params[:id])
 		render layout: "admin_layout"
 	end
 
 	def update
-		@user = User.find(params[:id])
+		@user = scoped.find(params[:id])
 
 		respond_to do |format|
 			if @user.update(user_params)
@@ -61,7 +62,7 @@ class UsersController < ApplicationController
 	end
 
 	def destroy
-		@user = User.find(params[:id])
+		@user = scoped.find(params[:id])
 
 		@user.destroy
 		respond_to do |format|
@@ -74,5 +75,9 @@ class UsersController < ApplicationController
 
 	def user_params
 		params.require(:user).permit(:email, :password, :password, :name, :title)
+	end
+
+	def scoped
+		current_user.business.users
 	end
 end

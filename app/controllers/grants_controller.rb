@@ -11,7 +11,7 @@ class GrantsController < ApplicationController
 		    end
 		}
 
-		@roles = Role.all
+		@roles = current_user.business.roles.all
 		@rights_admin = Right.where(resource: 'admin').order(query)
 		@rights_issue = Right.where(resource: 'issues').order(query)
 		@rights_role = Right.where(resource: 'roles').order(query)

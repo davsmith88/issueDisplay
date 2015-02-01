@@ -2,16 +2,16 @@ class AssignmentsController < ApplicationController
 
 	def new
 		@active_assignments = true
-		@roles = Role.all
-		@users = User.all
+		@roles = scoped.roles
+		@users = scoped.users
 		@assignment = Assignment.new
 		render layout: "permission_static"
 	end
 
 	def show
 		@active_roles = true
-		@role = Role.find(params[:role_id])
-		@assignments = Assignment.includes(:user).where(role_id: params[:role_id]).page(params[:page])
+		@role = scoped.roles.find(params[:role_id])
+		@assignments = scoped.assignments.includes(:user).where(role_id: params[:role_id]).page(params[:page])
 		render layout: "permission_static"
 	end
 
@@ -33,7 +33,7 @@ class AssignmentsController < ApplicationController
 
 	def destroy
 		role_id = params[:role_id]
-		@assignment = Assignment.find(params[:id])
+		@assignment = scoped.assignments.find(params[:id])
 		respond_to do |format|
 			if @assignment.destroy
 				flash[:admin_alert] = "The user is no longer associated with the role"
@@ -46,5 +46,9 @@ class AssignmentsController < ApplicationController
 
 	def assignment_params
 		params.require(:assignment).permit(:role_id, :user_id)
+	end
+
+	def scoped
+		current_user.business
 	end
 end
