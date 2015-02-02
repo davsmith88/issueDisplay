@@ -1,3 +1,21 @@
-<h1>This is the home page</h1>
+<% content_for :title do %>
+	Home
+<% end %>
 
-<%= link_to "Issues", issues_path %>
+<h3>Home</h3>
+
+<div class='row'>
+	<div class='col-sm-6'>
+
+	</div>
+	<div class='col-sm-6'>
+		<% if !current_user %>
+			<%= link_to "Login", new_user_session_path, class: "btn btn-default" %>
+			<p>If your business does not have an account, create one today!</p>
+
+		<% else %>
+			<%= link_to "Issues", issues_path %>
+		<% end %>
+	</div> 
+</div>
+

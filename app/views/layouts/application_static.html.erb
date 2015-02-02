@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= yield :title %> - Better Management</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+	<body>
+	<nav class="navbar navbar-default navbar-static-top">
+	  <div class="navbar-header">
+	  	<%= link_to "Better Management", home_path, class: "navbar-brand" %>BETA
+	  </div>
+	</nav>
+		<div class='container-fluid'>
+			<%= yield %>
+		</div>
+		<nav class="navbar navbar-default navbar-fixed-bottom">
+		  <div class="container">
+		    <div class='row'>
+			    <div class='col-md-4'>
+			    	<%= link_to "About", static_about_path %>
+			    </div>
+			    <div class='col-md-4'>
+			    	<%= link_to "Why", static_why_path %>
+			    </div>
+			    <div class='col-md-4'>
+			    	
+			    </div>
+		    </div>
+		  </div>
+		</nav>
+	</body>
+</html>

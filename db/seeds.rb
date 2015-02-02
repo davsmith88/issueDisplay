@@ -98,7 +98,7 @@ business_array = [{business: business1,
 impacts_array = [impact1, impact2]
 
 (1..10).each do
-	business = business_array.sample
+	business = business_array[0]
 	Issue.create!(name: Faker::Lorem.sentence, 
 				  description: Faker::Lorem.paragraph, 
 				  review_date: Faker::Date.forward(rand(20)),

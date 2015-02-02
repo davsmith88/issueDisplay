@@ -18,6 +18,10 @@ IssueDisplay::Application.routes.draw do
 
   root :to => 'static_pages#home'
 
+  get "/about" => 'static_pages#about', as: :static_about
+  get "/why" => 'static_pages#why', as: :static_why
+  get "/products" => 'static_pages#products', as: :static_products
+
   get "/home" => 'static_pages#home', as: :home
   get '/layout' => 'layouts_show#show', as: :layouts_show
 
