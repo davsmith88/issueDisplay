@@ -5,7 +5,11 @@ class BusinessesController < ApplicationController
 	end
 
 	def new
-		@business = Business.new
+		if !user_signed_in?
+			@business = Business.new
+		else
+			redirect_to home_path
+		end
 	end
 
 	def show
@@ -13,13 +17,17 @@ class BusinessesController < ApplicationController
 	end
 
 	def create
+
 		@business = Business.new(business_params)
+		@business.users.build(user_params)
+		# sets the user that creates the business as the creator
+		@business.users.first.creator = true
 
 		respond_to do |format|
 			if @business.save
 				format.html {redirect_to business_path(@business)}
 			else
-				foramt.html {render action: 'new'}
+				format.html {render action: 'new'}
 			end
 		end
 	end
@@ -28,5 +36,9 @@ class BusinessesController < ApplicationController
 
 	def business_params
 		params.require(:business).permit(:name, :location)
+	end
+
+	def user_params
+		params.require(:user).permit(:email, :password, :password)
 	end
 end

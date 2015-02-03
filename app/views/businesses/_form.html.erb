@@ -10,11 +10,48 @@
 	</div>
 <% end %>
 
-		<%= form.label :name %>
-		<%= form.text_field :name %>
+<%if @business.users.any? and @business.users.first.errors.any? %>
+	<div id='error_explanation'>
+		<h2><%= pluralize(@business.users.first.errors.count, "error") %> prohibited this issue from being saved</h2>
 
-		<%= form.label :location %>
-		<%= form.text_field :location %>
-		<br>
-		
-		<%= form.submit "Save" %>
+		<ul>
+			<% @business.users.first.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+	</div>
+<% end %>
+
+<div class='form-group'>
+	<label class='col-sm-3 control-label'>Business Name</label>
+	<div class='col-sm-9'>
+		<%= form.text_field :name, class: 'form-control' %>
+	</div>
+</div>
+
+<div class='form-group'>
+	<label class='col-sm-3 control-label'>User Email</label>
+	<div class='col-sm-9'>
+		<%= text_field_tag 'user[email]', nil, { class: 'form-control' } %>
+	</div>
+</div>
+
+<div class='form-group'>
+	<label class='col-sm-3 control-label'>Password</label>
+	<div class='col-sm-9'>
+		<%= password_field_tag 'user[password]', nil, { class: 'form-control' } %>
+	</div>
+</div>
+<div class='form-group'>
+	<label class='col-sm-3 control-label'>Password Confirmation</label>
+	<div class='col-sm-9'>
+		<%= password_field_tag 'user[password_confirmation]', nil, { class: 'form-control' } %>
+	</div>
+</div>
+
+
+<div class='form-group'>
+	<div class='col-sm-offset-3 col-sm-9'>
+		<%= form.submit "Save", class: 'btn btn-default' %>
+	</div>
+</div>

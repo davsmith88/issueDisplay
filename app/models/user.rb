@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
   
   belongs_to :business
 
-  validates :name, presence: {message: "Name needs to be supplied"}
-  validates :title, presence: {message: "Title needs to be supplied"}
+  # validates :name, presence: {message: "Name needs to be supplied"}
+  # validates :title, presence: {message: "Title needs to be supplied"}
   validates :email, presence: {message: "User needs to supply an email address"}
 
   self.per_page = 5
@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
 
   def can?(action, resource)
   	puts "#{action} #{resource}"
-    puts roles.includes(:rights).for(action, resource).references(:rights).any?
+    # puts roles.includes(:rights).for(action, resource).references(:rights).any?
   	business.roles.includes(:rights).for(action, resource).references(:rights).any?
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150201102849) do
+ActiveRecord::Schema.define(version: 20150203020426) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -266,6 +266,7 @@ ActiveRecord::Schema.define(version: 20150201102849) do
     t.string   "name"
     t.string   "title"
     t.integer  "business_id"
+    t.boolean  "creator"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
