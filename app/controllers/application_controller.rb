@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   	# before_filter :check_controller_name
   	# before_action :permissions
 
+
  	rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   	protected
@@ -22,6 +23,29 @@ class ApplicationController < ActionController::Base
 	# 		@create = current_user.can?("new", controller_name)
 	# 	end
 	# end
+
+	def check_intro
+		business = current_user.business
+
+		dep = business.departments.count
+		deparea = business.department_areas.count
+		area = business.areas.count
+		impact = business.impacts.count
+		if dep == 0 or deparea == 0 or area == 0 or impact == 0
+			# puts "BUSINESS IS NOT SET UP CORRECTLY"
+			# the business is not setup (ie no departments, areas, department areas or impacts)
+			# those are critical in saving an issue, will alert the user
+			business.intro = false
+			business.save
+			redirect_to newly_created_business_path(business)
+		else
+			# business is set up correclty and will allow the user to continue 
+			# to next phase 
+			business.intro = true
+			business.save
+		end
+	end
+
 
 	def check_controller_name
 		# puts "----> #{controller_name} #{action_name}"

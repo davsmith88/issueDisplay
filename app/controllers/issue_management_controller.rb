@@ -1,5 +1,7 @@
 class IssueManagementController < ApplicationController
 
+	before_action :check_intro
+
 	def index
 		@issues = scoped.page(params[:page])
 		render layout: "admin_layout"
@@ -32,6 +34,7 @@ class IssueManagementController < ApplicationController
 	end
 
 	private
+
 
 	def scoped
 		current_user.business.issues

@@ -89,7 +89,11 @@ IssueDisplay::Application.routes.draw do
   # end
 
 
-  resources :businesses
+  resources :businesses do
+    member do
+      get 'newly_created', as: :newly_created
+    end
+  end
 
   # resources :assignments, only: [:new, :create, :destroy]
 
