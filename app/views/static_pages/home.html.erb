@@ -12,7 +12,7 @@
 		<% if !current_user %>
 			<%= link_to "Login", new_user_session_path, class: "btn btn-default" %>
 			<p>If your business does not have an account, create one today!</p>
-
+			<%= link_to "Create an Account Today", new_business_path, class: "btn btn-default" %>
 		<% else %>
 			<%= link_to "Issues", issues_path %>
 		<% end %>

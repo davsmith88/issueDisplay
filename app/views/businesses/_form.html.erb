@@ -30,6 +30,13 @@
 </div>
 
 <div class='form-group'>
+	<label class='col-sm-3 control-label'>Name</label>
+	<div class='col-sm-9'>
+		<%= text_field_tag 'user[name]', nil, { class: 'form-control' } %>
+	</div> 
+</div>
+
+<div class='form-group'>
 	<label class='col-sm-3 control-label'>User Email</label>
 	<div class='col-sm-9'>
 		<%= text_field_tag 'user[email]', nil, { class: 'form-control' } %>

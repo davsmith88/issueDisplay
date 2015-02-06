@@ -1,4 +1,8 @@
-<h3>Create a business</h3>
+<% content_for :title do %>
+	Create an Account
+<% end %>
+
+<h3>Create an Account</h3>
 
 <%= form_for @business, :html => {class: "form-horizontal"} do |form| %>
 	<%= render partial: form %>
