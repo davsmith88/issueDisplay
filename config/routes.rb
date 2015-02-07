@@ -36,7 +36,10 @@ IssueDisplay::Application.routes.draw do
     get "/", to: "admin#index", as: "admin_index"
     get "users", to: "admin#users", as: "admin_user_static"
     get "permissions", to: "admin#permissions", as: "admin_permission_static"
-    
+
+    get "business", to: 'admin_business#edit', as: "business_edit"
+    put "businesses/:id(.:format)", to: "admin_business#update", as: "business_update"
+
     get "depareas/departments", to: "admin#departments", as: "admin_departments_static"
     get "depareas/areas", to: "admin#areas", as: "admin_areas_static"
     get "depareas/department_areas", to: "admin#department_areas", as: "admin_department_areas_static"

@@ -1,0 +1,16 @@
+<% content_for :title do %>
+	Business Management
+<% end %>
+
+<% content_for :breadcrumb do %>
+	<li class='active'>Business Information</li>
+<% end %>
+
+<h3>Edit business</h3>
+
+<%= form_for @business, url: business_update_path(@business), method: :put, builder: MyFormBuilder, html: {multipart: true, class: "form-horizontal", role: "form"} do |form| %>
+	<%= form.text_field :name, placeholder: "Business Name" %>
+	<%= form.text_area :description, placeholder: "Description" %>
+	<%= form.text_area :location, placeholder: "Location" %>
+	<%= form.submit "Save", label: "Action", class: "btn btn-default" %>
+<% end %>

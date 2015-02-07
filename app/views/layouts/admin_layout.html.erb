@@ -17,10 +17,18 @@
 				<li class='list-group-item'>
 					<%= link_to "Issue Management", issue_management_index_path %>
 				</li>
+				<li class='list-group-item'>
+					<%= link_to "Business Information", business_edit_path %>
+				</li>
 			</ul>
 		</div>
 
 		<div class='col-sm-9'>
+			<ol class="breadcrumb">
+			  <li><a href="/admin">Admin</a></li>
+			  
+			  <%= yield :breadcrumb %>
+			</ol>
 			<% if flash[:admin_notice] %>
 				<p class='alert alert-success'>
 					<%= flash[:admin_notice] %>
