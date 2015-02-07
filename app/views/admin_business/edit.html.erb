@@ -6,8 +6,8 @@
 	<li class='active'>Business Information</li>
 <% end %>
 
-<h3>Edit business</h3>
-
+<h3>Edit Business</h3>
+<p>From this page change any information relating to the business</p>
 <%= form_for @business, url: business_update_path(@business), method: :put, builder: MyFormBuilder, html: {multipart: true, class: "form-horizontal", role: "form"} do |form| %>
 	<%= form.text_field :name, placeholder: "Business Name" %>
 	<%= form.text_area :description, placeholder: "Description" %>
