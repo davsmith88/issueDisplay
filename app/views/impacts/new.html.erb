@@ -2,11 +2,10 @@
 	New Impact
 <% end %>
 
-<ol class="breadcrumb">
-  <li><a href="/admin">Admin</a></li>
-  <li><%= link_to "Impacts", impacts_path %></li>
-  <li class="active">New</li>
-</ol>
+<% content_for :breadcrumb do %>
+	<li><%= link_to "Impacts", impacts_path %></li>
+	<li class="active">New</li>
+<% end %>
 
 <h4>Add Impact</h4>
 <%= form_for @impact, builder: MyFormBuilder, html: {class: "form-horizontal"} do |form| %>

@@ -2,12 +2,11 @@
 	Edit Image
 <% end %>
 
-<ol class="breadcrumb">
-  <li><a href="/admin">Admin</a></li>
-  <li><%= link_to "Impacts", impacts_path %></li>
-  <li><%= @impact.name %></li>
-  <li class="active">Edit</li>
-</ol>
+<% content_for :breadcrumb do %>
+	<li><%= link_to "Impacts", impacts_path %></li>
+  	<li><%= @impact.name %></li>
+  	<li class="active">Edit</li>
+<% end %>
 
 <h4>Edit Impact</h4>
 <%= form_for @impact, builder: MyFormBuilder, html: {class: "form-horizontal"} do |form| %>

@@ -2,11 +2,10 @@
 	Showing Issue
 <% end %>
 
-<ol class="breadcrumb">
-  <li><a href="/admin">Admin</a></li>
-  <li><%= link_to "Issue Management", issue_management_index_path %></li>
-  <li class='active'><%= @issue.name %></li>
-</ol>
+<% content_for :breadcrumb do %>
+	<li><%= link_to "Issue Management", issue_management_index_path %></li>
+  	<li class='active'><%= @issue.name %></li>
+<% end %>
 
 <h4>Showing the issue management more detail</h4>
 

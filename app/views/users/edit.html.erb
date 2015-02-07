@@ -2,11 +2,11 @@
 	Edit User
 <% end %>
 
-<ol class="breadcrumb">
-  <li><a href="/admin">Admin</a></li>
+<% content_for :breadcrumb do %>
   <li><%= link_to "User", admin_user_static_path %></li>
   <li class="active">Edit</li>
-</ol>
+<% end %>
+
 
 <h4>Edit user details</h4>
 

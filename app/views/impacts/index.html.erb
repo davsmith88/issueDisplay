@@ -2,11 +2,10 @@
 	Impacts
 <% end %>
 
-<ol class="breadcrumb">
-  <li><a href="/admin">Admin</a></li>
-  <li><%= link_to "Impacts", impacts_path %></li>
-  <li class="active">View All</li>
-</ol>
+<% content_for :breadcrumb do %>
+	<li><%= link_to "Impacts", impacts_path %></li>
+  	<li class="active">View All</li>
+<% end %>
 
 <h4>Impacts</h4>
 

@@ -2,11 +2,10 @@
 	New User
 <% end %>
 
-<ol class="breadcrumb">
-  <li><a href="/admin">Admin</a></li>
+<% content_for :breadcrumb do %>
   <li><%= link_to "User", admin_user_static_path %></li>
   <li class="active">Create</li>
-</ol>
+<% end %>
 
 <h4>Create a New User</h4>
 <%= form_for @user, builder: MyFormBuilder, html: {class: "form-horizontal"} do |form| %>

@@ -2,10 +2,9 @@
 	All Users
 <% end %>
 
-<ol class="breadcrumb">
-  <li><a href="/admin">Admin</a></li>
-  <li class='active'>User</li>
-</ol>
+<% content_for :breadcrumb do %>
+	<li class='active'>User</li>
+<% end %>
 
 <h3>Users</h3>
 
