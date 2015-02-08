@@ -124,7 +124,9 @@ resources = ["impacts",
 			 "solutions",
 			 "attempted_solutions",
 			 "images",
-			 "users"]
+			 "users", 
+			 "business",
+			 "admin_business"]
 
 operations = ["READ", "CREATE", "UPDATE", "DELETE"]
 

@@ -2,8 +2,9 @@
 	Edit Solutions
 <% end %>
 
-<% content_for :third_level_layout do %>
+<% content_for :third_level_layout  do %>
 	<br>
+		<%= current_user.can?("new", "solutions") %>
 		<%= link_to "Add Solution", new_issue_solution_path(@issue), class: "btn btn-default spacing" if @solution_create %>
 		<table class='table'>
 			<tr>

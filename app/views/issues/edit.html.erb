@@ -5,7 +5,7 @@
 <% content_for :third_level_layout do %>
 	<br>
 	<%= form_for @issue, builder: MyFormBuilder, :html => { :multipart => true, class: "form-horizontal" } do |form| %>
-		<%= render partial: 'form', locals: {form: form} %>
+		<%= render partial: 'issues/form', locals: {form: form} %>
 		<div class='form-group'>
 			<label class='col-sm-2 control-label'>Publish Options</label>
 			<div class='col-sm-10'>

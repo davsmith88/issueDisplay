@@ -1,10 +1,9 @@
-class IssuesController < ApplicationController
-
-	before_action :check_intro
-	before_action :find_issue, only: [:show, :edit, :update, :destroy, :edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions, :show_workarounds, :show_attempted_solutions, :show_solutions]
-	before_action :get_dep_area, only: [:new, :create, :edit,:edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
-	before_action :get_impacts, only: [:new, :create, :edit, :edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
-	before_action :other_permissions
+class IssuesController < BIssueController
+	# before_action :check_intro
+	# before_action :find_issue, only: [:show, :edit, :update, :destroy, :edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions, :show_workarounds, :show_attempted_solutions, :show_solutions]
+	# before_action :get_dep_area, only: [:new, :create, :edit,:edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
+	# before_action :get_impacts, only: [:new, :create, :edit, :edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
+	# before_action :other_permissions
 
 
 	def index
@@ -13,20 +12,14 @@ class IssuesController < ApplicationController
 
 	def show
 		# shows the current issues
-		@images = @issue.images
-		@issue_workarounds = @issue.issue_workarounds.includes(:images)
-		# @solutions = @issue.solutions.includes(:images)
-		# @attempted_solutions =  @issue.attempted_solutions.includes(:images)
+		# @images = @issue.images
+		# @issue_workarounds = @issue.issue_workarounds.includes(:images)
 
-		# @user = User.find(@issue.user_id)
 
-		# @impact = Impact.find_by_id(@issue.impact_id)
-		#da = DepartmentArea.includes(:department, :area)
-		#@d = da.find_by_id(@issue.DepartmentArea_id)
-
-		# Issue.increment_counter(:view_counter, @issue.id)
-		@active_workarounds = true
-		@workarounds = @issue.issue_workarounds
+		# # Issue.increment_counter(:view_counter, @issue.id)
+		# @active_workarounds = true
+		# @workarounds = @issue.issue_workarounds
+		super
 		render layout: "show_issue", template: "issues/show_workarounds"
 	end
 
@@ -61,39 +54,14 @@ class IssuesController < ApplicationController
 	end
 
 	def new
-		@issue = Issue.new
+		super
 		respond_to do |format|
 			format.html {render action: 'new'}
 		end
 	end
 
 	def create
-		@issue = Issue.new(issue_params)
-		if issue_params[:review_date] and @issue.review_date
-			issue_review_date = DateTime.parse(@issue.review_date.to_s).strftime("%d-%m-%Y")
-			current_review_date = DateTime.parse(issue_params[:review_date]).strftime("%d-%m-%Y")
-			# if the submitted review date is equal to the issue's review date
-			# then use the current date (today) now and add on two weeks
-			# else check if the submmited review date is less than todays' date
-			# then use today's, add two weeks and assign that to the review date
-			# so that means that if the review date is greater than the review date
-			# and greater than the current date, assign that date to the review value
-			# need to check that this works
-			if current_review_date == issue_review_date
-				# puts "review date has not changed"
-				convert_date = DateTime.now.utc + 2.weeks
-				params[:issue]["review_date"] = convert_date
-			else
-				# puts "review date as changed"
-				if current_review_date < DateTime.now.utc
-					# puts "review date is less that the current date"
-					params[:issue]["review_date"] = DateTime.now.utc + 2.weeks
-				end
-			end
-		end
-
-		@issue.user_id = current_user.id
-
+		super
 		respond_to do |format|
 			if @issue.save
 				format.html {redirect_to @issue, notice: "Issue was created successfully"}
@@ -105,77 +73,86 @@ class IssuesController < ApplicationController
 	end
 
 	def show_workarounds
-		@active_workarounds = true
-		@issue_workarounds = @issue.issue_workarounds.includes(:images)
+		# @active_workarounds = true
+		# @issue_workarounds = @issue.issue_workarounds.includes(:images)
+		super
 		render layout: "show_issue"
 	end
 
 	def show_solutions
-		@active_solutions = true
-		@solutions = @issue.solutions
+		# @active_solutions = true
+		# @solutions = @issue.solutions
+		super
 		render layout: "show_issue"
 	end
 
 	def show_attempted_solutions
-		@active_att_sol = true
-		@att_sol = @issue.attempted_solutions
+		# @active_att_sol = true
+		# @att_sol = @issue.attempted_solutions
+		super
 		render layout: "show_issue"
 	end
 
 
 	def edit
-		@active_basic = true
-		@departments = DepartmentArea.all
+		# @active_basic = true
+		# @departments = DepartmentArea.all
+		super
 		render layout: "edit_page"
 	end
 
 	def edit_images
-		@active_images = true
-		@images = @issue.images
+		# @active_images = true
+		# @images = @issue.images
+		super
 		render layout: "edit_page", template: "issues/edit_images"
 	end
 
 	def edit_workaround
-		@active_workarounds = true
-		@workarounds = return_array @issue.issue_workarounds.includes(:images)
+		# @active_workarounds = true
+		# @workarounds = return_array @issue.issue_workarounds.includes(:images)
+		super
 		render layout: "edit_page", template: "issues/edit_workaround"
 	end
 
 	def edit_solutions
-		@active_solutions = true
-		@solutions = return_array @issue.solutions.includes(:images)
+		# @active_solutions = true
+		# @solutions = return_array @issue.solutions.includes(:images)
+		super
 		render layout: "edit_page", template: "issues/edit_solutions"
 	end
 
 	def edit_attempted_solutions
-		@active_att_sol = true
-		@attempted_solutions = return_array @issue.attempted_solutions.includes(:images)
+		# @active_att_sol = true
+		# @attempted_solutions = return_array @issue.attempted_solutions.includes(:images)
+		super
 		render layout: "edit_page", template: "issues/edit_attempted_solutions"
 	end
 
 	def update
-		if issue_params[:review_date]
-			issue_review_date = DateTime.parse("#{@issue.review_date.to_s}").strftime("%d-%m-%Y")
-			current_review_date = DateTime.parse("#{issue_params[:review_date]}").strftime("%d-%m-%Y")
-			# if the submitted review date is equal to the issue's review date
-			# then use the current date (today) now and add on two weeks
-			# else check if the submmited review date is less than todays' date
-			# then use today's, add two weeks and assign that to the review date
-			# so that means that if the review date is greater than the review date
-			# and greater than the current date, assign that date to the review value
-			if current_review_date == issue_review_date
-				# puts "review date has not changed"
-				convert_date = DateTime.now.utc + 2.weeks
-				params[:issue]["review_date"] = convert_date
-			else
-				if current_review_date < DateTime.now
-					params[:issue]["review_date"] = DateTime.now.utc + 2.weeks
-				end
-			end
-		else
-			# if no review date was supplied
-			params[:issue]["review_date"] = DateTime.now.utc + 2.weeks
-		end
+		super
+		# if issue_params[:review_date]
+		# 	issue_review_date = DateTime.parse("#{@issue.review_date.to_s}").strftime("%d-%m-%Y")
+		# 	current_review_date = DateTime.parse("#{issue_params[:review_date]}").strftime("%d-%m-%Y")
+		# 	# if the submitted review date is equal to the issue's review date
+		# 	# then use the current date (today) now and add on two weeks
+		# 	# else check if the submmited review date is less than todays' date
+		# 	# then use today's, add two weeks and assign that to the review date
+		# 	# so that means that if the review date is greater than the review date
+		# 	# and greater than the current date, assign that date to the review value
+		# 	if current_review_date == issue_review_date
+		# 		# puts "review date has not changed"
+		# 		convert_date = DateTime.now.utc + 2.weeks
+		# 		params[:issue]["review_date"] = convert_date
+		# 	else
+		# 		if current_review_date < DateTime.now
+		# 			params[:issue]["review_date"] = DateTime.now.utc + 2.weeks
+		# 		end
+		# 	end
+		# else
+		# 	# if no review date was supplied
+		# 	params[:issue]["review_date"] = DateTime.now.utc + 2.weeks
+		# end
 		respond_to do |format|
 			if @issue.update(issue_params)
 				format.html {redirect_to @issue, notice: "Issue has been updated"}
@@ -187,7 +164,7 @@ class IssuesController < ApplicationController
 	end
 
 	def destroy
-		@issue.destroy
+		super
 		respond_to do |format|
 			format.html {redirect_to issues_path, notice: "Issue has been destroyed"}
 		end
@@ -210,49 +187,49 @@ class IssuesController < ApplicationController
 
 	private
 
-	def other_permissions
-		if current_user
+	# def other_permissions
+	# 	if current_user
 
-			@edit = current_user.can?("edit", controller_name)
-			@destroy = current_user.can?("destroy", controller_name)
-			@create = current_user.can?("new", controller_name)
+	# 		@edit = current_user.can?("edit", controller_name)
+	# 		@destroy = current_user.can?("destroy", controller_name)
+	# 		@create = current_user.can?("new", controller_name)
 			
-			@workaround_create = current_user.can?("new", "issue_workarounds")
-			@workaround_edit = current_user.can?("edit", "issue_workarounds")
-			@workaround_destroy = current_user.can?("destroy", "issue_workarounds")
+	# 		@workaround_create = current_user.can?("new", "issue_workarounds")
+	# 		@workaround_edit = current_user.can?("edit", "issue_workarounds")
+	# 		@workaround_destroy = current_user.can?("destroy", "issue_workarounds")
 
-			@image_create = current_user.can?("new", "images")
-			@image_edit = current_user.can?("edit", "images")
-			@image_destroy = current_user.can?("destroy", "images")
+	# 		@image_create = current_user.can?("new", "images")
+	# 		@image_edit = current_user.can?("edit", "images")
+	# 		@image_destroy = current_user.can?("destroy", "images")
 
-			@solution_create = current_user.can?("new", "solutions")
-			@solution_edit = current_user.can?("edit", "solutions")
-			@solution_destroy = current_user.can?("destroy", "solutions")
+	# 		@solution_create = current_user.can?("new", "solutions")
+	# 		@solution_edit = current_user.can?("edit", "solutions")
+	# 		@solution_destroy = current_user.can?("destroy", "solutions")
 
-			@attempted_solution_create = current_user.can?("new", "attempted_solutions")
-			# @attempted_solution_create = current_user.can?("edit", "attempted_solutions")
-			# @attempted_solution_create = current_user.can?("destroy", "attempted_solutions")
-		end
-	end
+	# 		@attempted_solution_create = current_user.can?("new", "attempted_solutions")
+	# 		# @attempted_solution_create = current_user.can?("edit", "attempted_solutions")
+	# 		# @attempted_solution_create = current_user.can?("destroy", "attempted_solutions")
+	# 	end
+	# end
 
 	def return_array(data)
 		data.to_a
 	end
 
-	def find_issue
-		@issue = Issue.find(params[:id])
-	end
+	# def find_issue
+	# 	@issue = Issue.find(params[:id])
+	# end
 
-	def get_dep_area
-		@depAreas = DepartmentArea.all.includes(:department, :area)
-	end
+	# def get_dep_area
+	# 	@depAreas = DepartmentArea.all.includes(:department, :area)
+	# end
 
-	def get_impacts
-		@impacts = Impact.all
-	end
+	# def get_impacts
+	# 	@impacts = Impact.all
+	# end
 
-	def issue_params
-		params.require(:issue).permit(:name, :description, :impact_id, :department_area_id, :review_date, :i_type)
-	end
+	# def issue_params
+	# 	params.require(:issue).permit(:name, :description, :impact_id, :department_area_id, :review_date, :i_type)
+	# end
 
 end

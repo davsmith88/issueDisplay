@@ -1,7 +1,11 @@
 <% content_for :title do %>
-
+	ad
 <% end %>
 
 <% content_for :breadcrumbs do %>
 
 <% end %>
+
+<%= form_for @issue, url: {controller: 'issue_management', action: :update}, builder: MyFormBuilder, :html => { :multipart => true, class: "form-horizontal" } do |form| %>
+		<%= render partial: 'issues/form', locals: {form: form} %>
+<% end %> 

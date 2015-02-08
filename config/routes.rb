@@ -52,6 +52,11 @@ IssueDisplay::Application.routes.draw do
 
     resources :issue_management do
       get 'view', as: :view
+      member do
+        get 'show_workarounds', as: :show_workarounds
+        get 'show_solutions', as: :show_solutions
+        get 'show_attempted_solutions', as: :show_att_sol
+      end
     end
 
 

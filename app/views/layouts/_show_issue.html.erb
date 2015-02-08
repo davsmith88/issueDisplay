@@ -1,0 +1,15 @@
+<%= render template: "issues/show" %>
+<div class='row'>
+	<div class='col-sm-12'>
+		<ul class="nav nav-tabs" role="tablist">
+			  <li <%= @active_workarounds == true ? "class=active" : "" %>><%= workaround %></li>
+			  <li <%= @active_solutions == true ? "class=active" : "" %>><%= solutions %></li>
+			  <li <%= @active_att_sol == true ? "class=active" : "" %>><%= att_sol %></li>
+		</ul>
+		<div class='container-fluid'>
+			<div class='row'>
+				<%= yield %>
+			</div>
+		</div>
+	</div>
+</div>

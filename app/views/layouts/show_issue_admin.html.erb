@@ -1,0 +1,9 @@
+<% content_for :third_level_layout do %>
+	<div class='container-fluid'>
+		<div class='row'>
+			<%= render partial: "layouts/show_issue", locals: {workaround: link_to("Workarounds",show_workarounds_issue_management_path(@issue)), solutions: link_to("Solutions", show_solutions_issue_management_path(@issue)), att_sol: link_to("Attempted Solutions", show_att_sol_issue_management_path(@issue))} %>
+		</div>
+	</div>
+<% end %>
+
+<%= render :template => 'layouts/admin_layout' %>

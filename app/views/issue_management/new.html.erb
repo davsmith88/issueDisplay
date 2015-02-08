@@ -1,3 +1,10 @@
 <% content_for :breadcrumb do %>
+	<li><%= link_to "Issue Management", issue_management_index_path %></li>
+	<li class='active'>New</li>
+<% end %>
 
+<h3>New Issue</h3>
+
+<%= form_for @issue, url: {controller: "issue_management", action: :create}, builder: MyFormBuilder, html: {multipart: true, class: "form-horizontal", role: 'form'} do |form| %>
+	<%= render partial: 'issues/form', locals: {form: form} %>
 <% end %>
