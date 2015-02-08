@@ -1,3 +1,15 @@
+<% content_for :title do %>
+	View Issue Management
+<% end %>
+
+
+<% content_for :breadcrumb do %>
+	<li><%= link_to "Issue Management", issue_management_index_path %></li>
+	<li><%= link_to @issue.id, issue_management_path(@issue.id) %></li>
+	<li class='active'><%= link_to "View", issue_management_view_path(@issue.id) %></li>
+<% end %>
+
+
 <% content_for :third_level_layout do %>
 	<div class='container-fluid'>
 		<div class='row'>
@@ -5,5 +17,7 @@
 		</div>
 	</div>
 <% end %>
+
+
 
 <%= render :template => 'layouts/admin_layout' %>

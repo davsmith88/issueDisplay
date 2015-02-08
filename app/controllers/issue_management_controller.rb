@@ -19,7 +19,7 @@ class IssueManagementController < BIssueController
 		@active_workarounds = true
 		@issue = scoped.issues.find(params[:issue_management_id])
 		@issue_workarounds = scoped.issues.find(@issue).issue_workarounds
-		render layout: "show_issue_admin", template: "issues/show_workarounds"
+		render layout: "show_issue_admin"
 	end
 
 	def new
@@ -59,28 +59,29 @@ class IssueManagementController < BIssueController
 		# @active_images = true
 		# @images = @issue.images
 		super
-		render layout: "admin_page", template: "issues/edit_images"
+		render layout: "admin_layout", template: "issues/edit_images"
 	end
 
 	def edit_workaround
 		# @active_workarounds = true
 		# @workarounds = return_array @issue.issue_workarounds.includes(:images)
 		super
-		render layout: "admin_page", template: "issues/edit_workaround"
+		@admin = true
+		render layout: "admin_layout", template: "issues/edit_workaround"
 	end
 
 	def edit_solutions
 		# @active_solutions = true
 		# @solutions = return_array @issue.solutions.includes(:images)
 		super
-		render layout: "admin_page", template: "issues/edit_solutions"
+		render layout: "admin_layout", template: "issues/edit_solutions"
 	end
 
 	def edit_attempted_solutions
 		# @active_att_sol = true
 		# @attempted_solutions = return_array @issue.attempted_solutions.includes(:images)
 		super
-		render layout: "admin_page", template: "issues/edit_attempted_solutions"
+		render layout: "admin_layout", template: "issues/edit_attempted_solutions"
 	end
 
 	def show_workarounds

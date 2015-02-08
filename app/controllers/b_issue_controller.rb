@@ -143,6 +143,10 @@ class BIssueController < ApplicationController
 			params.require(:issue).permit(:name, :description, :impact_id, :department_area_id, :review_date, :i_type)
 		end
 
+		def return_array(data)
+			data.to_a
+		end
+
 		def other_permissions
 			if current_user
 

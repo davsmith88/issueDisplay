@@ -39,6 +39,7 @@
 					<%= flash[:admin_alert] %>
 				</p>
 			<% end %>
+			<div><%= yield :admin %></div>
 			<%= content_for?(:third_level_layout) ? yield(:third_level_layout) : yield %>
 		</div>
 	</div>

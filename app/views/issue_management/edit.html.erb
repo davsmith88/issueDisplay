@@ -1,10 +1,14 @@
 <% content_for :title do %>
-	ad
+	Edit Issue
 <% end %>
 
-<% content_for :breadcrumbs do %>
-
+<% content_for :breadcrumb do %>
+	<li><%= link_to "Issue Management", issue_management_index_path %></li>
+	<li><%= link_to @issue.id, issue_management_view_path(@issue.id) %></li>
+	<li class='active'>Edit</li>
 <% end %>
+
+<h3>Edit Issue Information</h3>
 
 <%= form_for @issue, url: {controller: 'issue_management', action: :update}, builder: MyFormBuilder, :html => { :multipart => true, class: "form-horizontal" } do |form| %>
 		<%= render partial: 'issues/form', locals: {form: form} %>

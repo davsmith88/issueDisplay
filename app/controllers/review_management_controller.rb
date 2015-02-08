@@ -1,4 +1,4 @@
-class ReviewsController < RevController
+class ReviewManagementController < RevController
 	
 	# before_action :set_type
 	# before_action :get_issue, only: [:new, :create, :index, :edit, :update, :destroy]

@@ -2,9 +2,24 @@
 	Edit Workaround
 <% end %>
 
+<% content_for :breadcrumb do %>
+	<li>Issue Management</li>
+	<li><%= @issue.id %></li>
+	<li class='active'>Edit Workaround</li>
+<% end %>
+
+<% content_for :admin do %>
+	<h3>Edit Workaround</h3>
+	<p>Below the table lists the workarounds in the system. From there you can edit </p>
+<% end %>
+
 <% content_for :third_level_layout do %>
 	<br>
-  	<%= link_to "Add workaround", new_issue_issue_workaround_path(@issue), class: "btn btn-default spacing" if @workaround_create %>
+	<% if @admin %>
+  		<%= link_to "Add workaround", new_issue_management_issue_workaround_path(@issue), class: "btn btn-default spacing" if @workaround_create %>
+  	<% else %>
+		<%= link_to "Add workaround", new_issue_issue_workaround_path(@issue), class: "btn btn-default spacing" if @workaround_create %>
+  	<% end %>
 		<table class='table'>
 			<tr>
 				<th>Description</th>

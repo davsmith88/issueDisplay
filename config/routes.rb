@@ -51,12 +51,18 @@ IssueDisplay::Application.routes.draw do
     resources :admin
 
     resources :issue_management do
+    # resources :issue_management, param: :issue_id do
       get 'view', as: :view
       member do
         get 'show_workarounds', as: :show_workarounds
         get 'show_solutions', as: :show_solutions
         get 'show_attempted_solutions', as: :show_att_sol
+        get 'edit/images' => "issue_management#edit_images", as: :edit_images
+        get 'edit/workarounds' => "issue_management#edit_workaround", as: :edit_workaround
+        get 'edit/solutions' => "issue_management#edit_solutions", as: :edit_solutions
+        get 'edit/attempted_solutions' => "issue_management#edit_attempted_solutions", as: :edit_attempted_solutions
       end
+      resources :issue_workarounds, controller: 'review_management', type: 'IssueWorkaround'
     end
 
 

@@ -212,9 +212,9 @@ class IssuesController < BIssueController
 	# 	end
 	# end
 
-	def return_array(data)
-		data.to_a
-	end
+	# def return_array(data)
+	# 	data.to_a
+	# end
 
 	# def find_issue
 	# 	@issue = Issue.find(params[:id])

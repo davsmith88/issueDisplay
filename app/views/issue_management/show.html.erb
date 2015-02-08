@@ -55,6 +55,11 @@
 				<li><%= link_to "View", issue_management_view_path(@issue) %></li>
 				<li><%= link_to "Edit", edit_issue_management_path(@issue) %></li>
 				<li class="divider"></li>
+				<li><%= link_to "Edit Workarounds", edit_workaround_issue_management_path(@issue) %></li>
+				<li><%= link_to "Edit Solutions", edit_solutions_issue_management_path(@issue) %></li>
+				<li><%= link_to "Edit Attempted Solutions", edit_attempted_solutions_issue_management_path(@issue) %></li>
+				<li><%= link_to "Edit Images", edit_images_issue_management_path(@issue) %></li>
+				<li class="divider"></li>
 				<li><%= link_to "Delete", issue_path(@issue), method: :delete, data: {confirm: "Are you sure you want to Delete"} %></li>
 		  </ul>
 		</div>
