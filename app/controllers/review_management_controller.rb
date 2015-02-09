@@ -10,6 +10,18 @@ class ReviewManagementController < RevController
 	def new
 		# association = @issue.send associated_method
 		# @review = association.new
+		super
+		case params[:type]
+		when "IssueWorkaround"
+			@url = issue_management_issue_workarounds_path(@issue)
+			@url_edit = edit_workaround_issue_management_path(@issue)
+		when "Solution"
+			@url = issue_management_solutions_path(@issue)
+			@url_edit = edit_solutions_issue_management_path(@issue)
+		when "AttemptedSolution"
+			@url = issue_management_attempted_solutions_path(@issue)
+			@url_edit = edit_attempted_solutions_issue_management_path(@issue)
+		end
 		render layout: "admin_layout"
 	end
 
@@ -19,9 +31,10 @@ class ReviewManagementController < RevController
 		respond_to do |format|
 			if @review.save
 				# @issue.change_state
-				format.html {redirect_to edit_issue_path(@issue)}
+				flash[:admin_notice]
+				format.html {redirect_to edit_workaround_issue_management_path(@issue)}
 			else
-				flash.now[:alert] = "#{pretty_class_name} could not be created - Invalid Attributes"
+				flash.now[:admin_alert] = "#{pretty_class_name} could not be created - Invalid Attributes"
 				format.html {render action: 'new'}
 			end
 		end

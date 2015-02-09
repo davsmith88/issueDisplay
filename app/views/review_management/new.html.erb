@@ -1,1 +1,12 @@
-new review management
+<% content_for :title do %>
+	New Workaround
+<% end %>
+
+<% content_for :breadcrumb do %>
+	<li><%= link_to "Issue Management", issue_management_index_path %></li>
+	<li><%= link_to @issue.id, issue_management_path(@issue) %></li>
+	<li><%= link_to "Edit #{@class}", @url_edit %></li>
+	<li class='active'>Add</li>
+<% end %>
+
+<%= render template: "reviews/new", locals: {url: @url} %>

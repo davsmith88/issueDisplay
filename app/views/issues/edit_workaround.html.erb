@@ -3,9 +3,9 @@
 <% end %>
 
 <% content_for :breadcrumb do %>
-	<li>Issue Management</li>
-	<li><%= @issue.id %></li>
-	<li class='active'>Edit Workaround</li>
+	<li><%= link_to "Issue Management", issue_management_index_path %></li>
+	<li><%= link_to @issue.id, issue_management_path(@issue) %></li>
+	<li class='active'>Edit Workarounds</li>
 <% end %>
 
 <% content_for :admin do %>

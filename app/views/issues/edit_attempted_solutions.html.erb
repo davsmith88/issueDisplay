@@ -2,10 +2,20 @@
 	Edit Attempted Solutions
 <% end %>
 
+<% content_for :breadcrumb do %>
+	<li><%= link_to "Issue Management", issue_management_index_path %></li>
+	<li><%= link_to @issue.id, issue_management_path(@issue) %></li>
+	<li class='active'>Edit Attempted Solutions</li>
+<% end %>
+
 <% content_for :third_level_layout do %>
 
 	<br>
-  	<%= link_to "Add Attempted Solutions", new_issue_attempted_solution_path(@issue), class: "btn btn-default spacing" if @attempted_solution_create %>
+	<% if @admin %>
+  		<%= link_to "Add Attempted Solutions", new_issue_management_attempted_solution_path(@issue), class: "btn btn-default spacing" if @attempted_solution_create %>
+  	<% else %>
+		<%= link_to "Add Attempted Solutions", new_issue_attempted_solution_path(@issue), class: "btn btn-default spacing" if @attempted_solution_create %>
+  	<% end %>
 		<table class='table'>
 			<%= render partial: "issues/collections/edit_attempted_solutions_row", collection: @attempted_solutions, as: :att_sol %>
 		</table>

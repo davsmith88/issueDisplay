@@ -74,6 +74,7 @@ class IssueManagementController < BIssueController
 		# @active_solutions = true
 		# @solutions = return_array @issue.solutions.includes(:images)
 		super
+		@admin = true
 		render layout: "admin_layout", template: "issues/edit_solutions"
 	end
 
@@ -81,6 +82,7 @@ class IssueManagementController < BIssueController
 		# @active_att_sol = true
 		# @attempted_solutions = return_array @issue.attempted_solutions.includes(:images)
 		super
+		@admin = true
 		render layout: "admin_layout", template: "issues/edit_attempted_solutions"
 	end
 

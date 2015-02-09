@@ -2,10 +2,19 @@
 	Edit Solutions
 <% end %>
 
+<% content_for :breadcrumb do %>
+	<li><%= link_to "Issue Management", issue_management_index_path %></li>
+	<li><%= link_to @issue.id, issue_management_path(@issue) %></li>
+	<li class='active'>Edit Solutions</li>
+<% end %>
+
 <% content_for :third_level_layout  do %>
 	<br>
-		<%= current_user.can?("new", "solutions") %>
-		<%= link_to "Add Solution", new_issue_solution_path(@issue), class: "btn btn-default spacing" if @solution_create %>
+		<% if @admin %>
+			<%= link_to "Add Solution", new_issue_management_solution_path(@issue), class: "btn btn-default spacing" if @solution_create %>
+		<% else %>
+			<%= link_to "Add Solution", new_issue_solution_path(@issue), class: "btn btn-default spacing" if @solution_create %>
+		<% end %>
 		<table class='table'>
 			<tr>
 				<th>Name</th>
