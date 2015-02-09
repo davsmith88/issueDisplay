@@ -1,1 +1,5 @@
+<% content_for :title do %>
+	Edit Workaround | <%= @review.id %> |
+<% end %>
+
 <%= render template: 'reviews/edit', locals: {url: @url } %>
