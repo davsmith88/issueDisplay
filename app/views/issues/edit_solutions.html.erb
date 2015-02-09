@@ -21,6 +21,10 @@
 				<th>Actions</th>
 				<th>Images</th>
 			</tr>
-			<%= render partial: "issues/collections/edit_solutions_row", collection: @solutions, as: :solution %>
+			<% if @admin %>
+				<%= render partial: "issue_management/collections/edit_solutions_row", collection: @solutions, as: :solution %>
+			<% else %>
+				<%= render partial: "issues/collections/edit_solutions_row", collection: @solutions, as: :solution %>
+			<% end %>
 		</table>
 <% end %>

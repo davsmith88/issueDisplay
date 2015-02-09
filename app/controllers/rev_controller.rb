@@ -16,15 +16,6 @@ class RevController < ApplicationController
 	def create
 		association = @issue.send associated_method
 		@review = association.new(review_params)
-		respond_to do |format|
-			if @review.save
-				# @issue.change_state
-				format.html {redirect_to edit_issue_path(@issue)}
-			else
-				flash.now[:alert] = "#{pretty_class_name} could not be created - Invalid Attributes"
-				format.html {render action: 'new'}
-			end
-		end
 	end
 
 	def edit

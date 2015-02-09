@@ -1,5 +1,12 @@
-<h3>Edit Workaround a</h3>
-<%= form_for [@issue, @review], builder: MyFormBuilder, html: {
+<% content_for :breadcrumb do %>
+	<li><%= link_to "Issue Management", issue_management_index_path %></li>
+	<li><%= link_to @issue.id, issue_management_path(@issue) %></li>
+	<li><%= @class %></li>
+	<li class='active'>Edit</li>
+<% end %>
+
+<h3>Edit <%= @class %></h3>
+<%= form_for [@issue, @review], url: url,  builder: MyFormBuilder, html: {
 		class: "form-horizontal"} do |form| %>
-	<%= render partial: 'form', locals: {form: form} %>
+	<%= render partial: 'reviews/form', locals: {form: form} %>
 <% end %>

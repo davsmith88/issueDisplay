@@ -26,13 +26,20 @@ class ReviewManagementController < RevController
 	end
 
 	def create
-		association = @issue.send associated_method
-		@review = association.new(review_params)
+		super
 		respond_to do |format|
 			if @review.save
 				# @issue.change_state
+				case params[:type]
+					when "IssueWorkaround"
+						@url = edit_workaround_issue_management_path(@issue)
+					when "Solution"
+						@url = edit_solutions_issue_management_path(@issue)
+					when "AttemptedSolution"
+						@url = edit_attempted_solutions_issue_management_path(@issue)
+					end
 				flash[:admin_notice]
-				format.html {redirect_to edit_workaround_issue_management_path(@issue)}
+				format.html {redirect_to @url}
 			else
 				flash.now[:admin_alert] = "#{pretty_class_name} could not be created - Invalid Attributes"
 				format.html {render action: 'new'}
@@ -41,13 +48,34 @@ class ReviewManagementController < RevController
 	end
 
 	def edit
+		@admin = true
+		case params[:type]
+		when "IssueWorkaround"
+			@url = issue_management_issue_workaround_path(@issue, @review)
+			# @url_edit = edit_workaround_issue_management_path(@issue)
+		when "Solution"
+			@url = issue_management_solution_path(@issue, @review)
+			# @url_edit = edit_solutions_issue_management_path(@issue)
+		when "AttemptedSolution"
+			@url = issue_management_attempted_solution_path(@issue, @review)
+			# @url_edit = edit_attempted_solutions_issue_management_path(@issue)
+		end
+		render layout: "admin_layout"
 	end
 
 	def update
 		respond_to do |format|
 			if @review.update(review_params)
 				# @issue.change_state
-				format.html {redirect_to edit_issue_path(@issue), notice: "#{pretty_class_name} has been updated"}
+				case params[:type]
+					when "IssueWorkaround"
+						@url = edit_workaround_issue_management_path(@issue)
+					when "Solution"
+						@url = edit_solutions_issue_management_path(@issue)
+					when "AttemptedSolution"
+						@url = edit_attempted_solutions_issue_management_path(@issue)
+					end
+				format.html {redirect_to @url, notice: "#{pretty_class_name} has been updated"}
 			else
 				flash.now[:alert] = "#{pretty_class_name} could not be saved"
 				format.html {render action: 'edit'}
@@ -56,11 +84,21 @@ class ReviewManagementController < RevController
 	end
 
 	def destroy
+
+		case params[:type]
+			when "IssueWorkaround"
+				@url = edit_workaround_issue_management_path(@issue)
+			when "Solution"
+				@url = edit_solutions_issue_management_path(@issue)
+			when "AttemptedSolution"
+				@url = edit_attempted_solutions_issue_management_path(@issue)
+			end
+
 		respond_to do |format|
 			if @review.destroy
-				format.html {redirect_to edit_issue_path(@issue), notice: "#{pretty_class_name} has been deleted"}
+				format.html {redirect_to @url, notice: "#{pretty_class_name} has been deleted"}
 			else
-				format.html { redirect_to edit_issue_path(@issue), notice: "#{pretty_class_name} could not be deleted" }
+				format.html { redirect_to @url, notice: "#{pretty_class_name} could not be deleted" }
 			end
 		end
 	end

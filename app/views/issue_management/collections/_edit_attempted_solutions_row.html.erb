@@ -1,0 +1,20 @@
+<tr>
+	<td><%= att_sol.description %></td>
+	<td>
+		<%= link_to "Add Image", new_attempted_solution_image_path(att_sol), class: "btn btn-default" if @image_create %>
+		<%= link_to "Edit", edit_issue_management_attempted_solution_path(@issue.id, att_sol), class: "btn btn-default" %>
+		<%= link_to "Delete", issue_management_attempted_solution_path(@issue.id, att_sol), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure?"} %>
+	</td>
+	<td>
+		<table class='table'>
+			<tr>
+			</tr>
+			<% att_sol.images.each do |image| %>
+				<tr>
+					<td><%= image_tag image.picture.url(:thumb) %></td>
+					<td><%= link_to "Delete Picture", attempted_solution_image_path(att_sol, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure"} if @image_destroy %>
+				</tr>
+			<% end %>
+		</table>
+	</td>
+</tr>

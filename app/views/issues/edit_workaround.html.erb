@@ -20,12 +20,18 @@
   	<% else %>
 		<%= link_to "Add workaround", new_issue_issue_workaround_path(@issue), class: "btn btn-default spacing" if @workaround_create %>
   	<% end %>
+  		<%= @admin %>
 		<table class='table'>
 			<tr>
 				<th>Description</th>
 				<th>Options</th>
 				<th>Images</th>
 			</tr>
-			<%= render partial: "issues/collections/edit_workarounds_row", collection: @workarounds, as: :workaround %>
+
+			<% if @admin %>
+				<%= render partial: "issue_management/collections/edit_workarounds_row", collection: @workarounds, as: :workaround %>
+			<% else %>
+				<%= render partial: "issues/collections/edit_workarounds_row", collection: @workarounds, as: :workaround %>
+			<% end %>
 		</table>
 <% end %>
