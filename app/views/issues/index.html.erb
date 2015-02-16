@@ -2,13 +2,19 @@
 	Published Issues
 <% end %>
 
-<h3>Published Issues</h3>
-<%= link_to "Create New Issue", new_issue_path, class: "btn btn-default spacing" if @create %>
+<div class='row'>
+	<div class='col-xs-7 col-sm-7'>
+		<h3>Published Issues</h3>
+	</div>
+	<div class='col-xs-5 col-sm-5'>
+		<%= link_to "Create New Issue", new_issue_path, class: "btn btn-default spacing center_button" if @create %>
+	</div>
+</div>
 <table class='table'>
 	<tr>
-		<th>Name</th>
-		<th>Description</th>
-		<th>Options</th>
+		<th class="col-xs-5 col-sm-3">Name</th>
+		<th width="col-xs-5 col-sm-7">Description</th>
+		<th class='hidden-xs'>Options</th>
 	</tr>
 	<%= render partial: "issues/collections/index_row", collection: @issues, as: :issue %>
 </table>

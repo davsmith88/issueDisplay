@@ -4,7 +4,7 @@
 
 	<div class='row'>
 		<div class='col-sm-12'>
-			<h4>Permissions</h4>
+			<h4>Permissions - <%= yield :subtitle %></h4>
 		</div>
 	</div>
 
@@ -12,7 +12,21 @@
 		<%= yield :extra_information %>
 	</div>
 
-	<ul class="nav nav-tabs" role="tablist">
+	<ul class="nav nav-tabs visible-xs">
+  <li <%= @active_roles == true ? "class=active" : "" %>><%= link_to "Roles", roles_path %></li>
+	  <li role="presentation" class="dropdown">
+	    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+	      More <span class="caret"></span>
+	    </a>
+	    <ul class="dropdown-menu" role="menu">
+	      <li <%= @active_rights == true ? "class=active" : "" %>><%= link_to "Rights", rights_path %></li>
+		  <li <%= @active_assignments == true ? "class=active" : "" %>><%= link_to "Assign Role to user", new_assignment_path %></li>
+		  <li <%= @active_grants == true ? "class=active" : "" %>><%= link_to "Assign Right to Role", new_grant_path %></li>
+	    </ul>
+	  </li>
+	</ul>
+
+	<ul class="nav nav-tabs hidden-xs" role="tablist">
 		  <li <%= @active_roles == true ? "class=active" : "" %>><%= link_to "Roles", roles_path %></li>
 		  <li <%= @active_rights == true ? "class=active" : "" %>><%= link_to "Rights", rights_path %></li>
 		  <li <%= @active_assignments == true ? "class=active" : "" %>><%= link_to "Assign Role to user", new_assignment_path %></li>

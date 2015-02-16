@@ -34,5 +34,18 @@ class Right < ActiveRecord::Base
 			"publish_to_review" => "UPDATE",
 			"publish_to_draft" => "UPDATE"
 		},
+		"issue_management" => {
+			"search" => "READ",
+			"search_results" => "READ",
+			"edit_images" => "UPDATE",
+			"edit_workaround" => "UPDATE",
+			"edit_solutions" => "UPDATE",
+			"edit_attempted_solutions" => "UPDATE",
+			"draft_to_review" => "UPDATE",
+			"review_to_publish" => "UPDATE",
+			"review_to_draft" => "UPDATE",
+			"publish_to_review" => "UPDATE",
+			"publish_to_draft" => "UPDATE"
+		},
 	}
 end

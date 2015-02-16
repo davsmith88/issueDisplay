@@ -10,11 +10,11 @@
 <h4>Impacts</h4>
 
 <div class='row'>
-	<div class='col-sm-8'>
+	<div class='col-xs-8 col-sm-8'>
 		<p>Impacts are the areas of the business that the issues affect. Every business has differenct impacts and descriptions. From this page you can either add, edit, or remove an impact.</p>
 	</div>
-	<div class='col-sm-4'>
-		<%= link_to "Add Impact", new_impact_path, class: "btn btn-default spacing" %>
+	<div class='col-xs-4 col-sm-4'>
+		<%= link_to "Add Impact", new_impact_path, class: "btn btn-default spacing center_impact_add_button" %>
 	</div>
 </div>
 
@@ -22,15 +22,24 @@
 	<div class='col-sm-12'>
 		<table class='table'>
 			<tr>
-				<th>Name</th>
-				<th>Description</th>
-				<th>Actions</th>
+				<th class='col-xs-3 col-sm-3'>Name</th>
+				<th class='col-xs-9 col-sm-9'>Description</th>
+				<th class='hidden-xs'>Actions</th>
 			</tr>
 			<% @impacts.each do |impact| %>
 				<tr>
 					<td><%= impact.name %></td>
-					<td><%= impact.description %></td>
 					<td>
+						<%= impact.description %>
+						<div class='row'>
+							<div class='col-xs-12'>
+								<%= link_to "Edit", edit_impact_path(impact), class: "btn btn-default btn-xs" %>
+								<%= link_to "Destroy", impact_path(impact), class: "btn btn-default btn-xs", method: :delete, data: {confirm: "Are you sure you want to delete"} %>
+							</div>
+
+						</div>
+					</td>
+					<td class='hidden-xs'>
 						<div class="btn-group">
 						  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 						    Actions <span class="caret"></span>

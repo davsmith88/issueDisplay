@@ -4,7 +4,21 @@
 
 <p>Edit, modify, create the department and the areas from this page</p>
 
-<ul class="nav nav-tabs" role="tablist">
+	<ul class="nav nav-tabs visible-xs">
+	    <li <%= @active_departments == true ? "class=active" : "" %>><%= link_to "Departments", departments_path %></li>
+	  <li role="presentation" class="dropdown">
+	    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+	      More <span class="caret"></span>
+	    </a>
+	    <ul class="dropdown-menu" role="menu">
+	       <li <%= @active_areas == true ? "class=active" : "" %>><%= link_to "Areas", areas_path %></li>
+	  			<li <%= @active_dp == true ? "class=active" : "" %>><%= link_to "Department Areas", department_areas_path %></li>
+	    </ul>
+	  </li>
+	</ul>
+
+
+<ul class="nav nav-tabs hidden-xs" role="tablist">
 	  <li <%= @active_departments == true ? "class=active" : "" %>><%= link_to "Departments", departments_path %></li>
 	  <li <%= @active_areas == true ? "class=active" : "" %>><%= link_to "Areas", areas_path %></li>
 	  <li <%= @active_dp == true ? "class=active" : "" %>><%= link_to "Department Areas", department_areas_path %></li>

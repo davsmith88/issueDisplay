@@ -2,6 +2,10 @@
 	Assign Right to a Role
 <% end %>
 
+<% content_for :subtitle do %>
+	Assign Right to a Role
+<% end %>
+
 <% content_for :breadcrumb do %>
 	<li>Apply Right to a Role</li>
 	<li class='active'>Add</li>
@@ -138,6 +142,27 @@
 					<td><input type='checkbox' name='grant[rights][]' value='<%=  right.id %>'></td>
 				<% end %>
 				<%= raw create_diabled_checkboxes(@rights_department_areas) %>
+			</tr>
+			<tr>
+				<td>B Issue</td>
+				<% @rights_b_issue.each do |right| %>
+					<td><input type='checkbox' name='grant[rights][]' value='<%=  right.id %>'></td>
+				<% end %>
+				<%= raw create_diabled_checkboxes(@rights_b_issue) %>
+			</tr>
+			<tr>
+				<td>admin business</td>
+				<% @rights_admin_business.each do |right| %>
+					<td><input type='checkbox' name='grant[rights][]' value='<%=  right.id %>'></td>
+				<% end %>
+				<%= raw create_diabled_checkboxes(@rights_admin_business) %>
+			</tr>
+						<tr>
+				<td>issue management</td>
+				<% @rights_issue_management.each do |right| %>
+					<td><input type='checkbox' name='grant[rights][]' value='<%=  right.id %>'></td>
+				<% end %>
+				<%= raw create_diabled_checkboxes(@rights_issue_management) %>
 			</tr>
 	</table>
 	</div>

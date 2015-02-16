@@ -1,6 +1,22 @@
 <% content_for :second_level_layout do %>
 	<h3>Edit Page</h3>
-	<ul class="nav nav-tabs" role="tablist">
+
+	<ul class="nav nav-tabs visible-xs">
+	    <li <%= @active_basic == true ? "class=active" : "" %>><%= link_to "Basic", edit_issue_path(@issue) %></li>
+	  <li <%= @active_images == true ? "class=active" : "" %>><%= link_to "Images", edit_images_issue_path(@issue) %></li>
+	  <li role="presentation" class="dropdown">
+	    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+	      More <span class="caret"></span>
+	    </a>
+	    <ul class="dropdown-menu" role="menu">
+	      <li <%= @active_workarounds == true ? "class=active" : "" %>><%= link_to "Workarounds", edit_workaround_issue_path(@issue) %></li>
+	  		<li <%= @active_solutions == true ? "class=active" : "" %>><%= link_to "Solutions", edit_solutions_issue_path(@issue) %></li>
+	  		<li <%= @active_att_sol == true ? "class=active" : "" %>><%= link_to "Attempted Solutions", edit_attempted_solutions_issue_path(@issue) %></li>
+	    </ul>
+	  </li>
+	</ul>
+
+	<ul class="nav nav-tabs hidden-xs" role="tablist">
 	  <li <%= @active_basic == true ? "class=active" : "" %>><%= link_to "Basic", edit_issue_path(@issue) %></li>
 	  <li <%= @active_images == true ? "class=active" : "" %>><%= link_to "Images", edit_images_issue_path(@issue) %></li>
 	  <li <%= @active_workarounds == true ? "class=active" : "" %>><%= link_to "Workarounds", edit_workaround_issue_path(@issue) %></li>

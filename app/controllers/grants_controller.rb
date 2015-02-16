@@ -28,7 +28,9 @@ class GrantsController < ApplicationController
 		@rights_areas = Right.where(resource: 'areas').order(query)
 		@rights_departments = Right.where(resource: 'departments').order(query)
 		@rights_department_areas = Right.where(resource: 'department_areas').order(query)
-
+		@rights_b_issue = Right.where(resource: 'b_issue').order(query)
+		@rights_admin_business = Right.where(resource: 'admin_business').order(query)
+		@rights_issue_management = Right.where(resource: 'issue_management').order(query)
 		
 
 		@grant = Grant.new

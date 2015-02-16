@@ -5,12 +5,16 @@
 <% content_for :breadcrumb do %>
 	 <li class='active'>Roles</li>
 <% end %>
+
+<% content_for :subtitle do %>
+	Roles
+<% end %>
 <p>
 <% content_for :extra_information do %>
-	<div class='col-sm-8'>
+	<div class='col-xs-9 col-sm-8'>
 		<p>Roles hold the rights for the users. Below is listed all the roles currently in the system. From there you can show, edit or delete a role as you see fit</p>
 	</div>
-	<div class='col-sm-4'>
+	<div class='col-xs-3 col-sm-4'>
 		<%= link_to "Add Role", new_role_path, class: "btn btn-default" %>
 	</div>
 	

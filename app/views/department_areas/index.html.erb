@@ -8,11 +8,11 @@
 
 <p>
 <div class='row'>
-	<div class='col-sm-8'>
+	<div class='col-xs-8 col-sm-8'>
 		<p>The table below shows the areas that belong to departments. Aside from just showing that information, the user can also remove the area's from the departments</p>
 	</div>
-	<div class='col-sm-4'>
-		<%= link_to "Add another Area to a department", new_department_area_path, class: "btn btn-default spacing" %>
+	<div class='col-xs-4 col-sm-4'>
+		<%= link_to "Add another Area to a department", new_department_area_path, class: "wrap_button btn btn-default" %>
 	</div>
 </div>
 
@@ -22,13 +22,18 @@
 			<tr>
 				<th>Department</th>
 				<th>Area</th>
-				<th>Actions</th>
+				<th class='hidden-xs'>Actions</th>
 			</tr>
 				<% @depAreas.each do |depArea|  %>
 				<tr>
 					<td><%= depArea.department.name %></td>
-					<td><%= depArea.area.name %></td>
 					<td>
+						<%= depArea.area.name %>
+						<div class='visible-xs'>
+							<%= link_to "Destroy", department_area_path(depArea), class: "btn btn-default btn-xs", method: :delete, data: {confirm: "Are you sure you want to destroy??"} %>
+						</div>
+					</td>
+					<td class='hidden-xs'>
 						<div class="btn-group">
 						  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 						    Actions <span class="caret"></span>

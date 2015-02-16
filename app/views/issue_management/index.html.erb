@@ -11,13 +11,13 @@
 </div>
 
 <div class='row'>
-	<div class='col-sm-8'>
+	<div class='col-xs-10 col-sm-8'>
 		<p>
 		For an administrator keeping track of the issues are an absolutlty must. The ability to create, but also review and edit issues is a must have. From this page you can do exactly this. As an added bonus an issue will hightlight red when it is time for a reivew.
 		</p>
 	</div>
-	<div class='col-sm-4'>
-		<%= link_to "Add a Issue", new_issue_management_path, class: "btn btn-default" %>
+	<div class='col-xs-2 col-sm-4'>
+		<%= link_to "Add an Issue", new_issue_management_path, class: "btn btn-default wrap_button" %>
 	</div>
 </div>
 
@@ -28,7 +28,7 @@
 				<th>Issue Name</th>
 				<th>Department</th>
 				<th>Area</th>
-				<th>Review Date</th>
+				<th class='hidden-xs'>Review Date</th>
 			</tr>
 			<% @issues.each do |issue| %>
 				<% if issue.review_date < Time.now %>
@@ -39,7 +39,7 @@
 				<td><%= link_to issue.name, issue_management_path(issue) %></td>
 				<td><%= issue.department_area.department.name %></td>
 				<td><%= issue.department_area.area.name %></td>
-				<td><%= issue.review_date %></td>
+				<td class='hidden-xs'><%= issue.review_date %></td>
 				</tr>
 			<% end %>
 		</table>

@@ -3,9 +3,22 @@
 		<%= issue.name %>
 	</td>
 	<td>
-		<%= issue.description %>
+		<div class='row'>
+			<div class='col-sm-12'>
+				<%= issue.description %>
+			</div>
+		</div>
+		<div class='row visible-xs'>
+			<div class='col-sm-12'>
+				<%= link_to "View", issue_path(issue), class: "btn btn-primary btn-xs" %>
+		
+				<%= link_to "Edit", edit_issue_path(issue), class: "btn btn-default btn-xs" %>
+			
+				<%= link_to "Destroy", issue_path(issue), id: "destroy", class: "btn btn-default btn-xs", method: :delete, data: {confirm: "Are you sure you want to delete"} %>
+			</div>
+		</div>
 	</td>
-	<td>
+	<td class='hidden-xs'>
 			<div class="btn-group">
 		  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 		    Actions <span class="caret"></span>

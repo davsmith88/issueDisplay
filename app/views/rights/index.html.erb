@@ -5,12 +5,14 @@
 <% content_for :breadcrumb do %>
 	<li class='active'>Rights</li>
 <% end %>
-
+<% content_for :subtitle do %>
+	Rights
+<% end %>
 <% content_for :extra_information do %>
-	<div class='col-sm-8'>
+	<div class='col-xs-9 col-sm-8'>
 		<p>The table below shows all the rights that is available in the system. If a right is destroy, then the roles that have that right will no longet has access to that part of the system. The button to the right will give you access to new rights if neccessary</p>
 	</div>
-	<div class='col-sm-4'>
+	<div class='col-xs-3 col-sm-4'>
 		<%= link_to "Add a Right", new_right_path, class: "btn btn-default" %>
 	</div>
 <% end %>

@@ -2,9 +2,19 @@
 	Assign User to a Role
 <% end %>
 
+<% content_for :subtitle do %>
+	Assign User to Role
+<% end %>
+
 <% content_for :breadcrumb do %>
 	<li>Assign User to Role</li>
 	<li class='active'>Add</li>
+<% end %>
+
+<% content_for :extra_information do %>
+	<div class='col-xs-12 col-sm-12'>
+		From this page there is the ability to assign a user to a role, so that user has the necessary permissions to be able to perform the required tasks.
+	</div>
 <% end %>
 
 <%= form_for @assignment, html: {class: "form-horizontal"} do |form| %>

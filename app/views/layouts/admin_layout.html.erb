@@ -1,7 +1,10 @@
 <% content_for :second_level_layout do %>
-	<div class='container-fluid'>
-		<div class='col-sm-3'>
-			<ul class='list-group'>
+	
+		
+	<div class='row row-offcanvas row-offcanvas-left'>
+		<div class='col-sm-3 sidebar-offcanvas' id='sidebar'>
+			
+			<div class='list-group'>
 				<li class='list-group-item'>
 					<%= link_to "Users", admin_user_static_path %>
 				</li>
@@ -20,11 +23,16 @@
 				<li class='list-group-item'>
 					<%= link_to "Business Information", business_edit_path %>
 				</li>
-			</ul>
+			</div>
 		</div>
+	
 
 		<div class='col-sm-9'>
-			<ol class="breadcrumb">
+		<div>
+		<button type="button" class="btn btn-primary btn-xs visible-xs" data-toggle="offcanvas">Show Sub Menu</button>
+		<!%= link_to "Back", :back %>
+		</div>
+			<ol class="breadcrumb hidden-xs">
 			  <li><a href="/admin">Admin</a></li>
 			  
 			  <%= yield :breadcrumb %>
@@ -42,7 +50,8 @@
 			<div><%= yield :admin %></div>
 			<%= content_for?(:third_level_layout) ? yield(:third_level_layout) : yield %>
 		</div>
-	</div>
+		</div>
+	
 <% end %>
 
 <%= render :template => 'layouts/application' %>
