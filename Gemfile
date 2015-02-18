@@ -43,6 +43,8 @@ gem 'state_machine'
 gem 'public_activity'
 gem 'paper_trail', '~> 3.0.2'
 
+ gem 'faker'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
