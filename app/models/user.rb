@@ -19,7 +19,9 @@ class User < ActiveRecord::Base
 
   def can?(action, resource)
   	puts "#{action} #{resource}"
-    # puts roles.includes(:rights).for(action, resource).references(:rights).any?
+    puts roles.includes(:rights).for(action, resource).references(:rights).any?
+    puts business.id
+    # puts business.roles.includes(:rights).for(action, resource)
   	business.roles.includes(:rights).for(action, resource).references(:rights).any?
   end
 end

@@ -73,15 +73,15 @@ Assignment.create!(user_id: admin1.id, role_id: admins.id, business_id: business
 
 
 
-create = Right.create!(:resource => "issues", :operation => "CREATE")
-read = Right.create!(:resource => "issues", :operation => "READ")
-update = Right.create!(:resource => "issues", :operation => "UPDATE")
-delete = Right.create!(:resource => "issues", :operation => "DELETE")
-admins.rights << read
-admins.rights << delete
-admins.rights << create
-admins.rights << update
-admin_read = Right.create!(:resource => "admin", :operation => "READ")
+# create = Right.create!(:resource => "issues", :operation => "CREATE")
+# read = Right.create!(:resource => "issues", :operation => "READ")
+# update = Right.create!(:resource => "issues", :operation => "UPDATE")
+# delete = Right.create!(:resource => "issues", :operation => "DELETE")
+# admins.rights << read
+# admins.rights << delete
+# admins.rights << create
+# admins.rights << update
+# admin_read = Right.create!(:resource => "admin", :operation => "READ")
 
 states = ["draft", "review", "publish"]
 business_array = [{business: business1,
@@ -98,7 +98,7 @@ business_array = [{business: business1,
 impacts_array = [impact1, impact2]
 
 (1..10).each do
-	business = business_array[0]
+	business = business_array[1]
 	Issue.create!(name: Faker::Lorem.sentence, 
 				  description: Faker::Lorem.paragraph, 
 				  review_date: Faker::Date.forward(rand(20)),
@@ -126,9 +126,10 @@ resources = ["impacts",
 			 "images",
 			 "users", 
 			 "business",
-			 "admin_business"]
+			 "admin_business",
+			 "issues"]
 
-operations = ["READ", "CREATE", "UPDATE", "DELETE"]
+operations = ["READ", "CREATE", "UPDATE", "DESTROY"]
 
 resources.each do |resource|
 	operations.each do |operation|
@@ -136,13 +137,18 @@ resources.each do |resource|
 	end
 end
 
+admins.rights.each do |right|
+	Grant.create(right_id: right.id, role_id: admins.id)
+end
+admin_read = Right.create!(:resource => "admin", :operation => "READ")
+
 admins.rights << admin_read
 
-viewers.rights << read
+# viewers.rights << read
 
-authors.rights << create
-authors.rights << read
-authors.rights << update
-authors.rights << delete
+# authors.rights << create
+# authors.rights << read
+# authors.rights << update
+# authors.rights << delete
 
 
