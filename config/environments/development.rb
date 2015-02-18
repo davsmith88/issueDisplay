@@ -40,6 +40,10 @@ IssueDisplay::Application.configure do
   # Show the logging configuration on STDOUT
   config.show_log_configuration = true
 
+   config.assets.debug = false
+ config.assets.compile = false
+ config.assets.digest = true
+
   config.after_initialize do
   # Bullet.enable = true
   # Bullet.alert = true
