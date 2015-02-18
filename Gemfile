@@ -71,7 +71,7 @@ group :test do
   gem 'capybara'
   gem 'shoulda'
   gem 'shoulda-context'
-  gem 'faker'
+  # gem 'faker'
   gem 'database_cleaner'
   gem 'simplecov', :require => false, :group => :test
   gem 'launchy', '~> 2.4.3'
