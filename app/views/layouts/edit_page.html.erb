@@ -4,7 +4,7 @@
 	<ul class="nav nav-tabs visible-xs">
 	    <li <%= @active_basic == true ? "class=active" : "" %>><%= link_to "Basic", edit_issue_path(@issue) %></li>
 	  <li <%= @active_images == true ? "class=active" : "" %>><%= link_to "Images", edit_images_issue_path(@issue) %></li>
-	  <li role="presentation" class="dropdown">
+	  <li role="presentation" class="dropdown <%= @active_basic != true && @active_images != true ? "active" : "" %>">
 	    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
 	      More <span class="caret"></span>
 	    </a>
