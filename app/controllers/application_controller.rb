@@ -2,8 +2,8 @@ class ApplicationController < ActionController::Base
 	include PublicActivity::StoreController
   	protect_from_forgery with: :exception
 
-  	before_filter :check_controller_name
-  	# before_action :permissions
+  	# before_filter :check_controller_name
+  
 
 
  	rescue_from ActiveRecord::RecordNotFound, with: :record_not_found

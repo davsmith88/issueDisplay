@@ -1,13 +1,1 @@
-<br>
-<table class='table'>
-	<tr>
-		<th>Description</th>
-		<th>Images</th>
-	</tr>
-	<% @issue_workarounds.each do |workaround| %>
-		<tr>
-			<td><%= workaround.description %></td>
-			<td></td>
-		</tr>
-	<% end %>
-</table>
+<%= render partial: "issues/show_review_table", locals: {list: @list, name: "workarounds"} %>

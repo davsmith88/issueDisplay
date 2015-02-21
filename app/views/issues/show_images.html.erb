@@ -1,0 +1,7 @@
+<br>
+<% if @issue.images.count < 4 %>
+	<div class='alert alert-info'>No images have been added</div>
+<% else %>
+	<!%= display_images(@issue.images) %>
+	<%= raw(create_carousel @issue.images, "d") %>
+<% end %>

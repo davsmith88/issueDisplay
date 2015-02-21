@@ -20,6 +20,7 @@ class IssuesController < BIssueController
 		# @active_workarounds = true
 		# @workarounds = @issue.issue_workarounds
 		super
+		@list = @issue.issue_workarounds
 		render layout: "show_issue", template: "issues/show_workarounds"
 	end
 
@@ -74,8 +75,8 @@ class IssuesController < BIssueController
 
 	def show_workarounds
 		# @active_workarounds = true
-		# @issue_workarounds = @issue.issue_workarounds.includes(:images)
 		super
+		@list = @issue.issue_workarounds
 		render layout: "show_issue"
 	end
 
@@ -83,12 +84,19 @@ class IssuesController < BIssueController
 		# @active_solutions = true
 		# @solutions = @issue.solutions
 		super
+		@list = @issue.solutions
 		render layout: "show_issue"
 	end
 
 	def show_attempted_solutions
 		# @active_att_sol = true
 		# @att_sol = @issue.attempted_solutions
+		super
+		@list = @issue.attempted_solutions
+		render layout: "show_issue"
+	end
+
+	def show_images
 		super
 		render layout: "show_issue"
 	end

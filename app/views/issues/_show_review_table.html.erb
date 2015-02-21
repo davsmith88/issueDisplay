@@ -1,0 +1,19 @@
+<br>
+<% if list.count < 1 %>
+	<div class='alert alert-info' role='alert'>
+		No <%= name %> are added in yet
+	</div>
+<% else %>
+	<table class='table'>
+		<tr>
+			<th>Description</th>
+			<th>Images</th>
+		</tr>
+		<% list.each do |workaround| %>
+			<tr>
+				<td><%= workaround.description %></td>
+				<td></td>
+			</tr>
+		<% end %>
+	</table>
+<% end %>

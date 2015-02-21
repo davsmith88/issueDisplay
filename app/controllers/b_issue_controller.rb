@@ -1,7 +1,7 @@
 class BIssueController < ApplicationController
 
 	before_action :check_intro
-	before_action :find_issue, only: [:show, :edit, :update, :destroy, :edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions, :show_workarounds, :show_attempted_solutions, :show_solutions]
+	before_action :find_issue, only: [:show, :edit, :update, :destroy, :edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions, :show_workarounds, :show_attempted_solutions, :show_solutions, :show_images]
 	before_action :get_dep_area, only: [:new, :create, :edit,:edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
 	before_action :get_impacts, only: [:new, :create, :edit, :edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
 	before_action :other_permissions
@@ -108,6 +108,11 @@ class BIssueController < ApplicationController
 		@active_workarounds = true
 		@issue_workarounds = @issue.issue_workarounds.includes(:images)
 		# render layout: "show_issue"
+	end
+
+	def show_images
+		@active_images = true
+		@images = @issue.images
 	end
 
 	def show_solutions

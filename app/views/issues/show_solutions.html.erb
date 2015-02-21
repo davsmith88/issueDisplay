@@ -1,13 +1,1 @@
-<br>
-<table class='table'>
-	<tr>
-		<th>Description</th>
-		<th>Images</th>
-	</tr>
-	<% @solutions.each do |solution| %>
-		<tr>
-			<td><%= solution.description %></td>
-			<td></td>
-		</tr>
-	<% end %>
-</table>
+<%= render partial: "issues/show_review_table", locals: {list: @list, name: "solutions"} %>

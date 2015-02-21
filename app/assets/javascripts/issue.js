@@ -1,8 +1,8 @@
 
 $(document).ready(function(){
-	$('#testing').click(function(e){
+	$('#showOther').click(function(e){
 		e.preventDefault();
-		console.log('test');
-		$('#info').html("<p>new test</p>");
-	});
+		console.log("click show-other-fields")
+		$('.show-hidden').toggleClass('hidden-xs');
+	})
 })
