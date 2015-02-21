@@ -10,7 +10,18 @@ class ReviewsController < RevController
 	def new
 		# association = @issue.send associated_method
 		# @review = association.new
-		render layout: "admin_layout"
+		super
+		case params[:type]
+		when "IssueWorkaround"
+			@url = issue_issue_workarounds_path(@issue)
+			@url_edit = edit_workaround_issue_path(@issue)
+		when "Solution"
+			@url = issue_solutions_path(@issue)
+			@url_edit = edit_solutions_issue_path(@issue)
+		when "AttemptedSolution"
+			@url = issue_attempted_solutions_path(@issue)
+			@url_edit = edit_attempted_solutions_issue_path(@issue)
+		end
 	end
 
 	def create
