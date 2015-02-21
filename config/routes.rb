@@ -184,24 +184,26 @@ IssueDisplay::Application.routes.draw do
     #   # resources :images
     # end
     resources :solutions, controller: 'reviews', type: 'Solution'
-    resources :issue_workarounds, controller: 'reviews', type: 'IssueWorkaround'
+    resources :issue_workarounds, controller: 'reviews', type: 'IssueWorkaround' do
+      resources :images
+    end
     resources :attempted_solutions, controller: 'reviews', type: 'AttemptedSolution'
   end
 
-  resources :issue_workarounds do
-    resources :records, only: [:create, :index, :new]
-    resources :images
-  end
+  # resources :issue_workarounds do
+  #   resources :records, only: [:create, :index, :new]
+  #   resources :images
+  # end
 
-  resources :attempted_solutions do
-    resources :records, only: [:create, :index, :new]
-    resources :images
-  end
+  # resources :attempted_solutions do
+  #   resources :records, only: [:create, :index, :new]
+  #   resources :images
+  # end
 
-  resources :solutions do
-    resources :records, only: [:create, :index, :new]
-    resources :images
-  end
+  # resources :solutions do
+  #   resources :records, only: [:create, :index, :new]
+  #   resources :images
+  # end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

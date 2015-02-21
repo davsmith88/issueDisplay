@@ -11,7 +11,11 @@
 <% content_for :third_level_layout do %>
 
 	<br>
-		<%= link_to "Add Attempted Solutions", new_issue_attempted_solution_path(@issue), class: "btn btn-default spacing" if @attempted_solution_create %>
+		<% if @admin %>
+			<%= link_to "Add Attempted Solutions", new_issue_management_attempted_solution_path(@issue), class: "btn btn-default spacing" if @attempted_solution_create %>
+		<% else %>
+			<%= link_to "Add Attempted Solutions", new_issue_attempted_solution_path(@issue), class: "btn btn-default spacing" if @attempted_solution_create %>
+		<% end %>
 		<table class='table'>
 		<tr>
 				<th class='col-xs-7 col-sm-4'>Description</th>
