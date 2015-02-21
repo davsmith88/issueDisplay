@@ -11,17 +11,15 @@
 <% content_for :third_level_layout do %>
 
 	<br>
-	<% if @admin %>
-  		<%= link_to "Add Attempted Solutions", new_issue_management_attempted_solution_path(@issue), class: "btn btn-default spacing" if @attempted_solution_create %>
-  	<% else %>
 		<%= link_to "Add Attempted Solutions", new_issue_attempted_solution_path(@issue), class: "btn btn-default spacing" if @attempted_solution_create %>
-  	<% end %>
 		<table class='table'>
-		<% if @admin %>
-			<%= render partial: "issue_management/collections/edit_attempted_solutions_row", collection: @attempted_solutions, as: :att_sol %>
-		<% else %>
+		<tr>
+				<th class='col-xs-7 col-sm-4'>Description</th>
+				<th class='hidden-xs col-sm-4'>Images</th>
+				<th class='col-xs-5 col-sm-4'>Options</th>
+			</tr>
+
 			<%= render partial: "issues/collections/edit_attempted_solutions_row", collection: @attempted_solutions, as: :att_sol %>
-		<% end %>
 
 		</table>
 <% end %>

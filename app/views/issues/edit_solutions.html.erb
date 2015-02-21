@@ -17,14 +17,11 @@
 		<% end %>
 		<table class='table'>
 			<tr>
-				<th>Name</th>
-				<th>Actions</th>
-				<th>Images</th>
+				<th class='col-xs-7 col-sm-4'>Description</th>
+				<th class='hidden-xs col-sm-3'>Images</th>
+				<th class='col-xs-5 col-sm-5'>Options</th>
 			</tr>
-			<% if @admin %>
-				<%= render partial: "issue_management/collections/edit_solutions_row", collection: @solutions, as: :solution %>
-			<% else %>
-				<%= render partial: "issues/collections/edit_solutions_row", collection: @solutions, as: :solution %>
-			<% end %>
+
+			<%= render partial: "issues/collections/edit_solutions_row", collection: @solutions, as: :solution %>
 		</table>
 <% end %>

@@ -12,30 +12,19 @@
 	<h3>Edit Workaround</h3>
 
 		<p>Below the table lists the workarounds in the system. From there you can edit </p>
-
-
-	
 <% end %>
 
 <% content_for :third_level_layout do %>
 	<br>
-	<% if @admin %>
-  		<%= link_to "Add workaround", new_issue_management_issue_workaround_path(@issue), class: "btn btn-default spacing" if @workaround_create %>
-  	<% else %>
 		<%= link_to "Add workaround", new_issue_issue_workaround_path(@issue), class: "btn btn-default spacing" if @workaround_create %>
-  	<% end %>
 
 		<table class='table'>
 			<tr>
-				<th>Description</th>
-				<th>Options</th>
-				<th>Images</th>
+				<th class='col-xs-7 col-sm-4'>Description</th>
+				<th class='hidden-xs col-sm-4'>Images</th>
+				<th class='col-xs-5 col-sm-4'>Options</th>
 			</tr>
 
-			<% if @admin %>
-				<%= render partial: "issue_management/collections/edit_workarounds_row", collection: @workarounds, as: :workaround %>
-			<% else %>
-				<%= render partial: "issues/collections/edit_workarounds_row", collection: @workarounds, as: :workaround %>
-			<% end %>
+			<%= render partial: "issues/collections/edit_workarounds_row", collection: @workarounds, as: :workaround %>
 		</table>
 <% end %>

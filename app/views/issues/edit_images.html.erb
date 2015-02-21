@@ -7,9 +7,9 @@
 	<%= link_to 'Add Image', new_issue_image_path(@issue), class: "btn btn-default spacing" if @image_create %>
 		<table class='table'>
 			<tr>
-				<th>Image</th>
-				<th>Caption</th>
-				<th>Actions</th>
+				<th class='col-xs-6 col-sm-3'>Image</th>
+				<th class='hidden-xs col-sm-5'>Caption</th>
+				<th class='col-xs-6 col-sm-4'>Actions</th>
 			</tr>
 			<%= render partial: "issues/collections/edit_images_row", collection: @images, as: :image %>
 		</table>
