@@ -1,5 +1,5 @@
 <br>
-<% if @issue.images.count < 4 %>
+<% if @issue.images.count < 1 %>
 	<div class='alert alert-info'>No images have been added</div>
 <% else %>
 	<!%= display_images(@issue.images) %>

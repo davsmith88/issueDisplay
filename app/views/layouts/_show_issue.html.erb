@@ -3,14 +3,14 @@
 	<div class='col-sm-12'>
 	<ul class="nav nav-tabs visible-xs">
 	  <li <%= @active_workarounds == true ? "class=active" : "" %>><%= workaround %></li>
-		  <li role="presentation" class="dropdown">
+		  <li role="presentation" class="dropdown <%= @active_workarounds != true ? "active" : "" %>">
 		    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
 		      More <span class="caret"></span>
 		    </a>
 		    <ul class="dropdown-menu" role="menu">
-		      <li <%= @active_solutions == true ? "class=active" : "" %>><%= solutions %></li>
-			  <li <%= @active_att_sol == true ? "class=active" : "" %>><%= att_sol %></li>
-			  <li <%= @active_images == true ? "class=active" : "" %>><%= images %></li>
+		      <li><%= solutions %></li>
+			  <li><%= att_sol %></li>
+			  <li><%= images %></li>
 		    </ul>
 		  </li>
 		</ul>
