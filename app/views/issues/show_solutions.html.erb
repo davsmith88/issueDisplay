@@ -1,1 +1,1 @@
-<%= render partial: "issues/show_review_table", locals: {list: @list, name: "solutions"} %>
+<%= render partial: "issues/show_review_table", locals: {list: @list, name: "solutions", link: link_to("Add One Today", new_issue_solution_path(@issue), class: "btn btn-primary btn-sm")} %>
