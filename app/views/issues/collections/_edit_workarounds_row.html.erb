@@ -8,8 +8,8 @@
 			<% workaround.images.each do |image| %>
 				<tr><td class='hidden-xs'><%= image_tag image.picture.url(:thumb) %></td>
 					<td>
-						<%= link_to "edit", edit_issue_workaround_image_path(workaround, image), class: "btn btn-default" if @image_edit %>
-						<%= link_to "Delete", issue_workaround_image_path(workaround, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure yo want to delete"} if @image_destroy %>
+						<%= link_to "edit", edit_issue_issue_workaround_image_path(@issue,workaround, image), class: "btn btn-default" if @image_edit %>
+						<%= link_to "Delete", issue_issue_workaround_image_path(@issue,workaround, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure yo want to delete"} if @image_destroy %>
 					</td>
 				</tr>
 			<% end %>
@@ -19,9 +19,11 @@
 		<%#= link_to "Add Image", new_issue_workaround_image_path(workaround), class: "btn btn-default hidden-xs" if @image_create %>
 		<% if @admin %>
 			<%= link_to "Edit", edit_issue_management_issue_workaround_path(@issue, workaround), class: "btn btn-default hidden-xs" if @workaround_edit %>
+			<%= link_to "Add Image", new_issue_management_issue_workaround_image_path(@issue, workaround), class: "btn btn-default hidden-xs" %>
 			<%= link_to "Delete", issue_management_issue_workaround_path(@issue, workaround),class: "btn btn-default hidden-xs", method: :delete, data: {confirm: "Are you sure you want to delete"} if @workaround_destroy %>
 		<% else %>
 			<%= link_to "Edit", edit_issue_issue_workaround_path(@issue, workaround), class: "btn btn-default hidden-xs" if @workaround_edit %>
+			<%= link_to "Add Image", new_issue_issue_workaround_image_path(@issue, workaround), class: "btn btn-default hidden-xs" %>
 			<%= link_to "Delete", issue_issue_workaround_path(@issue, workaround),class: "btn btn-default hidden-xs", method: :delete, data: {confirm: "Are you sure you want to delete"} if @workaround_destroy %>
 		<% end %>
 		<div class="btn-group visible-xs">
@@ -32,10 +34,12 @@
 		    <li><%#= link_to "Add Image", new_issue_issue_workaround_image(@issue,workaround) if @image_create %></li>
 		    <% if @admin %>
 		    	<li><%= link_to "Edit", edit_issue_management_issue_workaround_path(@issue,workaround) if @workaround_edit %></li>
+		    	<li><%= link_to "Add Image", new_issue_management_issue_workaround_image_path(@issue, workaround) %></li>
 			    <li class="divider"></li>
 			    <li><%= link_to "Delete", issue_management_issue_workaround_path(@issue, workaround), method: :delete, data: {confirm: "Are you sure you want to delete"} if @workaround_destroy %></li>
 		    <% else %>
 			    <li><%= link_to "Edit", edit_issue_issue_workaround_path(@issue,workaround) if @workaround_edit %></li>
+			    <li><%= link_to "Add Image", new_issue_issue_workaround_image_path(@issue, workaround) %></li>
 			    <li class="divider"></li>
 			    <li><%= link_to "Delete", issue_issue_workaround_path(@issue, workaround), method: :delete, data: {confirm: "Are you sure you want to delete"} if @workaround_destroy %></li>
 		    <% end %>

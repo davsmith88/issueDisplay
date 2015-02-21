@@ -1,24 +1,19 @@
 class ImagesController < ApplicationController
 
+	before_action :set_type
+	before_action :find_issue
+	before_action :get_review
+
 	def new
-		
-		@c = find_imageable
-		@image = @c.images.new
-		
+		@rr = @review.images.new
 	end
 
 	def create
-		
-		@c = find_imageable
-		@image = @c.images.new(image_params)
+		@image = @review.images.new(image_params)
 
 		respond_to do |format|
 			if @image.save
-				if @c.class.name == 'Issue'
-					format.html {redirect_to edit_issue_path(@c)}
-				else
-					format.html {redirect_to edit_issue_path(@c.issue)}
-				end
+				format.html {redirect_to edit_issue_path(@issue)}
 			else
 				format.html {render action: 'new'}
 			end
@@ -26,37 +21,32 @@ class ImagesController < ApplicationController
 	end
 
 	def edit
-		@c = find_imageable
+		@rr = @review.images.find(params[:id])
 		
-		@image = @c.images.find(params[:id])
+		# @image = @c.images.find(params[:id])
 	end
 
 	def update
 		# @issue = Issue.find(params[:issue_id])
-		@c = find_imageable
-		@image = @c.images.find(params[:id])
+		@rr = @review.images.find(params[:id])
 
 
-		@image.update(image_params)
-		if @c.class.name == "Issue"
-			redirect_to edit_issue_path(@c)
-		else
-			redirect_to edit_issue_path(@c.issue)
-		end
+		@rr.update(image_params)
+		
+			redirect_to edit_issue_path(@issue)
+		
 	end	
 
 	def destroy
 		# @issue = Issue.find(params[:issue_id])
-		@c = find_imageable
-		@image = @c.images.find(params[:id])
+		# @c = find_imageable
+		# @image = @c.images.find(params[:id])
+		@rr = @review.images.find(params[:id])
 
 		
-		@image.destroy
-		if @c.class.name === "Issue"
-			redirect_to edit_issue_path(@c)
-		else
-			redirect_to edit_issue_path(@c.issue)
-		end
+		@rr.destroy
+	
+		redirect_to edit_issue_path(@rr)
 	end
 
 	private
@@ -92,4 +82,31 @@ class ImagesController < ApplicationController
 	  nil
 	end
 
+	def set_type
+		# @type = params[:type]
+		type
+		@class = @type.underscore.humanize
+	end
+
+	def type
+		@type = (params[:type]) ? params[:type] : "Issue"
+	end
+
+	def type_class
+		params[:type].constantize
+	end
+
+	def associated_method
+		params[:type].underscore.pluralize.to_sym
+	end
+
+	def find_issue
+		@issue = Issue.find(params[:issue_id])
+	end
+
+	def get_review
+		association = @issue.send associated_method
+		p = params[:type].underscore + "_id"
+		@review = association.find(params[p])
+	end
 end

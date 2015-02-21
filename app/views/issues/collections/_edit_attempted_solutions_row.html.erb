@@ -7,7 +7,7 @@
 			<% att_sol.images.each do |image| %>
 				<tr>
 					<td><%= image_tag image.picture.url(:thumb) %></td>
-					<td><%= link_to "Delete Picture", attempted_solution_image_path(att_sol, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure"} if @image_destroy %>
+					<td><%= link_to "Delete Picture", issue_attempted_solution_image_path(@issue, att_sol, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure"} if @image_destroy %>
 				</tr>
 			<% end %>
 		</table>
@@ -19,6 +19,7 @@
 			<%= link_to "Delete", issue_management_attempted_solution_path(@issue, att_sol), class: "btn btn-default hidden-xs", method: :delete, data: {confirm: "Are you sure?"} %>
 		<% else %>
 			<%= link_to "Edit", edit_issue_attempted_solution_path(@issue, att_sol), class: "btn btn-default hidden-xs" %>
+			<%= link_to "Add Image", new_issue_attempted_solution_image_path(@issue, att_sol), class: "btn btn-default hidden-xs" %>
 			<%= link_to "Delete", issue_attempted_solution_path(@issue, att_sol), class: "btn btn-default hidden-xs", method: :delete, data: {confirm: "Are you sure?"} %>
 		<% end %>
 		<div class="btn-group visible-xs">
@@ -33,6 +34,7 @@
 			    <li><%= link_to "Delete", issue_management_attempted_solution_path(@issue, att_sol), method: :delete, data: {confirm: "Are you sure?"}  %></li>
 		   <% else %>
 			   <li><%= link_to "Edit", edit_issue_attempted_solution_path(@issue, att_sol) %></li>
+			   <%= link_to "Add Image", new_issue_attempted_solution_image_path(@issue, att_sol), class: "btn btn-default hidden-xs" %>
 			    <li class="divider"></li>
 			    <li><%= link_to "Delete", issue_attempted_solution_path(@issue, att_sol), method: :delete, data: {confirm: "Are you sure?"}  %></li>
 		   <% end %>

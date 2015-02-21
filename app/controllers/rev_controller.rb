@@ -48,6 +48,9 @@ class RevController < ApplicationController
 	private
 
 	def set_type
+				puts "----------------"
+		puts params
+		puts "----------------"
 		@type = type
 		@class =  params[:type].underscore.humanize
 	end

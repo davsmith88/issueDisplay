@@ -10,8 +10,9 @@
 						<%= image_tag image.picture.url(:thumb) %>
 					</td>
 					<td>
-						<%= link_to "Edit", edit_solution_image_path(solution, image), class: "btn btn-default" if @image_edit %>
-						<%= link_to "Delete", solution_image_path(solution, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure you want to delete"} if @image_destroy %>
+
+						<%= link_to "Edit", edit_issue_solution_image_path(@issue, solution, image), class: "btn btn-default" if @image_edit %>
+						<%= link_to "Delete", issue_solution_image_path(@issue, solution, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure you want to delete"} if @image_destroy %>
 					</td>
 				</tr>
 			<% end %>
@@ -21,8 +22,10 @@
 		<%#= link_to "Add Image", new_solution_image_path(solution), class: "btn btn-default hidden-xs" if @image_create %>
 		<% if @admin %>
 			<%= link_to "Edit", edit_issue_management_solution_path(@issue, solution), class: "btn btn-default hidden-xs" if @solution_edit %>
+
 			<%= link_to "Delete", issue_management_solution_path(@issue, solution), class: "btn btn-default hidden-xs", method: :delete, data: {confirm: "Are you sure you want to delete"} if @solution_destroy %>
 		<% else %>
+			<%= link_to "Add Image", new_issue_solution_image_path(@issue, solution), class: "btn btn-default hidden-xs" %>
 			<%= link_to "Edit", edit_issue_solution_path(@issue, solution), class: "btn btn-default hidden-xs" if @solution_edit %>
 			<%= link_to "Delete", issue_solution_path(@issue, solution), class: "btn btn-default hidden-xs", method: :delete, data: {confirm: "Are you sure you want to delete"} if @solution_destroy %>
 		<% end %>
@@ -38,6 +41,7 @@
 			    <li><%= link_to "Delete", issue_management_solution_path(@issue, solution), method: :delete, data: {confirm: "Are you sure you want to delete"} if @solution_destroy %></li>
 		    <% else %>
 			    <li><%= link_to "Edit", edit_issue_solution_path(@issue, solution) if @solution_edit %></li>
+			    <li><%= link_to "Add Image", new_issue_solution_image_path(@issue, solution), class: "btn btn-default hidden-xs" %></li>
 			    <li class="divider"></li>
 			    <li><%= link_to "Delete", issue_solution_path(@issue, solution), method: :delete, data: {confirm: "Are you sure you want to delete"} if @solution_destroy %></li>
 		    <% end %>
