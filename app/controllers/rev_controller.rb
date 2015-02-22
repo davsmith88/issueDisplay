@@ -3,6 +3,7 @@ class RevController < ApplicationController
 	before_action :set_type
 	before_action :get_issue, only: [:new, :create, :index, :edit, :update, :destroy]
 	before_action :get_review, only: [:edit, :update, :destroy]
+	before_action :set_redirect_name, only: [:create, :update, :destroy]
 
 	def index
 		@reviews = type_class.all
@@ -86,6 +87,10 @@ class RevController < ApplicationController
 
 	def review_params
 		params.require(type.underscore.downcase.to_sym).permit(:description)
+	end
+
+	def set_redirect_name
+		@redirect_method = "edit_#{params[:u]}_issue_path"
 	end
 
 end

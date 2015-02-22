@@ -1,6 +1,6 @@
 class ReviewsController < RevController
 	
-	before_action :set_redirect_name, only: [:create, :update, :destroy]
+	# before_action :set_redirect_name, only: [:create, :update, :destroy]
 
 	def index
 		@reviews = type_class.all
@@ -50,7 +50,7 @@ class ReviewsController < RevController
 
 	private
 
-	def set_redirect_name
-		@redirect_method = "edit_#{params[:u]}_issue_path"
-	end
+	# def set_redirect_name
+	# 	@redirect_method = "edit_#{params[:u]}_issue_path"
+	# end
 end
