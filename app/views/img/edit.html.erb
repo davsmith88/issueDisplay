@@ -1,0 +1,6 @@
+
+<h3>Edit image</h3>
+<p>Select a file to upload. Needs to be either a .jpg, .pgn or .gif</p>
+<%= form_for [@issue,@image], builder: MyFormBuilder, :html => { :multipart => true, class: "form-horizontal" } do |form| %>
+	<%= render partial: 'form', locals: {form: form} %>
+<% end %>

@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
 
 
 	def check_controller_name
-		puts "----> #{controller_name} #{action_name}"
+		# puts "----> #{controller_name} #{action_name}"
 		name = controller_name
 		if name != 'static_pages' and name != 'sessions' and name != 'json_sessions'
 			authenticate_user!

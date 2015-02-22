@@ -171,7 +171,7 @@ IssueDisplay::Application.routes.draw do
       post 'mark_as_checked', as: :marked_as_checked
       post 'mark_as_user_read', as: :mark_as_user_read
     end
-    resources :images
+    resources :images, controller: 'img', type: "Issue"
     resources :records, only: [:create, :index, :new]
     # resources :issue_workarounds do
     #   # resources :records, only: [:create, :index, :new]
