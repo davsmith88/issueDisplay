@@ -30,16 +30,17 @@ class ReviewManagementController < RevController
 		respond_to do |format|
 			if @review.save
 				# @issue.change_state
-				case params[:type]
-					when "IssueWorkaround"
-						@url = edit_workaround_issue_management_path(@issue)
-					when "Solution"
-						@url = edit_solutions_issue_management_path(@issue)
-					when "AttemptedSolution"
-						@url = edit_attempted_solutions_issue_management_path(@issue)
-					end
-				flash[:admin_notice]
-				format.html {redirect_to @url}
+				# case params[:type]
+				# 	when "IssueWorkaround"
+				# 		@url = edit_workaround_issue_management_path(@issue)
+				# 	when "Solution"
+				# 		@url = edit_solutions_issue_management_path(@issue)
+				# 	when "AttemptedSolution"
+				# 		@url = edit_attempted_solutions_issue_management_path(@issue)
+				# 	end
+				# flash[:admin_notice]
+				# format.html {redirect_to @url}
+				format.html {redirect_to self.send(@redirect_method, @issue)}
 			else
 				flash.now[:admin_alert] = "#{pretty_class_name} could not be created - Invalid Attributes"
 				format.html {render action: 'new'}
@@ -105,6 +106,11 @@ class ReviewManagementController < RevController
 
 
 	private
+
+	def set_redirect_name
+		@redirect_method = "edit_#{params[:u]}_issue_management_path"
+	end
+
 
 	# def set_type
 	# 	@type = type

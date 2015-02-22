@@ -53,4 +53,8 @@ class ReviewsController < RevController
 	# def set_redirect_name
 	# 	@redirect_method = "edit_#{params[:u]}_issue_path"
 	# end
+
+	def set_redirect_name
+		@redirect_method = "edit_#{params[:u]}_issue_path"
+	end
 end

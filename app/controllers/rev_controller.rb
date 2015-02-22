@@ -89,8 +89,4 @@ class RevController < ApplicationController
 		params.require(type.underscore.downcase.to_sym).permit(:description)
 	end
 
-	def set_redirect_name
-		@redirect_method = "edit_#{params[:u]}_issue_path"
-	end
-
 end
