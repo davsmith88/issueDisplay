@@ -9,4 +9,6 @@
 	<li class='active'>Add</li>
 <% end %>
 
-<%= render template: "reviews/new", locals: {url: @url} %>
+<%= form_for [@issue, @review],url: {controller: 'review_management', action: :create}, builder: MyFormBuilder, html: {class: 'form-horizontal'} do |form| %>
+	<%= render partial: 'review_management/form', locals: {form: form} %>
+<% end %>

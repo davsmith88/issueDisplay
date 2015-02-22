@@ -11,7 +11,6 @@ class RevController < ApplicationController
 	def new
 		association = @issue.send associated_method
 		@review = association.new
-		# render layout: "edit_page"
 	end
 
 	def create

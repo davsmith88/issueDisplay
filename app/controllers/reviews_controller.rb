@@ -10,8 +10,7 @@ class ReviewsController < RevController
 	end
 
 	def create
-		association = @issue.send associated_method
-		@review = association.new(review_params)
+		super
 		respond_to do |format|
 			if @review.save
 				format.html {redirect_to self.send(@redirect_method, @issue)}
@@ -49,10 +48,6 @@ class ReviewsController < RevController
 	end
 
 	private
-
-	# def set_redirect_name
-	# 	@redirect_method = "edit_#{params[:u]}_issue_path"
-	# end
 
 	def set_redirect_name
 		@redirect_method = "edit_#{params[:u]}_issue_path"
