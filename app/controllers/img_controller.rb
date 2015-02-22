@@ -1,6 +1,7 @@
 class ImgController < ApplicationController
 	
 	before_action :find_issue
+	before_action :find_image, only: [:edit, :update, :destroy]
 
 	def new
 		@image = @issue.images.new
@@ -11,7 +12,7 @@ class ImgController < ApplicationController
 
 		respond_to do |format|
 			if @image.save
-				format.html {redirect_to edit_issue_path(@issue)}
+				format.html {redirect_to edit_images_issue_path(@issue)}
 			else
 				format.html {render action: 'new'}
 			end
@@ -23,11 +24,19 @@ class ImgController < ApplicationController
 	end
 
 	def update
-
+		if @image.update_attributes(image_params)
+			redirect_to edit_images_issue_path(@issue)
+		else
+			render action: "edit"
+		end
 	end
 
 	def destroy
-
+		if @image.destroy
+			redirect_to edit_images_issue_path(@issue)
+		else
+			render action: "edit"
+		end
 	end
 
 	private
@@ -37,7 +46,10 @@ class ImgController < ApplicationController
 	end
 
 	def find_issue
-		puts params
 		@issue = Issue.find(params[:issue_id])
+	end
+
+	def find_image
+		@image = Image.find(params[:id])
 	end
 end

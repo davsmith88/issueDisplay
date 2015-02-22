@@ -31,10 +31,11 @@ class ImagesController < ApplicationController
 		@rr = @review.images.find(params[:id])
 
 
-		@rr.update(image_params)
-		
+		if @rr.update(image_params)
 			redirect_to edit_issue_path(@issue)
-		
+		else
+			render action: "edit"
+		end
 	end	
 
 	def destroy
