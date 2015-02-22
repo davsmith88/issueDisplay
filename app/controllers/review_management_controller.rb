@@ -3,6 +3,7 @@ class ReviewManagementController < RevController
 	# before_action :set_type
 	# before_action :get_issue, only: [:new, :create, :index, :edit, :update, :destroy]
 	# before_action :get_review, only: [:edit, :update, :destroy]
+	before_action :set_url_path, only: [:new, :create]
 
 	def index
 		@reviews = type_class.all
@@ -11,17 +12,17 @@ class ReviewManagementController < RevController
 		# association = @issue.send associated_method
 		# @review = association.new
 		super
-		case params[:type]
-		when "IssueWorkaround"
-			@url = issue_management_issue_workarounds_path(@issue)
-			@url_edit = edit_workaround_issue_management_path(@issue)
-		when "Solution"
-			@url = issue_management_solutions_path(@issue)
-			@url_edit = edit_solutions_issue_management_path(@issue)
-		when "AttemptedSolution"
-			@url = issue_management_attempted_solutions_path(@issue)
-			@url_edit = edit_attempted_solutions_issue_management_path(@issue)
-		end
+		# case params[:type]
+		# when "IssueWorkaround"
+		# 	@url = issue_management_issue_workarounds_path(@issue)
+		# 	@url_edit = edit_workaround_issue_management_path(@issue)
+		# when "Solution"
+		# 	@url = issue_management_solutions_path(@issue)
+		# 	@url_edit = edit_solutions_issue_management_path(@issue)
+		# when "AttemptedSolution"
+		# 	@url = issue_management_attempted_solutions_path(@issue)
+		# 	@url_edit = edit_attempted_solutions_issue_management_path(@issue)
+		# end
 		render layout: "admin_layout"
 	end
 
@@ -30,6 +31,7 @@ class ReviewManagementController < RevController
 		respond_to do |format|
 			if @review.save
 				# @issue.change_state
+
 				# case params[:type]
 				# 	when "IssueWorkaround"
 				# 		@url = edit_workaround_issue_management_path(@issue)
@@ -53,13 +55,14 @@ class ReviewManagementController < RevController
 		case params[:type]
 		when "IssueWorkaround"
 			@url = issue_management_issue_workaround_path(@issue, @review)
-			# @url_edit = edit_workaround_issue_management_path(@issue)
+			@url_edit = issue_management_issue_workaround_path(@issue, @review)
 		when "Solution"
 			@url = issue_management_solution_path(@issue, @review)
-			# @url_edit = edit_solutions_issue_management_path(@issue)
+			@url_edit = issue_management_solution_path(@issue, @review)
 		when "AttemptedSolution"
 			@url = issue_management_attempted_solution_path(@issue, @review)
-			# @url_edit = edit_attempted_solutions_issue_management_path(@issue)
+			@url_edit = issue_management_attempted_solution_path(@issue, @review)
+			# edit_issue_management_attempted_solution
 		end
 		render layout: "admin_layout"
 	end
@@ -68,15 +71,17 @@ class ReviewManagementController < RevController
 		respond_to do |format|
 			if @review.update(review_params)
 				# @issue.change_state
-				case params[:type]
-					when "IssueWorkaround"
-						@url = edit_workaround_issue_management_path(@issue)
-					when "Solution"
-						@url = edit_solutions_issue_management_path(@issue)
-					when "AttemptedSolution"
-						@url = edit_attempted_solutions_issue_management_path(@issue)
-					end
-				format.html {redirect_to @url, notice: "#{pretty_class_name} has been updated"}
+				# case params[:type]
+				# 	when "IssueWorkaround"
+				# 		@url = edit_workaround_issue_management_path(@issue)
+				# 	when "Solution"
+				# 		@url = edit_solutions_issue_management_path(@issue)
+				# 	when "AttemptedSolution"
+				# 		@url = edit_attempted_solutions_issue_management_path(@issue)
+				# 	end
+				format.html {redirect_to self.send(@redirect_method, @issue)}
+			
+				# format.html {redirect_to @url, notice: "#{pretty_class_name} has been updated"}
 			else
 				flash.now[:alert] = "#{pretty_class_name} could not be saved"
 				format.html {render action: 'edit'}
@@ -86,20 +91,21 @@ class ReviewManagementController < RevController
 
 	def destroy
 
-		case params[:type]
-			when "IssueWorkaround"
-				@url = edit_workaround_issue_management_path(@issue)
-			when "Solution"
-				@url = edit_solutions_issue_management_path(@issue)
-			when "AttemptedSolution"
-				@url = edit_attempted_solutions_issue_management_path(@issue)
-			end
+		# case params[:type]
+		# 	when "IssueWorkaround"
+		# 		@url = edit_workaround_issue_management_path(@issue)
+		# 	when "Solution"
+		# 		@url = edit_solutions_issue_management_path(@issue)
+		# 	when "AttemptedSolution"
+		# 		@url = edit_attempted_solutions_issue_management_path(@issue)
+		# 	end
 
 		respond_to do |format|
 			if @review.destroy
-				format.html {redirect_to @url, notice: "#{pretty_class_name} has been deleted"}
+				format.html {redirect_to self.send(@redirect_method, @issue)}
+				# format.html {redirect_to @url, notice: "#{pretty_class_name} has been deleted"}
 			else
-				format.html { redirect_to @url, notice: "#{pretty_class_name} could not be deleted" }
+				# format.html { redirect_to @url, notice: "#{pretty_class_name} could not be deleted" }
 			end
 		end
 	end
@@ -109,6 +115,20 @@ class ReviewManagementController < RevController
 
 	def set_redirect_name
 		@redirect_method = "edit_#{params[:u]}_issue_management_path"
+	end
+
+	def set_url_path
+		case params[:type]
+		when "IssueWorkaround"
+			@url = issue_management_issue_workarounds_path(@issue)
+			@url_edit = edit_workaround_issue_management_path(@issue)
+		when "Solution"
+			@url = issue_management_solutions_path(@issue)
+			@url_edit = edit_solutions_issue_management_path(@issue)
+		when "AttemptedSolution"
+			@url = issue_management_attempted_solutions_path(@issue)
+			@url_edit = edit_attempted_solutions_issue_management_path(@issue)
+		end
 	end
 
 
