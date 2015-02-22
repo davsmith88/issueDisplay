@@ -62,9 +62,9 @@ IssueDisplay::Application.routes.draw do
         get 'edit/solutions' => "issue_management#edit_solutions", as: :edit_solutions
         get 'edit/attempted_solutions' => "issue_management#edit_attempted_solutions", as: :edit_attempted_solutions
       end
-      resources :issue_workarounds, controller: 'review_management', type: 'IssueWorkaround', u: 'workaround'
-      resources :solutions, controller: 'review_management', type: 'Solution', u: 'solutions'
-      resources :attempted_solutions, controller: 'review_management', type: 'AttemptedSolution', u: 'attempted_solutions'
+      resources :issue_workarounds, controller: 'review_management', type: 'IssueWorkaround'
+      resources :solutions, controller: 'review_management', type: 'Solution'
+      resources :attempted_solutions, controller: 'review_management', type: 'AttemptedSolution'
     end
 
 

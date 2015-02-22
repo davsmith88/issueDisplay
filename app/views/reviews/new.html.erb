@@ -1,5 +1,5 @@
 <h3>Add a <%= @class %> to <%= @issue.name %></h3>
 <br>
-<%= form_for [@issue, @review],url: @url, builder: MyFormBuilder, html: {class: 'form-horizontal'} do |form| %>
+<%= form_for [@issue, @review],url: {controller: 'review_management', action: :create}, builder: MyFormBuilder, html: {class: 'form-horizontal'} do |form| %>
 	<%= render partial: 'reviews/form', locals: {form: form} %>
 <% end %>

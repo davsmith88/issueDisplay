@@ -6,7 +6,7 @@
 <% end %>
 
 <h3>Edit <%= @class %></h3>
-<%= form_for [@issue, @review], url: @url_edit, builder: MyFormBuilder, html: {
+<%= form_for [@issue, @review], url: {controller: 'review_management', action: :update}, builder: MyFormBuilder, html: {
 		class: "form-horizontal"} do |form| %>
 	<%= render partial: 'reviews/form', locals: {form: form} %>
 <% end %>

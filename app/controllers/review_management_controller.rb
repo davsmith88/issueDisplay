@@ -3,7 +3,7 @@ class ReviewManagementController < RevController
 	# before_action :set_type
 	# before_action :get_issue, only: [:new, :create, :index, :edit, :update, :destroy]
 	# before_action :get_review, only: [:edit, :update, :destroy]
-	before_action :set_url_path, only: [:new, :create]
+	# before_action :set_url_path, only: [:new, :create]
 
 	def index
 		@reviews = type_class.all
@@ -52,18 +52,18 @@ class ReviewManagementController < RevController
 
 	def edit
 		@admin = true
-		case params[:type]
-		when "IssueWorkaround"
-			@url = issue_management_issue_workaround_path(@issue, @review)
-			@url_edit = issue_management_issue_workaround_path(@issue, @review)
-		when "Solution"
-			@url = issue_management_solution_path(@issue, @review)
-			@url_edit = issue_management_solution_path(@issue, @review)
-		when "AttemptedSolution"
-			@url = issue_management_attempted_solution_path(@issue, @review)
-			@url_edit = issue_management_attempted_solution_path(@issue, @review)
-			# edit_issue_management_attempted_solution
-		end
+		# case params[:type]
+		# when "IssueWorkaround"
+		# 	@url = issue_management_issue_workaround_path(@issue, @review)
+		# 	@url_edit = issue_management_issue_workaround_path(@issue, @review)
+		# when "Solution"
+		# 	@url = issue_management_solution_path(@issue, @review)
+		# 	@url_edit = issue_management_solution_path(@issue, @review)
+		# when "AttemptedSolution"
+		# 	@url = issue_management_attempted_solution_path(@issue, @review)
+		# 	@url_edit = issue_management_attempted_solution_path(@issue, @review)
+		# 	# edit_issue_management_attempted_solution
+		# end
 		render layout: "admin_layout"
 	end
 
@@ -117,19 +117,19 @@ class ReviewManagementController < RevController
 		@redirect_method = "edit_#{params[:u]}_issue_management_path"
 	end
 
-	def set_url_path
-		case params[:type]
-		when "IssueWorkaround"
-			@url = issue_management_issue_workarounds_path(@issue)
-			@url_edit = edit_workaround_issue_management_path(@issue)
-		when "Solution"
-			@url = issue_management_solutions_path(@issue)
-			@url_edit = edit_solutions_issue_management_path(@issue)
-		when "AttemptedSolution"
-			@url = issue_management_attempted_solutions_path(@issue)
-			@url_edit = edit_attempted_solutions_issue_management_path(@issue)
-		end
-	end
+	# def set_url_path
+	# 	case params[:type]
+	# 	# when "IssueWorkaround"
+	# 	# 	@url = issue_management_issue_workarounds_path(@issue)
+	# 	# 	@url_edit = edit_workaround_issue_management_path(@issue)
+	# 	# when "Solution"
+	# 	# 	@url = issue_management_solutions_path(@issue)
+	# 	# 	@url_edit = edit_solutions_issue_management_path(@issue)
+	# 	# when "AttemptedSolution"
+	# 	# 	@url = issue_management_attempted_solutions_path(@issue)
+	# 	# 	@url_edit = edit_attempted_solutions_issue_management_path(@issue)
+	# 	# end
+	# end
 
 
 	# def set_type
