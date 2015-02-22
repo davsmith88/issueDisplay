@@ -1,6 +1,4 @@
 class ReviewsController < RevController
-	
-	# before_action :set_redirect_name, only: [:create, :update, :destroy]
 
 	def index
 		@reviews = type_class.all

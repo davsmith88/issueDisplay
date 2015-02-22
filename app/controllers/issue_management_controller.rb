@@ -88,19 +88,19 @@ class IssueManagementController < BIssueController
 
 	def show_workarounds
 		@active_workarounds = true
-		@issue_workarounds = @issue.issue_workarounds.includes(:images)
+		@list = @issue.issue_workarounds.includes(:images)
 		render layout: "show_issue_admin", template: "issues/show_workarounds"
 	end
 
 	def show_solutions
 		@active_solutions = true
-		@solutions = @issue.solutions
+		@list = @issue.solutions
 		render layout: "show_issue_admin", template: "issues/show_solutions"
 	end
 
 	def show_attempted_solutions
 		@active_att_sol = true
-		@att_sol = @issue.attempted_solutions
+		@list = @issue.attempted_solutions
 		render layout: "show_issue_admin", template: "issues/show_attempted_solutions"
 	end
 
