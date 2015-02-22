@@ -183,13 +183,13 @@ IssueDisplay::Application.routes.draw do
     # resources :solutions do
     #   # resources :images
     # end
-    resources :solutions, controller: 'reviews', type: 'Solution' do
+    resources :solutions, controller: 'reviews', type: 'Solution', u: 'solutions' do
       resources :images, type: "Solution"
     end
-    resources :issue_workarounds, controller: 'reviews', type: 'IssueWorkaround' do
+    resources :issue_workarounds, controller: 'reviews', type: 'IssueWorkaround', u: 'workaround' do
       resources :images, type: 'IssueWorkaround'
     end
-    resources :attempted_solutions, controller: 'reviews', type: 'AttemptedSolution' do
+    resources :attempted_solutions, controller: 'reviews', type: 'AttemptedSolution', u: 'attempted_solutions' do
       resources :images, type: "AttemptedSolution"
     end
   end

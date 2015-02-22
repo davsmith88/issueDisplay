@@ -3,6 +3,7 @@ class ReviewsController < RevController
 	# before_action :set_type
 	# before_action :get_issue, only: [:new, :create, :index, :edit, :update, :destroy]
 	# before_action :get_review, only: [:edit, :update, :destroy]
+	before_action :set_redirect_name, only: [:create, :update, :destroy]
 
 	def index
 		@reviews = type_class.all
@@ -18,8 +19,7 @@ class ReviewsController < RevController
 		@review = association.new(review_params)
 		respond_to do |format|
 			if @review.save
-				# @issue.change_state
-				format.html {redirect_to edit_issue_path(@issue)}
+				format.html {redirect_to self.send(@redirect_method, @issue)}
 			else
 				flash.now[:alert] = "#{pretty_class_name} could not be created - Invalid Attributes"
 				format.html {render action: 'new'}
@@ -35,7 +35,7 @@ class ReviewsController < RevController
 		respond_to do |format|
 			if @review.update(review_params)
 				# @issue.change_state
-				format.html {redirect_to edit_issue_path(@issue), notice: "#{pretty_class_name} has been updated"}
+				format.html {redirect_to self.send(@redirect_method, @issue), notice: "#{pretty_class_name} has been updated"}
 			else
 				flash.now[:alert] = "#{pretty_class_name} could not be saved"
 				format.html {render action: 'edit'}
@@ -46,9 +46,9 @@ class ReviewsController < RevController
 	def destroy
 		respond_to do |format|
 			if @review.destroy
-				format.html {redirect_to edit_issue_path(@issue), notice: "#{pretty_class_name} has been deleted"}
+				format.html {redirect_to self.send(@redirect_method, @issue), notice: "#{pretty_class_name} has been deleted"}
 			else
-				format.html { redirect_to edit_issue_path(@issue), notice: "#{pretty_class_name} could not be deleted" }
+				format.html { redirect_to self.send(@redirect_method, @issue), notice: "#{pretty_class_name} could not be deleted" }
 			end
 		end
 	end
@@ -93,4 +93,8 @@ class ReviewsController < RevController
 	# def review_params
 	# 	params.require(type.underscore.downcase.to_sym).permit(:description)
 	# end
+
+	def set_redirect_name
+		@redirect_method = "edit_#{params[:u]}_issue_path"
+	end
 end
