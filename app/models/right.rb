@@ -22,6 +22,7 @@ class Right < ActiveRecord::Base
 			"review_management" => "READ"
 		},
 		"issues" => {
+			"show_workarounds" => "READ",
 			"search" => "READ",
 			"search_results" => "READ",
 			"edit_images" => "UPDATE",

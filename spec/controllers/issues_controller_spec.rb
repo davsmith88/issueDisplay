@@ -3,6 +3,7 @@ require 'spec_helper'
 
 describe IssuesController do
 	before :all do
+		@business1 = FactoryGirl.create(:business)
 		@business = FactoryGirl.create(:business)
 		@user = FactoryGirl.create(:user, business_id: @business.id)
 		@role = Role.create(name: "admin", business_id: @business.id)
@@ -24,15 +25,22 @@ describe IssuesController do
 					@second = FactoryGirl.create(:issue, state: "publish", created_at: "2014-11-07", business_id: @business.id)
 					@third = FactoryGirl.create(:issue, state: "publish", created_at: "2014-11-10", business_id: @business.id)
 					@fourth = FactoryGirl.create(:issue, state: "draft", business_id: @business.id)
+					@fifth = FactoryGirl.create(:issue, state: "publish", business_id: @business1.id, created_at: "2014-11-06")
+					@sixth = FactoryGirl.create(:issue, state: "publish", business_id: @business1.id, created_at: "2014-11-08")
+
 				end
 				it "of published issues in decending order" do
-					pp session
 					get :index
 					expect(assigns(:issues)).to match_array([@third, @second, @first])
 				end
 				it "renders the index template" do
 					get :index
 					expect(response).to render_template :index
+				end
+				it "returns only the issues that the current user can access" do
+					get :index
+					expect(assigns(:issues).include?(@fifth)).to eq false
+					expect(assigns(:issues).include?(@sixth)).to eq false
 				end
 			end
 			context "and the user does not have 'read' issue right" do
@@ -69,13 +77,13 @@ describe IssuesController do
 					expect(response.response_code).to eq 302
 					expect(response).to redirect_to "/404.html"
 				end
-				# it "assigns a new issue to @issue" do
-				# 	expect(assigns(:issue)).to eq @issue
-				# end
 				it "renders the show template" do
 					expect(response).to render_template 'issues/show_workarounds'
 				end
-				it {should render_with_layout 'show_issue'}
+				it {should render_with_layout 'show_issue'} 
+				it "will have the list instance variable" do
+					expect(assigns[:list]).to be_true
+				end
 			end
 			context "does not have the 'read' right" do
 				before do
@@ -424,4 +432,51 @@ describe IssuesController do
 			end
 		end
 	end
+
+
+	describe "GET #show_workarounds", first: true do
+		before do
+			@issue = FactoryGirl.create(:issue, business_id: @business.id)
+			@issue_workaround = Review.create(type: 'IssueWorkaround', issue_id: @issue.id, description: "qwerty", review_date: "2015-03-03")
+		end
+		context "when the user is logged in" do
+			before do
+				sign_in @user
+			end
+			context "the user has read access" do
+				before do
+					@right_read = FactoryGirl.create(:right, resource: "issues", operation: "READ")
+					@grant_read = FactoryGirl.create(:grant, role_id: @role.id, right_id: @right_read.id)
+					@right_update = FactoryGirl.create(:right, resource: "issues", operation: "UPDATE")
+					@grant_update = FactoryGirl.create(:grant, role_id: @role.id, right_id: @right_update.id)
+					get :show_workarounds, id: @issue.id
+				end
+				it "will have the @list instance variable" do
+					expect(assigns[:list]).to_not be_nil
+				end
+				it "will have one issue workaround in the @list instance variable" do
+					expect(assigns[:list]).to match_array([@issue_workaround])
+				end
+				it "will render the 'show workarounds' template" do
+					expect(response).to render_template :show_workarounds
+				end
+				it "will render the correct layout" do
+					expect(response).to render_with_layout :show_issue
+				end
+			end
+			context "the user does not have read access" do
+				it "redirect to the home page" do
+					get :show_workarounds, id: @issue.id
+					expect(response).to redirect_to home_path
+				end
+			end
+		end
+		context "when the user is NOT logged in" do
+			it "redirects to the login page" do
+				get :show_workarounds, id: @issue.id
+				expect(response).to redirect_to new_user_session_path
+			end
+		end
+	end
+
 end
