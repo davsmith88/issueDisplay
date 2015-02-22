@@ -1,16 +1,11 @@
 class ReviewsController < RevController
 	
-	# before_action :set_type
-	# before_action :get_issue, only: [:new, :create, :index, :edit, :update, :destroy]
-	# before_action :get_review, only: [:edit, :update, :destroy]
 	before_action :set_redirect_name, only: [:create, :update, :destroy]
 
 	def index
 		@reviews = type_class.all
 	end
 	def new
-		# association = @issue.send associated_method
-		# @review = association.new
 		super
 	end
 
@@ -53,46 +48,7 @@ class ReviewsController < RevController
 		end
 	end
 
-
 	private
-
-	# def set_type
-	# 	@type = type
-	# 	@class =  params[:type].underscore.humanize
-	# end
-
-	# def type
-	# 	Review.types.include?(params[:type]) ? params[:type] : "Review"
-	# end
-
-	# def type_class
-	# 	type.constantize
-	# end
-
-	# def associated_method
-	# 	type.underscore.pluralize.to_sym
-	# end
-
-	# def pretty_class_name
-	# 	params[:type].underscore.humanize
-	# end
-
-
-
-
-
-	# def get_issue
-	# 	id = params[:issue_id] || params[:issue_management_id]
-	# 	@issue = Issue.find(id)
-	# end
-
-	# def get_review
-	# 	@review = type_class.find(params[:id])
-	# end
-
-	# def review_params
-	# 	params.require(type.underscore.downcase.to_sym).permit(:description)
-	# end
 
 	def set_redirect_name
 		@redirect_method = "edit_#{params[:u]}_issue_path"
