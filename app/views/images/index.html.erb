@@ -1,0 +1,52 @@
+<% content_for :title do %>
+	Images
+<% end %>
+
+<% content_for :breadcrumb do %>
+	<li class='active'>Images</li>
+<% end %>
+
+<div class='row'>
+	<div class='col-sm-4'>
+		<h3>Image Management</h3>
+	</div>
+	<div class='col-sm-4'>
+		<select id='lselect' class='form-control'>
+		<option <%= @loc.to_i == 0 ? 'selected' : '' %> disabled>Choose a Location</option>
+		<%= @location.each do |l, data| %>
+			<optgroup label='<%= DepartmentArea.find(l).name %>'>
+				<%= data.each do |d| %>
+						<option <%= @loc.to_i == d.id ? 'selected' : '' %> value=<%= d.id %>><%= d.name %></option>
+				<% end %>
+			</optgroup>
+			
+		<% end %>
+	</select>
+	</div>
+	<div class='col-sm-4'>
+		<%= link_to "Add an Image", new_image_path, class: "btn btn-default" %>
+	</div>
+</div>
+
+<table class='table' id='i-table'>
+<thead>
+	<th>Image</th>
+	<th>Name</th>
+	<th>Created At</th>
+</thead>
+
+<% @images.each do |image| %>
+	<tr>
+		<td><%= image_tag image.picture.url(:thumb) %></td>
+		<td>
+			<p><%= image.name %></p>
+			<%= link_to "Edit", edit_image_path(image), class: "btn btn-default btn-xs" %>
+			<%= link_to "Destroy", image_path(image), class: "btn btn-default btn-xs", method: :delete, data: {confirm: "Are you sure"} %>
+		</td>
+		<td><%= image.created_at %></td>
+	</tr>	
+<% end %>
+
+</table>
+
+<%= will_paginate @images, renderer: BootstrapPagination::Rails %>

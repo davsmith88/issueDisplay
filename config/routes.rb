@@ -1,5 +1,16 @@
 IssueDisplay::Application.routes.draw do
 
+ 
+  
+
+  resources :images
+  get 'a/image_management' => 'images#manindex', as: :image_management
+
+  get "/api/get_images" => 'images#get_images', as: :get_images_json
+
+
+  # resources :detailed_steps
+
   # match "*all" => "application#cors_preflight_check", :constraints => {:method => "OPTIONS"}
 
   # resources :qwers
@@ -16,7 +27,8 @@ IssueDisplay::Application.routes.draw do
 
   # resources :json_sessions
 
-  root :to => 'static_pages#home'
+  # root :to => 'static_pages#home'
+  root :to => 'issues#index'
 
   get "/about" => 'static_pages#about', as: :static_about
   get "/why" => 'static_pages#why', as: :static_why
@@ -35,7 +47,7 @@ IssueDisplay::Application.routes.draw do
   scope "/admin" do
     get "/", to: "admin#index", as: "admin_index"
     get "users", to: "admin#users", as: "admin_user_static"
-    get "permissions", to: "admin#permissions", as: "admin_permission_static"
+    # get "permissions", to: "admin#permissions", as: "admin_permission_static"
 
     get "business", to: 'admin_business#edit', as: "business_edit"
     put "businesses/:id(.:format)", to: "admin_business#update", as: "business_update"
@@ -44,10 +56,10 @@ IssueDisplay::Application.routes.draw do
     get "depareas/areas", to: "admin#areas", as: "admin_areas_static"
     get "depareas/department_areas", to: "admin#department_areas", as: "admin_department_areas_static"
     resources :users, only: [:new, :create, :update, :destroy, :edit, :show]
-    resources :assignments, only: [:new, :create, :destroy]
+    # resources :assignments, only: [:new, :create, :destroy]
 
 
-    resources :grants, only: [:new, :create, :destroy]
+    # resources :grants, only: [:new, :create, :destroy]
     resources :admin
 
     resources :issue_management do
@@ -56,20 +68,31 @@ IssueDisplay::Application.routes.draw do
       member do
         get 'show_workarounds', as: :show_workarounds
         get 'show_solutions', as: :show_solutions
-        get 'show_attempted_solutions', as: :show_att_sol
-        get 'edit/images' => "issue_management#edit_images", as: :edit_images
-        get 'edit/workarounds' => "issue_management#edit_workaround", as: :edit_workaround
-        get 'edit/solutions' => "issue_management#edit_solutions", as: :edit_solutions
-        get 'edit/attempted_solutions' => "issue_management#edit_attempted_solutions", as: :edit_attempted_solutions
+        get 'show_steps', as: :show_steps
+
+        # get 'show_attempted_solutions', as: :show_att_sol
+        # get 'edit/images' => "issue_management#edit_images", as: :edit_images
+        # get 'edit/workarounds' => "issue_management#edit_workaround", as: :edit_workaround
+        # get 'edit/solutions' => "issue_management#edit_solutions", as: :edit_solutions
+
+
+        # get 'edit/attempted_solutions' => "issue_management#edit_attempted_solutions", as: :edit_attempted_solutions
+        
+
+
       end
       resources :issue_workarounds, controller: 'review_management', type: 'IssueWorkaround', u: 'workaround'
       resources :solutions, controller: 'review_management', type: 'Solution', u: 'solutions'
-      resources :attempted_solutions, controller: 'review_management', type: 'AttemptedSolution', u: 'attempted_solutions'
+      # resources :attempted_solutions, controller: 'review_management', type: 'AttemptedSolution', u: 'attempted_solutions'
+    end
+
+    resources :department_areas do
+      resources :locations
     end
 
 
-    resources :roles
-    resources :rights
+    # resources :roles
+    # resources :rights
 
     resources :departments
     resources :areas
@@ -146,14 +169,15 @@ IssueDisplay::Application.routes.draw do
   get "/notifications" => "notifications#notification", as: :notification_feed
 
 
-  get '/issues/search' => "issues#search", as: :issue_search
+  # get '/issues/search' => "issues#search", as: :issue_search
   get 'search_results' => "issues#search_results", as: :search_results
 
   resources :issues do
     member do
-      get 'show_workarounds', as: :show_workarounds
-      get 'show_solutions', as: :show_solutions
-      get 'show_attempted_solutions', as: :show_att_sol
+      get 'show_workarounds' => "reviews#index", type: 'IssueWorkaround', u: 'workarounds', as: :show_workarounds
+      get 'show_solutions' => "reviews#index", type: 'Solution', u: 'solutions', as: :show_solutions
+      # get 'show_attempted_solutions', as: :show_att_sol
+      get 'show_steps' => "detailed_steps#index", as: :show_steps
       get 'show_images', as: :show_images
       get 'history', as: :history
       get 'draft_to_review', as: :draft_to_review
@@ -167,11 +191,13 @@ IssueDisplay::Application.routes.draw do
       get 'edit/solutions' => "issues#edit_solutions", as: :edit_solutions
       get 'edit/attempted_solutions' => "issues#edit_attempted_solutions", as: :edit_attempted_solutions
     end
+    resources :detailed_steps
+    # get 'show_steps' => "detailed_steps#show", as: :show_issues_steps
     resources :notes do
       post 'mark_as_checked', as: :marked_as_checked
       post 'mark_as_user_read', as: :mark_as_user_read
     end
-    resources :images, controller: 'img', type: "Issue"
+    # resources :images, controller: 'img', type: "Issue"
     resources :records, only: [:create, :index, :new]
     # resources :issue_workarounds do
     #   # resources :records, only: [:create, :index, :new]
@@ -184,16 +210,20 @@ IssueDisplay::Application.routes.draw do
     #   # resources :images
     # end
     resources :solutions, controller: 'reviews', type: 'Solution', u: 'solutions' do
-      resources :images, type: "Solution"
+      # resources :images, type: "Solution"
     end
-    resources :issue_workarounds, controller: 'reviews', type: 'IssueWorkaround', u: 'workaround' do
-      resources :images, type: 'IssueWorkaround'
+    resources :issue_workarounds, controller: 'reviews', type: 'IssueWorkaround', u: 'workarounds' do
+      # resources :images, type: 'IssueWorkaround'
     end
-    resources :attempted_solutions, controller: 'reviews', type: 'AttemptedSolution', u: 'attempted_solutions' do
-      resources :images, type: "AttemptedSolution"
-    end
+    # resources :attempted_solutions, controller: 'reviews', type: 'AttemptedSolution', u: 'attempted_solutions' do
+    #   resources :images, type: "AttemptedSolution"
+    # end
   end
 
+  # resources :detailed_steps do
+  #      resources :media
+  # end
+  resources :media
   # resources :issue_workarounds do
   #   resources :records, only: [:create, :index, :new]
   #   resources :images

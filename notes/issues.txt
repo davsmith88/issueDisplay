@@ -1,0 +1,14 @@
+The website will allow the user to the create issues with the ability to view them at a later date to help business troubleshoot / diagnose problems.
+
+1) Issue can be created with the user with the right permissions and created through the admin page
+2) Issue structure - name, description, user who created the issue, review_date
+					 image - After thinking an issue should only have one image instead of many, so i put it directly on the issue model
+3) Should be able to search for issues, with the id number and also through other factors.
+
+4) An issue will have many solutions, which will be listed on the various pages
+	solutons will have a description and eventually a how to guide.
+
+
+Features
+-- add different types of issues (like common machine issues with) steps
+	-- have field that list different types (common machine issues will have steps, diagnose issues will have a series of notes to capture relavant information)

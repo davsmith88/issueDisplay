@@ -1,0 +1,26 @@
+<td>
+		<%= workaround.description %>
+		<% if can? :update, workaround %>
+			<% type = workaround.class.name %>
+			<p>
+			<% if type == 'IssueWorkaround' %>
+				<%= link_to "Edit", edit_issue_issue_workaround_path(@issue, workaround), remote: true, authenticity: true, class: 'btn btn-default btn-xs' %>
+			<% end %>
+			<% if type == 'Solution' %>
+				<%= link_to "Edit", edit_issue_solution_path(@issue, workaround), remote: true, authenticity: true, class: 'btn btn-default btn-xs' %>
+			<% end %>
+		<% end %>
+		<% if can? :destroy, workaround %>
+			<% if type == 'IssueWorkaround' %>
+				<%= link_to "Destroy", issue_issue_workaround_path(@issue, workaround), class: 'btn btn-default btn-xs', remote: true, method: :delete, data: {confirm: 'Are you sure?'} %>
+			<% end %>
+			<% if type == 'Solution' %>
+				<%= link_to "Destroy", issue_solution_path(@issue, workaround),
+				class: "btn btn-default btn-xs", remote: true, method: :delete, data: {confirm: "Are you sure?"} %>
+			<% end %>
+		<% end %>
+		<%= link_to "Add Image", new_medium_path(type: 'Review', type_id: workaround.id, department_area_id: @issue.department_area), class: "add-image btn btn-default btn-xs", data: {step_id: workaround.id}, remote: true, authenticity: true %>
+
+	</p>
+	</td>
+	<td><%= image_tag workaround.medium.image.picture.url(:thumb) if workaround.medium %></td>

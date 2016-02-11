@@ -1,0 +1,9 @@
+Added Feature
+--------------
+
+to maximise the effiency and reduce storage costs, need to implement a library of images rather than upload am image everything. The user can select an image already in the library. Better security as only a select number of users can insert new images ... and reduce storage space. Also if parts of machine get upgraded, will update image in multiple places.
+
+-> Fields Needed
+--> image label (control panel to have extact same label - code system)
+--> image and image details
+--> 

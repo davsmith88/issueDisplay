@@ -9,9 +9,6 @@
 					<%= link_to "Users", admin_user_static_path %>
 				</li>
 				<li class='list-group-item'>
-					<%= link_to "Permissions", roles_path %>
-				</li>
-				<li class='list-group-item'>
 					<%= link_to "Impacts", impacts_path %>
 				</li>
 				<li class='list-group-item'>
@@ -23,11 +20,18 @@
 				<li class='list-group-item'>
 					<%= link_to "Business Information", business_edit_path %>
 				</li>
+				<li class='list-group-item'>
+					<%= link_to "Image Management", images_path %>
+				</li>
+				<!-- <li class='list-group-item'>
+					Data Collection (trial)
+				</li> -->
 			</div>
 		</div>
 	
 
-		<div class='col-sm-9'>
+		<div class='col-sm-9' >
+
 		<div>
 		<button type="button" class="btn btn-primary btn-xs visible-xs" data-toggle="offcanvas">Show Sub Menu</button>
 		<!%= link_to "Back", :back %>

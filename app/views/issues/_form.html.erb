@@ -4,4 +4,5 @@
 <%= form.select :department_area_id, department_types(@depAreas), {} ,label: "Deparment Area", class: "form-control" %>
 <%= form.select :impact_id, impacts(@impacts, @issue), {} ,label: "Impacts", class: "form-control" %>
 <%= form.date_field :review_date, class: 'form-control' %>
+<%= form.file_field :picture, class: "form-control" %>
 <%= form.submit "Save", label: "Actions", class: 'btn btn-primary' %>

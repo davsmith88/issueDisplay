@@ -1,7 +1,6 @@
 class Area < ActiveRecord::Base
-	belongs_to :issue
-	belongs_to :business
-
+	has_many :department_areas
+  
 	self.per_page = 8
 
 	validates :name, presence: { message: "Each area must be provided with a name" }

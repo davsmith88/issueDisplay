@@ -1,0 +1,5 @@
+console.log("ajax images/index")
+
+console.log("<%= @images.count %>")
+
+$("#modal_body").append("<%= j (render partial: 'qw', locals: {images: @images}) %>")

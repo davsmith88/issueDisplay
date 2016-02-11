@@ -1,4 +1,23 @@
 <%= form.file_field :picture, label: "Picture", class: "form-control" %>
 <%= form.text_field :caption, placeholder: "Enter in a caption" %>
 
+<%= form.text_field :location, placeholder: "Enter in a location" %>
+<%= form.text_field :description, placeholder: "Enter in a description" %>
+<div class='form-group'>
+	<label class='col-sm-2 control-label'>Location</label>
+	<div class='col-sm-10'>
+		<select name='image[location_id]' class='form-control'>
+			<% @locations.each do |lo, data| %>
+				<optgroup label='<%= DepartmentArea.find(lo).name %>'>
+				<% data.each do |l| %>
+					
+					<option value=<%= l.id %> <%= @rr.location && l.id == @rr.location.id ? 'selected' : "" %>><%= l.name %></option>
+					
+				<% end %>
+				</optgroup>
+			<% end %>
+		</select>
+	</div>
+</div>
+
 <%= form.submit "Save", label: "Actions", class: "btn btn-default" %>

@@ -1,4 +1,7 @@
 class DepartmentAreasController < ApplicationController
+
+	authorize_resource
+
 	def index
 		@active_dp = true
 		@depAreas = scoped.includes(:department, :area).page(params[:page])

@@ -6,7 +6,7 @@ module PublicActivityHelper
 			if activity.owner_id == current_user.id
 				str += "You "
 			else
-				str += activity.owner.name + " "
+				str += activity.owner.to_s
 			end
 			str += trackable_text
 			str += link_to activity.trackable.name, activity.trackable
@@ -23,7 +23,7 @@ module PublicActivityHelper
 			if activity.owner_id == current_user.id
 				str += "You "
 			else
-				str += activity.owner.name + " "
+				str += activity.owner.to_s
 			end
 			str += trackable_text
 			str += link_to activity.trackable.issue.name, activity.trackable.issue

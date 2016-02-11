@@ -1,0 +1,12 @@
+The data collection feature will be used to collect data around the different processes that the business has. Below are some features and explanation of how it works.
+
+1) The business will have access / control over which data that gets collected
+2) structure : Collection model (name, description, frequency information)
+               Collection model will have many fields which will be created by the business depending on the needs.
+
+               More than likly will have to implement with postgres database (JSON / object coloum type)
+3) Javascript implementation of the frequency to alert the user
+	Maybe implement a time server to send notifications directly to the user depending on the frequecy 
+4) Analyse data collected (rake task) inform user / business
+    Create an algorithm that will analyse the data 
+5) Report any information to user (emails, text messaging and notifications)

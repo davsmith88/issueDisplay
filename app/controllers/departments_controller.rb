@@ -1,4 +1,7 @@
 class DepartmentsController < ApplicationController
+
+	load_and_authorize_resource
+
 	def index
 		@active_departments = true
 		@departments = scoped.page(params[:page])
@@ -13,7 +16,7 @@ class DepartmentsController < ApplicationController
 
 	def create
 		@department = Department.new(department_params)
-		@department.business_id = current_user.business.id
+		# @department.business_id = current_user.business.id
 		respond_to do |format|
 			if @department.save
 				format.html {redirect_to departments_path}
@@ -56,6 +59,7 @@ class DepartmentsController < ApplicationController
 	end
 
 	def scoped
-		current_user.business.departments
+		# current_user.business.departments
+		Department.all
 	end
 end

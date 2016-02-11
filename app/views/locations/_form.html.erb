@@ -1,0 +1,6 @@
+<%= form_for [@da, @location],builder: MyFormBuilder, html: {class: 'form-horizontal'} do |f| %>
+  <%= f.text_field :code, placeholder: "Enter in a code" %>
+  <%= f.text_field :name, placeholder: "Enter in a name" %>
+  <%= f.text_field :info, placeholder: "Enter in some info" %>
+  <%= f.submit "Save", label: "Actions", class: 'btn btn-primary' %>
+<% end %>

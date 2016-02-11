@@ -1,0 +1,10 @@
+console.log("ajax media/new");
+
+$('.modal-title').text("Add a new Image");
+if($('.modal-header p').length == 0){
+	$('.modal-header').append("<p><i>Click on an image to assign to a step</i></p>");
+}
+// $("#modal_body").html("<%= j (render partial: 'form') %>");
+$("#modal_body").html("<%= j (render partial: 'select') %>");
+
+$('#myModal').modal('show');

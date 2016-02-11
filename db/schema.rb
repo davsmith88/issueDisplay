@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150205012332) do
+ActiveRecord::Schema.define(version: 20160125075951) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -95,6 +95,18 @@ ActiveRecord::Schema.define(version: 20150205012332) do
     t.integer  "business_id"
   end
 
+  create_table "detailed_steps", force: true do |t|
+    t.string   "number"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "issue_id"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
   create_table "grants", force: true do |t|
     t.integer  "right_id"
     t.integer  "role_id"
@@ -106,17 +118,15 @@ ActiveRecord::Schema.define(version: 20150205012332) do
     t.text     "caption"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "album_id"
     t.string   "picture_file_name"
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
-    t.string   "imageable_type"
-    t.integer  "imageable_id"
+    t.string   "location"
+    t.string   "description"
+    t.string   "name"
+    t.string   "location_id"
   end
-
-  add_index "images", ["imageable_id"], name: "index_images_on_imageable_id"
-  add_index "images", ["imageable_type"], name: "index_images_on_imageable_type"
 
   create_table "impacts", force: true do |t|
     t.string   "name"
@@ -141,15 +151,18 @@ ActiveRecord::Schema.define(version: 20150205012332) do
     t.integer  "view_counter"
     t.integer  "user_id"
     t.integer  "impact_id"
-    t.integer  "department_area_id"
-    t.datetime "review_date"
+    t.date     "review_date"
     t.string   "i_type"
     t.string   "author"
     t.string   "state"
     t.integer  "business_id"
+    t.integer  "department_area_id"
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
   end
 
-  add_index "issues", ["department_area_id"], name: "index_issues_on_department_area_id"
   add_index "issues", ["impact_id"], name: "index_issues_on_impact_id"
   add_index "issues", ["user_id"], name: "index_issues_on_user_id"
 
@@ -163,6 +176,26 @@ ActiveRecord::Schema.define(version: 20150205012332) do
   end
 
   add_index "jobs", ["department_area_id"], name: "index_jobs_on_department_area_id"
+
+  create_table "locations", force: true do |t|
+    t.string   "code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "department_area_id"
+    t.string   "name"
+    t.string   "info"
+  end
+
+  create_table "media", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "imageable_id"
+    t.string   "imageable_type"
+    t.integer  "image_id"
+  end
+
+  add_index "media", ["image_id"], name: "index_media_on_image_id"
+  add_index "media", ["imageable_id", "imageable_type"], name: "index_media_on_imageable_id_and_imageable_type"
 
   create_table "notes", force: true do |t|
     t.text     "context"
@@ -268,6 +301,7 @@ ActiveRecord::Schema.define(version: 20150205012332) do
     t.string   "title"
     t.integer  "business_id"
     t.boolean  "creator"
+    t.string   "permType"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

@@ -1,3 +1,5 @@
+hello
+
 <%= render template: "issues/show" %>
 <div class='row'>
 	<div class='col-sm-12'>
@@ -8,17 +10,19 @@
 		      More <span class="caret"></span>
 		    </a>
 		    <ul class="dropdown-menu" role="menu">
-		      <li><%= solutions %></li>
-			  <li><%= att_sol %></li>
-			  <li><%= images %></li>
+		      <li><%= link_to("Solutions", show_solutions_issue_path(@issue)) %></li>
+			  	<li><%= link_to("Steps", show_steps_issue_path(@issue)) %></li>
+			  
 		    </ul>
 		  </li>
 		</ul>
 		<ul class="nav nav-tabs hidden-xs" role="tablist">
 			  <li <%= @active_workarounds == true ? "class=active" : "" %>><%= workaround %></li>
-			  <li <%= @active_solutions == true ? "class=active" : "" %>><%= solutions %></li>
-			  <li <%= @active_att_sol == true ? "class=active" : "" %>><%= att_sol %></li>
-			  <li <%= @active_images == true ? "class=active" : "" %>><%= images %></li>
+			  <li <%= @active_solutions == true ? "class=active" : "" %>><%= link_to("Solutions", show_solutions_issue_path(@issue)) %></li>
+			  <li <%= @active_steps == true ? "class=active" : "" %>><%= link_to("Steps", show_steps_issue_path(@issue)) %></li>
+			
+			  
+			 
 		</ul>
 		<div class='container-fluid'>
 			<div class='row'>

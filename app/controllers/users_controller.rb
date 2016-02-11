@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
 	
+	authorize_resource
 	# need to be implemented, take view out of admin static
 	# def index
 
 	# end
+
 
 	def new
 		@user = User.new
@@ -74,7 +76,7 @@ class UsersController < ApplicationController
 	private
 
 	def user_params
-		params.require(:user).permit(:email, :password, :password, :name, :title)
+		params.require(:user).permit(:email, :password, :password, :name, :title, :permType)
 	end
 
 	def scoped

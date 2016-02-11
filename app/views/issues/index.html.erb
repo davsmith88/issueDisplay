@@ -3,18 +3,24 @@
 <% end %>
 
 <div class='row'>
-	<div class='col-xs-7 col-sm-7'>
+	<div class='col-sm-7'>
 		<h3>Published Issues</h3>
 	</div>
-	<div class='col-xs-5 col-sm-5'>
+	<div class='col-sm-5'>
+		<select id='l-issue-select' class='form-control'>
+		<option <%= @loc.to_i == 0 ? 'selected' : '' %> disabled>Choose a Department / Area</option>
+			<% @locations.each do |l| %>
+				<option <%= @loc.to_i == l.id ? 'selected' : "" %> value='<%= l.id %>'><%= l.name %></option>
+			<% end %>
+		
+	</select>
 		<%= link_to "Create New Issue", new_issue_path, class: "btn btn-default spacing center_button" if @create %>
 	</div>
 </div>
-<table class='table'>
+<table class='table' id='i-table'>
 	<tr>
-		<th class="col-xs-5 col-sm-3">Name</th>
-		<th width="col-xs-5 col-sm-7">Description</th>
-		<th class='hidden-xs'>Options</th>
+		<th class="col-xs-5 col-sm-4">Name</th>
+		<th width="col-xs-5 col-sm-8">Description</th>
 	</tr>
 	<%= render partial: "issues/collections/index_row", collection: @issues, as: :issue %>
 </table>

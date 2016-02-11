@@ -30,7 +30,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 gem 'devise'
-gem 'paperclip', "3.5.3"
+gem 'paperclip', github: 'thoughtbot/paperclip'
 gem 'will_paginate', '~> 3.0'
 gem 'will_paginate-bootstrap'
 gem 'rails_best_practices', '~> 1.15.4'
@@ -39,20 +39,23 @@ gem 'rails_best_practices', '~> 1.15.4'
 
 # gem "bullet", :group => "development"
 
+gem 'cancancan', '~> 1.10'
+
 gem 'state_machine'
 gem 'public_activity'
 gem 'paper_trail', '~> 3.0.2'
 
  gem 'faker'
+ gem 'test-unit'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
 
-group :production do
-  gem 'rails_12factor'
-end
+# group :production do
+#   gem 'rails_12factor'
+# end
 
 group :development do
   gem 'quiet_assets'
@@ -60,11 +63,14 @@ group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem "awesome_print"
+  gem 'meta_request'
   # gem 'jazz_hands'
 end
 
 group :development, :test do
-	gem 'rspec-rails', '2.13.1'
+  gem 'rspec-rails', '2.13.1'
+	# gem 'rspec-rails', '2.13.1'
+  # gem 'rspec-rails', '3.4'
 	gem 'shoulda-matchers'
   gem 'factory_girl_rails'
 end
@@ -92,3 +98,6 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem 'rails_12factor', group: :production
+ruby "2.2.0"

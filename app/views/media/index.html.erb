@@ -1,0 +1,32 @@
+<h1>Listing media</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Location</th>
+      <th>Description</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @media.each do |medium| %>
+      <%= debug medium %>
+      <tr>
+        <td><%#= medium.location %></td>
+        <td><%#= medium.description %></td>
+        <td><%= link_to 'Show', detailed_step_medium_path(medium.imageable_id, medium) %></td>
+        <td><%= link_to 'Edit', edit_detailed_step_medium_path(medium.imageable_id, medium) %></td>
+        <td><%= link_to 'Destroy', detailed_step_medium_path(medium.imageable_id, medium), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= image_tag medium.image.picture.url(:thumb) if medium.image %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Medium', new_detailed_step_medium_path(@dt) %>

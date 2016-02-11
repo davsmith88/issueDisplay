@@ -108,4 +108,24 @@ module IssueHelper
 	  	end
 	  	raw(str)
 	  end 
+
+	# def tab_name(workaround)
+	# 	case workaround
+	# 		when "steps"
+	# 			link_to("Workarounds",show_workarounds_issue_path(@issue))
+	# 		when 'workarounds'
+				
+	# 		when 'solutions'	
+	# 			link_to("Solutions", show_solutions_issue_path(@issue))
+	# 	end
+	# end
+
+	def select_which_add_link(name)
+		case name
+			when "solutions"
+				link_to("Add One Today", new_issue_solution_path(@issue), class: "btn btn-primary btn-sm")
+			when "workarounds"
+				link_to("Add one Today", new_issue_issue_workaround_path(@issue), class: "btn btn-primary btn-sm" )
+		end
+	end
 end

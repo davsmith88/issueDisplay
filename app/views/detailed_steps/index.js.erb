@@ -1,0 +1,3 @@
+$("#tab-holder").html("<%= j (render partial: 'issues/show_step_table', locals: {list: @detailed_steps, a: local_assigns}) %>");
+$("#tab-list li").removeClass('active');
+$("#tab_step").addClass('active');

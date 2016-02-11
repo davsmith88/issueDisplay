@@ -1,5 +1,7 @@
 class AdminBusinessController < ApplicationController
 
+	authorize_resource class: false #there is no class for this controller
+
 	before_action :get_business, only: [:edit, :update]
 
 	def edit

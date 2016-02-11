@@ -1,0 +1,18 @@
+
+	<td><%= workaround.number %></td>
+	<td>
+		<%= workaround.description %>
+		<% if can? :update, DetailedStep %>
+			
+			<p>
+			
+				<%= link_to "Edit", edit_issue_detailed_step_path(@issue, workaround), class: 'btn btn-default btn-xs', remote: true, authenticity: true %>
+				<%= link_to "Destroy", issue_detailed_step_path(@issue, workaround),
+				class: "btn btn-default btn-xs",remote: true, method: :delete, data: {confirm: "Are you sure you want to delete?"}  %>
+				<%= link_to "Add Image", new_medium_path(type: 'DetailedStep', type_id: workaround.id, department_area_id: @issue.department_area), class: "add-image btn btn-default btn-xs", data: {step_id: workaround.id}, remote: true, authenticity: true %>
+		<% end %>
+	</p>
+	</td>
+	<td>
+		<%= image_tag workaround.medium.image.picture.url(:thumb) if workaround.medium != nil  %>
+	</td>

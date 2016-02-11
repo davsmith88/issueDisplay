@@ -1,0 +1,5 @@
+<% @images.each do |i| %>
+	<p><%= i.name %>
+	<%= image_tag i.picture.url(:thumb) %>
+	</p>
+<% end %>

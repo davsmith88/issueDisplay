@@ -10,14 +10,8 @@
 			<tr>
 
 			</tr>
-			<% workaround.images.each do |image| %>
-				<tr><td><%= image_tag image.picture.url(:thumb) %></td>
-					<td>
-						<%= link_to "edit", edit_issue_workaround_image_path(workaround, image), class: "btn btn-default" if @image_edit %>
-						<%= link_to "Delete", issue_workaround_image_path(workaround, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure yo want to delete"} if @image_destroy %>
-					</td>
-				</tr>
-			<% end %>
+			<td><%= image_tag workaround.medium.image.picture.url(:thumb) %></td>
+			
 		</table>
 	</td>
 </tr>

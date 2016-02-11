@@ -2,27 +2,27 @@ class ApplicationController < ActionController::Base
 	include PublicActivity::StoreController
   	protect_from_forgery with: :exception
 
-  	before_filter :check_controller_name
-  
-
+	before_action :authenticate_user!
+  	
+  	# check_authorization #used for cancancan authorization
+	check_authorization :unless => :devise_controller?
 
  	rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+ 	rescue_from CanCan::AccessDenied, with: :no_permission
 
   	protected
 
-  	def record_not_found
-  		redirect_to "/404.html"
+  	def no_permission(exception)
+  		respond_to do |format|
+			format.html {redirect_to issues_path, alert: exception.message}
+ 		end
+  	end
+
+  	def record_not_found(exception)
+  		redirect_to issues_path, alert: "The issue the ID '#{params[:id]}' does not exist"
   	end
 
   	private
-
- #  	def permissions
-	# 	if current_user
-	# 		@edit = current_user.can?("edit", controller_name)
-	# 		@destroy = current_user.can?("destroy", controller_name)
-	# 		@create = current_user.can?("new", controller_name)
-	# 	end
-	# end
 
 	# def check_intro
 	# 	business = current_user.business
@@ -45,21 +45,4 @@ class ApplicationController < ActionController::Base
 	# 		business.save
 	# 	end
 	# end
-
-
-	def check_controller_name
-		# puts "----> #{controller_name} #{action_name}"
-		name = controller_name
-		if name != 'static_pages' and name != 'sessions' and name != 'json_sessions'
-			authenticate_user!
-			check_authorization
-		end
-	end
-
-
-  	def check_authorization
-	  	unless current_user.can?(action_name, controller_name)
- 			redirect_to home_path, notice: "User cannot access this resource"
-	  	end
-	end
 end

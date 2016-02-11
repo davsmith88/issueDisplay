@@ -2,29 +2,10 @@
 	Edit an Issue
 <% end %>
 
-<% content_for :third_level_layout do %>
+
 	<br>
 	<%= form_for @issue, builder: MyFormBuilder, :html => { :multipart => true, class: "form-horizontal" } do |form| %>
 		<%= render partial: 'issues/form', locals: {form: form} %>
-		<div class='form-group'>
-			<label class='col-sm-2 control-label'>Publish Options</label>
-			<div class='col-sm-10'>
-				<% if @issue.state?(:draft) %>
-					<p><%= link_to "Push to Review", draft_to_review_issue_path, class: "btn btn-default" %></p>
-				<% elsif @issue.state?(:review) %>
-					<%= link_to "View Notes", issue_notes_path(@issue), class: "btn btn-default" %>
-					
-					<% if @issue.notes.where(checked: false).length == 0 %>
-						<p><%= link_to "Review to Draft", review_to_draft_issue_path, class: "btn btn-default" %></p>
-					<% else %>
-						<%= @issue.notes.where(checked: false).length %> - Notes are Available
-						they need to be correctified to be able to submit for review again
-					<% end %>
-				<% else %>
-					<p><%= link_to "Publish to Draft", publish_to_draft_issue_path, class: "btn btn-default" %></p>
-				<% end %>
-			</div>
-		</div>
+
 
 	<% end %>
-<% end %>

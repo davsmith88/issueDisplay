@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @detailed_step.number %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @detailed_step.description %>
+</p>
+
+
+<p>
+	<%= image_tag @detailed_step.image.url(:thumb) %>
+</p>
+
+<%= link_to 'Edit', edit_issue_detailed_step_path(@issue, @detailed_step) %> |
+<%= link_to 'Back', issue_detailed_steps_path(@issue) %>

@@ -1,11 +1,13 @@
 class AdminController < ApplicationController
+	# skip_authorization_check
+	authorize_resource class: false
 
 	def index
 		render layout: "admin_layout"
 	end
 
 	def show
-		
+		# authorize! :show, :admin
 	end
 
 	def users

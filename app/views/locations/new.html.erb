@@ -1,0 +1,15 @@
+<% content_for :title do %>
+	Add a new Location
+<% end %>
+
+<% content_for :breadcrumb do %>
+	<li>Department / Area's</li>
+	<li>Locations</li>
+	<li class='active'>new</li>
+<% end %>
+
+<h4>New location</h4>
+
+<%= render 'form' %>
+
+<%= link_to 'Back', department_area_locations_path %>

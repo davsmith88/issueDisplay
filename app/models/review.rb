@@ -5,7 +5,17 @@ class Review < ActiveRecord::Base
 	belongs_to :issue
 	belongs_to :user
 	has_many :records, as: :recordable
-	has_many :images, as: :imageable, dependent: :destroy
+	# has_many :images, as: :imageable, dependent: :destroy
+
+	has_one :medium, as: :imageable, dependent: :destroy
+
+	def build
+		if medium
+			medium
+		else
+			build_medium
+		end
+	end
 
 	validates :description, presence: {message: "Workaround needs to have a description"}
 	validate :assign_review_date

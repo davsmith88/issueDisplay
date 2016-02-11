@@ -7,7 +7,8 @@ class BIssueController < ApplicationController
 	# before_action :other_permissions
 
 	def show
-		@images = @issue.images
+		# @images = @issue.images
+		@images = []
 		@issue_workarounds = @issue.issue_workarounds.includes(:images)
 
 
@@ -91,12 +92,14 @@ class BIssueController < ApplicationController
 
 	def edit_workaround
 		@active_workarounds = true
-		@workarounds = return_array @issue.issue_workarounds.includes(:images)
+		# @workarounds = return_array @issue.issue_workarounds.includes(:images)
+		@workarounds = @issue.issue_workarounds
 	end
 
 	def edit_solutions
 		@active_solutions = true
-		@solutions = return_array @issue.solutions.includes(:images)
+		# @solutions = return_array @issue.solutions.includes(:images)
+		@solutions = @issue.solutions
 	end
 
 	def edit_attempted_solutions
@@ -104,22 +107,27 @@ class BIssueController < ApplicationController
 		@attempted_solutions = return_array @issue.attempted_solutions.includes(:images)
 	end
 
-	def show_workarounds
-		@active_workarounds = true
-		@issue_workarounds = @issue.issue_workarounds.includes(:images)
-		# render layout: "show_issue"
-	end
+	# def show_workarounds
+	# 	@active_workarounds = true
+	# 	@issue_workarounds = @issue.issue_workarounds.includes(:images)
+	# 	# render layout: "show_issue"
+	# end
 
 	def show_images
 		@active_images = true
 		@images = @issue.images
 	end
 
-	def show_solutions
-		@active_solutions = true
-		@solutions = @issue.solutions
-		# render layout: "show_issue"
-	end
+	# def show_solutions
+	# 	@active_solutions = true
+	# 	@solutions = @issue.solutions
+	# 	# render layout: "show_issue"
+	# end
+
+	# def show_steps
+	# 	@active_steps = true
+	# 	@steps = @issue.detailed_steps
+	# end
 
 	def show_attempted_solutions
 		@active_att_sol = true
@@ -145,7 +153,7 @@ class BIssueController < ApplicationController
 		end
 
 		def issue_params
-			params.require(:issue).permit(:name, :description, :impact_id, :department_area_id, :review_date, :i_type)
+			params.require(:issue).permit(:name, :description, :impact_id, :department_area_id, :review_date, :picture, :i_type)
 		end
 
 		def return_array(data)

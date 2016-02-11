@@ -1,5 +1,7 @@
 class IssueManagementController < BIssueController
 
+	authorize_resource class: false
+
 	# before_action :check_intro
 	# before_action :get_dep_area, only: [:new, :create, :edit,:edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
 	# before_action :get_impacts, only: [:new, :create, :edit, :edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
@@ -18,8 +20,9 @@ class IssueManagementController < BIssueController
 	def view
 		@active_workarounds = true
 		@issue = scoped.issues.find(params[:issue_management_id])
-		@issue_workarounds = scoped.issues.find(@issue).issue_workarounds
-		render layout: "show_issue_admin"
+		@list = scoped.issues.find(@issue).issue_workarounds
+		# render layout: "show_issue_admin"
+		render layout: "layouts/show_issue_admin", partial: "issues/show_review_table", locals: {list: @list}
 	end
 
 	def new
@@ -47,7 +50,15 @@ class IssueManagementController < BIssueController
 
 	def update
 		super
-		redirect_to issue_management_view_path(@issue)
+		respond_to do |format|
+			if @issue.update(issue_params)
+				flash[:admin_notice] = "Issue was updated successfully"
+				format.html { redirect_to issue_management_view_path(@issue) }
+			else
+				flash.now[:admin_alert] = "Issue is not valid"
+				format.html {render action: 'edit' }
+			end
+		end
 	end
 
 	def destroy
@@ -55,18 +66,15 @@ class IssueManagementController < BIssueController
 		redirect_to issue_management_index_path
 	end
 
-	def edit_images
-		# @active_images = true
-		# @images = @issue.images
-		super
-		render layout: "admin_layout", template: "issues/edit_images"
-	end
-
 	def edit_workaround
 		# @active_workarounds = true
 		# @workarounds = return_array @issue.issue_workarounds.includes(:images)
 		super
+		# Below lines are tempory to get everything up and running
 		@admin = true
+		@workaround_create = true
+
+
 		render layout: "admin_layout", template: "issues/edit_workaround"
 	end
 
@@ -74,34 +82,33 @@ class IssueManagementController < BIssueController
 		# @active_solutions = true
 		# @solutions = return_array @issue.solutions.includes(:images)
 		super
+		@solution_create = true
 		@admin = true
+		# render layout: "admin_layout", template: "issues/edit_solutions"
+		# render layout: "admin_layout", template: "issues/show_review_table"
 		render layout: "admin_layout", template: "issues/edit_solutions"
-	end
-
-	def edit_attempted_solutions
-		# @active_att_sol = true
-		# @attempted_solutions = return_array @issue.attempted_solutions.includes(:images)
-		super
-		@admin = true
-		render layout: "admin_layout", template: "issues/edit_attempted_solutions"
 	end
 
 	def show_workarounds
 		@active_workarounds = true
-		@list = @issue.issue_workarounds.includes(:images)
-		render layout: "show_issue_admin", template: "issues/show_workarounds"
+		@name = 'workarounds'
+		@list = @issue.issue_workarounds
+		render layout: "layouts/show_issue_admin", partial: "issues/show_review_table", locals: {list: @list}
 	end
 
 	def show_solutions
 		@active_solutions = true
+		@name = 'solutions'
 		@list = @issue.solutions
-		render layout: "show_issue_admin", template: "issues/show_solutions"
+		# render layout: "show_issue_admin", template: "issues/show_solutions"
+		render partial: "issues/show_review_table", layout: 'layouts/show_issue_admin', locals: {list: @list}
 	end
 
-	def show_attempted_solutions
-		@active_att_sol = true
-		@list = @issue.attempted_solutions
-		render layout: "show_issue_admin", template: "issues/show_attempted_solutions"
+	def show_steps
+		@active_steps = true
+		@issue = Issue.find(params[:id])
+		@list = @issue.detailed_steps
+		render partial: "issues/show_step_table", layout: 'layouts/show_issue_admin', locals: {list: @list}
 	end
 
 	private
@@ -115,7 +122,7 @@ class IssueManagementController < BIssueController
 	# end
 
 	def issue_params
-		params.require(:issue).permit(:name, :description, :impact_id, :department_area_id, :review_date, :i_type)
+		params.require(:issue).permit(:name, :description, :impact_id, :department_area_id, :review_date, :picture ,:i_type)
 	end
 
 

@@ -1,11 +1,14 @@
-<ol class="breadcrumb">
-  <li><a href="#">issues</a></li>
-  <li><a href="#">Edit</a></li>
-  <li><a href="#">Solution</a></li>
-  <li class="active">Add Image</li>
-</ol>
+<% content_for :title do %>
+	Add New Image
+<% end %>
+
+<% content_for :breadcrumb do %>
+	<li>Image Management</li>
+	<li class='active'>Add Image</li>
+<% end %>
+
 <h3>Add image</h3>
 <p>Select a file to upload. Needs to be either a .jpg, .pgn or .gif</p>
-<%= form_for [@issue,@review, @rr], builder: MyFormBuilder, :html => { :multipart => true, class: "form-horizontal" } do |form| %>
+<%= form_for @rr, builder: MyFormBuilder, :html => { :multipart => true, class: "form-horizontal" } do |form| %>
 	<%= render partial: 'form', locals: {form: form} %>
 <% end %>

@@ -1,0 +1,5 @@
+// console.log("ajax reviews#edit")
+
+$('#myModalLabel').text('Edit the <%= @class %>')
+$('#modal_body').html("<%= j (render partial: 'reviews/form') %>");
+$('#myModal').modal('show')

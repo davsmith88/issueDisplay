@@ -1,0 +1,13 @@
+console.log('ajax reviews#create');
+console.log("review_table_<%= @name %>")
+
+$('#review_table_<%= @name %>').append("<tr data-r-id='<%= @review.id %>'><%= j (render partial: 'issues/show_review_table_row', locals: {workaround: @review}) %></tr>");
+
+
+$('#myModal').modal('hide');
+$('#no-row-alert').hide();
+
+if(<%= @reviews.count %> > 0){
+	console.log('a')
+	$('#review_table_<%= @name %>').show();
+}

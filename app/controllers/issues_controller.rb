@@ -1,13 +1,23 @@
 class IssuesController < BIssueController
+	load_and_authorize_resource
 	# before_action :check_intro
 	# before_action :find_issue, only: [:show, :edit, :update, :destroy, :edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions, :show_workarounds, :show_attempted_solutions, :show_solutions]
 	# before_action :get_dep_area, only: [:new, :create, :edit,:edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
 	# before_action :get_impacts, only: [:new, :create, :edit, :edit_images, :edit_basic, :edit_workaround, :edit_solutions, :edit_attempted_solutions]
 	# before_action :other_permissions
 
-
 	def index
-		@issues = current_user.business.issues.where(state: "publish").order(created_at: :desc).page(params[:page])
+		if params.has_key?(:loc)
+			@loc = params[:loc]
+			@issues = current_user.business.issues.where(state: "publish", department_area_id: @loc).order(created_at: :desc).page(params[:page])
+		else
+			@issues = current_user.business.issues.where(state: "publish").order(created_at: :desc).page(params[:page])
+
+		end
+		
+		@locations = DepartmentArea.all
+		# @issues = current_user.business.issues.where(state: "publish").order(created_at: :desc).page(params[:page])
+		# authorize! :read, Issue
 	end
 
 	def show
@@ -17,11 +27,12 @@ class IssuesController < BIssueController
 
 
 		# # Issue.increment_counter(:view_counter, @issue.id)
-		# @active_workarounds = true
-		# @workarounds = @issue.issue_workarounds
 		super
-		@list = @issue.issue_workarounds
-		render layout: "show_issue", template: "issues/show_workarounds"
+		@type = 'IssueWorkaround'
+		@name = 'workarounds'
+		render partial: 'issues/show_review_table',
+			layout: 'displaytab',
+			locals: {list: @issue.issue_workarounds, name: 'workarounds'}
 	end
 
 	def draft_to_review
@@ -58,6 +69,7 @@ class IssuesController < BIssueController
 		super
 		respond_to do |format|
 			format.html {render action: 'new'}
+			format.json
 		end
 	end
 
@@ -73,28 +85,37 @@ class IssuesController < BIssueController
 		end
 	end
 
-	def show_workarounds
-		# @active_workarounds = true
-		super
-		@list = @issue.issue_workarounds
-		render layout: "show_issue"
-	end
+	# def show_workarounds
+	# 	super
+	# 	render partial: 'issues/show_review_table',
+	# 		layout: 'displaytab',
+	# 		locals: {list: @issue.issue_workarounds, name: 'workarounds'}
+	# end
 
-	def show_solutions
-		# @active_solutions = true
-		# @solutions = @issue.solutions
-		super
-		@list = @issue.solutions
-		render layout: "show_issue"
-	end
+	# def show_solutions
+	# 	super
+	# 	render partial: 'issues/show_review_table',
+	# 		layout: 'displaytab',
+	# 		locals: {list: @issue.solutions, name: 'solutions'}
+	# end
 
-	def show_attempted_solutions
-		# @active_att_sol = true
-		# @att_sol = @issue.attempted_solutions
-		super
-		@list = @issue.attempted_solutions
-		render layout: "show_issue"
-	end
+	# def show_steps
+	# 	super
+	# 	render partial: "issues/show_step_table",
+	# 		layout: 'displaytab',
+	# 	 	locals: {list: @issue.detailed_steps}
+	# end
+
+	# def show_attempted_solutions
+	# 	# @active_att_sol = true{workaround: link_to("Workarounds",show_workarounds_issue_path(@issue)), solutions: link_to("Solutions", show_solutions_issue_path(@issue)), 
+	# 	steps: link_to("Steps", show_steps_issue_path(@issue)),
+	# 	att_sol: link_to("Attempted Solutions", show_att_sol_issue_path(@issue)),
+	# 	images: link_to("Images", show_images_issue_path(@issue))},
+	# 	# @att_sol = @issue.attempted_solutions
+	# 	super
+	# 	@list = @issue.attempted_solutions
+	# 	render layout: "show_issue"
+	# end
 
 	def show_images
 		super
@@ -106,7 +127,7 @@ class IssuesController < BIssueController
 		# @active_basic = true
 		# @departments = DepartmentArea.all
 		super
-		render layout: "edit_page"
+		# render layout: "edit_page"
 	end
 
 	def edit_images

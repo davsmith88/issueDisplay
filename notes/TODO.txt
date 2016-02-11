@@ -1,0 +1,5 @@
+TODO
+-----
+
+1) Add Users through the admin interface
+2) Better seed data (users, issues and departments/areas at this stage)

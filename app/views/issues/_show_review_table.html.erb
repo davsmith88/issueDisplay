@@ -1,19 +1,31 @@
+
+
+<input type='text' id='controller_type' class='hidden' value='Review' />
 <br>
-<% if list.count < 1 %>
-	<div class='alert alert-info' role='alert'>
-		No <%= name %> are added in yet. <%= link %>
-	</div>
-<% else %>
-	<table class='table'>
+	<table class='table' id='review_table_<%= @name %>' <%= list.count == 0 ? 'style=display:none' : '' %>>
 		<tr>
 			<th>Description</th>
 			<th>Images</th>
 		</tr>
 		<% list.each do |workaround| %>
-			<tr>
-				<td><%= workaround.description %></td>
-				<td><%= display_images(workaround.images) %></td>
+			<tr data-r-id='<%= workaround.id %>'>
+				
+				<%= render partial: 'issues/show_review_table_row', locals: {workaround: workaround} %>
 			</tr>
 		<% end %>
 	</table>
+
+<% if list.count < 1 %>
+  <div id='no-row-alert' class='alert alert-info' role='alert'>
+    No <%= name %> are added in yet.
+  </div>
+<% end %>
+
+
+<% if @type == 'IssueWorkaround' %>
+	<%= link_to "Add a new workaround today", new_issue_issue_workaround_path(@issue), class: 'btn btn-primary btn-sm', remote: true, authenticity: true %>
+<% end %>
+
+<% if @type== 'Solution' %>
+		<%= link_to "Add a new solution today", new_issue_solution_path(@issue), class: 'btn btn-primary btn-sm', remote: true, authenticity: true %>
 <% end %>

@@ -1,0 +1,24 @@
+<%= form_for [@dt, @medium] do |f| %>
+  <% if @medium.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@medium.errors.count, "error") %> prohibited this medium from being saved:</h2>
+
+      <ul>
+      <% @medium.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%#= f.label :image_id %><br>
+    <%#= f.text_field :image_id %>
+  </div>
+
+ 
+ <br>
+  <div class="actions">
+    <%#= f.submit "Add Media" %>
+  </div>
+<% end %>

@@ -1,6 +1,10 @@
 class Department < ActiveRecord::Base
-	belongs_to :issue
-	belongs_to :business
+  has_many :department_areas
+  has_many :areas, through: :department_areas
+
+  has_many :issues, through: :department_areas
+
+	# belongs_to :business
 
 	self.per_page = 8
 

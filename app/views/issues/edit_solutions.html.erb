@@ -10,6 +10,7 @@
 
 <% content_for :third_level_layout  do %>
 	<br>
+	<p>Below is the list of all the solutions for this issue</p>
 		<% if @admin %>
 			<%= link_to "Add Solution", new_issue_management_solution_path(@issue), class: "btn btn-default spacing" if @solution_create %>
 		<% else %>

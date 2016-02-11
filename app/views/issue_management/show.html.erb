@@ -51,14 +51,11 @@
 		    Options <span class="caret"></span>
 		  </button>
 		  <ul class="dropdown-menu" role="menu">
-				<li><%= link_to "History", history_issue_path(@issue) %></li>
 				<li><%= link_to "View", issue_management_view_path(@issue) %></li>
 				<li><%= link_to "Edit", edit_issue_management_path(@issue) %></li>
-				<li class="divider"></li>
-				<li><%= link_to "Edit Workarounds", edit_workaround_issue_management_path(@issue) %></li>
-				<li><%= link_to "Edit Solutions", edit_solutions_issue_management_path(@issue) %></li>
-				<li><%= link_to "Edit Attempted Solutions", edit_attempted_solutions_issue_management_path(@issue) %></li>
-				<li><%= link_to "Edit Images", edit_images_issue_management_path(@issue) %></li>
+				<!-- <li class="divider"></li> -->
+				<li><%#= link_to "Edit Workarounds", edit_workaround_issue_management_path(@issue) %></li>
+				<li><%#= link_to "Edit Solutions", edit_solutions_issue_management_path(@issue) %></li>
 				<li class="divider"></li>
 				<li><%= link_to "Delete", issue_path(@issue), method: :delete, data: {confirm: "Are you sure you want to Delete"} %></li>
 		  </ul>
@@ -68,29 +65,15 @@
 		<label class='col-sm-2 control-label'>Publish Options</label>
 		<div class='col-sm-10'>
 			<% if @issue.draft? %>
-					<%= link_to "Review", draft_to_review_issue_path(@issue), class: "btn btn-default" %>
+					<%= link_to "To Review", draft_to_review_issue_path(@issue), class: "btn btn-default" %>
 				<% elsif @issue.review? %>
-					<%= link_to "Draft", review_to_draft_issue_path(@issue), class: "btn btn-default" %>
-					<%= link_to "Publish", review_to_publish_issue_path(@issue), class: "btn btn-default" %>
-					<%= link_to "Add Note", new_issue_note_path(@issue), class: "btn btn-default"  %>
-
-					<%= link_to "View All current notes", issue_notes_path(@issue), class: "btn btn-default" %>
+					<%= link_to "To Draft", review_to_draft_issue_path(@issue), class: "btn btn-default" %>
+					<%= link_to "To Publish", review_to_publish_issue_path(@issue), class: "btn btn-default" %>
+					
 				<% elsif @issue.publish? %>
-					<%= link_to "Draft", publish_to_draft_issue_path(@issue), class: "btn btn-default" %>
-					<%= link_to "Review", publish_to_review_issue_path(@issue), class: "btn btn-default" %>
+					<%= link_to "To Draft", publish_to_draft_issue_path(@issue), class: "btn btn-default" %>
+					<%= link_to "To Review", publish_to_review_issue_path(@issue), class: "btn btn-default" %>
 				<% end %>
-		</div>
-	</div>
-	<div class='form-group'>
-		<label class='col-sm-2 control-label'>Records</label>
-		<div class='col-sm-10'>
-			<ul>
-				<% @issue.records.each do |record| %>
-					<li><%= record.message %> | <%= record.updated_at %>
-
-					</li>
-				<% end %>
-			</ul>
 		</div>
 	</div>
 </div>

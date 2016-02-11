@@ -1,0 +1,29 @@
+<%= form_for([@issue, @detailed_step]) do |f| %>
+  <% if @detailed_step.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@detailed_step.errors.count, "error") %> prohibited this detailed_step from being saved:</h2>
+
+      <ul>
+      <% @detailed_step.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :number %><br>
+    <%= f.text_field :number %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+  <div class='field'>
+    <%= f.label "Image" %>
+    <%= f.file_field :image %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

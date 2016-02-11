@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @medium.location %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @medium.description %>
+</p>
+
+<%= link_to 'Edit', edit_detailed_step_medium_path(@dt, @medium) %> |
+<%= link_to 'Back', detailed_step_media_path(@dt) %>

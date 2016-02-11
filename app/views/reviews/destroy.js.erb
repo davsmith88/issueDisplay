@@ -1,0 +1,9 @@
+console.log("ajax review/destroy");
+
+$('#review_table_<%= @name %> *[data-r-id="<%= @review.id %>"]').remove();
+
+if(<%= @reviews.count %> == 0){
+	console.log('a')
+	$('#review_table_<%= @name %>').hide();
+	$('#no-row-alert').show();
+}

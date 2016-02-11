@@ -1,5 +1,6 @@
 class ImpactsController < ApplicationController
-
+	load_and_authorize_resource
+	
 	def index
 		@impacts = scoped.page(params[:page])
 		render layout: "admin_layout"
@@ -17,7 +18,7 @@ class ImpactsController < ApplicationController
 
 	def create
 		@impact = Impact.new(impact_params)
-		@impact.business_id = current_user.business.id
+		# @impact.business_id = current_user.business.id
 		respond_to do |format|
 			if @impact.save
 				format.html {redirect_to impacts_path, notice: "An impact has been created"}
@@ -29,12 +30,9 @@ class ImpactsController < ApplicationController
 
 	def destroy
 		@impact = scoped.find(params[:id])
+		@impact.destroy
 		respond_to do |format|
-			if @impact.destroy
-				format.html { redirect_to impacts_path, notice: "Impact has been destroyed" }
-			else
-				format.html { redirect_to impacts_path, alert: "The impact was not destroyed"}
-			end
+			format.html { redirect_to impacts_path, notice: "Impact has been destroyed" }
 		end
 	end
 
@@ -57,6 +55,7 @@ class ImpactsController < ApplicationController
 	end
 
 	def scoped
-		current_user.business.impacts
+		# current_user.business.impacts
+		Impact.all
 	end
 end

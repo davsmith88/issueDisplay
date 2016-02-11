@@ -1,0 +1,4 @@
+$('#tab-holder').html("<%= j (render partial: 'issues/show_review_table', locals: {list: @reviews, name: 's'}) %>")
+console.log('<%= @name %>')  
+$('#tab-list li').removeClass('active');
+$('#tab_<%= @name %>').addClass('active');

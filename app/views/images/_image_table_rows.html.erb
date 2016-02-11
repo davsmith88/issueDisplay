@@ -1,0 +1,11 @@
+<% @images.each do |image| %>
+	<tr>
+		<td><%= image_tag image.picture.url(:thumb) %></td>
+		<td>
+			<p><%= image.name %></p>
+			<%= link_to "Edit", edit_image_path(image), class: "btn btn-default btn-xs" %>
+			<%= link_to "Destroy", image_path(image), class: "btn btn-default btn-xs", method: :delete, data: {confirm: "Are you sure"} %>
+		</td>
+		<td><%= image.created_at %></td>
+	</tr>	
+<% end %>

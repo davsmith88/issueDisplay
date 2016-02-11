@@ -1,5 +1,5 @@
 class Impact < ActiveRecord::Base
-	belongs_to :issue
+	has_many :issues
 	belongs_to :business
 
 	self.per_page = 5

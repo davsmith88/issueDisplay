@@ -1,5 +1,6 @@
 class Issue < ActiveRecord::Base
 	include PublicActivity::Model
+	tracked
 
   	#tracked owner: Proc.new{ |controller, model| controller.current_user }
 	# has_paper_trail :meta => {:department_area_name => :get_department_name,
@@ -48,14 +49,20 @@ class Issue < ActiveRecord::Base
 	has_many :solutions
 	has_many :attempted_solutions
 	has_many :issue_workarounds
-	has_many :images, as: :imageable
+
+	has_many :detailed_steps
+
+	# has_many :images, as: :imageable
+
 	has_many :records, as: :recordable
+	
 	has_many :notes
 
 	belongs_to :department_area
 	belongs_to :impact
 	belongs_to :user
 	belongs_to :business
+
 
 	validates :name, presence: {message: "Issue needs to have a name"}
 	validates :impact_id, numericality: {
@@ -71,6 +78,7 @@ class Issue < ActiveRecord::Base
 		message: "Department Area ID must be an integer only",
 		only_integer: true
 	}, if: "!department_area_id.nil?"
+	
 	validates :review_date, presence: true
 
 	scope :ordered_by_desc, ->{ order("created_at DESC") }
@@ -97,4 +105,11 @@ class Issue < ActiveRecord::Base
 			transition :publish => :review
 		end
 	end
+
+	has_attached_file :picture, styles: {
+		thumb: '100x100>',
+    	square: '200x200#',
+    	medium: '300x300>'
+	}
+	validates_attachment_content_type :picture,{content_type: /^image\/(png|gif|jpeg|jpg)/, message: "only (png/gif/jpeg) files area allowed"}
 end

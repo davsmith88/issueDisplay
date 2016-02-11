@@ -1,0 +1,49 @@
+<% content_for :title do %>
+  Locations
+<% end %>
+
+<% content_for :breadcrumb do %>
+  <li>Department - Areas</li>
+  <li class='active'>Locations</li>
+<% end %>
+
+<div class='row'>
+  <div class='col-sm-8'>
+    <h3>Listing locations</h3>
+  </div>
+  <div class='col-sm-4'>
+    <%= link_to 'New Location', new_department_area_location_path,class: "btn btn-default"  %>
+  </div>
+</div>
+
+<input type='text' id='controller_type' class='hidden' value='Location' />
+<table class='table'>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Name</th>
+      <th>Info</th>
+      <th>Pic</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @locations.each do |location| %>
+      <tr data-step-id=<%= location.id %>>
+        <td><%= location.code %></td>
+        <td><%= location.name %></td>
+        <td><%= location.info %></td>
+        <td><%= image_tag location.medium.image.picture.url(:thumb) if location.medium %></td>
+        <td><%= link_to "Add Image", new_medium_path(department_area_id: location.department_area, type: 'Location', type_id: location.id), class: 'add-image', data: {step_id: location.id}, remote: true %></td>
+        <td><%= link_to 'Edit', edit_department_area_location_path(@da, location), class: "btn btn-default btn-xs" %></td>
+        <td><%= link_to 'Destroy', department_area_location_path(@da, location), class: "btn btn-default btn-xs", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

@@ -1,0 +1,8 @@
+$('#modal_body').html('<%= j (render partial: "quick_add",locals: {place: "new"}) %> ');
+
+// $('#modal_body').html('<%= j (render partial: "quick_add", locals: {type: "update"}) %> ');
+
+$('#myModalLabel').text("Create a new Step")
+// $('#task-form').html("<%= j (render 'quick_add') %>");
+// $('#task-form').slideDown(350);
+$('#myModal').modal('show');

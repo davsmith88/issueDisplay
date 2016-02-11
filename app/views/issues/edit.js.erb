@@ -1,0 +1,5 @@
+console.log('issue edit page')
+
+$('#myModalLabel').text('Edit Issue Information')
+$('#modal_body').html('<%= j (render partial: "edit_form") %>');
+$('#myModal').modal('show');

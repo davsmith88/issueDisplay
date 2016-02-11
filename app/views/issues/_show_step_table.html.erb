@@ -1,0 +1,46 @@
+<input type='text' id='controller_type' class='hidden' value='DetailedStep' />
+
+
+<br>
+<% if list.count < 1 %>
+	<div class='alert alert-info' role='alert'>
+		No Detailed Steps are added in yet. <%= link_to "Add a step today", new_issue_detailed_step_path(@issue), remote: true, class: "btn btn-primary btn-sm" %>
+	</div>
+<% else %>
+	<table class='table' id='step_table'>
+		<tr>
+			<th>Number</th>
+			<th>Description</th>
+			<th>Image</th>
+		</tr>
+		<% local_assigns[:list].each do |workaround| %>
+			<tr data-dt-id='<%= workaround.id %>'>
+			<%= render partial: 'issues/step_table_row', locals: {workaround: workaround} %>
+			</tr>
+		<% end %>
+	</table>
+	<% if can? :create, DetailedStep %>
+		<p><%= link_to("Add One Today", new_issue_detailed_step_path(@issue), class: "btn btn-primary btn-sm", remote: true, authenticity: true) %>
+	<% end %>
+
+
+
+<div id="task-form" style="display:none;"></div>
+
+
+<% end %> 
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Create a New Step</h4>
+      </div>
+      <div class="modal-body container-fluid" id='modal_body'>
+        
+      </div>
+    </div>
+  </div>
+</div>

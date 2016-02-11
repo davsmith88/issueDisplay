@@ -1,9 +1,11 @@
 class NotificationsController < ApplicationController
 
+	authorize_resource class: false
+
 	def activity_feed
 		# what the user does
-		@activities = PublicActivity::Activity.where(owner_id: current_user.id)
-		# @activities = PublicActivity::Activity.all
+		# @activities = PublicActivity::Activity.where(owner_id: current_user.id)
+		@activities = PublicActivity::Activity.all
 	end
 
 	def notification

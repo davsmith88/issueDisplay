@@ -1,22 +1,7 @@
 <tr>
 	<td><%= solution.description %></td>
 	<td class='hidden-xs'>
-		<table class='table'>
-			<tr>
-			</tr>
-			<% solution.images.each do |image| %>
-				<tr>
-					<td>
-						<%= image_tag image.picture.url(:thumb) %>
-					</td>
-					<td>
-
-						<%= link_to "Edit", edit_issue_solution_image_path(@issue, solution, image), class: "btn btn-default" if @image_edit %>
-						<%= link_to "Delete", issue_solution_image_path(@issue, solution, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure you want to delete"} if @image_destroy %>
-					</td>
-				</tr>
-			<% end %>
-		</table>
+		<%= image_tag solution.medium.image.picture.url(:thumb) if solution.medium %>
 	</td>
 	<td>
 		<%#= link_to "Add Image", new_solution_image_path(solution), class: "btn btn-default hidden-xs" if @image_create %>

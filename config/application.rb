@@ -32,5 +32,10 @@ module IssueDisplay
         :request_specs => true
       g.fixture_replacement :factory_girl, dir: "spec/factories"
     end
+
+  # config.to_prepare do
+  #   Devise::SessionsController.layout false
+  # end
+
   end
 end

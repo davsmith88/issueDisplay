@@ -1,5 +1,7 @@
 class AreasController < ApplicationController
 
+	load_and_authorize_resource
+
 	def index
 		@active_areas = true
 		@areas = scoped.page(params[:page])
@@ -57,6 +59,7 @@ class AreasController < ApplicationController
 	end
 
 	def scoped
-		current_user.business.areas
+		# current_user.business.areas
+		Area.all
 	end
 end

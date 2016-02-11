@@ -1,14 +1,20 @@
 class RevController < ApplicationController
 
+	authorize_resource
+
 	before_action :set_type
+	before_action :get_name
 	before_action :get_issue, only: [:new, :create, :index, :edit, :update, :destroy]
 	before_action :get_review, only: [:edit, :update, :destroy]
 	before_action :set_redirect_name, only: [:create, :update, :destroy]
 
 	def index
+		puts type_class
+		puts "--------"
 		@reviews = type_class.all
 	end
 	def new
+		# puts @issue
 		association = @issue.send associated_method
 		@review = association.new
 	end
@@ -48,14 +54,20 @@ class RevController < ApplicationController
 	private
 
 	def set_type
-				puts "----------------"
-		puts params
-		puts "----------------"
+	# 			puts "----------------"
+	# 	puts params
+	# 	puts "----------------"
 		@type = type
 		@class =  params[:type].underscore.humanize
+		puts @class
+	end
+
+	def get_name
+		@name = params[:u]
 	end
 
 	def type
+		puts params[:type]
 		Review.types.include?(params[:type]) ? params[:type] : "Review"
 	end
 
@@ -76,7 +88,7 @@ class RevController < ApplicationController
 
 
 	def get_issue
-		id = params[:issue_id] || params[:issue_management_id]
+		id =  params[:issue_id] || params[:id] || params[:issue_management_id]
 		@issue = Issue.find(id)
 	end
 

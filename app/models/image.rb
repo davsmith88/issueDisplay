@@ -1,7 +1,10 @@
 class Image < ActiveRecord::Base
 
 	# belongs_to :album
-	belongs_to :imageable, :polymorphic => true
+	# belongs_to :imageable, :polymorphic => true
+
+	has_many :media
+	belongs_to :location
 
 	has_attached_file :picture, styles: {
 		thumb: '100x100>',
@@ -13,4 +16,6 @@ class Image < ActiveRecord::Base
 	}
 
 	validates_attachment_content_type :picture,{content_type: /^image\/(png|gif|jpeg|jpg)/, message: "only (png/gif/jpeg) files area allowed"}
+
+	self.per_page = 5
 end

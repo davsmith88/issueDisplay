@@ -1,19 +1,7 @@
 <tr>
 	<td><%= workaround.description %></td>
 	<td class='hidden-xs'>
-		<table class='table'>
-			<tr>
-
-			</tr>
-			<% workaround.images.each do |image| %>
-				<tr><td class='hidden-xs'><%= image_tag image.picture.url(:thumb) %></td>
-					<td>
-						<%#= link_to "edit", edit_issue_issue_workaround_image_path(@issue,workaround, image), class: "btn btn-default" if @image_edit %>
-						<%#= link_to "Delete", issue_issue_workaround_image_path(@issue,workaround, image), class: "btn btn-default", method: :delete, data: {confirm: "Are you sure yo want to delete"} if @image_destroy %>
-					</td>
-				</tr>
-			<% end %>
-		</table>
+		<%= image_tag workaround.medium.image.picture.url(:thumb) if workaround.medium %>
 	</td>
 	<td>
 		<%#= link_to "Add Image", new_issue_workaround_image_path(workaround), class: "btn btn-default hidden-xs" if @image_create %>
