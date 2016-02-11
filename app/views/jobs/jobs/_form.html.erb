@@ -1,9 +1,0 @@
-<%= form.text_field :name, placeholder: "Name" %>
-
-<%= form.text_area :description, class: "form-control", placeholder: "Description" %>
-
-<%= form.select :department_area_id, department_types(@depAreas), {} ,label: "Deparment Area", class: "form-control" %>
-
-<%= form.select :category, Job::TYPES, {},label: "Category", class: "form-control" %>
-
-<%= form.submit "Save", label: "Actions", class: 'btn btn-primary' %>

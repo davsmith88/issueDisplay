@@ -1,5 +1,0 @@
-<h4>Add new Job</h4>
-
-<%= form_for @job, url: jobs_jobs_path(@job) , builder: MyFormBuilder, html: {multipart: true, class: "form-horizontal", role: "form"} do |form| %>
-	<%= render partial: 'form', locals: {form: form} %>
-<% end %>
