@@ -4,7 +4,7 @@
 
 <div class='form-horizontal'>
 	<div class='row'>
-		<div class='col-sm-12'>
+		<div class='col-sm-6'>
 			<div class='form-group'>
 				<label class='col-sm-2 control-label'>Name</label>
 				<div class='col-sm-10'>
@@ -63,8 +63,27 @@
 					<%= image_tag @issue.picture.url(:medium) if @issue.picture %>
 				</div>
 			</div>
+		
 	</div>
-
+	<div class='col-sm-6'>
+		<%# if @issue.howTo == 'true' %>
+			<div class='col-sm-6'>
+				<h4>How to window</h4>
+			</div>
+			<div class='col-sm-6'>
+				<% if can? :create, DetailedStep %>
+					<%= link_to "Add How To", new_issue_detailed_step_path(@issue), class: "btn btn-default" %>
+				<% end %>
+			</div>
+			<div class='col-sm-12'>
+			<ul>
+			<% @steps.each do |step|  %>
+				<li><%= step.number %> | <%= step.description %> | potential image holder | </li>
+			<% end %>
+			</ul>
+			</div>
+		</div>
+	<%# end %>
 		
 	
 

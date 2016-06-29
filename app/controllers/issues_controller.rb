@@ -28,6 +28,7 @@ class IssuesController < BIssueController
 
 		# # Issue.increment_counter(:view_counter, @issue.id)
 		super
+		@steps = @issue.detailed_steps.all
 		@type = 'IssueWorkaround'
 		@name = 'workarounds'
 		render partial: 'issues/show_review_table',

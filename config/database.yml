@@ -15,5 +15,5 @@ development:
   encoding: unicode
   database: issuemanager_development
   pool: 5
-  username: myapp
+  username: dave
   password: helloworld

@@ -9,6 +9,7 @@ class BIssueController < ApplicationController
 	def show
 		# @images = @issue.images
 		@images = []
+		@steps = @issue.detailed_steps.all
 		@issue_workarounds = @issue.issue_workarounds.includes(:images)
 
 
@@ -153,7 +154,7 @@ class BIssueController < ApplicationController
 		end
 
 		def issue_params
-			params.require(:issue).permit(:name, :description, :impact_id, :department_area_id, :review_date, :picture, :i_type)
+			params.require(:issue).permit(:name, :description, :impact_id, :department_area_id, :review_date, :picture, :i_type, :preferences => [:howTo] )
 		end
 
 		def return_array(data)

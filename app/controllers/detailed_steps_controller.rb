@@ -1,5 +1,9 @@
 class DetailedStepsController < ApplicationController
-  authorize_resource
+  # authorize_resource
+  # need to load and authorize both the resource and the parent resource
+  load_and_authorize_resource :issue
+  load_and_authorize_resource :detailed_step, :through => :issue
+
   before_action :set_issue_detailed_steps, except: [:show, :index]
   before_action :set_detailed_step, only: [:edit, :update, :destroy]
   # before_action :find_issuse, only: [:index, :show, :create]

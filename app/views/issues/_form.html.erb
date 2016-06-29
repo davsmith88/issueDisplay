@@ -2,6 +2,9 @@
 <%= form.text_area :description, class: "form-control", placeholder: "Description" %>
 <%= form.select :i_type, options_for_select(Issue::TYPES),{} ,label: "Type", class: "form-control" %>
 <%= form.select :department_area_id, department_types(@depAreas), {} ,label: "Deparment Area", class: "form-control" %>
+<%= form.fields_for :preferences do |p| %>
+	<%= p.select :howTo, options_for_select([false, true],@issue.howTo), {}, label: "Is there a how to?", class: 'form-control' %>
+<% end %>
 <%= form.select :impact_id, impacts(@impacts, @issue), {} ,label: "Impacts", class: "form-control" %>
 <%= form.date_field :review_date, class: 'form-control' %>
 <%= form.file_field :picture, class: "form-control" %>

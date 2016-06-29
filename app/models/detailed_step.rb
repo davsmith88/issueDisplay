@@ -1,4 +1,7 @@
 class DetailedStep < ActiveRecord::Base
+
+	before_create :check
+
 	belongs_to :issue
 
 	validates :number, presence: {message: "Step must have an index number"}
@@ -20,5 +23,28 @@ class DetailedStep < ActiveRecord::Base
        else
            build_medium
        end
+    end
+
+    def check
+    	# method checks to see whether the user is able to create the detailed steps,
+    	# if not it will return false, which will NOT save the record in the database
+    	puts self.issue.howTo
+    	puts "______"
+    	if self.issue.howTo == "false"
+    		self.description = "changes"
+    		puts "false +++++++++"
+    		return false
+    	else
+    		puts "true +++++++"
+    		self.description = "here we go"
+    	end
+    end
+
+    def able?
+      if self.issue.howTo == "true"
+        return true
+      else
+        return false
+      end
     end
 end

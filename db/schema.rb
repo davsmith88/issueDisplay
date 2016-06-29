@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160125075951) do
+ActiveRecord::Schema.define(version: 20160628001512) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -26,9 +30,9 @@ ActiveRecord::Schema.define(version: 20160125075951) do
     t.datetime "updated_at"
   end
 
-  add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type"
-  add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type"
-  add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type"
+  add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
+  add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
+  add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
 
   create_table "albums", force: true do |t|
     t.datetime "created_at"
@@ -37,7 +41,7 @@ ActiveRecord::Schema.define(version: 20160125075951) do
     t.string   "imageable_type"
   end
 
-  add_index "albums", ["imageable_id", "imageable_type"], name: "index_albums_on_imageable_id_and_imageable_type"
+  add_index "albums", ["imageable_id", "imageable_type"], name: "index_albums_on_imageable_id_and_imageable_type", using: :btree
 
   create_table "areas", force: true do |t|
     t.string   "name"
@@ -64,7 +68,7 @@ ActiveRecord::Schema.define(version: 20160125075951) do
     t.integer  "issue_id"
   end
 
-  add_index "attempted_solutions", ["issue_id"], name: "index_attempted_solutions_on_issue_id"
+  add_index "attempted_solutions", ["issue_id"], name: "index_attempted_solutions_on_issue_id", using: :btree
 
   create_table "businesses", force: true do |t|
     t.string   "name"
@@ -84,8 +88,8 @@ ActiveRecord::Schema.define(version: 20160125075951) do
     t.integer  "business_id"
   end
 
-  add_index "department_areas", ["area_id"], name: "index_department_areas_on_area_id"
-  add_index "department_areas", ["department_id"], name: "index_department_areas_on_department_id"
+  add_index "department_areas", ["area_id"], name: "index_department_areas_on_area_id", using: :btree
+  add_index "department_areas", ["department_id"], name: "index_department_areas_on_department_id", using: :btree
 
   create_table "departments", force: true do |t|
     t.string   "name"
@@ -161,10 +165,12 @@ ActiveRecord::Schema.define(version: 20160125075951) do
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
+    t.hstore   "preferences"
   end
 
-  add_index "issues", ["impact_id"], name: "index_issues_on_impact_id"
-  add_index "issues", ["user_id"], name: "index_issues_on_user_id"
+  add_index "issues", ["impact_id"], name: "index_issues_on_impact_id", using: :btree
+  add_index "issues", ["preferences"], name: "index_issues_on_preferences", using: :gin
+  add_index "issues", ["user_id"], name: "index_issues_on_user_id", using: :btree
 
   create_table "jobs", force: true do |t|
     t.string   "name"
@@ -175,7 +181,7 @@ ActiveRecord::Schema.define(version: 20160125075951) do
     t.string   "category"
   end
 
-  add_index "jobs", ["department_area_id"], name: "index_jobs_on_department_area_id"
+  add_index "jobs", ["department_area_id"], name: "index_jobs_on_department_area_id", using: :btree
 
   create_table "locations", force: true do |t|
     t.string   "code"
@@ -194,8 +200,8 @@ ActiveRecord::Schema.define(version: 20160125075951) do
     t.integer  "image_id"
   end
 
-  add_index "media", ["image_id"], name: "index_media_on_image_id"
-  add_index "media", ["imageable_id", "imageable_type"], name: "index_media_on_imageable_id_and_imageable_type"
+  add_index "media", ["image_id"], name: "index_media_on_image_id", using: :btree
+  add_index "media", ["imageable_id", "imageable_type"], name: "index_media_on_imageable_id_and_imageable_type", using: :btree
 
   create_table "notes", force: true do |t|
     t.text     "context"
@@ -209,7 +215,7 @@ ActiveRecord::Schema.define(version: 20160125075951) do
     t.integer  "version_number"
   end
 
-  add_index "notes", ["issue_id"], name: "index_notes_on_issue_id"
+  add_index "notes", ["issue_id"], name: "index_notes_on_issue_id", using: :btree
 
   create_table "qwers", force: true do |t|
     t.string   "name"
@@ -226,9 +232,9 @@ ActiveRecord::Schema.define(version: 20160125075951) do
     t.datetime "updated_at"
   end
 
-  add_index "records", ["issue_id"], name: "index_records_on_issue_id"
-  add_index "records", ["recordable_id", "recordable_type"], name: "index_records_on_recordable_id_and_recordable_type"
-  add_index "records", ["user_id"], name: "index_records_on_user_id"
+  add_index "records", ["issue_id"], name: "index_records_on_issue_id", using: :btree
+  add_index "records", ["recordable_id", "recordable_type"], name: "index_records_on_recordable_id_and_recordable_type", using: :btree
+  add_index "records", ["user_id"], name: "index_records_on_user_id", using: :btree
 
   create_table "reviews", force: true do |t|
     t.text     "description"
@@ -241,8 +247,8 @@ ActiveRecord::Schema.define(version: 20160125075951) do
     t.datetime "review_date"
   end
 
-  add_index "reviews", ["issue_id"], name: "index_reviews_on_issue_id"
-  add_index "reviews", ["user_id"], name: "index_reviews_on_user_id"
+  add_index "reviews", ["issue_id"], name: "index_reviews_on_issue_id", using: :btree
+  add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
 
   create_table "rights", force: true do |t|
     t.string   "resource"
@@ -267,7 +273,7 @@ ActiveRecord::Schema.define(version: 20160125075951) do
     t.datetime "updated_at"
   end
 
-  add_index "solutions", ["issue_id"], name: "index_solutions_on_issue_id"
+  add_index "solutions", ["issue_id"], name: "index_solutions_on_issue_id", using: :btree
 
   create_table "steps", force: true do |t|
     t.string   "description"
@@ -304,7 +310,7 @@ ActiveRecord::Schema.define(version: 20160125075951) do
     t.string   "permType"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

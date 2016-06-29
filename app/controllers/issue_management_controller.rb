@@ -21,6 +21,7 @@ class IssueManagementController < BIssueController
 		@active_workarounds = true
 		@issue = scoped.issues.find(params[:issue_management_id])
 		@list = scoped.issues.find(@issue).issue_workarounds
+		@steps = @issue.detailed_steps
 		# render layout: "show_issue_admin"
 		render layout: "layouts/show_issue_admin", partial: "issues/show_review_table", locals: {list: @list}
 	end
@@ -106,8 +107,10 @@ class IssueManagementController < BIssueController
 
 	def show_steps
 		@active_steps = true
+		
 		@issue = Issue.find(params[:id])
 		@list = @issue.detailed_steps
+		@steps = @issue.detailed_steps
 		render partial: "issues/show_step_table", layout: 'layouts/show_issue_admin', locals: {list: @list}
 	end
 
@@ -122,7 +125,7 @@ class IssueManagementController < BIssueController
 	# end
 
 	def issue_params
-		params.require(:issue).permit(:name, :description, :impact_id, :department_area_id, :review_date, :picture ,:i_type)
+		params.require(:issue).permit(:name, :description, :impact_id, :department_area_id, :review_date, :picture ,:i_type, :preferences => :howTo)
 	end
 
 

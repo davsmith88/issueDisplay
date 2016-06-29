@@ -2,6 +2,10 @@ class Issue < ActiveRecord::Base
 	include PublicActivity::Model
 	tracked
 
+	store_accessor :preferences, :howTo
+
+	# validates :howTo, inclusion: { in: [true, false] }
+
   	#tracked owner: Proc.new{ |controller, model| controller.current_user }
 	# has_paper_trail :meta => {:department_area_name => :get_department_name,
 		# :impact_name => :get_impact_name
@@ -50,6 +54,7 @@ class Issue < ActiveRecord::Base
 	has_many :attempted_solutions
 	has_many :issue_workarounds
 
+	# has_many :detailed_steps, -> { where number: '1' }
 	has_many :detailed_steps
 
 	# has_many :images, as: :imageable
