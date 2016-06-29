@@ -13,9 +13,9 @@ class DetailedStep < ActiveRecord::Base
 	# has_attached_file :image, styles: {medium: "300x300", thumb: "100x100"}, default_url: "/images/:style/missing.png"
 	# validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
-	# has_many :medium, as: :imageable,  dependent: :destroy
-	# has_many :media, as: :imageable,  dependent: :destroy
-	has_one :medium, as: :imageable, dependent: :destroy
+	# has_one :medium, as: :imageable, dependent: :destroy
+  has_one :medium, as: :imageable
+  # has_one :image, as: :imageable
 
 	def build
        if medium
@@ -31,20 +31,15 @@ class DetailedStep < ActiveRecord::Base
     	puts self.issue.howTo
     	puts "______"
     	if self.issue.howTo == "false"
-    		self.description = "changes"
-    		puts "false +++++++++"
     		return false
-    	else
-    		puts "true +++++++"
-    		self.description = "here we go"
     	end
     end
 
-    def able?
-      if self.issue.howTo == "true"
-        return true
-      else
-        return false
-      end
-    end
+    # def able?
+    #   if self.issue.howTo == "true"
+    #     return true
+    #   else
+    #     return false
+    #   end
+    # end
 end

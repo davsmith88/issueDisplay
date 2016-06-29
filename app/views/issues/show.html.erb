@@ -6,6 +6,7 @@
 	<div class='row'>
 		<div class='col-sm-6'>
 			<div class='form-group'>
+				<p id='type'>a</p>
 				<label class='col-sm-2 control-label'>Name</label>
 				<div class='col-sm-10'>
 					<p class='form-control-static'><%= @issue.name %></p>
@@ -76,9 +77,27 @@
 				<% end %>
 			</div>
 			<div class='col-sm-12'>
-			<ul>
+			<ul class="list-group">
 			<% @steps.each do |step|  %>
-				<li><%= step.number %> | <%= step.description %> | potential image holder | </li>
+				<li class='list-group-item'>
+				<div class='row'>
+					<div class='col-sm-1'><span class='label label-success'><%= step.number %></span></div>
+					<div class='col-sm-5'><%= step.description %></div>
+					<div class='col-sm-4'><%= image_tag step.medium.image.picture.url(:thumb) if step.medium %></div>
+				</div>
+				<div class='row'>
+				<div class='col-sm-12'>
+					<%= link_to "Edit", edit_issue_detailed_step_path(@issue, step), class: "btn btn-info btn-xs" %>
+	<%= link_to "Destroy", issue_detailed_step_path(@issue, step), id: "destroy", class: "btn btn-info btn-xs", method: :delete, data: {confirm: "Are you sure you want to delete"} %>
+
+		<%= link_to "Add Image", new_medium_path(type: 'DetailedStep', type_id: step.id, department_area_id: @issue.department_area), class: "add-image btn btn-default btn-xs", data: {step_id: step.id}, remote: true, authenticity: true %>
+				</div>
+				</div>
+
+
+
+				
+				</li>
 			<% end %>
 			</ul>
 			</div>

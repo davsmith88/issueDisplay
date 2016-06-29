@@ -61,7 +61,8 @@ ready = function(){
 
 	function setImageToStep(imgId){
 
-		var type = $('#controller_type').val();
+		// var type = $('#controller_type').val();
+		var type = $('#type').text();
 		
 		var url = "/media.js?type_id=" + stepId + "&type=" + type ;
 		console.log(type, stepId)

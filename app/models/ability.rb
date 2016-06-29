@@ -81,6 +81,7 @@ class Ability
 
         # will only create a detailed step if issue has howto selected to true 
         can :create, DetailedStep, :issue => { :howTo => "true" }
+        # can :create, DetailedStep
 
         can :update, DetailedStep
         can :destroy, DetailedStep

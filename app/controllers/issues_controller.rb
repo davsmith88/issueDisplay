@@ -28,7 +28,7 @@ class IssuesController < BIssueController
 
 		# # Issue.increment_counter(:view_counter, @issue.id)
 		super
-		@steps = @issue.detailed_steps.all
+		@steps = @issue.detailed_steps.order(number: :asc)
 		@type = 'IssueWorkaround'
 		@name = 'workarounds'
 		render partial: 'issues/show_review_table',

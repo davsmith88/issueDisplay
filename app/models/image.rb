@@ -1,8 +1,5 @@
 class Image < ActiveRecord::Base
 
-	# belongs_to :album
-	# belongs_to :imageable, :polymorphic => true
-
 	has_many :media
 	belongs_to :location
 

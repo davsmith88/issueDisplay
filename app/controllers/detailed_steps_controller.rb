@@ -53,7 +53,10 @@ class DetailedStepsController < ApplicationController
     @detailed_steps = @detailed_steps.all
     respond_to do |format|
       if @detailed_step.save
-        format.html {redirect_to issue_detailed_steps_path(@issue)}
+        # format.html { redirect_to issues_path }
+        puts @issue.inspect
+        puts "===="
+        format.html {redirect_to issue_path(@issue)}
         format.js
       else
         flash.now[:alert] = "Issue is not valid"
@@ -81,7 +84,7 @@ class DetailedStepsController < ApplicationController
     @detailed_step.destroy
 
     respond_to do |format|
-      format.html {redirect_to issue_detailed_steps_path(@issue)}
+      format.html {redirect_to issue_path(@issue)}
       format.js
     end
 

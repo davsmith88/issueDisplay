@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160628001512) do
+ActiveRecord::Schema.define(version: 20160629145444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,7 +130,11 @@ ActiveRecord::Schema.define(version: 20160628001512) do
     t.string   "description"
     t.string   "name"
     t.string   "location_id"
+    t.integer  "imageable_id"
+    t.string   "imageable_type"
   end
+
+  add_index "images", ["imageable_id", "imageable_type"], name: "index_images_on_imageable_id_and_imageable_type", using: :btree
 
   create_table "impacts", force: true do |t|
     t.string   "name"

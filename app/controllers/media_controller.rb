@@ -25,6 +25,7 @@ class MediaController < ApplicationController
   def new
     # da = params[:department_area_id]
     # @images = Image.all
+    @type = params[:type]
     @locations = Location.where(department_area_id: @da)
     @context = context
     puts "++"
