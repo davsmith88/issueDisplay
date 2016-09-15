@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160629145444) do
+ActiveRecord::Schema.define(version: 20160911064642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,19 @@ ActiveRecord::Schema.define(version: 20160629145444) do
     t.boolean  "intro"
   end
 
+  create_table "complaints", force: true do |t|
+    t.text     "description"
+    t.text     "name"
+    t.text     "rectify"
+    t.boolean  "internal"
+    t.text     "master_spec"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "step"
+    t.string   "priority"
+    t.text     "cust_name"
+  end
+
   create_table "department_areas", force: true do |t|
     t.integer  "department_id"
     t.integer  "area_id"
@@ -100,7 +113,6 @@ ActiveRecord::Schema.define(version: 20160629145444) do
   end
 
   create_table "detailed_steps", force: true do |t|
-    t.string   "number"
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -109,6 +121,7 @@ ActiveRecord::Schema.define(version: 20160629145444) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.integer  "number"
   end
 
   create_table "grants", force: true do |t|
@@ -170,6 +183,10 @@ ActiveRecord::Schema.define(version: 20160629145444) do
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
     t.hstore   "preferences"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "issues", ["impact_id"], name: "index_issues_on_impact_id", using: :btree
@@ -186,6 +203,17 @@ ActiveRecord::Schema.define(version: 20160629145444) do
   end
 
   add_index "jobs", ["department_area_id"], name: "index_jobs_on_department_area_id", using: :btree
+
+  create_table "lineups", force: true do |t|
+    t.integer  "position_number"
+    t.string   "job_number"
+    t.string   "master_spec"
+    t.string   "machine"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "cust_name"
+    t.string   "timestamp"
+  end
 
   create_table "locations", force: true do |t|
     t.string   "code"
@@ -220,6 +248,15 @@ ActiveRecord::Schema.define(version: 20160629145444) do
   end
 
   add_index "notes", ["issue_id"], name: "index_notes_on_issue_id", using: :btree
+
+  create_table "processareas", force: true do |t|
+    t.integer  "complaint_id"
+    t.string   "process_area_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "processareas", ["complaint_id"], name: "index_processareas_on_complaint_id", using: :btree
 
   create_table "qwers", force: true do |t|
     t.string   "name"

@@ -1,0 +1,90 @@
+
+
+<div class='row'>
+	<div class='col-sm-12'>
+		<h4>
+			<%= params[:location].capitalize %>
+			<small>
+				<%= params[:machine_code] %>
+			</small>
+		</h4>
+	</div>	
+</div>
+
+<table class='table table-hover'>
+	<tr>
+		<th class='col-sm-1'>Lineup Position</th>
+		<th class='col-sm-2'>Customer Name</th> 
+		<th class='col-sm-2'>Master Spec</th>
+		<th class='col-sm-7'>Job Number</th>
+	</tr>
+<% @change.each_with_index do |(value), i| %>
+	<tr data-toggle="collapse" data-target="#<%= value[:lineup].master_spec %>" class="accordion-toggle">
+		<td><%= has_complaints?(value[:complaints]) %> <%= i + 1 %></td>
+		<td><%= value[:lineup].cust_name %></td>
+		<td><%= value[:lineup].master_spec %></td>
+		<td><%= value[:lineup].job_number %></td>
+	</tr>
+	<tr >
+		 <td colspan=4>
+		 	
+		 	<div class='collapse' id="<%= value[:lineup].master_spec %>">
+		 	<% if value[:complaints] %>
+		 	<% value[:complaints].each do |c| %>
+		 		<ul class='media-list'>
+		 			<li class='media'>
+		 		<div class="media">
+				  <div class="media-left">
+
+				  </div>
+				  <div class="media-body">
+				  	<%= is_new?(c.created_at) %>
+				  	<%= is_internal?(c.internal) %>
+				    <h4 class="media-heading">
+				    	<%= c.name %>
+				    	<small><%= c.description %></small>
+				    </h4>
+				    	
+				    	<p><%= c.rectify %></p>
+
+
+				<% if @other[c.cust_name] %>
+				<h3>Complaints from same customer</h3>
+				<% @other[c.cust_name].each do |item| %>
+					<div class='media'>
+					<div class="media-body">
+						<%= is_new?(item.created_at) %>
+					  	<%= is_internal?(item.internal) %>
+					  <h4 class="media-heading">
+				    	<%= item.name %>
+				    	<small><%= item.description %></small>
+				    </h4>
+					  	<%= item.rectify %>
+					  </div>
+					</div>
+				<% end %>
+				</li>
+				</ul>
+				<% end %>
+
+
+
+				  </div>
+				</div>
+				
+				
+				<%#= @other[c.cust_name].inspect %>
+		 	<% end %>
+		 	<% else %>
+		 	<p>No Complaints listed for this job</p>
+
+		 	<% end %>
+
+
+
+		 	</div>
+		 	
+		 </td>
+	</tr>
+<% end %>
+</table>

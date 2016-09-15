@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.4'
+# gem 'rails', '4.0.13'
+gem 'rails', '4.1.16'
 
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
@@ -30,10 +31,18 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 gem 'devise'
-gem 'paperclip', github: 'thoughtbot/paperclip'
+gem 'paperclip'
+# gem 'paperclip', github: 'thoughtbot/paperclip'
+gem 'paperclip-av-transcoder'
+
+
+
 gem 'will_paginate', '~> 3.0'
 gem 'will_paginate-bootstrap'
-gem 'rails_best_practices', '~> 1.15.4'
+gem 'rails_best_practices'
+
+# gem 'sweet-alert'
+# gem 'sweet-alert-confirm'
 
 # gem 'active_model_serializers'
 
@@ -41,11 +50,13 @@ gem 'rails_best_practices', '~> 1.15.4'
 
 gem 'cancancan', '~> 1.10'
 
+gem 'jquery-turbolinks'
+
 gem 'state_machine'
 gem 'public_activity'
 gem 'paper_trail', '~> 3.0.2'
 
- gem 'faker'
+ # gem 'faker'
  gem 'test-unit'
 
 group :doc do
@@ -68,20 +79,21 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '2.13.1'
+  # gem 'rspec-rails', '2.13.1'
 	# gem 'rspec-rails', '2.13.1'
-  # gem 'rspec-rails', '3.4'
-	gem 'shoulda-matchers'
+  gem 'rspec-rails', '3.5'
+	 gem 'shoulda-matchers', '~> 3.1'
   gem 'factory_girl_rails'
+  # gem "rails_best_practices"
 end
 
 group :test do
   gem 'selenium-webdriver'
   gem "chromedriver-helper"
   gem 'capybara'
-  gem 'shoulda'
-  gem 'shoulda-context'
-  # gem 'faker'
+  # gem 'shoulda'
+  # gem 'shoulda-context'
+  gem 'faker'
   gem 'database_cleaner'
   gem 'simplecov', :require => false, :group => :test
   gem 'launchy', '~> 2.4.3'
@@ -99,5 +111,5 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'rails_12factor', group: :production
+# gem 'rails_12factor', group: :production
 ruby "2.3.0"

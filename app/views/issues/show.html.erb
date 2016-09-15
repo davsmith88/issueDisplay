@@ -4,24 +4,25 @@
 
 <div class='form-horizontal'>
 	<div class='row'>
-		<div class='col-sm-6'>
+		<div class='col-sm-4'>
 			<div class='form-group'>
 				<p id='type'>a</p>
-				<label class='col-sm-2 control-label'>Name</label>
-				<div class='col-sm-10'>
+				<p id='issueId'><%= @issue.id %></p>
+				<label class='col-sm-3 control-label'>Name</label>
+				<div class='col-sm-9'>
 					<p class='form-control-static'><%= @issue.name %></p>
 				</div>
 			</div>
 			<div class='form-group'>
-				<label class='col-sm-2 control-label'>Description</label>
-				<div class='col-sm-10'>
+				<label class='col-sm-3 control-label'>Description</label>
+				<div class='col-sm-9'>
 					<p class='form-control-static'><%= @issue.description %></p>
 				</div>
 			</div>
 
 			<div class='form-group'>
-				<label class='col-sm-2 control-label'>Departments / Area</label>
-				<div class='col-sm-10'>
+				<label class='col-sm-3 control-label'>Area</label>
+				<div class='col-sm-9'>
 					<p class='form-control-static'><%= @issue.department_area.name %></p>
 				</div>
 			</div>
@@ -34,15 +35,15 @@
 			</div>
 			
 			<div class='form-group hidden-xs show-hidden'>
-				<label class='col-sm-2 control-label'>Type</label>
-				<div class='col-sm-10'>
+				<label class='col-sm-3 control-label'>Type</label>
+				<div class='col-sm-9'>
 					<p class='form-control-static'><%= @issue.i_type %></p>
 				</div>
 			</div>
 			
 			<div class='form-group hidden-xs show-hidden'>
-				<label class='col-sm-2 control-label'>Area Impacted</label>
-				<div class='col-sm-10'>
+				<label class='col-sm-3 control-label'>Area Impacted</label>
+				<div class='col-sm-9'>
 					<% if @issue.impact %>
 						<p class='form-control-static'><%= @issue.impact.name %></p>
 					<% else %>
@@ -52,58 +53,115 @@
 			</div>
 
 			<div class='form-group hidden-xs show-hidden'>
-				<label class='col-sm-2 control-label'>Review Date</label>
-				<div class='col-sm-10'>
+				<label class='col-sm-3 control-label'>Review Date</label>
+				<div class='col-sm-9'>
 					<p class='form-control-static'><%= format_date @issue.review_date %></p>
 				</div>
 			</div>
-
-			<div class='form-group hidden-xs show-hidden'>
-				<label class='col-sm-2 control-label'>Picture</label>
-				<div class='col-sm-10'>
-					<%= image_tag @issue.picture.url(:medium) if @issue.picture %>
-				</div>
-			</div>
+			<% if @issue.avatar.exists? %>
+				<%= video_tag @issue.avatar.url(:medium), controls: true, style: "max-width: 100%;" %>
+			<% end %>
 		
 	</div>
-	<div class='col-sm-6'>
-		<%# if @issue.howTo == 'true' %>
+	<div class='col-sm-8'>
+
+<div id='side_section'>
+    <ul id='navbar' class="nav nav-tabs">
+    		<% if @issue.howTo == 'true' %>
+        	<li class="nav"><a href="#howto" data-toggle="tab">How To</a></li>
+        <% end %>
+
+        <% if @issue.workaround == 'true' %>
+	        <li class="nav"><a href="#workarounds" data-toggle="tab">workarounds
+	        <span id='workarounds_count' class='label label-warning'><%= @issue_workarounds.count %></span>
+	        </a></li>
+        <% end %>
+        <% if @issue.solution == 'true' %>
+	        <li class="nav"><a href="#solutions" data-toggle="tab">solutions
+	        	 <span id='solutions_count' class='label label-warning'><%= @solutions.count %></span>
+	        </a></li>
+        <% end %>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+    <% if @issue.howTo == 'true' %>
+        <div class="tab-pane fade in" id="howto">
+     
 			<div class='col-sm-6'>
 				<h4>How to window</h4>
 			</div>
 			<div class='col-sm-6'>
 				<% if can? :create, DetailedStep %>
-					<%= link_to "Add How To", new_issue_detailed_step_path(@issue), class: "btn btn-default" %>
+					<%= link_to "Add How To", new_issue_detailed_step_path(@issue), class: "btn btn-default", remote: true, authenticity: true %>
 				<% end %>
 			</div>
 			<div class='col-sm-12'>
-			<ul class="list-group">
-			<% @steps.each do |step|  %>
-				<li class='list-group-item'>
-				<div class='row'>
-					<div class='col-sm-1'><span class='label label-success'><%= step.number %></span></div>
-					<div class='col-sm-5'><%= step.description %></div>
-					<div class='col-sm-4'><%= image_tag step.medium.image.picture.url(:thumb) if step.medium %></div>
-				</div>
-				<div class='row'>
-				<div class='col-sm-12'>
-					<%= link_to "Edit", edit_issue_detailed_step_path(@issue, step), class: "btn btn-info btn-xs" %>
-	<%= link_to "Destroy", issue_detailed_step_path(@issue, step), id: "destroy", class: "btn btn-info btn-xs", method: :delete, data: {confirm: "Are you sure you want to delete"} %>
-
-		<%= link_to "Add Image", new_medium_path(type: 'DetailedStep', type_id: step.id, department_area_id: @issue.department_area), class: "add-image btn btn-default btn-xs", data: {step_id: step.id}, remote: true, authenticity: true %>
-				</div>
-				</div>
-
-
-
-				
-				</li>
-			<% end %>
-			</ul>
+				<ul id='detailed_steps' class="list-group">
+				<% @steps.each do |step|  %>
+					<li data-ds-id='<%= step.id %>' class='list-group-item'>
+						<%= render partial: "detailed_steps/detailed_row", locals: {step: step} %>
+					</li>
+				<% end %>
+				</ul>
 			</div>
-		</div>
-	<%# end %>
-		
-	
+			</div>
+			<% end %>
+
+        <!-- </div> -->
+        <% if @issue.workaround == 'true' %>
+	        <div class="tab-pane fade" id="workarounds">
+	        <div class='row'>
+		        <div class='col-sm-6'>
+		        	<h4>Workarounds</h4>
+		        </div>
+		        <div class='col-sm-6'>
+							<%= link_to "Add a new workaround today", new_issue_issue_workaround_path(@issue), class: 'btn btn-default btn-sm', remote: true, authenticity: true %>
+		        </div>
+	        </div>
+	        
+	        <%= render partial: "show_review_table", locals: {list: @issue_workarounds, name: 'workarounds'} %>
+	        </div>
+        <% end %>
+        <% if @issue.solution == 'true' %>
+	        <div class="tab-pane fade" id="solutions">
+	        <div class='row'>
+	        	<div class='col-sm-6'>
+	        		<h4>Solutions</h4>
+	        	</div>
+	        	<div class='col-sm-6'>
+	        		 <%= link_to "Add a new solution today", new_issue_solution_path(@issue), class: 'btn btn-default btn-sm', remote: true, authenticity: true %></div>
+	        	</div>
+	        	<div class='row'>
+	        			<div class='col-sm-12'>
+	        	<%= render partial: "show_review_table", locals: {list: @solutions, name: 'solutions'} %>
+	        	</div>
+	        	</div>
+	        </div>
+        <% end %>
+    </div>
+</div>
 
 </div>
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModalBigImage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 id='model-name' class="modal-title" id="myModalLabel">Modal title</h4>
+        <p id='model-caption'></p>
+      </div>
+      <div class="modal-body">
+        ...
+        <img id='large-image' src="" />
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

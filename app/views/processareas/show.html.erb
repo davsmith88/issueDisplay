@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Complaint:</strong>
+  <%= @processarea.complaint %>
+</p>
+
+<p>
+  <strong>Process area type:</strong>
+  <%= @processarea.process_area_type %>
+</p>
+
+<%= link_to 'Edit', edit_processarea_path(@processarea) %> |
+<%= link_to 'Back', processareas_path %>

@@ -111,7 +111,7 @@ class ImagesController < ApplicationController
 	private
 
 	def image_params
-		params.require(:image).permit(:caption, :picture, :description, :location_id)
+		params.require(:image).permit(:name, :caption, :picture, :description, :location_id)
 	end
 
 	def context

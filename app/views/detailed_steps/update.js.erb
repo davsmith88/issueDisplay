@@ -1,8 +1,15 @@
-console.log('detailed step has been updated')
 
 
-$('*[data-dt-id="<%= @detailed_step.id %>"]').html("<%= j (render partial: 'issues/step_table_row', locals: {workaround: @detailed_step}) %>")
+console.log('here we go')
 
-$('#myModal').modal('hide');
+$('*[data-ds-id="<%= @detailed_step.id %>"]').html("<%= j (render partial: 'detailed_row', locals: {step: @detailed_step}) %>")
+
+console.log('this is it')
+$('#quickModal').modal('hide');
+
+
+
+
+
 
 

@@ -2,8 +2,18 @@ class MyFormBuilder < ActionView::Helpers::FormBuilder
 	include ActionView::Helpers::TagHelper
 	include ActionView::Helpers::CaptureHelper
 	include ActionView::Helpers::TextHelper
+	include ActionView::Helpers::FormTagHelper
 
 	attr_accessor :output_buffer
+
+	def se(a, label_text, options)
+		content_tag(:div, class: "form-group") do
+			label(:name, label_text, class: "col-sm-2 control-label") +
+			content_tag(:div, class: "col-sm-10") do
+				select_tag(a, options, class: "form-control")
+			end
+		end
+	end
 
 	%w(email_field text_field password_field text_area date_field).each do |form_method|
 		define_method(form_method) do |*args|

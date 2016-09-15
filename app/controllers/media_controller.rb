@@ -2,21 +2,10 @@ class MediaController < ApplicationController
 
   authorize_resource
 
-  # before_action :get_detailed_step
-  before_action :get_department_area, except: [:create]
-  before_action :set_medium, only: [:show, :edit, :update, :destroy]
+  before_action :get_department_area, except: [:create, :destroy]
+  before_action :set_medium, only: [:show, :edit, :destroy]
 
   respond_to :html, except: [:create]
-
-  def index
-    @media = Medium.all
-
-    respond_to do |format|
-      format.html
-      format.js
-    end
-    # respond_with(@media)
-  end
 
   def show
     respond_with(@medium)
@@ -39,9 +28,6 @@ class MediaController < ApplicationController
     # respond_with(@medium)
   end
 
-  def edit
-  end
-
   def create
     @context = context
     @medium = @context.create_medium(medium_params)
@@ -57,19 +43,12 @@ class MediaController < ApplicationController
     # redirect_to detailed_step_media_path(@dt)
   end
 
-  def update
-    flash[:notice] = 'Medium was successfully updated.' if @medium.update(medium_params)
-    # respond_with(@dt, @medium)
-    respond_to do |format|
-      format.html
-
-    end
-  end
-
   def destroy
-    @medium.destroy
-    respond_with(@dt, @medium)
+
+    @medium.destroy #destroys the medium model from database
+    redirect_to session.delete(:return_to)  # redirects to the path stored in the session and deletes session
   end
+
 
   private
 

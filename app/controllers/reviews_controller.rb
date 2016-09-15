@@ -1,6 +1,7 @@
 class ReviewsController < RevController
 
 	# before_action :get_issue, only: [:index, :create]
+	before_action :set_label, only: [:new]
 	before_action :get_reviews, only: [:index, :create, :destroy]
 
 	def index
@@ -99,4 +100,14 @@ class ReviewsController < RevController
 			@reviews = @issue.solutions
 		end
 	end
+
+	def set_label
+		if params[:u] == "workarounds"
+			@label = "Workaround"
+		end
+		if params[:u] == "solutions"
+			@label = "Solution"
+		end
+	end
+
 end

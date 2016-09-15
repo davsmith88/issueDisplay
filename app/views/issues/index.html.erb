@@ -3,26 +3,42 @@
 <% end %>
 
 <div class='row'>
-	<div class='col-sm-7'>
+	<div class='col-sm-6'>
 		<h3>Published Issues</h3>
 	</div>
-	<div class='col-sm-5'>
-		<select id='l-issue-select' class='form-control'>
-		<option <%= @loc.to_i == 0 ? 'selected' : '' %> disabled>Choose a Department / Area</option>
-			<% @locations.each do |l| %>
-				<option <%= @loc.to_i == l.id ? 'selected' : "" %> value='<%= l.id %>'><%= l.name %></option>
-			<% end %>
+	<div class='col-sm-3'>
+		<input id='searchbox' class='form-control' placeholder='Enter in a search term' value="<%= @s if @s %>">
+	</div>
+	<div class='col-sm-3'>
+		<%= render partial: 'shared/department_areas_select', locals: { loc: @loc, locations: @locations } %>
 		
-	</select>
 		<%= link_to "Create New Issue", new_issue_path, class: "btn btn-default spacing center_button" if @create %>
 	</div>
 </div>
-<table class='table' id='i-table'>
-	<tr>
-		<th class="col-xs-5 col-sm-4">Name</th>
-		<th width="col-xs-5 col-sm-8">Description</th>
-	</tr>
-	<%= render partial: "issues/collections/index_row", collection: @issues, as: :issue %>
-</table>
 
-<%= will_paginate @issues, renderer: BootstrapPagination::Rails %>
+<div id='issue_table_area'>
+	<% if @issues.count > 0 %>
+	<table class='table' id='i-table'>
+		<tr>
+			<th class="col-xs-5 col-sm-4">Name</th>
+			<th width="col-xs-5 col-sm-8">Description</th>
+		</tr>
+		<%= render partial: "issues/collections/index_row", collection: @issues, as: :issue %>
+	</table>
+
+	<%= will_paginate @issues, renderer: BootstrapPagination::Rails %>
+	<% else %>
+		<div class="alert alert-info" role="alert">
+		There are no issues 
+		<% if params[:search].length > 0 %>
+			for the search term <%= params[:search] %>
+		<% else %>
+			for that department/area
+		<% end %>
+		<% if can?(:create, Issue) %>
+			<p>Create an Issue today <%= link_to "Create", new_issue_path, class: "btn btn-default btn-sm" %><p>
+		<% end%>
+		</div>
+	<% end %>
+</div>
+<%= render partial: 'shared/default_model' %>

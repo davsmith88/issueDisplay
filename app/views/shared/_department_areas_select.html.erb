@@ -1,0 +1,12 @@
+<select id='l-issue-select' class='form-control'>
+		<option <%= loc.to_i == 0 ? 'selected' : '' %> disabled>Choose an Area</option>
+		<option value='all'>All</option>
+		<%= locations.each do |l, data| %>
+			<optgroup label='<%= data[0].department.name %>'>
+				<%= data.each do |d| %>
+						<option <%= loc.to_i == d.id ? 'selected' : '' %> value=<%= d.id %>><%= d.name %></option>
+				<% end %>
+			</optgroup>
+			
+		<% end %>
+</select>

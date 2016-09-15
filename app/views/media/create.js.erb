@@ -1,8 +1,14 @@
+// add another type
+
 <% if @type == 'DetailedStep' %>
-	$('*[data-dt-id="<%= @context.id %>"]').html("<%= j (render partial: 'issues/step_table_row', locals: {workaround: @context}) %>");
+	// $('*[data-dt-id="<%= @context.id %>"]').html("<%= j (render partial: 'issues/step_table_row', locals: {workaround: @context}) %>");
+	$('*[data-ds-id="<%= @context.id %>"]').html("<%= j (render partial: 'detailed_steps/detailed_row', locals: {step: @context}) %>");
+	
+	console.log('here we go')
+
 <% end %>
 
 <% if @type == 'Review' %>
 	$('*[data-r-id="<%= @context.id %>"]').html("<%= j (render partial: 'issues/show_review_table_row', locals: {workaround: @context}) %>");
 <% end %>
-$('#myModal').modal('hide');
+$('#quickModal').modal('hide');

@@ -54,7 +54,8 @@ class IssueManagementController < BIssueController
 		respond_to do |format|
 			if @issue.update(issue_params)
 				flash[:admin_notice] = "Issue was updated successfully"
-				format.html { redirect_to issue_management_view_path(@issue) }
+				# format.html { redirect_to issue_management_view_path(@issue) }
+				format.html { redirect_to issue_management_path(@issue) }
 			else
 				flash.now[:admin_alert] = "Issue is not valid"
 				format.html {render action: 'edit' }
@@ -125,7 +126,7 @@ class IssueManagementController < BIssueController
 	# end
 
 	def issue_params
-		params.require(:issue).permit(:name, :description, :impact_id, :department_area_id, :review_date, :picture ,:i_type, :preferences => :howTo)
+		params.require(:issue).permit(:name, :description, :impact_id, :department_area_id, :review_date, :picture ,:i_type, :preferences => [:howTo, :workaround, :solution])
 	end
 
 

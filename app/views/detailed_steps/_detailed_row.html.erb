@@ -1,0 +1,23 @@
+<div class='row'>
+	<div class='col-sm-1'><span class='moveItem label label-success'><%= step.number %></span></div>
+	<div class='col-sm-5'>
+		<%= step.description %>
+		<br>
+		<%= link_to "Edit", edit_issue_detailed_step_path(@issue, step), class: "btn btn-info btn-xs", remote: true, authenticity: true if can?(:edit, DetailedStep) %>
+		<%= link_to "Destroy", issue_detailed_step_path(@issue, step), id: "destroy", class: "btn btn-danger btn-xs", method: :delete, data: {confirm: "Are you sure you want to delete"} if can?(:destroy, DetailedStep) %>
+
+		<%= link_to img_btn_caption(step.medium), new_medium_path(type: 'DetailedStep', type_id: step.id, department_area_id: @issue.department_area), class: "add-image btn btn-info btn-xs", data: {step_id: step.id}, remote: true, authenticity: true if can?(:create, Medium) %>
+
+		<%= link_to "Destroy Image", medium_path(step.medium), class: "btn btn-danger btn-xs", method: :delete, data: {confirm: "Are you sure you want to delete"} if step.medium && can?(:destroy, Medium) %>
+	</div>
+	<div class='col-sm-4'>
+	 <% if step.medium %>
+		<a class='thumbnail' data-big-img="<%= step.medium.image.picture.url(:medium) if step.medium %>"
+												 data-big-img-caption="<%= step.medium.image.caption if step.medium %>"
+												 data-big-img-name="<%= step.medium.image.name if step.medium %>"
+		  href="#">
+			<%= image_tag step.medium.image.picture.url(:thumb), class: 'sm-img thumnail' if step.medium %>
+		</a>
+		<% end %>
+	</div>
+</div>

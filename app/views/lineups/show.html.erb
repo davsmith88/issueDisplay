@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Position number:</strong>
+  <%= @lineup.position_number %>
+</p>
+
+<p>
+  <strong>Job number:</strong>
+  <%= @lineup.job_number %>
+</p>
+
+<p>
+  <strong>Master spec:</strong>
+  <%= @lineup.master_spec %>
+</p>
+
+<p>
+  <strong>Machine:</strong>
+  <%= @lineup.machine %>
+</p>
+
+<%= link_to 'Edit', edit_lineup_path(@lineup) %> |
+<%= link_to 'Back', lineups_path %>

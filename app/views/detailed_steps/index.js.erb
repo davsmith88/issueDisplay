@@ -1,3 +1,16 @@
-$("#tab-holder").html("<%= j (render partial: 'issues/show_step_table', locals: {list: @detailed_steps, a: local_assigns}) %>");
-$("#tab-list li").removeClass('active');
-$("#tab_step").addClass('active');
+console.log('index#detailed_steps')
+$('#quickModal').modal('hide');
+var detailed_steps = $('#detailed_steps');
+
+// console.log("hello world")
+//re render list creating a new entry
+
+
+var string = "";
+<% @detailed_steps.each do |step| %>
+	string = string + "<%= j (render partial: 'detailed_row_item', locals: {step: step}) %>"
+<% end %>
+detailed_steps.html(string)
+// $("#tab-holder").html("<%= j (render partial: 'issues/show_step_table', locals: {list: @detailed_steps, a: local_assigns}) %>");
+// $("#tab-list li").removeClass('active');
+// $("#tab_step").addClass('active');

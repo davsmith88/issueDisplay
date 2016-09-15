@@ -1,3 +1,6 @@
-$('#step_table').append("<tr data-dt-id='<%= @detailed_step.id %>'><%= j (render partial: 'step_table_row', locals: {workaround: @detailed_step}) %></tr>");
-$('#task-form').slideUp(350);
-$('#myModal').modal('hide');
+var modal = $('#quickModal');
+var detailedSteps = $('#detailed_steps');
+detailed_steps.html("<%= render partial: 'list' %>");
+
+
+modal.modal('hide');

@@ -1,6 +1,8 @@
-$('#modal_body').html('<%= j (render partial: "quick_add", locals: {type: "hello world", place: "update"}) %> ');
 
-// $('#modal_body').html("<%= j (render partial: 'quick_add', locals: {type: 'new'}) %> ");
+console.log('ee');
 
-$('#myModalLabel').text('Update the selected step')
-$('#myModal').modal('show');
+var modal = $('#quickModal');
+
+modal.find('.modal-title').text("Create a new Step")
+modal.find('#modal_body').html('<%= j (render partial: "quick_add", locals: {place: "update"}) %> ');
+modal.modal('show');

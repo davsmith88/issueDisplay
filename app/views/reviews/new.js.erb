@@ -1,4 +1,7 @@
 console.log('ajax reviews#new')
 
-$('#modal_body').html("<%= j (render partial: 'reviews/form') %>")
-$('#myModal').modal('show')
+var modal = $('#quickModal');
+
+modal.find('#myModalLabel').text('Add a new <%= @label %>');
+modal.find('#modal_body').html("<%= j (render partial: 'reviews/form') %>");
+modal.modal('show');

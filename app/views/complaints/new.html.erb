@@ -1,0 +1,16 @@
+<% content_for :breadcrumb do %>
+	<li><%= link_to 'Complaints', complaints_path %></li>
+	<li class='active'>New</li>
+<% end %>
+
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='well'>
+			<p>Below is the form for creating a new complaint in the system. Information inserted into the system will be on display for the operators to view, so as much details as possible will be neccessary</p>
+		</div>
+	</div>
+</div>
+
+<%= form_for @complaint, builder: MyFormBuilder, :html => { :multipart => true, class: "form-horizontal", role: "form" } do |form| %>
+	<%= render partial: 'form', locals: {form: form} %>
+<% end %>

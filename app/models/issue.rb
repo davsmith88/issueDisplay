@@ -1,8 +1,8 @@
 class Issue < ActiveRecord::Base
-	include PublicActivity::Model
-	tracked
+	# include PublicActivity::Model
+	# tracked
 
-	store_accessor :preferences, :howTo
+	store_accessor :preferences, :howTo, :workaround, :solution
 
 	# validates :howTo, inclusion: { in: [true, false] }
 
@@ -27,8 +27,10 @@ class Issue < ActiveRecord::Base
   			else
   				condition = ['name like ?', search_condition]
   		end
-
-  		paginate per_page: 4, page: page, conditions: condition, order: 'name'
+  		
+  		Issue.order('name').where(condition).paginate(:page => 1)
+  		# paginate per_page: 5, page: page, conditions: condition, order: 'name'
+  	
   	end
 
 	def get_department_name
@@ -53,20 +55,14 @@ class Issue < ActiveRecord::Base
 	has_many :solutions
 	has_many :attempted_solutions
 	has_many :issue_workarounds
-
-	# has_many :detailed_steps, -> { where number: '1' }
 	has_many :detailed_steps
-
-	# has_many :images, as: :imageable
-
 	has_many :records, as: :recordable
-	
 	has_many :notes
 
 	belongs_to :department_area
 	belongs_to :impact
 	belongs_to :user
-	belongs_to :business
+	# belongs_to :business
 
 
 	validates :name, presence: {message: "Issue needs to have a name"}
@@ -87,6 +83,13 @@ class Issue < ActiveRecord::Base
 	validates :review_date, presence: true
 
 	scope :ordered_by_desc, ->{ order("created_at DESC") }
+
+	# used for video uploading
+	has_attached_file :avatar, :styles => {
+	    :medium => { :geometry => "640x480", :format => 'mp4' },
+	    :thumb => { :geometry => "100x100#", :format => 'jpg', :time => 10 }
+	  }, :processors => [:transcoder]
+	  validates_attachment_content_type :avatar, content_type: /\Avideo\/.*\Z/ 
 
  	state_machine :state, :initial => :draft do
 		state :draft, value: 'draft'
@@ -110,11 +113,4 @@ class Issue < ActiveRecord::Base
 			transition :publish => :review
 		end
 	end
-
-	has_attached_file :picture, styles: {
-		thumb: '100x100>',
-    	square: '200x200#',
-    	medium: '300x300>'
-	}
-	validates_attachment_content_type :picture,{content_type: /^image\/(png|gif|jpeg|jpg)/, message: "only (png/gif/jpeg) files area allowed"}
 end

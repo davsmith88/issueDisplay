@@ -7,15 +7,24 @@ class IssuesController < BIssueController
 	# before_action :other_permissions
 
 	def index
-		if params.has_key?(:loc)
+		@s = params[:search]
+		if params.has_key?(:loc) and params.has_key?(:search)
 			@loc = params[:loc]
-			@issues = current_user.business.issues.where(state: "publish", department_area_id: @loc).order(created_at: :desc).page(params[:page])
+			
+			# @issues = current_user.business.issues.search(params[:search], "name|description").where(state: "publish", department_area_id: @loc).order(created_at: :desc).page(params[:page])
+			@issues = Issue.search(params[:search], "name|description", params[:page]).where(state: "publish", department_area_id: @loc).order(created_at: :desc).page(params[:page])
+		elsif params.has_key?(:search)
+			@issues = Issue.search(params[:search], "name|description", params[:page]).where(state: "publish").order(created_at: :desc).page(params[:page])
+			
 		else
-			@issues = current_user.business.issues.where(state: "publish").order(created_at: :desc).page(params[:page])
+			
+			@issues = Issue.where(state: "publish").order(created_at: :desc).page(params[:page])
+			# @issues = current_user.business.issues.where(state: "publish").order(created_at: :desc).page(params[:page])
 
 		end
 		
-		@locations = DepartmentArea.all
+		# @locations = DepartmentArea.all
+		@locations = DepartmentArea.all.group_by(&:department_id)
 		# @issues = current_user.business.issues.where(state: "publish").order(created_at: :desc).page(params[:page])
 		# authorize! :read, Issue
 	end
@@ -28,12 +37,15 @@ class IssuesController < BIssueController
 
 		# # Issue.increment_counter(:view_counter, @issue.id)
 		super
+		session[:return_to] ||= request.referer
+		@workarounds = @issue.issue_workarounds
+		@solutions = @issue.solutions
 		@steps = @issue.detailed_steps.order(number: :asc)
-		@type = 'IssueWorkaround'
-		@name = 'workarounds'
-		render partial: 'issues/show_review_table',
-			layout: 'displaytab',
-			locals: {list: @issue.issue_workarounds, name: 'workarounds'}
+		# @type = 'IssueWorkaround'
+		# @name = 'workarounds'
+		# render partial: 'issues/show_review_table',
+			# layout: 'displaytab',
+			# locals: {list: @issue.issue_workarounds, name: 'workarounds'}
 	end
 
 	def draft_to_review
@@ -203,16 +215,6 @@ class IssuesController < BIssueController
 	def history
 		@issue = Issue.find(params[:id])
 		@versions = @issue.versions
-	end
-
-
-
-	def search
-		
-	end
-
-	def search_results
-		@issues = Issue.search(params[:search], params[:search_col], params[:page])
 	end
 
 	private

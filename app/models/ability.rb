@@ -14,8 +14,11 @@ class Ability
     # need to have a user_id column on the issue to record the user that created it
     # avoid using :manage as it will authenticate every method in the controller
 
+    can :show, :page
+
     can :read, Issue
     can :search, Issue
+    can :search_results, Issue
     can :update, Issue, :user_id => user.id 
 
     can :show_solutions, Issue
@@ -57,6 +60,32 @@ class Ability
 
     if user.role?("admin")
 
+        can :index, Complaint
+        can :show, Complaint
+        can :new, Complaint
+        can :create, Complaint
+        can :edit, Complaint
+        can :update, Complaint
+        can :destroy, Complaint
+        can :all, Complaint
+
+        can :show, Lineup
+        can :index, Lineup
+        can :new, Lineup
+        can :create, Lineup
+        can :destroy, Lineup
+        can :edit, Lineup
+        can :update, Lineup
+
+        can :show, Processarea
+        can :index, Processarea
+        can :new, Processarea
+        can :create, Processarea
+        can :destroy, Processarea
+        can :edit, Processarea
+        can :update, Processarea
+
+
         # puts "user is the admin"
         can :update, Issue
 
@@ -76,7 +105,7 @@ class Ability
         # can :get_images, Image
 
 
-        can :read, DetailedStep
+        can :read, DetailedStep, issue: {howTo: "true"}
         can :write, DetailedStep
 
         # will only create a detailed step if issue has howto selected to true 
@@ -85,6 +114,8 @@ class Ability
 
         can :update, DetailedStep
         can :destroy, DetailedStep
+        can :step_number_update, DetailedStep
+        can :quick_show, DetailedStep
 
         can :show, Location
         can :new, Location

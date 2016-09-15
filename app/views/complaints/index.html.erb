@@ -1,0 +1,42 @@
+<% content_for :title do %>
+	Quality Complaints
+<% end %>
+
+<% content_for :breadcrumb do %>
+	<li class='active'>Complaints</li>
+<% end %>
+
+<h3>Complaints</h3>
+<div class='row'>
+	<div class='col-sm-8'>
+		<p>Below is a list of all the quality complaints in the system</p>
+	</div>
+	<div class='col-sm-4'>
+		<%= link_to "New Complaint", new_complaint_path, class: 'btn btn-default btn-sm' %>
+		<%= link_to "Show all Machines", complaints_all_path, class: 'btn btn-default btn-sm' %>
+	</div>
+</div>
+<div class='row'>
+<table class='table'>
+	<tr>
+		<th>ID</th>
+		<th>Master Spec</th>
+		<th>Name</th>
+		<th>Description</th>
+		<th>Actions</th>
+	</tr>
+	<% @complaints.each do |c| %>
+		<tr>
+			<td><%= c.id %></td>
+			<td><%= c.master_spec %></td>
+			<td><%= c.name %></td>
+			<td><%= c.description %></td>
+			<td><%= link_to "Edit", edit_complaint_path(c), class: "btn btn-default btn-sm" %>
+			<%= link_to "Destroy", complaint_path(c), id: "destroy", class: "btn btn-default btn-sm", method: :delete, data: {confirm: "Are you sure you want to delete"} %>
+			</td>
+		</tr>
+	<% end %>
+</table> 
+</div>
+
+<%= will_paginate @issues, renderer: BootstrapPagination::Rails %>

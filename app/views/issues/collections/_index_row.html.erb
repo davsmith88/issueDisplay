@@ -1,6 +1,10 @@
 <tr>
 	<td>
+		<% if issue.howTo == "true" and issue.detailed_steps.count > 0 %>
+			<span class='label label-info'>How To</span>
+		<% end %>
 		<%= issue.name %>
+		<%= issue.howTo %>
 	</td>
 	<td>
 		<div class='row'>
@@ -15,6 +19,7 @@
 				<% if can? :destroy, issue %>
 					<%= link_to "Destroy", issue_path(issue), id: "destroy", class: "btn btn-default btn-xs", method: :delete, data: {confirm: "Are you sure you want to delete"} %>
 				<% end %>
+					<%= link_to "Show Steps", quick_show_issue_detailed_steps_path(issue), remote: true, class: "btn btn-default btn-xs" if issue.detailed_steps.length > 0 %>
 				</p>
 			</div>
 		</div>

@@ -1,8 +1,5 @@
-$('#modal_body').html('<%= j (render partial: "quick_add",locals: {place: "new"}) %> ');
+var modal = $('#quickModal');
 
-// $('#modal_body').html('<%= j (render partial: "quick_add", locals: {type: "update"}) %> ');
-
-$('#myModalLabel').text("Create a new Step")
-// $('#task-form').html("<%= j (render 'quick_add') %>");
-// $('#task-form').slideDown(350);
-$('#myModal').modal('show');
+modal.find('.modal-title').text("Create a new Step")
+modal.find('#modal_body').html('<%= j (render partial: "quick_add",locals: {place: "new"}) %> ');
+modal.modal('show');

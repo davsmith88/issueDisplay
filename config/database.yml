@@ -17,3 +17,11 @@ development:
   pool: 5
   username: dave
   password: helloworld
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: issuemanager_development_test
+  pool: 5
+  username: dave
+  password: helloworld

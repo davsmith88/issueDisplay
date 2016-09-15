@@ -1,6 +1,15 @@
 console.log("ajax review/destroy");
 
 $('#review_table_<%= @name %> *[data-r-id="<%= @review.id %>"]').remove();
+var word = "<%= @type %>"
+if(word === 'IssueWorkaround'){
+	word = "workaround"
+}
+var field = word.toLowerCase() + "s"
+var count = parseInt($('#' + field + '_count').text())
+
+$('#' + field + '_count').text(count - 1)
+
 
 if(<%= @reviews.count %> == 0){
 	console.log('a')

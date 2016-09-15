@@ -1,4 +1,4 @@
-module UserHelper
+module UserSupport
 	def login(a)
 		visit new_user_session_path
 		fill_in "user_email", with: a[:email]
@@ -9,40 +9,21 @@ module UserHelper
 	def logout
 	end
 
-	def create_user_with_all_permissions(user)
-		role = Role.create(name: "admin")
-		assignment = FactoryGirl.create(:assignment, role_id: role.id, user_id: user.id)
-
-		admin_resource = %w(admin issue_management)
-		resources = %w(issue)
-		operations = %w(READ UPDATE CREATE DESTROY)
-
-		resources.each do |resource|
-			operations.each do |operation|
-				right = FactoryGirl.create(:right, resource: resource.pluralize(2), operation: operation)
-				FactoryGirl.create(:grant, role_id: role.id, right_id: right.id)
-			end
-		end
-
-		admin_resource.each do |ar|
-			right = FactoryGirl.create(:right, resource: ar, operation: "READ")
-			FactoryGirl.create(:grant, role_id: role.id, right_id: right.id)
-		end
-
-		return nil
-	end
-
 	def setup_basic_business_defaults
-		department = FactoryGirl.create(:department, name: "bhs")
-		area = FactoryGirl.create(:area, name: "starch kitchen")
-		department_area = FactoryGirl.create(:department_area, department: department, area: area)
 
-		department1 = FactoryGirl.create(:department, name: "bhs")
-		area1 = FactoryGirl.create(:area, name: "wet end")
-		department_area1 = FactoryGirl.create(:department_area, department: department1, area: area1)
+		business = FactoryGirl.create(:business)
+
+		department = FactoryGirl.create(:department, name: "bhs", business_id: business)
+		area = FactoryGirl.create(:area, name: "starch kitchen", business_id: business)
+		department_area = FactoryGirl.create(:department_area, department: department, area: area, business_id: business)
+
+		department1 = FactoryGirl.create(:department, name: "bhs", business_id: business)
+		area1 = FactoryGirl.create(:area, name: "wet end", business_id: business)
+		department_area1 = FactoryGirl.create(:department_area, department: department1, area: area1, business_id: business)
 
 		impact = FactoryGirl.create(:impact, name: "Quality")
 		impact = FactoryGirl.create(:impact, name: "Run speed")
 		impact = FactoryGirl.create(:impact, name: "Downtime")
+		return business
 	end
 end

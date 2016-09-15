@@ -1,40 +1,11 @@
+<%= form_for [@issue, @detailed_step], remote: true, builder: MyFormBuilder, html: {class: "form-horizontal"} do |form|  %>
+  <%= form.text_area :number %>
+  <%= form.text_area :description %>
 
-<%#= local_assigns %>
-
-
-<%= form_for([@issue, @detailed_step], remote: true, authenticity_token: true) do |f| %>
-<div class='form-group <%= @detailed_step.errors[:number].size > 0 ? 'has-error' : '' %>'>
-  <div class="col-sm-4">
-    <%= f.label :number, class: 'control-label' %><br>
-  </div>
-  <div class='col-sm-8'>
-    <%= f.text_field :number, class: 'form-control' %>
-    <p class='text-danger'><%= @detailed_step.errors.full_messages_for(:number)[0] %></p>
-   
-  </div>
-  </div>
-  <div class='form-group <%= @detailed_step.errors[:description].size > 0 ? 'has-error' : '' %>'>
-  <div class="col-sm-4">
-    <%= f.label :description, class: 'control-label' %><br>
-    </div>
-    <div class='col-sm-8'>
-    <%= f.text_field :description, class: 'form-control' %>
-      <p class='text-danger'><%= @detailed_step.errors.full_messages_for(:description)[0] %><p>
-  </div>
-  </div>
-
-
-<div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <% if local_assigns[:place] == "update" %>
-        <%= f.submit "Update Step", class: 'btn btn-default btn-sm' %>
-        <% end %>
-        <% if local_assigns[:place] == "new" %>
-        <%= f.submit "Create Step", class: 'btn btn-default btn-sm' %>
-        <% end %>
-      </div>
-
-
-
-  
+  <% if local_assigns[:place] == "update" %>
+    <%= form.submit "Update", label: "Action", class: "btn btn-default" %>
+  <% end %>
+  <% if local_assigns[:place] == "new" %>
+    <%= form.submit "Create", label: "Action", class: "btn btn-default" %>
+  <% end %>
 <% end %>

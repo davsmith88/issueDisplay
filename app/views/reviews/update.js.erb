@@ -3,4 +3,4 @@ console.log('ajax review#update');
 console.log("<%= @name %>")
 $('#review_table_<%= @name %> *[data-r-id="<%= @review.id %>"]').html("<%= j (render partial: 'issues/show_review_table_row', locals: {workaround: @review}) %>");
 
-$('#myModal').modal('hide');
+$('#quickModal').modal('hide');

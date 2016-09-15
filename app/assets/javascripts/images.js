@@ -55,7 +55,6 @@ ready = function(){
 
 	$('body').on('click', '.m', function(e){
 		var imgId = $(e.target).data('img-m');
-
 		setImageToStep(imgId);
 	});
 
@@ -112,10 +111,10 @@ ready = function(){
 
 			for(var i = 0; i < data.length; i++){
 				if(i > 2){
-					$('.container2').append("<div class='col-sm-4'><img class='m' data-img-m='" + data[i]['id'] + "' src='" + data[i].imgUrl + "'></div>");
+					$('.container2').append("<div class='col-sm-4'><a href='#'' class='thumbnail'><img class='m' data-img-m='" + data[i]['id'] + "' src='" + data[i].imgUrl + "'></a></div>");
 
 				}else{
-					$('.c').append("<div class='col-sm-4'><img class='m' data-img-m='" + data[i]['id'] + "' src='" + data[i].imgUrl + "'></div>");
+					$('.c').append("<div class='col-sm-4'><a href='#' class='thumbnail'><img class='m' data-img-m='" + data[i]['id'] + "' src='" + data[i].imgUrl + "'></a></div>");
 				}
 				totalNumPicts = data[i]['totalCount'];
 				pages = Math.ceil(totalNumPicts / numPict) - 1;

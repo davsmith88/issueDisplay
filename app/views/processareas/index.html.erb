@@ -1,0 +1,29 @@
+<h1>Listing processareas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Complaint</th>
+      <th>Process area type</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @processareas.each do |processarea| %>
+      <tr>
+        <td><%= processarea.complaint %></td>
+        <td><%= processarea.process_area_type %></td>
+        <td><%= link_to 'Show', processarea %></td>
+        <td><%= link_to 'Edit', edit_processarea_path(processarea) %></td>
+        <td><%= link_to 'Destroy', processarea, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Processarea', new_processarea_path %>

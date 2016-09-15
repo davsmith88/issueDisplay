@@ -13,15 +13,16 @@ class UsersController < ApplicationController
 	end
 
 	def profile
-		if current_user
-			if params[:filter] == 'all' or params[:filter].nil?
-				@issues = Issue.where(user_id: current_user.id).order("created_at DESC").page(params[:page])
-			else
-				@issues = Issue.where(user_id: current_user.id, state: params[:filter]).order("created_at DESC").page(params[:page])
-			end
-		else
-			redirect_to new_user_session_path, notice: "A user needs to be signed in to view a profile"
-		end
+		@issues = Issue.where(user_id: current_user.id).order("created_at DESC").page(params[:page])
+		# if current_user
+		# 	if params[:filter] == 'all' or params[:filter].nil?
+		# 		@issues = Issue.where(user_id: current_user.id).order("created_at DESC").page(params[:page])
+		# 	else
+		# 		@issues = Issue.where(user_id: current_user.id, state: params[:filter]).order("created_at DESC").page(params[:page])
+		# 	end
+		# else
+		# 	redirect_to new_user_session_path, notice: "A user needs to be signed in to view a profile"
+		# end
 	end
 
 	def show

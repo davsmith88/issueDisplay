@@ -1,9 +1,15 @@
-IssueDisplay::Application.routes.draw do
+Rails.application.routes.draw do
+  resources :processareas
 
- 
+  resources :lineups
+
+  get "/c/:location/:machine_code" => "complaints#show", as: :indiv_show_complaint
+  get "/complaints/all" => "complaints#all"
+ get "/pages/:page" => "pages#show"
   
 
   resources :images
+  resources :complaints
   get 'a/image_management' => 'images#manindex', as: :image_management
 
   get "/api/get_images" => 'images#get_images', as: :get_images_json
@@ -169,7 +175,7 @@ IssueDisplay::Application.routes.draw do
   get "/notifications" => "notifications#notification", as: :notification_feed
 
 
-  # get '/issues/search' => "issues#search", as: :issue_search
+  get '/issues/search' => "issues#search", as: :issue_search
   get 'search_results' => "issues#search_results", as: :search_results
 
   resources :issues do
@@ -191,7 +197,12 @@ IssueDisplay::Application.routes.draw do
       get 'edit/solutions' => "issues#edit_solutions", as: :edit_solutions
       get 'edit/attempted_solutions' => "issues#edit_attempted_solutions", as: :edit_attempted_solutions
     end
-    resources :detailed_steps
+    resources :detailed_steps do
+      collection do
+        post 'step_number_update'
+        get 'quick_show'
+      end
+    end
     # get 'show_steps' => "detailed_steps#show", as: :show_issues_steps
     resources :notes do
       post 'mark_as_checked', as: :marked_as_checked
@@ -223,7 +234,7 @@ IssueDisplay::Application.routes.draw do
   # resources :detailed_steps do
   #      resources :media
   # end
-  resources :media
+  resources :media, only: [:show, :new, :create, :destroy]
   # resources :issue_workarounds do
   #   resources :records, only: [:create, :index, :new]
   #   resources :images

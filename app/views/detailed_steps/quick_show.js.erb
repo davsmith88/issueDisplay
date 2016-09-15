@@ -1,0 +1,17 @@
+console.log('quick add detailed_steps')
+var modal = $('#show_detailed_steps_modal')
+
+modal.find('.modal-title').text("<%= @issue.name %>")
+modal.find('.desText').text("<%= @issue.description %>")
+modal.find('.modal-body').html("<%= j(render partial: 'quick_show', locals: {issue: @issue, steps: @ds}) %>")
+
+modal.find('.carousel-indicators').children().first().addClass('active')
+modal.find('.carousel-indicators li').css('background-color', '#669966')
+modal.find('img').css('margin', '0 auto')
+modal.find('.carousel-inner').children().first().addClass('active')
+
+
+modal.find('.carousel-caption').css('color', 'white')
+modal.find('.carousel-caption').css('text-shadow', '-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black')
+
+modal.modal('show')

@@ -3,45 +3,42 @@
 <% end %>
 
 <h1>Profile</h1>
+<div class='row'>
+	<div class='col-sm-3'>
+		<ul class='list-group'>
+	<li class='list-group-item'><span class='label label-default'>Name</span> <%= current_user.name %></li>
+	<li class='list-group-item'><span class='label label-default'>Title</span> <%= current_user.title %></li>
+	<li class='list-group-item'><span class='label label-default'>Email</span> <%= current_user.email %></li>
+	<li class='list-group-item'><%= link_to "Edit", edit_user_path(current_user), class: 'btn btn-default' %></li>
+</ul>
 
-<ol>
-	<li>Name : <%= current_user.name %></li>
-	<li>Title : <%= current_user.title %></li>
-	<li>Email : <%= current_user.email %></li>
-</ol>
+	</div>
+	<div class='col-sm-9'>
+	<table class='table'>
+	<tr>
+		<th>Name</th>
+		<th>Description</th>
+		<th>Created At</th>
+		<th>Updated At</th>
+		<th>Actions</th>
+	</tr>
+	<% @issues.each do |issue| %>
+		<tr>
+			<td><span class='label label-<%= issue_status(issue.state) %>'><%= issue.state %></span> <%= issue.name %></td>
+			<td><%= issue.description %></td>
+			<td><%= issue.created_at.to_formatted_s(:short) %></td>
+			<td><%= issue.updated_at.to_formatted_s(:short)       %></td>
+			<td>
+				<%= link_to "View", issue_path(issue) %>
+				<%= link_to "Edit", edit_issue_path(issue) %>
+				<%= link_to "Delete", issue_path(issue), method: :delete, data: {confirm: "Are you sure"} %>
+			</td>
+		</tr>
+	<% end %>
+</table>
 
-<%= link_to "Edit", edit_user_path(current_user) %>
-
-
-
-
-
-<p>All the Issues that have been created by you</p>
-
-<%= link_to "All Issues", profile_path(:page => 1, :filter => 'all') %>|
-<%= link_to "Draft Issues", profile_path(:page => 1,:filter => 'draft') %>|
-<%= link_to "Review Issues", profile_path(:page => 1,:filter => 'review') %>|
-<%= link_to "Publish Issues", profile_path(:page => 1,:filter => 'publish') %>
-
-<% if @issues.length > 0 %>
-	<ol>
-		<% @issues.each do |issue| %>
-			<li>(<%= issue.state %>)<%= issue.name %></li>
-			<p><%= issue.description %></p>
-			<p>Created At : <%= issue.created_at %> | Updated At : <%= issue.updated_at %></p>
-			<p><%= "[" + issue.notes.where(checked: false).length.to_s + "]" if issue.notes.where(checked: false).length > 0  %>
-			<%= link_to "View Notes", issue_notes_path(issue) %> |
-			<%= "[" + issue.versions.length.to_s + "]" if issue.versions.length > 0 %>
-			<%= link_to "View History", history_issue_path(issue) %>
-			</p>
-			<ul>
-				<li><%= link_to "View", issue_path(issue) %></li>
-				<li><%= link_to "Edit", edit_issue_path(issue) %></li>
-				<li><%= link_to "Delete", issue_path(issue), method: :delete, data: {confirm: "Are you sure"} %></li>
-			</ul>
-		<% end %>
-	</ol>
-<% end %>
+<%= will_paginate @issues, renderer: BootstrapPagination::Rails %>
+	</div>
+</div>
 
 
-<%= will_paginate @issues %>

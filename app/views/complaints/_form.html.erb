@@ -1,0 +1,12 @@
+<%= form.text_field :name, placeholder: "Name" %>
+<%= form.text_area :description, class: "form-control", placeholder: "Description" %>
+
+<%= form.text_area :rectify, placeholder: "Rectify" %>
+<%= form.text_field :master_spec, placeholder: "Master Spec" %>
+<%= form.text_field :cust_name, placeholder: "Customer Name" %>
+
+<%= form.se "complaint[step]", "Step", opt_machines(form.object.step) %>
+<%= form.se "complaint[priority]", "Priority", priorities(form.object.priority) %>
+<%= form.se "complaint[internal]", "Internal Complaint", internal_options(form.object.internal) %>
+
+<%= form.submit "Save", label: "Actions", class: 'btn btn-primary' %>

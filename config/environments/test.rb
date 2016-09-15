@@ -1,7 +1,5 @@
-IssueDisplay::Application.configure do
+Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
-  config.consider_all_requests_local = false
 
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that
@@ -16,10 +14,10 @@ IssueDisplay::Application.configure do
 
   # Configure static asset server for tests with Cache-Control for performance.
   config.serve_static_assets  = true
-  config.static_cache_control = "public, max-age=3600"
+  config.static_cache_control = 'public, max-age=3600'
 
   # Show full error reports and disable caching.
-  # config.consider_all_requests_local       = true
+  config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
   # Raise exceptions instead of rendering exception templates.
@@ -36,5 +34,6 @@ IssueDisplay::Application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
-   config.assets.debug = true
+  # Raises error for missing translations
+  # config.action_view.raise_on_missing_translations = true
 end

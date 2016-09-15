@@ -1,0 +1,33 @@
+<h1>Listing lineups</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Position number</th>
+      <th>Job number</th>
+      <th>Master spec</th>
+      <th>Machine</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lineups.each do |lineup| %>
+      <tr>
+        <td><%= lineup.position_number %></td>
+        <td><%= lineup.job_number %></td>
+        <td><%= lineup.master_spec %></td>
+        <td><%= lineup.machine %></td>
+        <td><%= link_to 'Show', lineup %></td>
+        <td><%= link_to 'Edit', edit_lineup_path(lineup) %></td>
+        <td><%= link_to 'Destroy', lineup, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Lineup', new_lineup_path %>

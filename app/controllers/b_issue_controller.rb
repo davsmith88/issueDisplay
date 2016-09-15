@@ -10,7 +10,8 @@ class BIssueController < ApplicationController
 		# @images = @issue.images
 		@images = []
 		@steps = @issue.detailed_steps.all
-		@issue_workarounds = @issue.issue_workarounds.includes(:images)
+		# @issue_workarounds = @issue.issue_workarounds.includes(:images)
+		@issue_workarounds = @issue.issue_workarounds
 
 
 		# Issue.increment_counter(:view_counter, @issue.id)
@@ -25,6 +26,7 @@ class BIssueController < ApplicationController
 
 	def create
 		@issue = current_user.business.issues.new(issue_params)
+		
 		if issue_params[:review_date] and @issue.review_date
 			issue_review_date = DateTime.parse(@issue.review_date.to_s).strftime("%d-%m-%Y")
 			current_review_date = DateTime.parse(issue_params[:review_date]).strftime("%d-%m-%Y")
@@ -146,43 +148,45 @@ class BIssueController < ApplicationController
 		end
 
 		def get_dep_area
-			@depAreas = scoped.department_areas.includes(:department, :area)
+			@depAreas = DepartmentArea.all.includes(:department, :area)
+			# @depAreas = scoped.department_areas.includes(:department, :area)
 		end
 
 		def get_impacts
-			@impacts = scoped.impacts.all
+			# @impacts = scoped.impacts.all
+			@impacts = Impact.all
 		end
 
 		def issue_params
-			params.require(:issue).permit(:name, :description, :impact_id, :department_area_id, :review_date, :picture, :i_type, :preferences => [:howTo] )
+			params.require(:issue).permit(:name, :description, :impact_id, :department_area_id, :review_date, :picture, :i_type, :avatar, :preferences => [:howTo, :workaround, :solution])
 		end
 
 		def return_array(data)
 			data.to_a
 		end
 
-		def other_permissions
-			if current_user
+		# def other_permissions
+		# 	if current_user
 
-				@edit = current_user.can?("edit", controller_name)
-				@destroy = current_user.can?("destroy", controller_name)
-				@create = current_user.can?("new", controller_name)
+		# 		@edit = current_user.can?("edit", controller_name)
+		# 		@destroy = current_user.can?("destroy", controller_name)
+		# 		@create = current_user.can?("new", controller_name)
 				
-				@workaround_create = current_user.can?("new", "issue_workarounds")
-				@workaround_edit = current_user.can?("edit", "issue_workarounds")
-				@workaround_destroy = current_user.can?("destroy", "issue_workarounds")
+		# 		@workaround_create = current_user.can?("new", "issue_workarounds")
+		# 		@workaround_edit = current_user.can?("edit", "issue_workarounds")
+		# 		@workaround_destroy = current_user.can?("destroy", "issue_workarounds")
 
-				@image_create = current_user.can?("new", "images")
-				@image_edit = current_user.can?("edit", "images")
-				@image_destroy = current_user.can?("destroy", "images")
+		# 		@image_create = current_user.can?("new", "images")
+		# 		@image_edit = current_user.can?("edit", "images")
+		# 		@image_destroy = current_user.can?("destroy", "images")
 
-				@solution_create = current_user.can?("new", "solutions")
-				@solution_edit = current_user.can?("edit", "solutions")
-				@solution_destroy = current_user.can?("destroy", "solutions")
+		# 		@solution_create = current_user.can?("new", "solutions")
+		# 		@solution_edit = current_user.can?("edit", "solutions")
+		# 		@solution_destroy = current_user.can?("destroy", "solutions")
 
-				@attempted_solution_create = current_user.can?("new", "attempted_solutions")
-				# @attempted_solution_create = current_user.can?("edit", "attempted_solutions")
-				# @attempted_solution_create = current_user.can?("destroy", "attempted_solutions")
-			end
-		end
+		# 		@attempted_solution_create = current_user.can?("new", "attempted_solutions")
+		# 		# @attempted_solution_create = current_user.can?("edit", "attempted_solutions")
+		# 		# @attempted_solution_create = current_user.can?("destroy", "attempted_solutions")
+		# 	end
+		# end
 end
