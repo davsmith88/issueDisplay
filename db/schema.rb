@@ -11,21 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160911064642) do
+ActiveRecord::Schema.define(version: 20160928210255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
 
-  create_table "activities", force: true do |t|
+  create_table "activities", force: :cascade do |t|
     t.integer  "trackable_id"
-    t.string   "trackable_type"
+    t.string   "trackable_type", limit: 255
     t.integer  "owner_id"
-    t.string   "owner_type"
-    t.string   "key"
+    t.string   "owner_type",     limit: 255
+    t.string   "key",            limit: 255
     t.text     "parameters"
     t.integer  "recipient_id"
-    t.string   "recipient_type"
+    t.string   "recipient_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -34,24 +34,24 @@ ActiveRecord::Schema.define(version: 20160911064642) do
   add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
   add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
 
-  create_table "albums", force: true do |t|
+  create_table "albums", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "imageable_id"
-    t.string   "imageable_type"
+    t.string   "imageable_type", limit: 255
   end
 
   add_index "albums", ["imageable_id", "imageable_type"], name: "index_albums_on_imageable_id_and_imageable_type", using: :btree
 
-  create_table "areas", force: true do |t|
-    t.string   "name"
+  create_table "areas", force: :cascade do |t|
+    t.string   "name",        limit: 255
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "business_id"
   end
 
-  create_table "assignments", force: true do |t|
+  create_table "assignments", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "role_id"
     t.datetime "created_at"
@@ -59,8 +59,8 @@ ActiveRecord::Schema.define(version: 20160911064642) do
     t.integer  "business_id"
   end
 
-  create_table "attempted_solutions", force: true do |t|
-    t.string   "name"
+  create_table "attempted_solutions", force: :cascade do |t|
+    t.string   "name",        limit: 255
     t.text     "description"
     t.text     "reason"
     t.datetime "created_at"
@@ -70,16 +70,16 @@ ActiveRecord::Schema.define(version: 20160911064642) do
 
   add_index "attempted_solutions", ["issue_id"], name: "index_attempted_solutions_on_issue_id", using: :btree
 
-  create_table "businesses", force: true do |t|
-    t.string   "name"
-    t.string   "location"
+  create_table "businesses", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.string   "location",    limit: 255
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "intro"
   end
 
-  create_table "complaints", force: true do |t|
+  create_table "complaints", force: :cascade do |t|
     t.text     "description"
     t.text     "name"
     t.text     "rectify"
@@ -87,104 +87,120 @@ ActiveRecord::Schema.define(version: 20160911064642) do
     t.text     "master_spec"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "step"
-    t.string   "priority"
+    t.string   "step",        limit: 255
+    t.string   "priority",    limit: 255
     t.text     "cust_name"
   end
 
-  create_table "department_areas", force: true do |t|
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "department_areas", force: :cascade do |t|
     t.integer  "department_id"
     t.integer  "area_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
+    t.string   "name",          limit: 255
     t.integer  "business_id"
   end
 
   add_index "department_areas", ["area_id"], name: "index_department_areas_on_area_id", using: :btree
   add_index "department_areas", ["department_id"], name: "index_department_areas_on_department_id", using: :btree
 
-  create_table "departments", force: true do |t|
-    t.string   "name"
+  create_table "departments", force: :cascade do |t|
+    t.string   "name",        limit: 255
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "business_id"
   end
 
-  create_table "detailed_steps", force: true do |t|
-    t.string   "description"
+  create_table "detailed_steps", force: :cascade do |t|
+    t.string   "description",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "issue_id"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.integer  "number"
   end
 
-  create_table "grants", force: true do |t|
+  create_table "grants", force: :cascade do |t|
     t.integer  "right_id"
     t.integer  "role_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "images", force: true do |t|
+  create_table "images", force: :cascade do |t|
     t.text     "caption"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "picture_file_name"
-    t.string   "picture_content_type"
+    t.string   "picture_file_name",    limit: 255
+    t.string   "picture_content_type", limit: 255
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
-    t.string   "location"
-    t.string   "description"
-    t.string   "name"
-    t.string   "location_id"
+    t.string   "location",             limit: 255
+    t.string   "description",          limit: 255
+    t.string   "name",                 limit: 255
+    t.string   "location_id",          limit: 255
     t.integer  "imageable_id"
-    t.string   "imageable_type"
+    t.string   "imageable_type",       limit: 255
   end
 
   add_index "images", ["imageable_id", "imageable_type"], name: "index_images_on_imageable_id_and_imageable_type", using: :btree
 
-  create_table "impacts", force: true do |t|
-    t.string   "name"
+  create_table "impacts", force: :cascade do |t|
+    t.string   "name",        limit: 255
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "business_id"
   end
 
-  create_table "issue_workarounds", force: true do |t|
-    t.string  "description"
+  create_table "issue_workarounds", force: :cascade do |t|
+    t.string  "description", limit: 255
     t.integer "issue_id"
   end
 
-  create_table "issues", force: true do |t|
-    t.string   "name"
+  create_table "issues", force: :cascade do |t|
+    t.string   "name",                 limit: 255
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "workaround"
-    t.string   "area_impacted"
+    t.string   "area_impacted",        limit: 255
     t.integer  "view_counter"
     t.integer  "user_id"
     t.integer  "impact_id"
     t.date     "review_date"
-    t.string   "i_type"
-    t.string   "author"
-    t.string   "state"
+    t.string   "i_type",               limit: 255
+    t.string   "author",               limit: 255
+    t.string   "state",                limit: 255
     t.integer  "business_id"
     t.integer  "department_area_id"
-    t.string   "picture_file_name"
-    t.string   "picture_content_type"
+    t.string   "picture_file_name",    limit: 255
+    t.string   "picture_content_type", limit: 255
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
     t.hstore   "preferences"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
+    t.string   "avatar_file_name",     limit: 255
+    t.string   "avatar_content_type",  limit: 255
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
   end
@@ -193,52 +209,52 @@ ActiveRecord::Schema.define(version: 20160911064642) do
   add_index "issues", ["preferences"], name: "index_issues_on_preferences", using: :gin
   add_index "issues", ["user_id"], name: "index_issues_on_user_id", using: :btree
 
-  create_table "jobs", force: true do |t|
-    t.string   "name"
-    t.string   "description"
+  create_table "jobs", force: :cascade do |t|
+    t.string   "name",               limit: 255
+    t.string   "description",        limit: 255
     t.integer  "department_area_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "category"
+    t.string   "category",           limit: 255
   end
 
   add_index "jobs", ["department_area_id"], name: "index_jobs_on_department_area_id", using: :btree
 
-  create_table "lineups", force: true do |t|
+  create_table "lineups", force: :cascade do |t|
     t.integer  "position_number"
-    t.string   "job_number"
-    t.string   "master_spec"
-    t.string   "machine"
+    t.string   "job_number",      limit: 255
+    t.string   "master_spec",     limit: 255
+    t.string   "machine",         limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "cust_name"
-    t.string   "timestamp"
+    t.string   "cust_name",       limit: 255
+    t.string   "timestamp",       limit: 255
   end
 
-  create_table "locations", force: true do |t|
-    t.string   "code"
+  create_table "locations", force: :cascade do |t|
+    t.string   "code",               limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "department_area_id"
-    t.string   "name"
-    t.string   "info"
+    t.string   "name",               limit: 255
+    t.string   "info",               limit: 255
   end
 
-  create_table "media", force: true do |t|
+  create_table "media", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "imageable_id"
-    t.string   "imageable_type"
+    t.string   "imageable_type", limit: 255
     t.integer  "image_id"
   end
 
   add_index "media", ["image_id"], name: "index_media_on_image_id", using: :btree
   add_index "media", ["imageable_id", "imageable_type"], name: "index_media_on_imageable_id_and_imageable_type", using: :btree
 
-  create_table "notes", force: true do |t|
+  create_table "notes", force: :cascade do |t|
     t.text     "context"
     t.integer  "reviewer_id"
-    t.string   "category"
+    t.string   "category",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "issue_id"
@@ -249,24 +265,24 @@ ActiveRecord::Schema.define(version: 20160911064642) do
 
   add_index "notes", ["issue_id"], name: "index_notes_on_issue_id", using: :btree
 
-  create_table "processareas", force: true do |t|
+  create_table "processareas", force: :cascade do |t|
     t.integer  "complaint_id"
-    t.string   "process_area_type"
+    t.string   "process_area_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "processareas", ["complaint_id"], name: "index_processareas_on_complaint_id", using: :btree
 
-  create_table "qwers", force: true do |t|
-    t.string   "name"
+  create_table "qwers", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "records", force: true do |t|
+  create_table "records", force: :cascade do |t|
     t.integer  "recordable_id"
-    t.string   "recordable_type"
+    t.string   "recordable_type", limit: 255
     t.integer  "user_id"
     t.integer  "issue_id"
     t.datetime "created_at"
@@ -277,38 +293,38 @@ ActiveRecord::Schema.define(version: 20160911064642) do
   add_index "records", ["recordable_id", "recordable_type"], name: "index_records_on_recordable_id_and_recordable_type", using: :btree
   add_index "records", ["user_id"], name: "index_records_on_user_id", using: :btree
 
-  create_table "reviews", force: true do |t|
+  create_table "reviews", force: :cascade do |t|
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "issue_id"
-    t.string   "type"
-    t.string   "state"
+    t.string   "type",        limit: 255
+    t.string   "state",       limit: 255
     t.datetime "review_date"
   end
 
   add_index "reviews", ["issue_id"], name: "index_reviews_on_issue_id", using: :btree
   add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
 
-  create_table "rights", force: true do |t|
-    t.string   "resource"
-    t.string   "operation"
+  create_table "rights", force: :cascade do |t|
+    t.string   "resource",   limit: 255
+    t.string   "operation",  limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "roles", force: true do |t|
-    t.string   "name"
+  create_table "roles", force: :cascade do |t|
+    t.string   "name",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
     t.integer  "business_id"
   end
 
-  create_table "solutions", force: true do |t|
+  create_table "solutions", force: :cascade do |t|
     t.integer  "issue_id"
-    t.string   "name"
+    t.string   "name",       limit: 255
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -316,39 +332,39 @@ ActiveRecord::Schema.define(version: 20160911064642) do
 
   add_index "solutions", ["issue_id"], name: "index_solutions_on_issue_id", using: :btree
 
-  create_table "steps", force: true do |t|
-    t.string   "description"
+  create_table "steps", force: :cascade do |t|
+    t.string   "description", limit: 255
     t.integer  "step_order"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "job_id"
   end
 
-  create_table "tests", force: true do |t|
-    t.string   "name"
-    t.string   "description"
+  create_table "tests", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.string   "description", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
-    t.string   "title"
+    t.string   "name",                   limit: 255
+    t.string   "title",                  limit: 255
     t.integer  "business_id"
     t.boolean  "creator"
-    t.string   "permType"
+    t.string   "permType",               limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

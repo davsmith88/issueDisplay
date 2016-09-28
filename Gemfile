@@ -5,6 +5,8 @@ source 'https://rubygems.org'
 # gem 'rails', '4.1.16'
 gem 'rails', '4.2.7.1'
 
+gem 'delayed_job_active_record'
+
 # May not need the responders gem ... have to find out 
 gem 'responders', '~> 2.0' 
 
