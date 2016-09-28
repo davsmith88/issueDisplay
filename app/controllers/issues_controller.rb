@@ -92,6 +92,7 @@ class IssuesController < BIssueController
 			if @issue.save
 				format.html {redirect_to @issue, notice: "Issue was created successfully"}
 			else
+				pp @issue.errors
 				flash.now[:alert] = "Issue is not valid"
 				format.html {render action: 'new'}
 			end

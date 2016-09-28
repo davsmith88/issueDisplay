@@ -2,7 +2,15 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 # gem 'rails', '4.0.13'
-gem 'rails', '4.1.16'
+# gem 'rails', '4.1.16'
+gem 'rails', '4.2.7.1'
+
+# May not need the responders gem ... have to find out 
+gem 'responders', '~> 2.0' 
+
+
+
+
 
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
@@ -52,7 +60,9 @@ gem 'cancancan', '~> 1.10'
 
 gem 'jquery-turbolinks'
 
-gem 'state_machine'
+# gem 'state_machine'
+gem 'state_machine', github: 'seuros/state_machine'
+
 gem 'public_activity'
 gem 'paper_trail', '~> 3.0.2'
 

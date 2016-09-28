@@ -82,7 +82,7 @@ class Issue < ActiveRecord::Base
 	
 	validates :review_date, presence: true
 
-	scope :ordered_by_desc, ->{ order("created_at DESC") }
+	scope :ordered_by_desc, -> { order("created_at DESC") }
 
 	# used for video uploading
 	has_attached_file :avatar, :styles => {
