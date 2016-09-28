@@ -88,8 +88,10 @@ class IssuesController < BIssueController
 
 	def create
 		super
+		@user = current_user
 		respond_to do |format|
 			if @issue.save
+				UserMailer.issue_create_email(@issue, @user).deliver_later
 				format.html {redirect_to @issue, notice: "Issue was created successfully"}
 			else
 				pp @issue.errors
