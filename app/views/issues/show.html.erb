@@ -6,8 +6,12 @@
 	<div class='row'>
 		<div class='col-sm-4'>
 			<div class='form-group'>
-				<p id='type'>a</p>
-				<p id='issueId'><%= @issue.id %></p>
+				<label class='col-sm-3 control-label'>ID</label>
+				<div class='col-sm-9'>
+					<p id='issueId' class='form-control-static'><%= @issue.id %></p>
+				</div>
+			</div>
+			<div class='form-group'>
 				<label class='col-sm-3 control-label'>Name</label>
 				<div class='col-sm-9'>
 					<p class='form-control-static'><%= @issue.name %></p>
