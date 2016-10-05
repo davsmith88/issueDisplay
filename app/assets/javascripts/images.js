@@ -19,7 +19,7 @@ ready = function(){
 
 	$('body').on('click', '.add-image' , function(e){
 		stepId = $(e.target).data('step-id');
-		console.log(stepId)
+		console.log("+++++", stepId)
 	});
 	
 	$('body').on('click', '#next', function(){

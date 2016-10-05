@@ -9,6 +9,7 @@
 			  <li class="list-group-item">
 			  	<h4 class='list-group-item-heading'>Name</h4>
 			  	<p class='list-group-item-text'><%= @issue.item.name %></p>
+			  	<p id='issueId' class='hidden'><%= @issue.id %></p>
 			  </li>
 			  <li class="list-group-item">
 			  	<h4 class='list-group-item-heading'>Description</h4>
@@ -51,6 +52,7 @@
 					<h4>How to window</h4>
 				</div>
 				<div class='col-sm-6'>
+					<p id='type' class='hidden'>DetailedStep</p>
 					<% if can? :create, DetailedStep %>
 						<%= link_to "Add How To", new_issue_detailed_step_path(@issue), class: "btn btn-default", remote: true, authenticity: true %>
 					<% end %>

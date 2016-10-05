@@ -28,10 +28,17 @@ class DetailedStepsController < ApplicationController
   def step_number_update
   # this method updates all the step numbers with the new step order 
   # performs a bulk update
-   DetailedStep.update(params.keys, params.values)
+  # Rails.logger.info @issue.inspect
+  # Rails.logger.info @detailed_steps.inspect
+  # Rails.logger.info flash.inspect
+  
+
+  data = params['params']
+
+   DetailedStep.update(data.keys, data.values)
     respond_to do |format|
-     
       format.json { render :nothing => true, :status => 200, :content_type => 'text/html'}
+      # format.json { render "dd", :status => 200, :content_type => 'text/html'}
     end
   end
 

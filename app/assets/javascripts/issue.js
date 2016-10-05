@@ -38,21 +38,26 @@ $(document).ready(function(){
 			onSort: function(evt){
 				console.log('moved item')
 
-				var data = {};
+				var data = {params: {}};
 				var issueId = parseInt($('#issueId').text());
 				var list = $('#detailed_steps').children();
-				
+				console.log("-->", list)
 				$.each(list, function(index, value){
 					var id = $(value).data('ds-id');
 					var step_num = index + 1
-					data[id] = { number: step_num }
+					data.params[id] = { number: step_num }
 				})
-			
+				
 				$.ajax({
 					url: '/issues/' + issueId + '/detailed_steps/step_number_update.json',
 					data: data,
-					method: 'POST'
+					method: 'POST',
+					success: function(data){
+						console.log("a")
+						console.log(data)
+					}
 				}).done(function(html){
+					console.log('aa');
 					var list = $('#detailed_steps').children()
 					$.each(list, function(index, value){
 						var item = $(value).find('.moveItem').first();
@@ -84,72 +89,75 @@ $(document).ready(function(){
 })
 
 
-function createSortable(){
-			el = document.getElementById('detailed_steps');
+// function createSortable(){
+// 			el = document.getElementById('detailed_steps');
 		
 
-		sortable = Sortable.create(el, {
-			disabled: true,
-			onSort: function(evt){
-				console.log('moved item')
+// 		sortable = Sortable.create(el, {
+// 			disabled: true,
+// 			onSort: function(evt){
+// 				console.log('moved item')
 
-				var data = {};
-				var issueId = parseInt($('#issueId').text());
-				var list = $('#detailed_steps').children();
+// 				var data = {};
+// 				var issueId = parseInt($('#issueId').text());
+// 				var list = $('#detailed_steps').children();
 				
-				$.each(list, function(index, value){
-					var id = $(value).data('ds-id');
-					var step_num = index + 1
-					data[id] = { number: step_num }
-				})
+// 				$.each(list, function(index, value){
+// 					var id = $(value).data('ds-id');
+// 					var step_num = index + 1
+// 					data[id] = { number: step_num }
+// 				})
 			
-				$.ajax({
-					url: '/issues/' + issueId + '/detailed_steps/step_number_update.json',
-					data: data,
-					method: 'POST'
-				}).done(function(html){
-					var list = $('#detailed_steps').children()
-					$.each(list, function(index, value){
-						var item = $(value).find('.moveItem').first();
-						$(value).find('.moveItem').text(index + 1);
-					})
-				})
+// 				$.ajax({
+// 					url: '/issues/' + issueId + '/detailed_steps/step_number_update.json',
+// 					data: data,
+// 					method: 'POST'
+// 				}).done(function(html){
+// 					console.log('aa')
+// 					var list = $('#detailed_steps').children()
+// 					$.each(list, function(index, value){
+// 						var item = $(value).find('.moveItem').first();
+// 						$(value).find('.moveItem').text(index + 1);
+// 					})
+// 				})
 
-			}
-		});
-return sortable
-}
+// 			}
+// 		});
+// return sortable
+// }
 
-function create_sortable_list(){
-		var el = document.getElementById('detailed_steps');
+// function create_sortable_list(){
+// 		var el = document.getElementById('detailed_steps');
 		
 
-		var sortable = Sortable.create(el, {
+// 		var sortable = Sortable.create(el, {
 
-			onSort: function(evt){
-				console.log('moved item')
+// 			onSort: function(evt){
+// 				console.log('moved item')
 
-				var data = {};
-				var issueId = parseInt($('#issueId').text());
-				var list = $('#detailed_steps').children();
+// 				var data = {};
+// 				var issueId = parseInt($('#issueId').text());
+// 				var list = $('#detailed_steps').children();
 				
-				$.each(list, function(index, value){
-					var id = $(value).data('ds-id');
-					var step_num = index + 1
-					data[id] = { number: step_num }
-				})
+// 				$.each(list, function(index, value){
+// 					var id = $(value).data('ds-id');
+// 					var step_num = index + 1
+// 					data[id] = { number: step_num }
+// 				})
 			
-				$.ajax({
-					url: '/issues/' + issueId + '/detailed_steps/step_number_update.json',
-					data: data,
-					method: 'POST'
-				}).done(function(html){
-					var list = $('#detailed_steps').children()
-					$.each(list, function(index, value){
-						var item = $(value).find('.moveItem').first();
-						$(value).find('.moveItem').text(index + 1);
-					})
-				})
-			}
-		});
-}
+// 				$.ajax({
+// 					url: '/issues/' + issueId + '/detailed_steps/step_number_update.json',
+// 					data: data,
+// 					method: 'POST'
+// 				}).done(function(html){
+// 					console.log('aa')
+// 					var list = $('#detailed_steps').children()
+// 					$.each(list, function(index, value){
+// 						var item = $(value).find('.moveItem').first();
+// 						console.log(value)
+// 						$(value).find('.moveItem').text(index + 1);
+// 					})
+// 				})
+// 			}
+// 		});
+// }
