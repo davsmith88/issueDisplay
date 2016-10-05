@@ -2,7 +2,7 @@
 	Create an Issue
 <% end %>
 <h3>Create a New Issue</h3>
-<%= form_for @issue, :builder => MyFormBuilder, :html => { :multipart => true, class: "form-horizontal", role: "form" } do |form| %>
+<%= form_for setup_issue(@issue), builder: MyFormBuilder , :html => { :multipart => true, class: "form-horizontal", role: "form" } do |form| %>
 	<%= render partial: 'form', locals: {form: form} %>
 <% end %>
 

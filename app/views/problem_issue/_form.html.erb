@@ -1,0 +1,13 @@
+<%= form_for :problem_issue, url: problem_issue_index_path do |f| %>
+  <div class="field">
+    <%= f.label :problem_id %><br>
+    <%= f.select(:problem_id, options_for_select(@a_problem)) %>
+  </div>
+  <div class="field">
+    <%= f.label :issue_id %><br>
+    <%= f.select(:issue_id, options_for_select(@b_issue)) %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

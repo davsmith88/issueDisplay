@@ -1,0 +1,23 @@
+<tr>
+	<td>
+	<span class='label label-info'><%= problem.class.name %></span>
+		<%= item.name %>
+	</td>
+	<td>
+		<div class='row'>
+			<div class='col-sm-12'>
+			<%= item.description %>
+			<p>
+				<%= link_to "View", problem_path(problem), class: "btn btn-default btn-xs" %>
+				<% if can? :update, problem %>
+					<%#= link_to "Edit", edit_issue_path(issue), remote: true, authenticity: true, class: "btn btn-default btn-xs" %>
+					<%= link_to "Edit", edit_problem_path(problem), class: "btn btn-default btn-xs" %>
+				<% end %>
+				<% if can? :destroy, problem %>
+					<%= link_to "Destroy", problem_path(problem), id: "destroy", class: "btn btn-default btn-xs", method: :delete, data: {confirm: "Are you sure you want to delete"} %>
+				<% end %>
+				</p>	
+			</div>
+		</div>
+	</td>
+</tr>

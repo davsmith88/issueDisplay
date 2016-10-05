@@ -8,7 +8,7 @@ class Image < ActiveRecord::Base
     	square: '200x200#',
     	medium: '300x300>'
 	}
-	process_in_background :picture
+	# process_in_background :picture
 	
 	validates :picture, presence: {
 		message: "Needs to have an image file to be able to submit"

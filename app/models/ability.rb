@@ -60,6 +60,11 @@ class Ability
 
     if user.role?("admin")
 
+        can :manage, Problem
+
+        can :manage, ProblemIssue
+
+
         can :index, Complaint
         can :show, Complaint
         can :new, Complaint

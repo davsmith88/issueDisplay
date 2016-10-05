@@ -1,8 +1,8 @@
 console.log('quick add detailed_steps')
-var modal = $('#show_detailed_steps_modal')
+var modal = $('#quickModal')
 
-modal.find('.modal-title').text("<%= @issue.name %>")
-modal.find('.desText').text("<%= @issue.description %>")
+modal.find('.modal-title').text("<%= @issue.item.name %>")
+modal.find('.desText').text("<%= @issue.item.description %>")
 modal.find('.modal-body').html("<%= j(render partial: 'quick_show', locals: {issue: @issue, steps: @ds}) %>")
 
 modal.find('.carousel-indicators').children().first().addClass('active')

@@ -1,150 +1,87 @@
 <% content_for :title do %>
-	Showing <%= @issue.name %>
+	Showing <%= @issue.item.name %>
 <% end %>
 
 <div class='form-horizontal'>
 	<div class='row'>
 		<div class='col-sm-4'>
-			<div class='form-group'>
-				<label class='col-sm-3 control-label'>ID</label>
-				<div class='col-sm-9'>
-					<p id='issueId' class='form-control-static'><%= @issue.id %></p>
-				</div>
-			</div>
-			<div class='form-group'>
-				<label class='col-sm-3 control-label'>Name</label>
-				<div class='col-sm-9'>
-					<p class='form-control-static'><%= @issue.name %></p>
-				</div>
-			</div>
-			<div class='form-group'>
-				<label class='col-sm-3 control-label'>Description</label>
-				<div class='col-sm-9'>
-					<p class='form-control-static'><%= @issue.description %></p>
-				</div>
-			</div>
-
-			<div class='form-group'>
-				<label class='col-sm-3 control-label'>Area</label>
-				<div class='col-sm-9'>
-					<p class='form-control-static'><%= @issue.department_area.name %></p>
-				</div>
-			</div>
-
-			<div class='form-group'>
-				<div class='col-sm-12'>
-					<button id='showOther' type='button' class='btn btn-primary btn-sm visible-xs'>Show Other Fields</button>
-
-				</div>
-			</div>
-			
-			<div class='form-group hidden-xs show-hidden'>
-				<label class='col-sm-3 control-label'>Type</label>
-				<div class='col-sm-9'>
-					<p class='form-control-static'><%= @issue.i_type %></p>
-				</div>
-			</div>
-			
-			<div class='form-group hidden-xs show-hidden'>
-				<label class='col-sm-3 control-label'>Area Impacted</label>
-				<div class='col-sm-9'>
-					<% if @issue.impact %>
-						<p class='form-control-static'><%= @issue.impact.name %></p>
-					<% else %>
-						<p class='form-control-static'>"There is no impact area"</p>
-					<% end %>
-				</div>
-			</div>
-
-			<div class='form-group hidden-xs show-hidden'>
-				<label class='col-sm-3 control-label'>Review Date</label>
-				<div class='col-sm-9'>
-					<p class='form-control-static'><%= format_date @issue.review_date %></p>
-				</div>
-			</div>
-			<% if @issue.avatar.exists? %>
-				<%= video_tag @issue.avatar.url(:medium), controls: true, style: "max-width: 100%;" %>
-			<% end %>
-		
+			<ul class="list-group">
+			  <li class="list-group-item">
+			  	<h4 class='list-group-item-heading'>Name</h4>
+			  	<p class='list-group-item-text'><%= @issue.item.name %></p>
+			  </li>
+			  <li class="list-group-item">
+			  	<h4 class='list-group-item-heading'>Description</h4>
+			  	<p class='list-group-item-text'><%= @issue.item.description %></p>
+			  </li>
+			  <li class="list-group-item">
+			  	<h4 class='list-group-item-heading'>Department / Area</h4>
+			  	<p class='list-group-item-text'><%= @issue.item.department_area.name %></p>
+			  </li>
+			  <li class="list-group-item">
+			  	<h4 class='list-group-item-heading'>Type</h4>
+			  	<p class='list-group-item-text'><%= @issue.i_type %></p>
+			  </li>
+			  <li class="list-group-item">
+			  	<h4 class='list-group-item-heading'>Impact Area</h4>
+			  	<p class='list-group-item-text'><%= @issue.impact.name if @issue.impact %></p>
+			  </li>
+			  <li class='list-group-item'>
+			  	<h4 class='list-group-item-heading'>Review Date</h4>
+			  	<p class='list-group-item-text'><%= format_date @issue.review_date if @issue.review_date %></p>
+			  </li>
+			</ul>
 	</div>
 	<div class='col-sm-8'>
+		<div id='side_section' class='panel panel-default'>
+			<div class='panel-body'>
+	    <ul id='navbar' class="nav nav-tabs">
+	    		<% if @issue.howTo == 'true' %>
+	        	<li class="nav"><a href="#howto" data-toggle="tab">How To</a></li>
+	        	<li class="nav"><a href="#video" data-toggle="tab">Video</a></li>
+	        	<li class="nav"><a href="#comments" data-toggle="tab">Comments</a></li>
+	        <% end %>
 
-<div id='side_section'>
-    <ul id='navbar' class="nav nav-tabs">
-    		<% if @issue.howTo == 'true' %>
-        	<li class="nav"><a href="#howto" data-toggle="tab">How To</a></li>
-        <% end %>
-
-        <% if @issue.workaround == 'true' %>
-	        <li class="nav"><a href="#workarounds" data-toggle="tab">workarounds
-	        <span id='workarounds_count' class='label label-warning'><%= @issue_workarounds.count %></span>
-	        </a></li>
-        <% end %>
-        <% if @issue.solution == 'true' %>
-	        <li class="nav"><a href="#solutions" data-toggle="tab">solutions
-	        	 <span id='solutions_count' class='label label-warning'><%= @solutions.count %></span>
-	        </a></li>
-        <% end %>
-    </ul>
-
-    <!-- Tab panes -->
-    <div class="tab-content">
-    <% if @issue.howTo == 'true' %>
-        <div class="tab-pane fade in" id="howto">
-     
-			<div class='col-sm-6'>
-				<h4>How to window</h4>
-			</div>
-			<div class='col-sm-6'>
-				<% if can? :create, DetailedStep %>
-					<%= link_to "Add How To", new_issue_detailed_step_path(@issue), class: "btn btn-default", remote: true, authenticity: true %>
+	    </ul>
+	    <div class="tab-content">
+	    <% if @issue.howTo == 'true' %>
+	        <div class="tab-pane fade in" id="howto">
+	     
+	     <div class='row'>
+				<div class='col-sm-6'>
+					<h4>How to window</h4>
+				</div>
+				<div class='col-sm-6'>
+					<% if can? :create, DetailedStep %>
+						<%= link_to "Add How To", new_issue_detailed_step_path(@issue), class: "btn btn-default", remote: true, authenticity: true %>
+					<% end %>
+				</div>
+				</div>
+				<div class='col-sm-12'>
+					<ul id='detailed_steps' class="list-group">
+					<% @steps.each do |step|  %>
+						<li data-ds-id='<%= step.id %>' class='list-group-item'>
+							<%= render partial: "detailed_steps/detailed_row", locals: {step: step} %>
+						</li>
+					<% end %>
+					</ul>
+				</div>
+				</div>
 				<% end %>
-			</div>
-			<div class='col-sm-12'>
-				<ul id='detailed_steps' class="list-group">
-				<% @steps.each do |step|  %>
-					<li data-ds-id='<%= step.id %>' class='list-group-item'>
-						<%= render partial: "detailed_steps/detailed_row", locals: {step: step} %>
-					</li>
-				<% end %>
-				</ul>
-			</div>
-			</div>
-			<% end %>
-
-        <!-- </div> -->
-        <% if @issue.workaround == 'true' %>
-	        <div class="tab-pane fade" id="workarounds">
-	        <div class='row'>
-		        <div class='col-sm-6'>
-		        	<h4>Workarounds</h4>
-		        </div>
-		        <div class='col-sm-6'>
-							<%= link_to "Add a new workaround today", new_issue_issue_workaround_path(@issue), class: 'btn btn-default btn-sm', remote: true, authenticity: true %>
-		        </div>
-	        </div>
-	        
-	        <%= render partial: "show_review_table", locals: {list: @issue_workarounds, name: 'workarounds'} %>
-	        </div>
-        <% end %>
-        <% if @issue.solution == 'true' %>
-	        <div class="tab-pane fade" id="solutions">
-	        <div class='row'>
-	        	<div class='col-sm-6'>
-	        		<h4>Solutions</h4>
-	        	</div>
-	        	<div class='col-sm-6'>
-	        		 <%= link_to "Add a new solution today", new_issue_solution_path(@issue), class: 'btn btn-default btn-sm', remote: true, authenticity: true %></div>
-	        	</div>
-	        	<div class='row'>
-	        			<div class='col-sm-12'>
-	        	<%= render partial: "show_review_table", locals: {list: @solutions, name: 'solutions'} %>
-	        	</div>
-	        	</div>
-	        </div>
-        <% end %>
-    </div>
-</div>
+				<div class="tab-pane fade in" id="video">
+					<% if @issue.avatar.exists? %>
+						<%= video_tag @issue.avatar.url(:medium), controls: true, style: "max-width: 100%;" %>
+						<%#= form_for @issue do |form| %>
+							<%#= form.file_field :avatar, {label: "Video Upload"} %>
+						<%# end %>
+					<% end %>
+				</div>
+				<div class="tab-pane fade in" id="comments">
+					<p>Section for the comments added by people</p>
+				</div>
+				</div>
+	    </div>
+	</div>
 
 </div>
 </div>

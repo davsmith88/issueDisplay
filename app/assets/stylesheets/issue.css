@@ -1,0 +1,11 @@
+   .alert-box {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 15px;
+    border: solid;
+    border-width: 2px;
+    border-color: #a4b9f1;
+    }

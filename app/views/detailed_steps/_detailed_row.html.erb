@@ -2,13 +2,18 @@
 	<div class='col-sm-1'><span class='moveItem label label-success'><%= step.number %></span></div>
 	<div class='col-sm-5'>
 		<%= step.description %>
+		<span class="glyphicon glyphicon-arrow-down down_arrow" aria-hidden="true"></span>
+		
 		<br>
+		<div class='detailed-step-info-section'>
 		<%= link_to "Edit", edit_issue_detailed_step_path(@issue, step), class: "btn btn-info btn-xs", remote: true, authenticity: true if can?(:edit, DetailedStep) %>
 		<%= link_to "Destroy", issue_detailed_step_path(@issue, step), id: "destroy", class: "btn btn-danger btn-xs", method: :delete, data: {confirm: "Are you sure you want to delete"} if can?(:destroy, DetailedStep) %>
 
-		<%= link_to img_btn_caption(step.medium), new_medium_path(type: 'DetailedStep', type_id: step.id, department_area_id: @issue.department_area), class: "add-image btn btn-info btn-xs", data: {step_id: step.id}, remote: true, authenticity: true if can?(:create, Medium) %>
+		<%= link_to img_btn_caption(step.medium), new_medium_path(type: 'DetailedStep', type_id: step.id, department_area_id: @issue.item.department_area), class: "add-image btn btn-info btn-xs", data: {step_id: step.id}, remote: true, authenticity: true if can?(:create, Medium) %>
 
 		<%= link_to "Destroy Image", medium_path(step.medium), class: "btn btn-danger btn-xs", method: :delete, data: {confirm: "Are you sure you want to delete"} if step.medium && can?(:destroy, Medium) %>
+			<!-- <p>Created At:</p> -->
+		</div>
 	</div>
 	<div class='col-sm-4'>
 	 <% if step.medium %>

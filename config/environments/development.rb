@@ -41,4 +41,9 @@ Rails.application.configure do
 
   # --App Specfic configs
   config.action_mailer.delivery_method = :letter_opener
+  # config.lograge.enabled = true
+  # config.assets.quiet = true
+
+  # this option changes the rails output log level, to put back to normal setting: :debug
+  config.log_level = :info
 end

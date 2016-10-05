@@ -41,6 +41,20 @@
 		      	<% end %>
 		      </ul>
 		      
+			
+			<% if notice %>
+		      	<p class='navbar-text alert-info alert-box'>
+		      
+		  	
+				<%= notice %>
+			  	</p>
+			<% end %>
+			<% if alert %>
+				<p class='navbar-text alert-info alert-box'>
+			  	<%= alert %>
+			  	</p>
+			<% end %>
+		
 		      <ul class="nav navbar-nav navbar-right">
 		        <% if user_signed_in? %>
 			        <li class="dropdown">
@@ -51,6 +65,7 @@
 			            <% if can? :create, Issue %>
 			            	<!-- <li class='divider'></li> -->
 			            	<li><%= link_to "Add New Issue", new_issue_path %></li>
+			            	<li><%= link_to "Add New Problem", new_problem_path %></li>
 			            <% end %>
 <!-- 			            <li class='divider'></li>
 			            <li><a href="#">Notifications</a></li>
@@ -70,14 +85,6 @@
 		</nav>
 		<% end %>
 	  	<div class='container-fluid'>
-		  	<% if notice %>
-				<p class="alert alert-success"><%= notice %></p>
-			  	
-			<% end %>
-			<% if alert %>
-				
-			  	<p class="alert alert-danger"><%= alert %></p>
-			<% end %>
 			<%= content_for?(:second_level_layout) ? yield(:second_level_layout) : yield %>
 		</div>
 <div class="modal fade" id="quickModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

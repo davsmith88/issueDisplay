@@ -8,25 +8,10 @@ class IssuesController < BIssueController
 
 	def index
 		@s = params[:search]
-		if params.has_key?(:loc) and params.has_key?(:search)
-			@loc = params[:loc]
-			
-			# @issues = current_user.business.issues.search(params[:search], "name|description").where(state: "publish", department_area_id: @loc).order(created_at: :desc).page(params[:page])
-			@issues = Issue.search(params[:search], "name|description", params[:page]).where(state: "publish", department_area_id: @loc).order(created_at: :desc).page(params[:page])
-		elsif params.has_key?(:search)
-			@issues = Issue.search(params[:search], "name|description", params[:page]).where(state: "publish").order(created_at: :desc).page(params[:page])
-			
-		else
-			
-			@issues = Issue.where(state: "publish").order(created_at: :desc).page(params[:page])
-			# @issues = current_user.business.issues.where(state: "publish").order(created_at: :desc).page(params[:page])
+		@loc = params[:department_area_id]
 
-		end
-		
-		# @locations = DepartmentArea.all
+		@problems = find_items(params)
 		@locations = DepartmentArea.all.group_by(&:department_id)
-		# @issues = current_user.business.issues.where(state: "publish").order(created_at: :desc).page(params[:page])
-		# authorize! :read, Issue
 	end
 
 	def show
@@ -38,8 +23,8 @@ class IssuesController < BIssueController
 		# # Issue.increment_counter(:view_counter, @issue.id)
 		super
 		session[:return_to] ||= request.referer
-		@workarounds = @issue.issue_workarounds
-		@solutions = @issue.solutions
+		# @workarounds = @issue.issue_workarounds
+		# @solutions = @issue.solutions
 		@steps = @issue.detailed_steps.order(number: :asc)
 		# @type = 'IssueWorkaround'
 		# @name = 'workarounds'
@@ -80,6 +65,7 @@ class IssuesController < BIssueController
 
 	def new
 		super
+		@options = DepartmentArea.pluck(:name, :id)
 		respond_to do |format|
 			format.html {render action: 'new'}
 			format.json
@@ -88,6 +74,7 @@ class IssuesController < BIssueController
 
 	def create
 		super
+		@options = DepartmentArea.pluck(:name, :id)
 		@user = current_user
 		respond_to do |format|
 			if @issue.save
@@ -143,6 +130,7 @@ class IssuesController < BIssueController
 		# @active_basic = true
 		# @departments = DepartmentArea.all
 		super
+		@options = DepartmentArea.pluck(:name, :id)
 		# render layout: "edit_page"
 	end
 
@@ -266,5 +254,23 @@ class IssuesController < BIssueController
 	# def issue_params
 	# 	params.require(:issue).permit(:name, :description, :impact_id, :department_area_id, :review_date, :i_type)
 	# end
+	def find_items(params)
+		if params.has_key?(:loc) and params.has_key?(:search)
+			@loc = params[:loc]
+			
+			# @issues = current_user.business.issues.search(params[:search], "name|description").where(state: "publish", department_area_id: @loc).order(created_at: :desc).page(params[:page])
+			# @issues = Issue.search(params[:search], "name|description", params[:page]).where(state: "publish", department_area_id: @loc).order(created_at: :desc).page(params[:page])
+			@problems = Item.includes(:type).search(params[:search], "name|description", params[:page]).where(department_area_id: @loc).order(created_at: :desc).page(params[:page])
+		elsif params.has_key?(:search)
+			# @issues = Issue.search(params[:search], "name|description", params[:page]).where(state: "publish").order(created_at: :desc).page(params[:page])
+			@problems = Item.includes(:type).search(params[:search], "name|description", params[:page]).order(created_at: :desc).page(params[:page])
+			
+		else
+			
+			# @issues = Issue.where(state: "publish").order(created_at: :desc).page(params[:page])
+			@problems = Item.includes(:type).order(created_at: :desc).page(params[:page])
+			# @issues = current_user.business.issues.where(state: "publish").order(created_at: :desc).page(params[:page])
 
+		end
+	end
 end

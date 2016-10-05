@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @problem.item.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @problem.item.description %>
+</p>
+
+<p><b>List of issues attached to the problem</b></p>
+<ol>
+	<%#= debug @issues.inspect %>
+	<% @issues.each do |i| %>
+	<li><%= i.issue.id %> | <%= i.issue.name %></li>
+	<% end %>
+</ol>
+
+<%= link_to 'Edit', edit_problem_path(@problem) %> |
+<%= link_to 'Back', problems_path %>

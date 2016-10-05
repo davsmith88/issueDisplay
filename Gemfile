@@ -6,13 +6,13 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.7.1'
 
 gem 'delayed_job_active_record'
-gem "delayed_paperclip"
+# gem "delayed_paperclip"
 
 # May not need the responders gem ... have to find out 
 gem 'responders', '~> 2.0' 
 
 
-
+gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
 
 # Use sqlite3 as the database for Active Record
@@ -46,7 +46,7 @@ gem 'paperclip'
 # gem 'paperclip', github: 'thoughtbot/paperclip'
 gem 'paperclip-av-transcoder'
 
-
+gem 'thin'
 
 gem 'will_paginate', '~> 3.0'
 gem 'will_paginate-bootstrap'
@@ -90,6 +90,10 @@ group :development do
   gem "awesome_print"
   gem 'meta_request'
   # gem 'jazz_hands'
+  # gem "lograge"
+  # gem 'quiet_assets'
+  gem 'awesome_print'
+gem 'rails_semantic_logger'
 end
 
 group :development, :test do

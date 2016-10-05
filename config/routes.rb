@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :problems do
+  end
+  resources :problem_issue
   resources :processareas
 
   resources :lineups

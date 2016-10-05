@@ -1,0 +1,11 @@
+<h1>Showing problems</h1>
+
+<%=  debug @problems.inspect %>
+
+<%= form_for(:issue, url: post_add_issue_problem_path(@problem)) do |f| %>
+	 <div class="field">
+    <%= f.label :id %><br>
+    <%= f.text_area :id %>
+  </div>
+   <%= f.submit %>
+<% end %>

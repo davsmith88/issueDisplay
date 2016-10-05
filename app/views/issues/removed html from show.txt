@@ -1,0 +1,46 @@
+        <!-- </div> -->
+        <% if @issue.workaround == 'true' %>
+	        <div class="tab-pane fade" id="workarounds">
+	        <div class='row'>
+		        <div class='col-sm-6'>
+		        	<h4>Workarounds</h4>
+		        </div>
+		        <div class='col-sm-6'>
+							<%= link_to "Add a new workaround today", new_issue_issue_workaround_path(@issue), class: 'btn btn-default btn-sm', remote: true, authenticity: true %>
+		        </div>
+	        </div>
+	        
+	        <%= render partial: "show_review_table", locals: {list: @issue_workarounds, name: 'workarounds'} %>
+	        </div>
+        <% end %>
+        <% if @issue.solution == 'true' %>
+	        <div class="tab-pane fade" id="solutions">
+	        <div class='row'>
+	        	<div class='col-sm-6'>
+	        		<h4>Solutions</h4>
+	        	</div>
+	        	<div class='col-sm-6'>
+	        		 <%= link_to "Add a new solution today", new_issue_solution_path(@issue), class: 'btn btn-default btn-sm', remote: true, authenticity: true %></div>
+	        	</div>
+	        	<div class='row'>
+	        			<div class='col-sm-12'>
+	        	<%= render partial: "show_review_table", locals: {list: @solutions, name: 'solutions'} %>
+	        	</div>
+	        	</div>
+	        </div>
+        <% end %>
+
+
+
+
+
+                <% if @issue.workaround == 'true' %>
+	        <li class="nav"><a href="#workarounds" data-toggle="tab">workarounds
+	        <span id='workarounds_count' class='label label-warning'><%= @issue_workarounds.count %></span>
+	        </a></li>
+        <% end %>
+        <% if @issue.solution == 'true' %>
+	        <li class="nav"><a href="#solutions" data-toggle="tab">solutions
+	        	 <span id='solutions_count' class='label label-warning'><%= @solutions.count %></span>
+	        </a></li>
+        <% end %>

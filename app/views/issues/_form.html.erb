@@ -1,20 +1,36 @@
-<%= form.text_field :name, placeholder: "Name" %>
-<%= form.text_area :description, class: "form-control", placeholder: "Description" %>
+<%= form.fields_for :item do |ff| %>
+	<%= ff.text_field :name, class: "form-control" %>		
+	<%= ff.text_field :description, class: 'form-control' %>
+	<%= ff.select :department_area_id, options_for_select(@options, @issue.item.department_area_id),{}, label: 'Department Area', class: 'form-control' %>	
+<% end %>
+
+<%#= form.text_field :name, placeholder: "Name" %>
+<%#= form.text_area :description, class: "form-control", placeholder: "Description" %>
 <%= form.select :i_type, options_for_select(Issue::TYPES),{} ,label: "Type", class: "form-control" %>
-<%= form.select :department_area_id, department_types(@depAreas), {} ,label: "Deparment Area", class: "form-control" %>
+<%#= form.select :department_area_id, department_types(@depAreas), {} ,label: "Deparment Area", class: "form-control" %>
 <%= form.fields_for :preferences do |p| %>
 	<%= p.select :howTo, options_for_select([false, true],@issue.howTo), {}, label: "Is there a how to?", class: 'form-control' %>
 
-	<%= p.select :workaround, options_for_select([true, false],@issue.workaround), {}, label: "Is there an workaround?", class: 'form-control' %>
+	<%#= p.select :workaround, options_for_select([true, false],@issue.workaround), {}, label: "Is there an workaround?", class: 'form-control' %>
 
-	<%= p.select :solution, options_for_select([true, false],@issue.solution), {}, label: "Is there a solution?", class: 'form-control' %>
+	<%#= p.select :solution, options_for_select([true, false],@issue.solution), {}, label: "Is there a solution?", class: 'form-control' %>
 <% end %>
 
 <%= form.select :impact_id, impacts(@impacts, @issue), {} ,label: "Impacts", class: "form-control" %>
 <%= form.date_field :review_date, class: 'form-control' %>
 
+<% if @issue.avatar.exists? %>
+	<div class='form-group'>
+	<label class="col-sm-2 control-label">Current Uploaded File</label>
 
-<%= form.file_field :avatar, {label: "Video Upload"} %>
+	<div class='col-sm-10'>
+		<p class='form-control-static'><%= @issue.avatar_file_name %></p>
+		<%#= form.file_field :avatar, {label: "Video Upload"} %>
+	</div>
+	</div>
+	<%#= @issue.avatar.avatar_file_name %>
+<% end %>
+<%= form.file_field :avatar, {label: "Video Upload", class: 'form-control'} %>
 
 
 <%= form.submit "Save", label: "Actions", class: 'btn btn-primary' %>

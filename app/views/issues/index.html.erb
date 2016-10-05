@@ -6,27 +6,38 @@
 	<div class='col-sm-6'>
 		<h3>Published Issues</h3>
 	</div>
-	<div class='col-sm-3'>
-		<input id='searchbox' class='form-control' placeholder='Enter in a search term' value="<%= @s if @s %>">
+	<div class='col-sm-6'>
+
+
+
+		<div class='input-group pull-right'>
+			<input id='searchbox' class='form-control' placeholder='Enter in a search term' value="<%= @s if @s %>">
+			<span class="input-group-addon" style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
+				<%= render partial: 'shared/department_areas_select', locals: { loc: @loc, locations: @locations } %>
+				<span class="input-group-btn">
+	        		<button id='search_click' class="btn btn-default" type="button">Search!</button>
+	      		</span>
+		</div>
 	</div>
-	<div class='col-sm-3'>
-		<%= render partial: 'shared/department_areas_select', locals: { loc: @loc, locations: @locations } %>
-		
-		<%= link_to "Create New Issue", new_issue_path, class: "btn btn-default spacing center_button" if @create %>
-	</div>
+	
 </div>
 
 <div id='issue_table_area'>
+
 	<% if @issues.count > 0 %>
 	<table class='table' id='i-table'>
 		<tr>
 			<th class="col-xs-5 col-sm-4">Name</th>
 			<th width="col-xs-5 col-sm-8">Description</th>
 		</tr>
-		<%= render partial: "issues/collections/index_row", collection: @issues, as: :issue %>
+		<%# @issues.each do |i| %>
+		<% @problems.each do |i| %>
+		<%= render partial: "issues/collections/index_row", locals: {issue: i.type} if i.type.class.name == 'Issue' %>
+		<%= render partial: "issues/collections/problem_row", locals: {item: i, problem: i.type} if i.type.class.name == 'Problem' %>
+		<% end %>
 	</table>
 
-	<%= will_paginate @issues, renderer: BootstrapPagination::Rails %>
+	<%= will_paginate @problems, renderer: BootstrapPagination::Rails %>
 	<% else %>
 		<div class="alert alert-info" role="alert">
 		There are no issues 
@@ -41,4 +52,4 @@
 		</div>
 	<% end %>
 </div>
-<%= render partial: 'shared/default_model' %>
+

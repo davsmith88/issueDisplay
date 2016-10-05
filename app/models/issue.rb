@@ -1,6 +1,7 @@
 class Issue < ActiveRecord::Base
 	# include PublicActivity::Model
 	# tracked
+	after_initialize :init
 
 	store_accessor :preferences, :howTo, :workaround, :solution
 
@@ -12,6 +13,8 @@ class Issue < ActiveRecord::Base
 	# }
 
   	TYPES = ["operational", "mechanical", "electrical"]
+
+
 
   	def self.search(search, search_col, page)
   		search_condition = "%#{search}%"
@@ -52,33 +55,43 @@ class Issue < ActiveRecord::Base
 	end
 
 	self.per_page = 5
-	has_many :solutions
-	has_many :attempted_solutions
-	has_many :issue_workarounds
+	# has_many :solutions
+	# has_many :attempted_solutions
+	# has_many :issue_workarounds
 	has_many :detailed_steps
-	has_many :records, as: :recordable
-	has_many :notes
+	# has_many :records, as: :recordable
+	# has_many :notes
 
-	belongs_to :department_area
+	has_many :problem_issues
+
+	has_many :problems, through: :problem_issues
+
+	has_one :item, as: :type, dependent: :destroy
+	accepts_nested_attributes_for :item
+
+	# belongs_to :department_area
+
+	
 	belongs_to :impact
 	belongs_to :user
+	belongs_to :problem
 	# belongs_to :business
 
 
-	validates :name, presence: {message: "Issue needs to have a name"}
-	validates :impact_id, numericality: {
-		message: "Impact ID must be an integer only",
-		only_integer: true
-	}, if: "!impact_id.nil?"
-	validates :user_id, numericality: {
-		message: "User ID must be an integer only",
-		only_integer: true
-	}, if: "!user_id.nil?"
+	# validates :name, presence: {message: "Issue needs to have a name"}
+	# validates :impact_id, numericality: {
+	# 	message: "Impact ID must be an integer only",
+	# 	only_integer: true
+	# }, if: "!impact_id.nil?"
+	# validates :user_id, numericality: {
+	# 	message: "User ID must be an integer only",
+	# 	only_integer: true
+	# }, if: "!user_id.nil?"
 
-	validates :department_area_id, numericality: {
-		message: "Department Area ID must be an integer only",
-		only_integer: true
-	}, if: "!department_area_id.nil?"
+	# validates :department_area_id, numericality: {
+	# 	message: "Department Area ID must be an integer only",
+	# 	only_integer: true
+	# }, if: "!department_area_id.nil?"
 	
 	validates :review_date, presence: true
 
@@ -113,4 +126,12 @@ class Issue < ActiveRecord::Base
 			transition :publish => :review
 		end
 	end
+
+
+	def init
+		puts self.review_date
+      self.review_date  ||= DateTime.now + 3.weeks           #will set the default value only if it's nil
+      # self.address ||= build_address #let's you set a default association
+    end
+
 end

@@ -1,0 +1,19 @@
+<div class='col-sm-3'>
+	<span class="label label-primary"><%= c %></span>
+</div>
+
+<div class='col-sm-3'>
+	<%= name %>
+</div>
+
+<div class='col-sm-3'>
+	<%= d.name if d %>
+</div>
+
+<div class='col-sm-3'>
+	<ol>
+	<% issues.each do |i|  %>	
+		<li><%= i.id %> | <%= i.name %> </li>
+	<% end %>
+	</ol>
+</div>

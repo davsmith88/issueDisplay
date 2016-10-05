@@ -1,14 +1,12 @@
 <tr>
 	<td>
-		<% if issue.howTo == "true" and issue.detailed_steps.count > 0 %>
-			<span class='label label-info'>How To</span>
-		<% end %>
-		<%= issue.name %>
+		<span class='label label-info'><%= issue.class.name %></span>
+		<%= issue.item.name %>
 	</td>
 	<td>
 		<div class='row'>
 			<div class='col-sm-12'>
-				<%= issue.description %>
+				<%= issue.item.description %>
 				<p>
 				<%= link_to "View", issue_path(issue), class: "btn btn-default btn-xs" %>
 				<% if can? :update, issue %>

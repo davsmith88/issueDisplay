@@ -1,4 +1,5 @@
 module IssueHelper
+
 	def tweet_favorites(favorites)
   
   

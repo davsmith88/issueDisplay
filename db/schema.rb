@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160928210255) do
+ActiveRecord::Schema.define(version: 20161002143313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -179,8 +179,6 @@ ActiveRecord::Schema.define(version: 20160928210255) do
   end
 
   create_table "issues", force: :cascade do |t|
-    t.string   "name",                 limit: 255
-    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "workaround"
@@ -193,7 +191,6 @@ ActiveRecord::Schema.define(version: 20160928210255) do
     t.string   "author",               limit: 255
     t.string   "state",                limit: 255
     t.integer  "business_id"
-    t.integer  "department_area_id"
     t.string   "picture_file_name",    limit: 255
     t.string   "picture_content_type", limit: 255
     t.integer  "picture_file_size"
@@ -208,6 +205,19 @@ ActiveRecord::Schema.define(version: 20160928210255) do
   add_index "issues", ["impact_id"], name: "index_issues_on_impact_id", using: :btree
   add_index "issues", ["preferences"], name: "index_issues_on_preferences", using: :gin
   add_index "issues", ["user_id"], name: "index_issues_on_user_id", using: :btree
+
+  create_table "items", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "type_id"
+    t.string   "type_type"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "department_area_id"
+  end
+
+  add_index "items", ["department_area_id"], name: "index_items_on_department_area_id", using: :btree
+  add_index "items", ["type_type", "type_id"], name: "index_items_on_type_type_and_type_id", using: :btree
 
   create_table "jobs", force: :cascade do |t|
     t.string   "name",               limit: 255
@@ -265,6 +275,21 @@ ActiveRecord::Schema.define(version: 20160928210255) do
 
   add_index "notes", ["issue_id"], name: "index_notes_on_issue_id", using: :btree
 
+  create_table "problem_issues", force: :cascade do |t|
+    t.integer  "problem_id"
+    t.integer  "issue_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "problem_issues", ["issue_id"], name: "index_problem_issues_on_issue_id", using: :btree
+  add_index "problem_issues", ["problem_id"], name: "index_problem_issues_on_problem_id", using: :btree
+
+  create_table "problems", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "processareas", force: :cascade do |t|
     t.integer  "complaint_id"
     t.string   "process_area_type", limit: 255
@@ -298,13 +323,13 @@ ActiveRecord::Schema.define(version: 20160928210255) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.integer  "issue_id"
+    t.integer  "problem_id"
     t.string   "type",        limit: 255
     t.string   "state",       limit: 255
     t.datetime "review_date"
   end
 
-  add_index "reviews", ["issue_id"], name: "index_reviews_on_issue_id", using: :btree
+  add_index "reviews", ["problem_id"], name: "index_reviews_on_problem_id", using: :btree
   add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
 
   create_table "rights", force: :cascade do |t|
@@ -370,4 +395,7 @@ ActiveRecord::Schema.define(version: 20160928210255) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "items", "department_areas"
+  add_foreign_key "problem_issues", "issues"
+  add_foreign_key "problem_issues", "problems"
 end

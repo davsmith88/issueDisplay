@@ -11,12 +11,12 @@ class BIssueController < ApplicationController
 		@images = []
 		@steps = @issue.detailed_steps.all
 		# @issue_workarounds = @issue.issue_workarounds.includes(:images)
-		@issue_workarounds = @issue.issue_workarounds
+		# @issue_workarounds = @issue.issue_workarounds
 
 
 		# Issue.increment_counter(:view_counter, @issue.id)
-		@active_workarounds = true
-		@workarounds = @issue.issue_workarounds
+		# @active_workarounds = true
+		# @workarounds = @issue.issue_workarounds
 	end
 
 
@@ -25,30 +25,9 @@ class BIssueController < ApplicationController
 	end
 
 	def create
+		# @item = Item.create(item_params)
+		# @issue = current_user.business.issues.new(issue_params)
 		@issue = current_user.business.issues.new(issue_params)
-		
-		if issue_params[:review_date] and @issue.review_date
-			issue_review_date = DateTime.parse(@issue.review_date.to_s).strftime("%d-%m-%Y")
-			current_review_date = DateTime.parse(issue_params[:review_date]).strftime("%d-%m-%Y")
-			# if the submitted review date is equal to the issue's review date
-			# then use the current date (today) now and add on two weeks
-			# else check if the submmited review date is less than todays' date
-			# then use today's, add two weeks and assign that to the review date
-			# so that means that if the review date is greater than the review date
-			# and greater than the current date, assign that date to the review value
-			# need to check that this works
-			if current_review_date == issue_review_date
-				# puts "review date has not changed"
-				convert_date = DateTime.now.utc + 2.weeks
-				params[:issue]["review_date"] = convert_date
-			else
-				# puts "review date as changed"
-				if current_review_date < DateTime.now.utc
-					# puts "review date is less that the current date"
-					params[:issue]["review_date"] = DateTime.now.utc + 2.weeks
-				end
-			end
-		end
 		@issue.user_id = current_user.id
 	end
 
@@ -58,28 +37,7 @@ class BIssueController < ApplicationController
 	end
 
 	def update
-		if issue_params[:review_date]
-			issue_review_date = DateTime.parse("#{@issue.review_date.to_s}").strftime("%d-%m-%Y")
-			current_review_date = DateTime.parse("#{issue_params[:review_date]}").strftime("%d-%m-%Y")
-			# if the submitted review date is equal to the issue's review date
-			# then use the current date (today) now and add on two weeks
-			# else check if the submmited review date is less than todays' date
-			# then use today's, add two weeks and assign that to the review date
-			# so that means that if the review date is greater than the review date
-			# and greater than the current date, assign that date to the review value
-			if current_review_date == issue_review_date
-				# puts "review date has not changed"
-				convert_date = DateTime.now.utc + 2.weeks
-				params[:issue]["review_date"] = convert_date
-			else
-				if current_review_date < DateTime.now
-					params[:issue]["review_date"] = DateTime.now.utc + 2.weeks
-				end
-			end
-		else
-			# if no review date was supplied
-			params[:issue]["review_date"] = DateTime.now.utc + 2.weeks
-		end
+
 	end
 
 	def destroy
@@ -157,8 +115,14 @@ class BIssueController < ApplicationController
 			@impacts = Impact.all
 		end
 
+		# def issue_params
+		# 	params.require(:issue).permit(:name, :description, :impact_id, :department_area_id, :review_date, :picture, :i_type, :avatar, :preferences => [:howTo, :workaround, :solution])
+		# end
+
 		def issue_params
-			params.require(:issue).permit(:name, :description, :impact_id, :department_area_id, :review_date, :picture, :i_type, :avatar, :preferences => [:howTo, :workaround, :solution])
+			params.require(:issue).permit(:name, :description, :impact_id, :department_area_id, :review_date, :picture, :i_type, :avatar, :item_attributes => [:name, :description, :department_area_id], :preferences => [:howTo, :workaround, :solution]).reject{|_, v| v.blank?}
+
+			# params.require(:issue).permit(item_attributes: [:name, :description, :department_area_id])
 		end
 
 		def return_array(data)

@@ -3,6 +3,6 @@
 <% end %>
 
 <br>
-<%= form_for @issue, builder: MyFormBuilder, :html => { :multipart => true, class: "form-horizontal" } do |form| %>
+<%= form_for setup_issue(@issue), builder: MyFormBuilder , :html => { :multipart => true, class: "form-horizontal" } do |form| %>
 	<%= render partial: 'issues/form', locals: {form: form} %>
 <% end %>

@@ -1,8 +1,19 @@
 
 $(document).ready(function(){
 
-	$('body').on('click','#l-issue-select', function(e){
-		var id = $(this).val();
+	
+	$('.detailed-step-info-section').hide();
+	
+	$('body').on('click', '.down_arrow', function(e){
+		var hidden_section = $(this).parent().find('.detailed-step-info-section')[0];
+		$(hidden_section).toggle(250);
+
+		console.log('clicked on c', hidden_section, this)
+	})
+
+	$('body').on('click','#search_click', function(e){
+		// var id = $(this).val();
+		var id = $('#l-issue-select').val();
 		var search_term = $('#searchbox').val();
 
 		if(search_term.length === 0 && id === 'all'){
