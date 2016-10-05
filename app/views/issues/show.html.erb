@@ -46,7 +46,7 @@
 	    <div class="tab-content">
 	    <% if @issue.howTo == 'true' %>
 	        <div class="tab-pane fade in" id="howto">
-	     
+	     		<br>
 	     <div class='row'>
 				<div class='col-sm-6'>
 					<h4>How to window</h4>
@@ -69,14 +69,20 @@
 				</div>
 				<% end %>
 				<div class="tab-pane fade in" id="video">
+					<br>
 					<% if @issue.avatar.exists? %>
 						<%= video_tag @issue.avatar.url(:medium), controls: true, style: "max-width: 100%;" %>
 						<%#= form_for @issue do |form| %>
 							<%#= form.file_field :avatar, {label: "Video Upload"} %>
 						<%# end %>
+					<% else %>
+						
+						There is no video attached to the issue. Edit the issue today to add a video. <%= link_to "Edit", edit_issue_path(@issue), class: "btn btn-default" %>
+						
 					<% end %>
 				</div>
 				<div class="tab-pane fade in" id="comments">
+					<br>
 					<p>Section for the comments added by people</p>
 				</div>
 				</div>
