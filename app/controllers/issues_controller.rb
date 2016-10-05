@@ -164,28 +164,6 @@ class IssuesController < BIssueController
 
 	def update
 		super
-		# if issue_params[:review_date]
-		# 	issue_review_date = DateTime.parse("#{@issue.review_date.to_s}").strftime("%d-%m-%Y")
-		# 	current_review_date = DateTime.parse("#{issue_params[:review_date]}").strftime("%d-%m-%Y")
-		# 	# if the submitted review date is equal to the issue's review date
-		# 	# then use the current date (today) now and add on two weeks
-		# 	# else check if the submmited review date is less than todays' date
-		# 	# then use today's, add two weeks and assign that to the review date
-		# 	# so that means that if the review date is greater than the review date
-		# 	# and greater than the current date, assign that date to the review value
-		# 	if current_review_date == issue_review_date
-		# 		# puts "review date has not changed"
-		# 		convert_date = DateTime.now.utc + 2.weeks
-		# 		params[:issue]["review_date"] = convert_date
-		# 	else
-		# 		if current_review_date < DateTime.now
-		# 			params[:issue]["review_date"] = DateTime.now.utc + 2.weeks
-		# 		end
-		# 	end
-		# else
-		# 	# if no review date was supplied
-		# 	params[:issue]["review_date"] = DateTime.now.utc + 2.weeks
-		# end
 		respond_to do |format|
 			if @issue.update(issue_params)
 				format.html {redirect_to @issue, notice: "Issue has been updated"}
